@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 反变换.md","permalink":"/A1- 数学/8. 变换/z 反变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-08T17:05:15.000+08:00","updated":"2025-04-18T00:32:59.311+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 反变换.md","permalink":"/A1- 数学/8. 变换/z 反变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-08T17:05:15.000+08:00","updated":"2025-04-23T17:44:01.716+08:00"}
 ---
 
 
@@ -25,6 +25,11 @@ f^{*}(t)=c_{0}+c_{1}\delta(t-T)+c_{2} \delta(t-2T)+\cdots
 $$\begin{align}
 \dfrac{F(z)}{z} =\sum\limits_{i=1}^{n} \dfrac{c_{i}}{z-p_{i}} \quad  \Leftrightarrow \quad F(z)=\sum\limits_{i=1}^{n} \dfrac{c_{i}z}{z-p_{i}} 
 \end{align}$$
+
+$$\begin{align}
+f(kT)=\mathscr{Z}^{-1}  \left[  F(z) \right] \quad f^{*}(t)=\sum\limits_{k=0}^{\infty} f(kT)\delta (t-kT)
+\end{align}$$
+
 
 $$\begin{align}
 \mathscr{Z}^{-1}[\dfrac{ 1-az^{-1}}{z^{-1}-a}] & =\mathscr{Z}^{-1}[  -\dfrac{a(z^{-1}- \dfrac{1}{a}+a-a)}{z^{-1}-a} ]=\mathscr{Z}^{-1}[-a+\dfrac{1-a^{2}}{-a(1-\dfrac{1}{a}z^{-1})}] \\

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-04-17T23:32:55.093+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-04-20T19:26:00.487+08:00"}
 ---
 
 
@@ -47,7 +47,7 @@ m 重极点的系数：
 $$\begin{align}
 c_{i}= \dfrac{1}{(m-1)!} \lim\limits_{ z \to z_{0} } \dfrac{\mathrm{d}^{m-1} }{\mathrm{d} z^{m-1}} \left[(z-z_{0})^{m}e(z)\right] 
 \end{align}$$
-,,### 三、常见函数的 z 变换
+### 三、常见函数的 z 变换
 
 |           |        时间函数         |           离散信号           |        拉普拉斯变换         |                         z 变换                          |
 | :-------: | :-----------------: | :----------------------: | :-------------------: | :---------------------------------------------------: |
@@ -81,7 +81,7 @@ $$\begin{align}
 #### 2. 实数位移定理
 **实数位移**：整个采样序列在时间轴上左右平移若干个采样序列（**左加右减**）
 实数位移定理相当于[[拉普拉斯变换\|拉普拉斯变换]]的微分与积分定理，可将[[差分方程\|差分方程]]转换为 z 域的代数方程
-- 向右平移为**滞后**
+- 向右平移为**滞后**：
 $$\begin{align}
 \mathscr{Z}[f(kT-mT)]&=z^{-m}F(z) \; {\color{red}\Rightarrow} \; \mathscr{Z}[f(k-m)]=z^{-m}F(z)
 \end{align}$$
@@ -93,7 +93,7 @@ $$\begin{align}
  & =z^{-m}F(z)
 \end{align}$$
 
-- 向左平移为**超前**
+- 向左平移为**超前**：
 $$\begin{align}
 \mathscr{Z}[f(kT+mT)]&=z^{m}\left[F(z)-\sum\limits_{n=0}^{m-1}f(nT)z^{-n}\right]
 \end{align}$$
@@ -111,12 +111,12 @@ $$\begin{align}
 #### 4. 极限定理
 **初值定理**：
 $$\begin{align}
-f(0)= \lim\limits_{ n \to 0 } e(nT)= \lim\limits_{ z \to \infty } E(z) 
+e(0)= \lim\limits_{ n \to 0 } e(nT)= \lim\limits_{ z \to \infty } E(z) 
 \end{align}$$
 
 **终值定理**：
 $$\begin{align}
-f(\infty)=\lim\limits_{ n \to \infty } e(nT)=\lim\limits_{ z \to 1 } (z-1)E(z)
+e(\infty)=\lim\limits_{ n \to \infty } e(nT)=\lim\limits_{ z \to 1 } (z-1)E(z)
 \end{align}$$
 
 > [!important] 

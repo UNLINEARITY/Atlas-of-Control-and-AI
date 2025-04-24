@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","permalink":"/Nonlinear/","pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-04-19T16:01:24.814+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","permalink":"/Nonlinear/","pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-04-22T16:48:13.000+08:00"}
 ---
 
 
@@ -66,7 +66,7 @@ root((本网站))
 本网站的内容将包括基础的数理知识，然后在此基础上深化，期望通过构建**基础知识的网络**，不断地将看似 “毫无用处而枯燥”的数学知识与**特定领域**或**现实世界**结合起来。
 
 ### 二、目录导航
->“一切高级数学，归根结底都是**微积分**和**线性代数**的各种变化”     ——丘成桐
+>“一切高级数学，归根结底都是**微积分**和**线性代数**的各种变化” 
 
 >**通信**的目的是传递消息，话音、文字、图像、视频等都是消息
 >**数据**是运送消息的实体，通常是使用特定方式表示的有意义的符号序列
