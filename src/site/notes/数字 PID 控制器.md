@@ -1,0 +1,121 @@
+---
+{"tags":["Discrete"],"dg-publish":true,"dg-path":"A2- 自动控制原理/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 自动控制原理/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-04-24T19:34:37.204+08:00"}
+---
+
+[[数字控制器\|数字控制器]]
+[[模拟式PID控制器\|模拟式PID控制器]]
+
+
+### 一、数字 PID 算法
+$$\begin{align}
+u(t)=K_{p}\left[e(t)+ \dfrac{1}{T_{i}} \int _{0}^{t} e(\tau)\, d\tau +T_{d}\dfrac{\mathrm{d} e(t)}{\mathrm{d} t}  \right] \quad {\color{red}\Leftrightarrow} \quad D(s)=\dfrac{U(s)}{E(s)}= K_{p}(1+\dfrac{1}{T_{i}s}+T_{d}s)
+\end{align}$$
+$$\begin{align}
+\begin{cases}
+ & u(t) \approx u(k) \\
+ & e(t)\approx e(k) \\
+ & \int _{0}^{t} e{ (\tau )}\, d\tau  \approx \sum\limits_{j=0}^{k}e(j)T \\ 
+ & \dfrac{\mathrm{d} e(t)}{\mathrm{d} t} \approx \dfrac{e(k)-e(k-1)}{T}
+\end{cases}
+\end{align}$$
+
+#### 1.  位置式 PID 算法
+$$\begin{align}
+u(k)=K_{p}e(k)+K_{i} \sum\limits_{j=0}^{k} e(j)+K_{d}\left[e(k)-e(k-1)\right]
+\end{align}$$
+
+稳态精度高
+直观易于理解
+计算量大
+积分饱和
+#### 2. 增量式 PID 算法
+$$\begin{align}
+\Delta u & =u(k)-u(k-1) \\
+ & =K_{p}\left[e(k)-e(k-1)\right]+K_{i}e(k)+K_{d}\left[e(k)-2e(k-1)+e(k-2)\right] \\
+ & =(K_{p}+K_{i}+K_{d})e(k)-(K_{p}+2K_{d})e(k-1)+K_{d}e(k-2)
+\end{align}$$
+- 节约内存和计算时间
+- 控制量冲击小，能平滑过渡
+
+无积分环节积累，可能存在一定误差
+  
+> 两种 PID 形式的优缺点
+
+
+
+#### 3. 一般 PID 算法的离散化
+一般常用[[模拟控制器离散化#二、差分变换法\|模拟控制器离散化#二、差分变换法]] ，用后向差分，或双线性差分
+并写为控制器的形式
+
+### 二、改进的数字 PID 算法
+![Pasted image 20250424010547.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250424010547.png)
+
+
+#### 1. 积分分离算法
+在系统误差较大时，取消积分作用；当误差减小到一定值时，再重新积分。$e_{0}$ 为积分分离阈值
+$\left\lvert  e(k) \right\rvert\leq e_{0}$ 采用 PID 控制，保证稳态误差为 0
+$\left\lvert  e(k) \right\rvert> e_{0}$   采用 PD 控制，大幅度减小超调量
+
+$$\begin{align}
+u(k)=K_{p}\left[e(k)+\dfrac{T}{T_{i}} {\color{red}\sum\limits_{i=0}^{k} e(i)}+ \dfrac{T_{d}}{T} \left(e(k)-e(k-1)\right)\right]
+\end{align}$$
+$$\sum\limits_{i=0}^{k} e(i)=\begin{cases}
+\sum\limits_{i=0}^{k} e(i)\quad  \left\lvert  e(k) \right\rvert\leq e_{0} \\ \\
+\sum\limits_{i=0}^{k-1} e(i)\quad  \left\lvert  e(k) \right\rvert> e_{0} 
+\end{cases}$$
+#### 抗饱和积分算法
+输出限幅，输出超限时不积分
+$$\sum\limits_{i=0}^{k} e(i)=\begin{cases}
+\sum\limits_{i=0}^{k} e(i)\quad  u_{min}\leq u(k) \leq u_{max}\\ \\
+\sum\limits_{i=0}^{k-1} e(i)\quad  u_{min}> u(k) \; \text{or}\; u(k)> u_{max}
+\end{cases}$$
+#### 遇限削弱算法
+$$\sum\limits_{i=0}^{k} e(i)=\begin{cases}
+\sum\limits_{i=0}^{k} e(i)\quad \begin{cases}
+\left\lvert  u(k) \right\rvert \leq u_{0} \\ \\
+u(k) > u_{0} \; \text{and}  \;e(k)<0  \\ \\
+u(k)< u_{0} \; \text{and}  \;e(k)>0 
+\end{cases}\\ \\
+\sum\limits_{i=0}^{k-1} e(i) \quad \begin{cases}
+ u(k) > u_{0} \; \text{and}  \;e(k)>0 \\
+ \\
+ u(k)< u_{0} \; \text{and}  \;e(k)<0
+\end{cases} \\
+\end{cases}$$
+
+#### 不完全微分
+纯微分环节对噪声很敏感
+
+可以串接一个惯性环节来抑制高频影响
+
+
+$$\begin{align}
+G_{f}= \dfrac{1}{T_{f}s+1}=\dfrac{U(s)}{U_{1}(s)}\; {\color{red}\Rightarrow} \; T_{f} \dfrac{\mathrm{d} u(t)}{\mathrm{d} t} +u(t)=u_{1}(t)\; {\color{red}\Rightarrow} \; T_{f} \dfrac{u(k)-u(k-1)}{T}+u(k)=u_{1}(k)
+\end{align}$$
+$$\begin{align}
+u(k)= \dfrac{T_{f}}{T_{f}+T} u(k-1)+\dfrac{T}{T_{f}+T} u_{1}(k)
+\end{align}$$
+
+#### 微分先行
+![Pasted image 20250420145831.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250420145831.png)
+
+**输出量微分：只对输出量进行微分**，避免因给定值变化给控制系统带来超调量过大、调节阀动作剧烈的冲击
+**偏差量微分：对给定值和输出量均微分**
+
+
+
+
+
+
+控制器的正反作用实现：
+反作用：$e=r-y$
+正作用：$e=y-r$
+
+#### 带死区的 PID 
+$$e(k)=\begin{cases}
+e(k)  & \quad  \left\lvert  e(k) \right\rvert>e_{0} \\\\
+0  & \quad  \left\lvert  e(k) \right\rvert\leq e_{0}
+\end{cases}$$
+
+
+
