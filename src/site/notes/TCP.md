@@ -1,5 +1,5 @@
 ---
-{"tags":["Protocol"],"dg-publish":true,"dg-path":"计算机/计算机网络/TCP.md","permalink":"/计算机/计算机网络/TCP/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-16T10:15:55.752+08:00","updated":"2025-02-01T13:56:06.114+08:00"}
+{"tags":["Protocol"],"dg-publish":true,"dg-path":"计算机/计算机网络/TCP.md","permalink":"/计算机/计算机网络/TCP/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-16T10:15:55.752+08:00","updated":"2025-04-25T18:13:59.630+08:00"}
 ---
 
 >接收方驱动
@@ -63,12 +63,8 @@ FIN：结束位，为 1 时，释放连接
 
 加权平均往返时间
 
-
-
 ### 实际应用
 [[WWW\|WWW]]、[[SMTP\|SMTP]]、[[FIP\|FIP]]
-
-
 
 
 (terminology::**Transmission Control Protocol**) 传输控制协议（TCP）  
