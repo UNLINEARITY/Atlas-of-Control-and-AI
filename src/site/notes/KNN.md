@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"计算机/机器学习/KNN.md","permalink":"/计算机/机器学习/KNN/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-11-29T16:01:07.425+08:00","updated":"2025-04-17T18:41:23.955+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/机器学习/KNN.md","permalink":"/人工智能/机器学习/KNN/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-11-29T16:01:07.425+08:00","updated":"2025-04-29T11:31:00.563+08:00"}
 ---
 
 
