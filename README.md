@@ -1,7 +1,60 @@
 # Atlas-of-Control-and-Al!
-This is a project based on Obsidian + Digital Garden + Vercel
+
+
+```mermaid
+mindmap
+root((本网站))
+	数理基础
+		数学
+			微积分
+			概率论
+			数理统计
+			复变函数
+			变换
+			线性代数
+	自动控制
+		经典控制
+			时域分析
+			根轨迹法
+			频域分析
+			离散系统
+		现代控制
+			状态空间
+			非线性控制
+			最优控制
+	计算机
+		人工智能
+			机器学习
+			机器人
+		Linux
+		微控制器
+		    8051
+		    STM32
+		    ESP32
+		编程与算法
+			数据结构
+			算法
+			C++
+			Python
+	自动化
+		电子技术
+			电路分析
+			数字电路
+			模拟电路
+		电力拖动
+			直流拖动系统
+			交流拖动系统
+		过程控制
+			过程检测仪表
+			调节器与执行器
+			过程控制系统
+			计算机控制系统
+```
+
 
 <p align='center'><img src='src/Logo.svg' width=60%></p>
+
+This is a project based on Obsidian + Digital Garden + Vercel
 
 你可以访问这个[网站](https://www.unlinearity.top),看看所搭建成果!   
 
@@ -14,6 +67,8 @@ You can visit this [website](https://www.unlinearity.top) to see the results!
 
 > [!warning]
 > Due to the limitations of time, energy, and skill of the website builder, the main content of the website is currently presented in Chinese. An English version will be added in the future.
+
+
 ***
 
 ## I. Core Ideas
@@ -36,9 +91,7 @@ However, there are too many concepts. We might be amazed for a while, or be infl
 ***
 这就是本库存在的意义！
 
-该项目旨在构建以**双向链接**和**关系图谱**为核心的知识库
-
-强调知识与知识之间的联系，注重数理基础，深入探讨数学与物理知识在各个领域的作用与影响
+该项目旨在构建以**双向链接**和**关系图谱**为核心的知识库，强调知识与知识之间的联系，注重数理基础，深入探讨数学与物理知识在各个领域的作用与影响。
 
 - 主体文件为Markdown(即.md文件)
 - 数学公式使用Latex语法渲染
@@ -111,55 +164,7 @@ In actual work and life, basic mathematics and physics knowledge are often neede
 
 ## III. Website Content
 
-```mermaid
-mindmap
-root((本网站))
-	数理基础
-		数学
-			微积分
-			概率论
-			数理统计
-			复变函数
-			变换
-			线性代数
-	自动控制
-		经典控制
-			时域分析
-			根轨迹法
-			频域分析
-			离散系统
-		现代控制
-			状态空间
-			非线性控制
-			最优控制
-	计算机
-		人工智能
-			机器学习
-			机器人
-		Linux
-		微控制器
-		    8051
-		    STM32
-		    ESP32
-		编程与算法
-			数据结构
-			算法
-			C++
-			Python
-	自动化
-		电子技术
-			电路分析
-			数字电路
-			模拟电路
-		电力拖动
-			直流拖动系统
-			交流拖动系统
-		过程控制
-			过程检测仪表
-			调节器与执行器
-			过程控制系统
-			计算机控制系统
-```
+
 
 ### 目前该网站**涵盖**并**持续更新**的内容！！！
 **较为完善的部分：**
