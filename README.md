@@ -4,9 +4,7 @@
 
 This is a project based on Obsidian + Digital Garden + Vercel
 
-你可以访问这个[网站](https://www.unlinearity.top),看看所搭建成果!   
-
-You can visit this [website](https://www.unlinearity.top) to see the results!
+你可以访问这个[网站](https://www.unlinearity.top),看看所搭建成果! You can visit this [website](https://www.unlinearity.top) to see the results!
 
 [![Stars](https://img.shields.io/github/stars/UNLINEARITY/Learn-Everything.svg)](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/stargazers)
 [![Forks](https://img.shields.io/github/forks/UNLINEARITY/Learn-Everything.svg)](https://github.com/ysyisyourbrother/SYSU_Notebook/network/members)
