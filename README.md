@@ -1,5 +1,7 @@
 # Atlas-of-Control-and-Al!
 
+<p align='center'><img src='src/Logo.svg' width=80%></p>
+
 
 ```mermaid
 mindmap
@@ -52,7 +54,7 @@ root((本网站))
 ```
 
 
-<p align='center'><img src='src/Logo.svg' width=60%></p>
+
 
 This is a project based on Obsidian + Digital Garden + Vercel
 
