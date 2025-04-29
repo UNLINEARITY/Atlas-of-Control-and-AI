@@ -7,10 +7,10 @@ This is a project based on Obsidian + Digital Garden + Vercel
 
 You can visit this [website](https://www.unlinearity.top) to see the results!
 
-[![Stars](https://img.shields.io/github/stars/UNLINEARITY/Learn-Everything.svg)](https://github.com/UNLINEARITY/Learn-Everything/stargazers)
+[![Stars](https://img.shields.io/github/stars/UNLINEARITY/Learn-Everything.svg)](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/stargazers)
 [![Forks](https://img.shields.io/github/forks/UNLINEARITY/Learn-Everything.svg)](https://github.com/ysyisyourbrother/SYSU_Notebook/network/members)
-[![Issues](https://img.shields.io/github/issues/UNLINEARITY/Learn-Everything.svg)]()
-![GitHub pull requests](https://img.shields.io/github/issues-pr/UNLINEARITY/Learn-Everything.svg)
+[![Issues](https://img.shields.io/github/issues/UNLINEARITY/Atlas-of-Control-and-AI.svg)]()
+![GitHub pull requests](https://img.shields.io/github/issues-pr/UNLINEARITY/Atlas-of-Control-and-AI.svg)
 
 > [!warning]
 > Due to the limitations of time, energy, and skill of the website builder, the main content of the website is currently presented in Chinese. An English version will be added in the future.
