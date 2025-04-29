@@ -1,4 +1,4 @@
-# Learn Everything!
+# Atlas-of-Control-and-Al!
 This is a project based on Obsidian + Digital Garden + Vercel
 
 <p align='center'><img src='src/Logo.svg' width=60%></p>
