@@ -1,7 +1,17 @@
 # Atlas-of-Control-and-Al!
 
-<p align='center'><img src='src/Logo.svg' width=80%></p>
+<p align='center'><img src='src/Logo.svg' width=60%></p>
 
+This is a project based on Obsidian + Digital Garden + Vercel
+
+你可以访问这个[网站](https://www.unlinearity.top),看看所搭建成果!   
+
+You can visit this [website](https://www.unlinearity.top) to see the results!
+
+[![Stars](https://img.shields.io/github/stars/UNLINEARITY/Learn-Everything.svg)](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/stargazers)
+[![Forks](https://img.shields.io/github/forks/UNLINEARITY/Learn-Everything.svg)](https://github.com/ysyisyourbrother/SYSU_Notebook/network/members)
+[![Issues](https://img.shields.io/github/issues/UNLINEARITY/Atlas-of-Control-and-AI.svg)]()
+![GitHub pull requests](https://img.shields.io/github/issues-pr/UNLINEARITY/Atlas-of-Control-and-AI.svg) 
 
 ```mermaid
 mindmap
@@ -52,20 +62,6 @@ root((本网站))
 			过程控制系统
 			计算机控制系统
 ```
-
-
-
-
-This is a project based on Obsidian + Digital Garden + Vercel
-
-你可以访问这个[网站](https://www.unlinearity.top),看看所搭建成果!   
-
-You can visit this [website](https://www.unlinearity.top) to see the results!
-
-[![Stars](https://img.shields.io/github/stars/UNLINEARITY/Learn-Everything.svg)](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/stargazers)
-[![Forks](https://img.shields.io/github/forks/UNLINEARITY/Learn-Everything.svg)](https://github.com/ysyisyourbrother/SYSU_Notebook/network/members)
-[![Issues](https://img.shields.io/github/issues/UNLINEARITY/Atlas-of-Control-and-AI.svg)]()
-![GitHub pull requests](https://img.shields.io/github/issues-pr/UNLINEARITY/Atlas-of-Control-and-AI.svg)
 
 > [!warning]
 > Due to the limitations of time, energy, and skill of the website builder, the main content of the website is currently presented in Chinese. An English version will be added in the future.
