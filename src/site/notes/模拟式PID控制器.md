@@ -1,9 +1,10 @@
 ---
-{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-06T11:27:23.000+08:00","updated":"2025-04-16T11:16:26.737+08:00"}
+{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-06T11:27:23.000+08:00","updated":"2025-05-02T16:36:20.955+08:00"}
 ---
 
 
-[[PID\|PID]] 
+理论基础：[[PID\|PID]]
+实际实现：[[基型控制器#二、PID 电路构成\|基型控制器#二、PID 电路构成]]
 ### 基本概述
 **偏差 = 测量值 - 给定值**     $\varepsilon=x_{i}-x_{S}$  ，$\varepsilon>0$ 为正偏差，$\varepsilon<0$ 为负偏差
 **输出信号变化量**    $\Delta y$ ，$\varepsilon>0\to \Delta y>0$ 为正作用控制器，$\varepsilon<0\to \Delta y>0$ 为反作用控制器
