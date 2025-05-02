@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A2- 自动控制原理/3. 计算机控制系统/3.3 数字PID 参数整定.md","permalink":"/A2- 自动控制原理/3. 计算机控制系统/3.3 数字PID 参数整定/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-04-03T11:43:31.000+08:00","updated":"2025-04-24T22:10:50.191+08:00"}
+{"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.3 数字PID 参数整定.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.3 数字PID 参数整定/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-04-03T11:43:31.000+08:00","updated":"2025-05-02T17:47:12.994+08:00"}
 ---
 
 [[数字 PID 控制器\|数字 PID 控制器]]的参数整定

@@ -1,11 +1,9 @@
 ---
-{"tags":["Discrete"],"dg-publish":true,"dg-path":"A2- 自动控制原理/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 自动控制原理/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-04-24T22:10:14.884+08:00"}
+{"tags":["Discrete"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-05-02T17:47:12.994+08:00"}
 ---
 
-[[数字控制器\|数字控制器]]
-[[模拟式PID控制器\|模拟式PID控制器]]
 
-
+[[模拟式PID控制器\|模拟式PID控制器]]的离散化，得到[[数字控制器\|数字控制器]]
 ### 一、数字 PID 算法
 $$\begin{align}
 u(t)=K_{p}\left[e(t)+ \dfrac{1}{T_{i}} \int _{0}^{t} e(\tau)\, d\tau +T_{d}\dfrac{\mathrm{d} e(t)}{\mathrm{d} t}  \right] \quad {\color{red}\Leftrightarrow} \quad D(s)=\dfrac{U(s)}{E(s)}= K_{p}(1+\dfrac{1}{T_{i}s}+T_{d}s)
