@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A2- 自动控制原理/1. 经典控制理论/Bode图.md","tags":["Graph"],"permalink":"/A2- 自动控制原理/1. 经典控制理论/Bode图/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.724+08:00","updated":"2025-05-01T11:33:01.402+08:00"}
+{"dg-publish":true,"dg-path":"A2- 控制理论/1. 经典控制理论/Bode图.md","tags":["Graph"],"permalink":"/A2- 控制理论/1. 经典控制理论/Bode图/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.724+08:00","updated":"2025-05-02T17:47:12.978+08:00"}
 ---
 
 
