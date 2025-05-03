@@ -20,6 +20,19 @@
         return existing, n_remaining;
     }
 
+    function getNodeColor(node) {
+      // 获取节点路径（根据你的数据结构调整，可能是node.id或node.url）
+      const path = node.id || node.url || '';
+      
+      // 颜色映射规则
+      if (path.includes('人工智能')) return '#c44f70';  // 人工智能节点颜色
+      if (path.includes('控制理论')) return '#008080'; // 控制理论节点颜色
+      
+      // 默认颜色（保持原样）
+      return getCssVar('--graph-main'); 
+    }
+
+
     function filterLocalGraphData(graphData, depth) {
         if (graphData == null) {
             return null;
@@ -107,14 +120,12 @@
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
                 
-                // 设定不同 URL 对应的颜色
-                let nodeColor = customNodeColors[node.url] || color;
 
                 if (hoverNode == null) {
-                    ctx.fillStyle = nodeColor;
+                    ctx.fillStyle = getNodeColor(node);
                 } else {
                     if (node == hoverNode || highlightNodes.has(node.url)) {
-                        ctx.fillStyle = nodeColor;
+                        ctx.fillStyle = getNodeColor(node);
                     } else {
                         ctx.fillStyle = mutedColor;
                     }
