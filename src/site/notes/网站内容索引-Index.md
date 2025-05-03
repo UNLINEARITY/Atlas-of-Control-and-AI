@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"网站内容索引-Index.md","dg-hide-in-graph":true,"dg-pinned":true,"aliases":["Web Index"],"permalink":"/网站内容索引-Index/","hideInGraph":true,"pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-29T23:37:14.000+08:00","updated":"2025-05-03T10:44:45.177+08:00"}
+{"dg-publish":true,"dg-path":"网站内容索引-Index.md","dg-hide-in-graph":true,"dg-pinned":true,"aliases":["Web Index"],"permalink":"/网站内容索引-Index/","hideInGraph":true,"pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-29T23:37:14.000+08:00","updated":"2025-05-03T21:36:14.629+08:00"}
 ---
 
 
@@ -57,7 +57,6 @@
 
 | File                                            | 术语-terminology                                                                                                                                                                                      |
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [[Comment\|Comment]]                         | \-                                                                                                                                                                                                  |
 | [[向量空间\|向量空间]]                               | <ul><li>**Vector Space**</li><li>**Linear Combination**</li><li>**Column space**</li><li>**Nullspace**</li><li>**Row space**</li><li>**Left Nullspace**</li><li>**Orthogonal complement**</li></ul> |
 | [[对数分度\|对数分度]]                               | \-                                                                                                                                                                                                  |
 | [[Bode 图\|Bode 图]]                           | **Bode Plot**                                                                                                                                                                                       |
@@ -87,7 +86,6 @@
 | [[系统科学\|系统科学]]                               | **Systems Science**                                                                                                                                                                                 |
 | [[线性系统的校正\|线性系统的校正]]                         | \-                                                                                                                                                                                                  |
 | [[Python\|Python]]                           | \-                                                                                                                                                                                                  |
-| [[引用网站索引-Index\|引用网站索引-Index]]               | \-                                                                                                                                                                                                  |
 | [[实践论\|实践论]]                                 | \-                                                                                                                                                                                                  |
 | [[基型控制器\|基型控制器]]                             | \-                                                                                                                                                                                                  |
 | [[卡尔曼滤波\|卡尔曼滤波]]                             | **Kalman Filter**                                                                                                                                                                                   |
