@@ -1,0 +1,17 @@
+---
+{"dg-publish":true,"dg-path":"A0- 关于该网站/引用网站索引.md","dg-hide-in-graph":true,"permalink":"/A0- 关于该网站/引用网站索引/","hideInGraph":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-05-01T02:12:34.920+08:00","updated":"2025-05-03T10:45:22.254+08:00"}
+---
+
+
+| File                  | Website/Repository                                                                                                                                                                                                                                                                                                                     |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [[MCP\|MCP]]       | <ul><li>https://modelcontextprotocol.io/</li><li>https://github.com/modelcontextprotocol/servers</li><li>https://smithery.ai/</li><li>https://github.com/AgentDeskAI/browser-tools-mcp</li><li>[MCP简易介绍视频](https://www.bilibili.com/video/BV1AnQNYxEsy/?spm_id_from=333.1391.0.0&vd_source=dba046a94f2c543cbb2a7f7c4747fe67)</li></ul> |
+| [[开源\|开源]]         | <ul><li>https://mit-license.org/</li><li>https://www.fsf.org/</li></ul>                                                                                                                                                                                                                                                                |
+| [[四元数\|四元数]]       | https://eater.net/quaternions                                                                                                                                                                                                                                                                                                          |
+| [[Python\|Python]] | <ul><li>https://python.land/</li><li>https://automatetheboringstuff.com/#toc</li><li>https://www.liaoxuefeng.com/wiki/1016959663602400</li></ul>                                                                                                                                                                                       |
+| [[ROS 2\|ROS 2]]   | https://docs.ros.org/                                                                                                                                                                                                                                                                                                                  |
+| [[MQTT\|MQTT]]     | <ul><li>https://mqtt.org/</li><li>https://www.runoob.com/w3cnote/mqtt-intro.html</li></ul>                                                                                                                                                                                                                                             |
+| [[DDS\|DDS]]       | https://www.dds-foundation.org/                                                                                                                                                                                                                                                                                                        |
+
+{ .block-language-dataview}
+
