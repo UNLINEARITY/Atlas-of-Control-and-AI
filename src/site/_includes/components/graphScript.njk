@@ -20,20 +20,7 @@
         return existing, n_remaining;
     }
 
-    function getNodeColor(node) {
-      // 获取节点路径（根据你的数据结构调整，可能是node.id或node.url）
-      const path = node.id || node.url || '';
-      
-      // 颜色映射规则
-      if (path.includes('人工智能')) return '#c44f70';  // 人工智能节点颜色
-      if (path.includes('控制理论')) return '#008080'; // 控制理论节点颜色
-      
-      // 默认颜色（保持原样）
-      return getCssVar('--graph-main'); 
-    }
-
-
-    function filterLocalGraphData(graphData, depth) {
+     function filterLocalGraphData(graphData, depth) {
         if (graphData == null) {
             return null;
         }
@@ -65,6 +52,7 @@
         }
     }
 
+
     function getCssVar(variable) {return getComputedStyle(document.body).getPropertyValue(variable)}
 
     function htmlDecode(input) {
@@ -83,13 +71,6 @@
         let hoverNode = null;
         const color = getCssVar("--graph-main");
         const mutedColor = getCssVar("--graph-muted");
-
-        // 添加自定义颜色配置
-        const customNodeColors = {
-            '/自动控制原理/': '#FF6347', // Red color for '自动控制原理'
-            '/MCU微控制器/51 单片机': '#4682B4' // Blue color for '51 单片机'
-        };
-
         let Graph = ForceGraph()
         (el)
             .graphData(graphData)
@@ -112,6 +93,7 @@
                 } else {
                     return mutedColor;
                 }
+                
             })
             .nodeCanvasObject((node, ctx) => {
                 const numberOfNeighbours = (node.neighbors && node.neighbors.length) || 2;
@@ -119,13 +101,11 @@
                 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
-                
-
                 if (hoverNode == null) {
-                    ctx.fillStyle = getNodeColor(node);
+                    ctx.fillStyle = color;
                 } else {
                     if (node == hoverNode || highlightNodes.has(node.url)) {
-                        ctx.fillStyle = getNodeColor(node);
+                        ctx.fillStyle = color;
                     } else {
                         ctx.fillStyle = mutedColor;
                     }
@@ -137,7 +117,7 @@
                     ctx.beginPath();
                     ctx.arc(node.x, node.y, nodeR + 1, 0, 2 * Math.PI, false);
                     ctx.lineWidth = 0.5;
-                    ctx.strokeStyle = nodeColor;
+                    ctx.strokeStyle = color;
                     ctx.stroke();
                 }
 
@@ -155,12 +135,12 @@
             .onNodeHover(node => {
                 highlightNodes.clear();
                 if (node) {
-                    highlightNodes.add(node);
-                    node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
+                highlightNodes.add(node);
+                node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
                 }
                 hoverNode = node || null;
+                
             });
-            
             if (fullScreen || (delay != null && graphData.nodes.length > 4)) {
                 setTimeout(() => {
                     Graph.zoomToFit(5, 75);
@@ -196,7 +176,7 @@
                     class: ["svg-icon"]
                 }
             });
-        return renderGraph(fullGraphData, "full-graph-container", 200, false);
+        return renderGraph(fullGraphData, "full-graph-container", 200, false);;
     }
 
     function closefullGraph(fullGraph) {
@@ -206,8 +186,6 @@
         return null;
     }
 </script>
-
-
 <div  x-init="{graphData, fullGraphData} = await fetchGraphData();" x-data="{ graphData: null, depth: 1, graph: null, fullGraph: null, showFullGraph: false, fullScreen: false, fullGraphData: null}" id="graph-component" x-bind:class="fullScreen ? 'graph graph-fs' : 'graph'" v-scope>
     <div class="graph-title-container">
         <div class="graph-title">关系图谱 Graph</div>
