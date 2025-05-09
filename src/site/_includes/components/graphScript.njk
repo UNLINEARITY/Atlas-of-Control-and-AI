@@ -71,6 +71,15 @@
         let hoverNode = null;
         const color = getCssVar("--graph-main");
         const mutedColor = getCssVar("--graph-muted");
+        function getNodeColorByPath(dgPath, defaultColor) {
+            if (!dgPath) return defaultColor;
+            if (dgPath.includes("过程控制")) return "#9A4E90";
+            if (dgPath.includes("智能")) return "#FF0000";
+            if (dgPath.includes("控制")) return "#7496ff";
+            if (dgPath.includes("数学")) return "#c44f70";
+            
+            return defaultColor;
+        }
         let Graph = ForceGraph()
         (el)
             .graphData(graphData)
@@ -101,11 +110,12 @@
                 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
+                let nodeColor = getNodeColorByPath(node.url, color);
                 if (hoverNode == null) {
-                    ctx.fillStyle = color;
+                    ctx.fillStyle = nodeColor;
                 } else {
                     if (node == hoverNode || highlightNodes.has(node.url)) {
-                        ctx.fillStyle = color;
+                        ctx.fillStyle = nodeColor;
                     } else {
                         ctx.fillStyle = mutedColor;
                     }
