@@ -73,8 +73,11 @@
         const mutedColor = getCssVar("--graph-muted");
         function getNodeColorByPath(dgPath, defaultColor) {
             if (!dgPath) return defaultColor;
+            if (dgPath.includes("过程控制")) return "#9A4E90";
+            if (dgPath.includes("智能")) return "#FF0000";
             if (dgPath.includes("控制")) return "#7496ff";
             if (dgPath.includes("数学")) return "#c44f70";
+            
             return defaultColor;
         }
         let Graph = ForceGraph()
