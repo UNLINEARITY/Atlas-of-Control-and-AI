@@ -71,6 +71,12 @@
         let hoverNode = null;
         const color = getCssVar("--graph-main");
         const mutedColor = getCssVar("--graph-muted");
+        function getNodeColorByPath(dgPath, defaultColor) {
+            if (!dgPath) return defaultColor;
+            if (dgPath.startsWith("A1- 数学")) return "#c44f70";
+            if (dgPath.startsWith("A2- 控制理论")) return "#7496ff";
+            return defaultColor;
+        }
         let Graph = ForceGraph()
         (el)
             .graphData(graphData)
@@ -101,11 +107,12 @@
                 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
+                let nodeColor = getNodeColorByPath(node["dg-path"], color);
                 if (hoverNode == null) {
-                    ctx.fillStyle = color;
+                    ctx.fillStyle = nodeColor;
                 } else {
                     if (node == hoverNode || highlightNodes.has(node.url)) {
-                        ctx.fillStyle = color;
+                        ctx.fillStyle = nodeColor;
                     } else {
                         ctx.fillStyle = mutedColor;
                     }
