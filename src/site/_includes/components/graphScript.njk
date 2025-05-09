@@ -107,7 +107,7 @@
                 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
-                let nodeColor = getNodeColorByPath(node["dg-path"], color);
+                let nodeColor = getNodeColorByPath(node.url, color);
                 if (hoverNode == null) {
                     ctx.fillStyle = nodeColor;
                 } else {
