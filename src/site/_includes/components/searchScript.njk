@@ -331,7 +331,10 @@
     }
 
     function extractSnippets(content, keyword, maxSnippets = 3) {
-        // 先去除HTML标签
+        // 先去除所有块级和行内LaTeX公式
+        content = content.replace(/\$\$[\s\S]*?\$\$/g, ''); // 块级公式
+        content = content.replace(/\$[^$\n]+\$/g, '');         // 行内公式
+        // 再去除HTML标签
         content = content.replace(/<[^>]*>/g, '');
         // 按句子分割（中英文标点、换行）
         let sentences = content.split(/(?<=[。！？.!?\n])/);
@@ -339,14 +342,12 @@
         let lowerKeyword = keyword.toLowerCase();
         for (let s of sentences) {
             if (s.toLowerCase().includes(lowerKeyword)) {
-                // 高亮关键词（全词匹配，忽略大小写）
                 let re = new RegExp(keyword, 'gi');
                 let snippet = s.replace(re, (m) => `<mark>${m}</mark>`);
                 snippets.push('... ' + snippet.trim() + ' ...');
                 if (snippets.length >= maxSnippets) break;
             }
         }
-        // 如果没找到，退而求其次按段落分割
         if (snippets.length === 0) {
             let paragraphs = content.split(/\n+/);
             for (let p of paragraphs) {
@@ -358,7 +359,6 @@
                 }
             }
         }
-        // 如果还没找到，返回简短摘要
         return snippets.length ? snippets : [truncate(content, 80)];
     }
 
