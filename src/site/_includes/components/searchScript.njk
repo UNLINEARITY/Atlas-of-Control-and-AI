@@ -330,11 +330,23 @@
         return str.substring(0, size - 3) + '...';
     }
 
+    function extractSnippets(content, keyword, maxSnippets = 3, contextLen = 30) {
+        // 先去除HTML标签
+        content = content.replace(/<[^>]*>/g, '');
+        let regex = new RegExp(`(.{0,${contextLen}})(${keyword})(.{0,${contextLen}})`, 'gi');
+        let snippets = [];
+        let match;
+        while ((match = regex.exec(content)) !== null && snippets.length < maxSnippets) {
+            // 高亮关键词
+            let snippet = match[1] + '<mark>' + match[2] + '</mark>' + match[3];
+            snippets.push(snippet);
+        }
+        return snippets.length ? snippets : [truncate(content, 80)];
+    }
+
     function offlineSearch(searchQuery) {
         let data = window.docs;
-
         let isTagSearch = searchQuery[0] === "#" && searchQuery.length > 1;
-
         let searchResults = isTagSearch
             ? index.search(searchQuery.substring(1), [
                 {
@@ -350,7 +362,6 @@
                     weight: 10
                 }
             ]);
-
         const getByField = (field) => {
             const results = searchResults.filter((x) => x.field === field)
             if (results.length === 0) {
@@ -367,14 +378,11 @@
         const dataIds = [...allIds];
         const finalResults = dataIds.map((id) => {
             let result = data[id];
-            result.content = truncate(result.content, 400);
-            result.tags = result
-                .tags
-                .filter((x) => x != "gardenEntry" && x != "note"); //Note is automatically added by 11ty. GardenEntry is used internally to mark the home page
-
+            const keyword = searchQuery.replace(/^#/, '').trim();
+            result.tags = result.tags.filter((x) => x != "gardenEntry" && x != "note");
+            result.content = extractSnippets(result.content, keyword).join('<br>'); // 只显示高亮片段
             return result;
         })
         return finalResults;
-
     }
 </script>
