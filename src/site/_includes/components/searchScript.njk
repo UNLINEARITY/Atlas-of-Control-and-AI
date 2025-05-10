@@ -330,17 +330,35 @@
         return str.substring(0, size - 3) + '...';
     }
 
-    function extractSnippets(content, keyword, maxSnippets = 3, contextLen = 30) {
+    function extractSnippets(content, keyword, maxSnippets = 3) {
         // 先去除HTML标签
         content = content.replace(/<[^>]*>/g, '');
-        let regex = new RegExp(`(.{0,${contextLen}})(${keyword})(.{0,${contextLen}})`, 'gi');
+        // 按句子分割（中英文标点、换行）
+        let sentences = content.split(/(?<=[。！？.!?\n])/);
         let snippets = [];
-        let match;
-        while ((match = regex.exec(content)) !== null && snippets.length < maxSnippets) {
-            // 高亮关键词
-            let snippet = match[1] + '<mark>' + match[2] + '</mark>' + match[3];
-            snippets.push(snippet);
+        let lowerKeyword = keyword.toLowerCase();
+        for (let s of sentences) {
+            if (s.toLowerCase().includes(lowerKeyword)) {
+                // 高亮关键词（全词匹配，忽略大小写）
+                let re = new RegExp(keyword, 'gi');
+                let snippet = s.replace(re, (m) => `<mark>${m}</mark>`);
+                snippets.push('... ' + snippet.trim() + ' ...');
+                if (snippets.length >= maxSnippets) break;
+            }
         }
+        // 如果没找到，退而求其次按段落分割
+        if (snippets.length === 0) {
+            let paragraphs = content.split(/\n+/);
+            for (let p of paragraphs) {
+                if (p.toLowerCase().includes(lowerKeyword)) {
+                    let re = new RegExp(keyword, 'gi');
+                    let snippet = p.replace(re, (m) => `<mark>${m}</mark>`);
+                    snippets.push('... ' + snippet.trim() + ' ...');
+                    if (snippets.length >= maxSnippets) break;
+                }
+            }
+        }
+        // 如果还没找到，返回简短摘要
         return snippets.length ? snippets : [truncate(content, 80)];
     }
 
