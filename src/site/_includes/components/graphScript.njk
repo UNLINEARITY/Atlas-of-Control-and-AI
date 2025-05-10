@@ -71,13 +71,27 @@
         let hoverNode = null;
         const color = getCssVar("--graph-main");
         const mutedColor = getCssVar("--graph-muted");
+        const layoutKey = 'graph-layout-' + id;
+        let savedLayout = {};
+        try {
+            savedLayout = JSON.parse(localStorage.getItem(layoutKey) || '{}');
+        } catch {}
+        if (id === 'full-graph-container' && savedLayout && graphData && graphData.nodes) {
+            graphData.nodes.forEach(node => {
+                if (savedLayout[node.id]) {
+                    node.x = savedLayout[node.id].x;
+                    node.y = savedLayout[node.id].y;
+                    node.fx = savedLayout[node.id].fx;
+                    node.fy = savedLayout[node.id].fy;
+                }
+            });
+        }
         function getNodeColorByPath(dgPath, defaultColor) {
             if (!dgPath) return defaultColor;
             if (dgPath.includes("过程控制")) return "#9A4E90";
             if (dgPath.includes("智能")) return "#FF0000";
             if (dgPath.includes("控制")) return "#7496ff";
             if (dgPath.includes("数学")) return "#c44f70";
-            
             return defaultColor;
         }
         let Graph = ForceGraph()
@@ -150,6 +164,20 @@
                 }
                 hoverNode = node || null;
                 
+            })
+            .onNodeDragEnd(node => {
+                if (id === 'full-graph-container') {
+                    const layout = {};
+                    graphData.nodes.forEach(n => {
+                        layout[n.id] = {
+                            x: n.x,
+                            y: n.y,
+                            fx: n.fx,
+                            fy: n.fy
+                        };
+                    });
+                    localStorage.setItem(layoutKey, JSON.stringify(layout));
+                }
             });
             if (fullScreen || (delay != null && graphData.nodes.length > 4)) {
                 setTimeout(() => {
