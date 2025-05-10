@@ -269,6 +269,13 @@
             toggleSearch();
             search();
         }
+
+        // 只点击遮罩时关闭搜索弹窗
+        document.getElementById('globalsearch').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleSearch();
+            }
+        });
     }
     window.lastSearch = '';
     async function search() {
