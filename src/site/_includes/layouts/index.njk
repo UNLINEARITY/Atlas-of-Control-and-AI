@@ -76,7 +76,7 @@
     {% endfor %}
     {%include "components/lucideIcons.njk"%}
 
-<script>
+    <script>
       // 简约科技感全局点击特效（升级：粒子更少，拖尾更长，随机曲线，极限时变红）
       let mouseDownTime = 0;
       document.addEventListener('mousedown', function(e) {
@@ -92,6 +92,27 @@
         // 主色调
         const mainColor = isMax ? '#ff3b3b' : '#00eaff';
         const mainColor2 = isMax ? '#ff7b7b' : '#3b82f6';
+        // 遮幕聚焦效果
+        if (isMax) {
+          const mask = document.createElement('div');
+          mask.className = 'click-focus-mask';
+          mask.style.left = '0';
+          mask.style.top = '0';
+          mask.style.width = '100vw';
+          mask.style.height = '100vh';
+          mask.style.position = 'fixed';
+          mask.style.zIndex = '99998';
+          mask.style.pointerEvents = 'none';
+          // 聚焦圆心和半径
+          const focusX = e.clientX;
+          const focusY = e.clientY;
+          const focusR = 120 * scale;
+          mask.style.setProperty('--focus-x', focusX + 'px');
+          mask.style.setProperty('--focus-y', focusY + 'px');
+          mask.style.setProperty('--focus-r', focusR + 'px');
+          document.body.appendChild(mask);
+          setTimeout(() => mask.remove(), 700);
+        }
         // 主圆环
         const ripple = document.createElement('div');
         ripple.className = 'cursor-ripple';
@@ -109,8 +130,6 @@
           particle.className = 'cursor-particle';
           particle.style.left = e.clientX + 'px';
           particle.style.top = e.clientY + 'px';
-          // 拖尾长度
-          const tail = 32 + Math.random() * 32;
           // 随机初始角度
           const angle = Math.random() * 2 * Math.PI;
           // 随机远距离，1.5~2.2倍主环
@@ -128,7 +147,6 @@
           particle.style.setProperty('--ty', `${ty}px`);
           particle.style.setProperty('--cx', `${cx}px`);
           particle.style.setProperty('--cy', `${cy}px`);
-          particle.style.setProperty('--tail', `${tail}px`);
           particle.style.setProperty('--particle-main', mainColor);
           particle.style.setProperty('--particle-main2', mainColor2);
           document.body.appendChild(particle);
