@@ -144,7 +144,10 @@ body {
     }
   }
 
+
   nav.filetree-sidebar {
+    width: 280px;
+    font-size: 1.08em;
     top: 15px;
     left: 10px;
     position: fixed;
@@ -678,8 +681,10 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 .sidebar {
   .toc-container {
     max-height: unset;
+      right: 10px;
+      top: 15px;
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1400px) {
       max-height: 320px;
     }
   }
@@ -693,14 +698,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   }
 }
 
-.sidebar {
-  position: fixed;
-  right: 10px;
-  top: 15px;
-  width: 345px;
-  height: 100vh;
-  z-index: 1;
-}
+
 
 .MathJax {
   overflow-x: auto; /* 允许水平滚动 */
@@ -786,7 +784,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   100% { opacity: 0; }
 }
 
-/* 主内容区居中，最大宽度缩小，避免与右侧sidebar重叠 */
+
 .content.cm-s-obsidian {
   margin-left: auto;
   margin-right: auto;
@@ -796,26 +794,3 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   position: relative;
   z-index: 1;
 }
-
-/* 左侧文件树宽度更大，字体更大 */
-.filetree-sidebar, .navbar {
-  width: 280px;
-  font-size: 1.08em;
-}
-
-
-@media (max-width: 900px) {
-  .sidebar {
-    display: none;
-  }
-  
-  .filetree-sidebar, .navbar {
-    display: none;
-  }
-  .content.cm-s-obsidian {
-    max-width: 98vw;
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-
