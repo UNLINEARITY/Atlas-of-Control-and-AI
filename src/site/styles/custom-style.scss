@@ -699,7 +699,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   top: 15px;
   width: 345px;
   height: 100vh;
-  z-index: 3;
+  z-index: 1;
 }
 
 .MathJax {
@@ -808,8 +808,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   .sidebar {
     display: none;
   }
-}
-@media (max-width: 900px) {
+  
   .filetree-sidebar, .navbar {
     display: none;
   }
