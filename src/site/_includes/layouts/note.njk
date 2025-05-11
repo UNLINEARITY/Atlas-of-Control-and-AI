@@ -92,5 +92,102 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
       {% include imp %}
     {% endfor %}
     {%include "components/lucideIcons.njk"%}
+
+    <script>
+      // 简约科技感全局点击特效（升级：粒子更少，方块，随机曲线，极限时变红，遮幕聚焦可跟随鼠标）
+      let mouseDownTime = 0;
+      let focusMask = null;
+      let focusMaskActive = false;
+      function updateFocusMask(x, y, scale) {
+        if (focusMask) {
+          focusMask.style.setProperty('--focus-x', x + 'px');
+          focusMask.style.setProperty('--focus-y', y + 'px');
+          focusMask.style.setProperty('--focus-r', (50 * scale) + 'px');
+        }
+      }
+      document.addEventListener('mousedown', function(e) {
+        if (e.button !== 0) return;
+        mouseDownTime = Date.now();
+        if (focusMaskActive && focusMask) {
+          focusMask.remove();
+          focusMask = null;
+          focusMaskActive = false;
+          document.removeEventListener('mousemove', focusMaskMoveHandler);
+        }
+      }, true);
+      document.addEventListener('mouseup', function(e) {
+        if (e.button !== 0) return;
+        const duration = Math.min(Math.max(Date.now() - mouseDownTime, 80), 1200); // 80~1200ms
+        const isMax = duration >= 1200;
+        // scale范围：最小1.5，最大3.5
+        const scale = 1.5 + (duration - 80) / (1200 - 80) * (3.5 - 1.5);
+        // 主色调
+        const mainColor = isMax ? '#ff3b3b' : '#00eaff';
+        const mainColor2 = isMax ? '#ff7b7b' : '#3b82f6';
+        // 遮幕聚焦效果
+        if (isMax && !focusMaskActive) {
+          focusMask = document.createElement('div');
+          focusMask.className = 'click-focus-mask';
+          focusMask.style.left = '0';
+          focusMask.style.top = '0';
+          focusMask.style.width = '100vw';
+          focusMask.style.height = '100vh';
+          focusMask.style.position = 'fixed';
+          focusMask.style.zIndex = '99998';
+          focusMask.style.pointerEvents = 'none';
+          document.body.appendChild(focusMask);
+          focusMaskActive = true;
+          updateFocusMask(e.clientX, e.clientY, scale);
+          // 跟随鼠标移动
+          document.addEventListener('mousemove', focusMaskMoveHandler);
+        }
+        // 主圆环
+        const ripple = document.createElement('div');
+        ripple.className = 'cursor-ripple';
+        ripple.style.left = e.clientX + 'px';
+        ripple.style.top = e.clientY + 'px';
+        ripple.style.setProperty('--ripple-scale', scale);
+        ripple.style.setProperty('--ripple-main', mainColor);
+        ripple.style.setProperty('--ripple-main2', mainColor2);
+        document.body.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 700);
+        // 粒子
+        const particleCount = Math.floor(Math.random() * 3) + 3; // 3~5个
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'cursor-particle';
+          particle.style.left = e.clientX + 'px';
+          particle.style.top = e.clientY + 'px';
+          // 随机初始角度
+          const angle = Math.random() * 2 * Math.PI;
+          // 随机远距离，1.5~2.2倍主环
+          const dist = (60 + Math.random() * 40) * scale * (1.5 + Math.random()*0.7);
+          // 随机贝塞尔控制点
+          const ctrlAngle = angle + (Math.random() - 0.5) * Math.PI/2;
+          const ctrlDist = dist * (0.4 + Math.random()*0.3);
+          // 生成贝塞尔动画路径
+          const tx = Math.cos(angle) * dist;
+          const ty = Math.sin(angle) * dist;
+          const cx = Math.cos(ctrlAngle) * ctrlDist;
+          const cy = Math.sin(ctrlAngle) * ctrlDist;
+          // 用CSS变量传递
+          particle.style.setProperty('--tx', `${tx}px`);
+          particle.style.setProperty('--ty', `${ty}px`);
+          particle.style.setProperty('--cx', `${cx}px`);
+          particle.style.setProperty('--cy', `${cy}px`);
+          particle.style.setProperty('--particle-main', mainColor);
+          particle.style.setProperty('--particle-main2', mainColor2);
+          document.body.appendChild(particle);
+          setTimeout(() => particle.remove(), 800);
+        }
+      });
+      // 遮幕随鼠标移动
+      function focusMaskMoveHandler(e) {
+        if (focusMaskActive && focusMask) {
+          updateFocusMask(e.clientX, e.clientY, 2); // scale=2为视觉一致
+        }
+      }
+    </script>
+
   </body>
 </html>
