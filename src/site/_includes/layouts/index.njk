@@ -86,8 +86,8 @@
       document.addEventListener('mouseup', function(e) {
         if (e.button !== 0) return;
         const duration = Math.min(Math.max(Date.now() - mouseDownTime, 80), 1200); // 80~1200ms
-        // 计算scale范围：最小1.5，最大3.5
-        const scale = 1.5 + (duration - 80) / (1200 - 80) * (3.5 - 1.5);
+        // 计算scale范围：最小1.5，最大6.5
+        const scale = 1.5 + (duration - 80) / (1200 - 80) * (6.5 - 1.5);
         // 主圆环
         const ripple = document.createElement('div');
         ripple.className = 'cursor-ripple';
