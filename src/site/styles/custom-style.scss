@@ -780,4 +780,21 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   100% { opacity: 0; }
 }
 
+.content.cm-s-obsidian {
+  margin-left: 260px;   /* 左侧边栏宽度，略大于原来 */
+  margin-right: 370px;  /* 右侧 sidebar 宽度+间距 */
+  max-width: 900px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .content.cm-s-obsidian {
+    margin-right: 0;
+  }
+}
+@media (max-width: 800px) {
+  .content.cm-s-obsidian {
+    margin-left: 0;
+  }
+}
 
