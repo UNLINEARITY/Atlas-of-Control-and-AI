@@ -702,4 +702,21 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   overflow-y: hidden;
 }
 
+/* 全局点击粒子/波纹特效样式 */
+.cursor-ripple {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 9999;
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0.7;
+  animation: cursor-ripple-anim 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+  background: radial-gradient(circle, #3b82f6 0%, #60a5fa 60%, transparent 100%);
+}
+@keyframes cursor-ripple-anim {
+  to {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
 
