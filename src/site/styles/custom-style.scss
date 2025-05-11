@@ -693,7 +693,14 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 }
 
 .sidebar {
-  right:20px;
+  position: fixed;
+  right: 20px;
+  top: 0;
+  width: 340px;
+  height: 100vh;
+  z-index: 3;
+  background: var(--background-secondary);
+  box-shadow: -2px 0 8px rgba(0,0,0,0.04);
 }
 
 .MathJax {
@@ -780,21 +787,35 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   100% { opacity: 0; }
 }
 
+/* 主内容区居中，最大宽度缩小，避免与右侧sidebar重叠 */
 .content.cm-s-obsidian {
-  margin-left: 260px;   /* 左侧边栏宽度，略大于原来 */
-  margin-right: 370px;  /* 右侧 sidebar 宽度+间距 */
-  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 820px;
+  width: 100%;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+/* 左侧文件树宽度更大，字体更大 */
+.filetree-sidebar, .navbar {
+  width: 290px;
+  font-size: 1.08em;
 }
 
 @media (max-width: 1200px) {
+  .sidebar {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .filetree-sidebar, .navbar {
+    display: none;
+  }
   .content.cm-s-obsidian {
+    max-width: 98vw;
+    margin-left: 0;
     margin-right: 0;
   }
 }
-@media (max-width: 800px) {
-  .content.cm-s-obsidian {
-    margin-left: 0;
-  }
-}
-
