@@ -804,3 +804,20 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   font-size: 1.08em;
 }
 
+
+@media (max-width: 1200px) {
+  .sidebar {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .filetree-sidebar, .navbar {
+    display: none;
+  }
+  .content.cm-s-obsidian {
+    max-width: 98vw;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
