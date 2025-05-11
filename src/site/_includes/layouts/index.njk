@@ -76,8 +76,8 @@
     {% endfor %}
     {%include "components/lucideIcons.njk"%}
 
-<script>
-      // 科技感全局点击特效，按住时间越长，范围越大
+ <script>
+      // 简约科技感全局点击特效
       let mouseDownTime = 0;
       document.addEventListener('mousedown', function(e) {
         if (e.button !== 0) return;
@@ -86,8 +86,8 @@
       document.addEventListener('mouseup', function(e) {
         if (e.button !== 0) return;
         const duration = Math.min(Math.max(Date.now() - mouseDownTime, 80), 1200); // 80~1200ms
-        // 计算scale范围：最小1.5，最大6.5
-        const scale = 1.5 + (duration - 80) / (1200 - 80) * (6.5 - 1.5);
+        // 计算scale范围：最小1.5，最大3.5
+        const scale = 1.5 + (duration - 80) / (1200 - 80) * (3.5 - 1.5);
         // 主圆环
         const ripple = document.createElement('div');
         ripple.className = 'cursor-ripple';
@@ -97,17 +97,20 @@
         document.body.appendChild(ripple);
         setTimeout(() => ripple.remove(), 700);
         // 粒子
-        for (let i = 0; i < 6; i++) {
+        const particleCount = 12;
+        for (let i = 0; i < particleCount; i++) {
           const particle = document.createElement('div');
           particle.className = 'cursor-particle';
           particle.style.left = e.clientX + 'px';
           particle.style.top = e.clientY + 'px';
-          // 随机扩散方向
-          const angle = Math.random() * 2 * Math.PI;
-          const dist = (30 + Math.random() * 20) * scale/2; // 跟随主圆环scale
+          // 纤细流动的角度和距离
+          const angle = (Math.PI * 2 / particleCount) * i + (Math.random() - 0.5) * 0.2;
+          const dist = (32 + Math.random() * 10) * scale / 2;
           particle.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
           particle.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
-          particle.style.setProperty('--particle-scale', 0.5 + scale/4);
+          // 纤细粒子，随机长度
+          const length = 1.2 + Math.random() * 0.6;
+          particle.style.setProperty('--particle-scale', length);
           document.body.appendChild(particle);
           setTimeout(() => particle.remove(), 700);
         }
