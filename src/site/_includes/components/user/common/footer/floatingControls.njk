@@ -1,4 +1,4 @@
-<aside id="floating-control">
+<aside id="floating-control" style="left: 40px; right: auto; bottom: 2.5vmax; font-size: 1.35em;">
     <a id="github" href="https://github.com/UNLINEARITY/Learn-Everything" data-tooltip="Star On Github" data-tooltip-position="top">
         <i class="svg-icon" icon-name="star" aria-hidden="true"></i>
     </a>
@@ -10,11 +10,14 @@
        data-tooltip="Discuss" data-tooltip-position="top">
         <i class="svg-icon" icon-name="mail-plus" aria-hidden="true"></i>
     </a>
-    <span id="theme-switch">
+    <span id="theme-switch" style="margin-right: 0.8em; cursor:pointer;">
         <i class="svg-icon light" icon-name="sun" data-tooltip="Light Mode" data-tooltip-position="top" aria-hidden="true"></i>
         <i class="svg-icon dark" icon-name="moon" data-tooltip="Dark Mode" data-tooltip-position="top" aria-hidden="true"></i>
         <i class="svg-icon auto" icon-name="sun-moon" data-tooltip="Auto Mode" data-tooltip-position="top" aria-hidden="true"></i>
-    </span> 
+    </span>
+    <span id="random-page-btn" style="cursor:pointer;display:inline-block;vertical-align:middle;" data-tooltip="随机跳转页面" data-tooltip-position="top">
+        <i class="svg-icon" icon-name="dice-5" aria-hidden="true"></i>
+    </span>
 </aside>
 
 <style>
@@ -159,4 +162,25 @@
         window.localStorage.setItem('site-theme', theme);
         window.theme = theme;
     })
+
+    // 随机跳转按钮逻辑
+    const randomBtn = document.getElementById('random-page-btn');
+    if(randomBtn){
+        randomBtn.addEventListener('click', async function(){
+            // 尝试从 window.docs 或 /searchIndex.json 获取所有已上传页面
+            let docs = window.docs;
+            if(!docs){
+                try{
+                    docs = await fetch('/searchIndex.json').then(r=>r.json());
+                }catch{docs = []}
+            }
+            if(docs && docs.length){
+                const idx = Math.floor(Math.random()*docs.length);
+                const url = docs[idx].permalink || docs[idx].url || docs[idx].path || docs[idx].dgPath || '';
+                if(url) window.location.href = url;
+            }else{
+                alert('未找到可跳转的页面');
+            }
+        });
+    }
 </script>
