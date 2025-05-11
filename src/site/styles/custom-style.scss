@@ -116,8 +116,8 @@ body {
 
   .sidebar-container {
     &>div:not(.graph) {
-      width: 360px;
-      max-height: 365px;
+      width: 340px;
+      max-height: calc(100% - 55px);;
       overflow-y: auto;
     }
     @media (max-width: 1490px) {
@@ -132,6 +132,7 @@ body {
     width: 100%;
     box-sizing: border-box;
   }
+  
   @media (max-width: 1000px) {
     .content {
       max-width: 98vw !important;
@@ -144,10 +145,10 @@ body {
   }
 
   nav.filetree-sidebar {
-    top: 85px;
-    left: 20px;
+    top: 15px;
+    left: 10px;
     position: fixed;
-    height: calc(100% - 90px);
+    height: calc(100% - 55px);
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -678,7 +679,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   .toc-container {
     max-height: unset;
 
-    @media (max-width: 1400px) {
+    @media (max-width: 1200px) {
       max-height: 320px;
     }
   }
@@ -693,7 +694,12 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 }
 
 .sidebar {
-  right:20px;
+  position: fixed;
+  right: 10px;
+  top: 15px;
+  width: 345px;
+  height: 100vh;
+  z-index: 1;
 }
 
 .MathJax {
@@ -780,4 +786,36 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   100% { opacity: 0; }
 }
 
+/* 主内容区居中，最大宽度缩小，避免与右侧sidebar重叠 */
+.content.cm-s-obsidian {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+/* 左侧文件树宽度更大，字体更大 */
+.filetree-sidebar, .navbar {
+  width: 280px;
+  font-size: 1.08em;
+}
+
+
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+  
+  .filetree-sidebar, .navbar {
+    display: none;
+  }
+  .content.cm-s-obsidian {
+    max-width: 98vw;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
 
