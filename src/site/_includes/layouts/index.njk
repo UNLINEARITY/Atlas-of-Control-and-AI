@@ -76,9 +76,18 @@
     {% endfor %}
     {%include "components/lucideIcons.njk"%}
 
-    <script>
+      <script>
       // 简约科技感全局点击特效（升级：粒子更少，拖尾更长，随机曲线，极限时变红）
       let mouseDownTime = 0;
+      let focusMask = null;
+      let focusMaskActive = false;
+      function updateFocusMask(x, y, scale) {
+        if (focusMask) {
+          focusMask.style.setProperty('--focus-x', x + 'px');
+          focusMask.style.setProperty('--focus-y', y + 'px');
+          focusMask.style.setProperty('--focus-r', (80 * scale) + 'px');
+        }
+      }
       document.addEventListener('mousedown', function(e) {
         if (e.button !== 0) return;
         mouseDownTime = Date.now();
@@ -93,25 +102,21 @@
         const mainColor = isMax ? '#ff3b3b' : '#00eaff';
         const mainColor2 = isMax ? '#ff7b7b' : '#3b82f6';
         // 遮幕聚焦效果
-        if (isMax) {
-          const mask = document.createElement('div');
-          mask.className = 'click-focus-mask';
-          mask.style.left = '0';
-          mask.style.top = '0';
-          mask.style.width = '100vw';
-          mask.style.height = '100vh';
-          mask.style.position = 'fixed';
-          mask.style.zIndex = '99998';
-          mask.style.pointerEvents = 'none';
-          // 聚焦圆心和半径
-          const focusX = e.clientX;
-          const focusY = e.clientY;
-          const focusR = 120 * scale;
-          mask.style.setProperty('--focus-x', focusX + 'px');
-          mask.style.setProperty('--focus-y', focusY + 'px');
-          mask.style.setProperty('--focus-r', focusR + 'px');
-          document.body.appendChild(mask);
-          setTimeout(() => mask.remove(), 700);
+        if (isMax && !focusMaskActive) {
+          focusMask = document.createElement('div');
+          focusMask.className = 'click-focus-mask';
+          focusMask.style.left = '0';
+          focusMask.style.top = '0';
+          focusMask.style.width = '100vw';
+          focusMask.style.height = '100vh';
+          focusMask.style.position = 'fixed';
+          focusMask.style.zIndex = '99998';
+          focusMask.style.pointerEvents = 'none';
+          document.body.appendChild(focusMask);
+          focusMaskActive = true;
+          updateFocusMask(e.clientX, e.clientY, scale);
+          // 跟随鼠标移动
+          document.addEventListener('mousemove', focusMaskMoveHandler);
         }
         // 主圆环
         const ripple = document.createElement('div');
@@ -153,6 +158,21 @@
           setTimeout(() => particle.remove(), 800);
         }
       });
+      // 遮幕随鼠标移动
+      function focusMaskMoveHandler(e) {
+        if (focusMaskActive && focusMask) {
+          updateFocusMask(e.clientX, e.clientY, 2); // scale=2为视觉一致
+        }
+      }
+      // 再次点击退出遮幕
+      document.addEventListener('mousedown', function(e) {
+        if (focusMaskActive && focusMask) {
+          focusMask.remove();
+          focusMask = null;
+          focusMaskActive = false;
+          document.removeEventListener('mousemove', focusMaskMoveHandler);
+        }
+      }, true);
     </script>
 
     </body>
