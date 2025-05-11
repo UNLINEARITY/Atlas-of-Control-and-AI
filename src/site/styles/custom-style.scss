@@ -116,7 +116,7 @@ body {
 
   .sidebar-container {
     &>div:not(.graph) {
-      width: 350px;
+      width: 340px;
       max-height: calc(100% - 55px);;
       overflow-y: auto;
     }
@@ -132,6 +132,7 @@ body {
     width: 100%;
     box-sizing: border-box;
   }
+  
   @media (max-width: 1000px) {
     .content {
       max-width: 98vw !important;
@@ -145,7 +146,7 @@ body {
 
   nav.filetree-sidebar {
     top: 15px;
-    left: 15px;
+    left: 10px;
     position: fixed;
     height: calc(100% - 55px);
     display: flex;
@@ -696,7 +697,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   position: fixed;
   right: 15px;
   top: 15px;
-  width: 340px;
+  width: 345px;
   height: 100vh;
   z-index: 3;
 }
@@ -803,7 +804,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 }
 
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
   .sidebar {
     display: none;
   }
