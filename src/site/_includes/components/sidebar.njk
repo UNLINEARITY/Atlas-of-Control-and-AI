@@ -4,7 +4,7 @@
                   {% for imp in dynamics.sidebar.top %}
                         {% include imp %}
                   {% endfor %}
-                  {%if settings.dgShowLocalGraph === true%}
+                  {%if settings.dgShowLocalGraph === true and page.fileSlug != '网站内容索引-Index'%}
                         {%include "components/graphScript.njk"%}
                   {%endif%}
 

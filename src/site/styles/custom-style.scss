@@ -703,3 +703,81 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 }
 
 
+/* 科技感点击特效主圆环 */
+.cursor-ripple {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 9999;
+  width: 60px;
+  height: 60px;
+  left: 0; top: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0.7;
+  box-shadow: 0 0 32px 4px var(--ripple-main, #00eaff55), 0 0 80px 8px var(--ripple-main2, #3b82f622);
+  background: radial-gradient(circle, var(--ripple-main, #00eaff) 0%, var(--ripple-main2, #3b82f6) 80%, transparent 100%);
+  border: 1.5px solid var(--ripple-main, #00eaffcc);
+  filter: blur(0.5px);
+  animation: cursor-ripple-anim 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes cursor-ripple-anim {
+  to {
+    transform: translate(-50%, -50%) scale(var(--ripple-scale,2.2));
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+/* 简约方块粒子，主色调可变，贝塞尔曲线动画 */
+.cursor-particle {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 4px;
+  z-index: 9999;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, var(--particle-main, #00eaff) 0%, var(--particle-main2, #3b82f6) 100%);
+  opacity: 0.85;
+  box-shadow: 0 0 12px 2px var(--particle-main, #00eaff66);
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: cursor-particle-bezier 0.8s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes cursor-particle-bezier {
+  0% {
+    opacity: 0.85;
+    filter: blur(0.5px);
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  60% {
+    opacity: 0.9;
+    filter: blur(0.5px);
+    transform: translate(calc(var(--cx, 0px)), calc(var(--cy, 0px))) scale(1.05) rotate(10deg);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translate(calc(var(--tx, 0px)), calc(var(--ty, 0px))) scale(1.1) rotate(20deg);
+  }
+}
+
+/* 点击极限时遮幕聚焦效果 */
+.click-focus-mask {
+  position: fixed;
+  left: 0; top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99998;
+  pointer-events: none;
+  background: rgba(0,0,0,0.45);
+  /* 中心透明聚焦圆 */
+  -webkit-mask-image: radial-gradient(circle var(--focus-r, 120px) at var(--focus-x, 50vw) var(--focus-y, 50vh), transparent 0px, transparent calc(var(--focus-r, 120px) - 2px), black calc(var(--focus-r, 120px) + 2px), black 100%);
+  mask-image: radial-gradient(circle var(--focus-r, 120px) at var(--focus-x, 50vw) var(--focus-y, 50vh), transparent 0px, transparent calc(var(--focus-r, 120px) - 2px), black calc(var(--focus-r, 120px) + 2px), black 100%);
+  animation: focus-mask-fade 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes focus-mask-fade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
