@@ -76,18 +76,41 @@
     {% endfor %}
     {%include "components/lucideIcons.njk"%}
 
-    <script>
-      // 全局点击粒子/波纹特效
-      document.addEventListener('click', function(e) {
-        // 忽略右键和中键
+<script>
+      // 科技感全局点击特效，按住时间越长，范围越大
+      let mouseDownTime = 0;
+      document.addEventListener('mousedown', function(e) {
         if (e.button !== 0) return;
+        mouseDownTime = Date.now();
+      });
+      document.addEventListener('mouseup', function(e) {
+        if (e.button !== 0) return;
+        const duration = Math.min(Math.max(Date.now() - mouseDownTime, 80), 1200); // 80~1200ms
+        // 计算scale范围：最小1.5，最大3.5
+        const scale = 1.5 + (duration - 80) / (1200 - 80) * (3.5 - 1.5);
+        // 主圆环
         const ripple = document.createElement('div');
         ripple.className = 'cursor-ripple';
         ripple.style.left = e.clientX + 'px';
         ripple.style.top = e.clientY + 'px';
-        ripple.style.width = ripple.style.height = '60px';
+        ripple.style.setProperty('--ripple-scale', scale);
         document.body.appendChild(ripple);
         setTimeout(() => ripple.remove(), 700);
+        // 粒子
+        for (let i = 0; i < 6; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'cursor-particle';
+          particle.style.left = e.clientX + 'px';
+          particle.style.top = e.clientY + 'px';
+          // 随机扩散方向
+          const angle = Math.random() * 2 * Math.PI;
+          const dist = (30 + Math.random() * 20) * scale/2; // 跟随主圆环scale
+          particle.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+          particle.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+          particle.style.setProperty('--particle-scale', 0.5 + scale/4);
+          document.body.appendChild(particle);
+          setTimeout(() => particle.remove(), 700);
+        }
       });
     </script>
 
