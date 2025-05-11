@@ -116,8 +116,8 @@ body {
 
   .sidebar-container {
     &>div:not(.graph) {
-      width: 360px;
-      max-height: 365px;
+      width: 350px;
+      max-height: calc(100% - 55px);;
       overflow-y: auto;
     }
     @media (max-width: 1490px) {
@@ -147,7 +147,7 @@ body {
     top: 15px;
     left: 15px;
     position: fixed;
-    height: calc(100% - 90px);
+    height: calc(100% - 55px);
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -678,7 +678,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   .toc-container {
     max-height: unset;
 
-    @media (max-width: 1400px) {
+    @media (max-width: 1200px) {
       max-height: 320px;
     }
   }
