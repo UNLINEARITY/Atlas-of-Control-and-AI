@@ -713,9 +713,10 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   height: 60px;
   left: 0; top: 0;
   transform: translate(-50%, -50%) scale(0.7);
-  opacity: 0.8;
-  box-shadow: 0 0 24px 8px #00eaff88, 0 0 60px 10px #3b82f644;
-  background: radial-gradient(circle, #00eaff 0%, #3b82f6 60%, transparent 100%);
+  opacity: 0.7;
+  box-shadow: 0 0 32px 4px #00eaff55, 0 0 80px 8px #3b82f622;
+  background: radial-gradient(circle, #00eaff 0%, #3b82f6 80%, transparent 100%);
+  border: 1.5px solid #00eaffcc;
   filter: blur(0.5px);
   animation: cursor-ripple-anim 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
 }
@@ -726,25 +727,23 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
     filter: blur(2px);
   }
 }
-/* 科技感点击特效粒子 */
+/* 简约纤细粒子 */
 .cursor-particle {
   position: fixed;
   pointer-events: none;
   border-radius: 50%;
   z-index: 9999;
-  width: 8px;
-  height: 8px;
-  background: #00eaff;
-  opacity: 0.7;
-  box-shadow: 0 0 8px 2px #00eaff99;
-  animation: cursor-particle-anim 0.7s linear forwards;
+  width: 4px;
+  height: 12px;
+  background: linear-gradient(180deg, #00eaff 0%, #3b82f6 100%);
+  opacity: 0.55;
+  box-shadow: 0 0 8px 1px #00eaff66;
+  animation: cursor-particle-anim 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
 }
 @keyframes cursor-particle-anim {
   to {
     opacity: 0;
-    transform: translate(var(--tx), var(--ty)) scale(var(--particle-scale,0.5));
+    transform: translate(var(--tx), var(--ty)) scale(var(--particle-scale,1));
     filter: blur(2px);
   }
 }
-
-
