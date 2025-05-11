@@ -702,21 +702,49 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   overflow-y: hidden;
 }
 
-/* 全局点击粒子/波纹特效样式 */
+
+/* 科技感点击特效主圆环 */
 .cursor-ripple {
   position: fixed;
   pointer-events: none;
   border-radius: 50%;
   z-index: 9999;
-  transform: translate(-50%, -50%) scale(0.5);
-  opacity: 0.7;
+  width: 60px;
+  height: 60px;
+  left: 0; top: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0.8;
+  box-shadow: 0 0 24px 8px #00eaff88, 0 0 60px 10px #3b82f644;
+  background: radial-gradient(circle, #00eaff 0%, #3b82f6 60%, transparent 100%);
+  filter: blur(0.5px);
   animation: cursor-ripple-anim 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
-  background: radial-gradient(circle, #3b82f6 0%, #60a5fa 60%, transparent 100%);
 }
 @keyframes cursor-ripple-anim {
   to {
-    transform: translate(-50%, -50%) scale(2.5);
+    transform: translate(-50%, -50%) scale(var(--ripple-scale,2.2));
     opacity: 0;
+    filter: blur(2px);
   }
 }
+/* 科技感点击特效粒子 */
+.cursor-particle {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 9999;
+  width: 8px;
+  height: 8px;
+  background: #00eaff;
+  opacity: 0.7;
+  box-shadow: 0 0 8px 2px #00eaff99;
+  animation: cursor-particle-anim 0.7s linear forwards;
+}
+@keyframes cursor-particle-anim {
+  to {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(var(--particle-scale,0.5));
+    filter: blur(2px);
+  }
+}
+
 
