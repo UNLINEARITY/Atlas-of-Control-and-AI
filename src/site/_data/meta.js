@@ -83,6 +83,11 @@ module.exports = async (data) => {
   });
   const siteStats = { pageCount, linkCount, wordCount, formulaCount, imageCount };
 
+  // 写入 siteStats.json 供外部 fetch
+  try {
+    fs.writeFileSync('src/site/siteStats.json', JSON.stringify(siteStats, null, 2));
+  } catch(e) { /* ignore on read-only environments */ }
+
   const meta = {
     env: process.env.ELEVENTY_ENV,
     theme: process.env.THEME,
