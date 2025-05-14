@@ -40,78 +40,32 @@
         {% endif %}
       </div>
       <div class="site-stats" style="display:flex;gap:2em;margin:2em 0 1em 0;justify-content:center;flex-wrap:wrap;">
-        <div class="stat-card">
-          <span class="stat-icon">{% include 'components/lucideIcons.njk', {name:'book-copy'} %}</span>
-          <div class="stat-num">{{ meta.siteStats.pageCount }}</div>
-          <div class="stat-label">页面总数</div>
+        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
+          <div style="font-size:2em;">📄</div>
+          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#00bcd4;">{{ meta.siteStats.pageCount }}</div>
+          <div class="stat-label" style="font-size:1em;color:#888;">页面总数</div>
         </div>
-        <div class="stat-card">
-          <span class="stat-icon">{% include 'components/lucideIcons.njk', {name:'network'} %}</span>
-          <div class="stat-num">{{ meta.siteStats.linkCount }}</div>
-          <div class="stat-label">内部链接数</div>
+        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
+          <div style="font-size:2em;">🔗</div>
+          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#ff9800;">{{ meta.siteStats.linkCount }}</div>
+          <div class="stat-label" style="font-size:1em;color:#888;">内部链接数</div>
         </div>
-        <div class="stat-card">
-          <span class="stat-icon">{% include 'components/lucideIcons.njk', {name:'type'} %}</span>
-          <div class="stat-num">{{ meta.siteStats.wordCount }}</div>
-          <div class="stat-label">总字数</div>
+        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
+          <div style="font-size:2em;">✍️</div>
+          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#4caf50;">{{ meta.siteStats.wordCount }}</div>
+          <div class="stat-label" style="font-size:1em;color:#888;">总字数</div>
         </div>
-        <div class="stat-card">
-          <span class="stat-icon">{% include 'components/lucideIcons.njk', {name:'function-square'} %}</span>
-          <div class="stat-num">{{ meta.siteStats.formulaCount }}</div>
-          <div class="stat-label">公式数</div>
+        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
+          <div style="font-size:2em;">🧮</div>
+          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#9c27b0;">{{ meta.siteStats.formulaCount }}</div>
+          <div class="stat-label" style="font-size:1em;color:#888;">公式数</div>
         </div>
-        <div class="stat-card">
-          <span class="stat-icon">{% include 'components/lucideIcons.njk', {name:'image'} %}</span>
-          <div class="stat-num">{{ meta.siteStats.imageCount }}</div>
-          <div class="stat-label">图片数</div>
+        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
+          <div style="font-size:2em;">🖼️</div>
+          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#e91e63;">{{ meta.siteStats.imageCount }}</div>
+          <div class="stat-label" style="font-size:1em;color:#888;">图片数</div>
         </div>
       </div>
-      <style>
-      .site-stats {
-        display: flex;
-        gap: 2em;
-        margin: 2em 0 1em 0;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .stat-card {
-        text-align: center;
-        min-width: 120px;
-        padding: 1.2em 1.5em;
-        background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
-        border-radius: 1.2em;
-        box-shadow: 0 4px 16px #b3b3e633;
-        transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s;
-        margin-bottom: 1em;
-      }
-      .stat-card:hover {
-        transform: scale(1.06);
-        box-shadow: 0 8px 24px #b3b3e655;
-      }
-      .stat-icon {
-        width: 2.2em;
-        height: 2.2em;
-        margin-bottom: 0.2em;
-        color: #6366f1;
-        display: inline-block;
-        vertical-align: middle;
-      }
-      .stat-num {
-        font-size: 2.1em;
-        font-weight: bold;
-        background: linear-gradient(90deg, #6366f1 30%, #06b6d4 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .stat-label {
-        font-size: 1.08em;
-        color: #555;
-        font-weight: 600;
-        margin-top: 0.2em;
-        letter-spacing: 0.02em;
-      }
-      </style>
       {% for imp in dynamics.common.header %}
         {% include imp %}
       {% endfor %}
