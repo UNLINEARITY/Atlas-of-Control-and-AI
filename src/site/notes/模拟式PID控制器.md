@@ -1,12 +1,14 @@
 ---
-{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-06T11:27:23.000+08:00","updated":"2025-05-02T16:36:20.955+08:00"}
+{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-06T11:27:23.000+08:00","updated":"2025-05-14T00:36:52.450+08:00"}
 ---
 
 
 理论基础：[[PID\|PID]]
 实际实现：[[基型控制器#二、PID 电路构成\|基型控制器#二、PID 电路构成]]
+
 ### 基本概述
 **偏差 = 测量值 - 给定值**     $\varepsilon=x_{i}-x_{S}$  ，$\varepsilon>0$ 为正偏差，$\varepsilon<0$ 为负偏差
+
 **输出信号变化量**    $\Delta y$ ，$\varepsilon>0\to \Delta y>0$ 为正作用控制器，$\varepsilon<0\to \Delta y>0$ 为反作用控制器
 
 $$\begin{align}
@@ -58,7 +60,7 @@ W(s)= K_{P} \dfrac{1+ \dfrac{1}{T_{I}s}}{1+ \dfrac{1}{K_{I}T_{I}s}}\quad  \Delta
 **主要是加快系统响应、改善系统稳定性，对噪声敏感，一般不用**
 #### 3.1 理想 PD 控制器
 $$\begin{align}
-\Delta y=K_{P}(\varepsilon+T_{D} \dfrac{\mathrm{d} \varepsilon}{\mathrm{d} t}  )\quad \;W(s)=K_{P}(s)(1+T_{D}s)
+\Delta y=K_{P}(\varepsilon+T_{D} \dfrac{\mathrm{d} \varepsilon}{\mathrm{d} t}  )\quad \;W(s)=K_{P}(1+T_{D}s)
 \end{align}$$
 ==微分时间== $T_{D}$： 达到相同的输出值 $\Delta y$ 时，微分作用比比例作用**提前的时间**。
 **微分时间越长，微分作用越强**。（过大可能引起高频振荡）
