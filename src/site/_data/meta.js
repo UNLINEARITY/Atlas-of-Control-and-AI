@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { globSync } = require("glob");
+const fs = require('fs');
 
 module.exports = async (data) => {
   let baseUrl = process.env.SITE_BASE_URL || "";
@@ -58,6 +59,30 @@ module.exports = async (data) => {
     showCreated: process.env.SHOW_CREATED_TIMESTAMP == "true",
     showUpdated: process.env.SHOW_UPDATED_TIMESTAMP == "true",
   };
+
+  // 统计页面数和链接数
+  const noteFiles = globSync('src/site/notes/**/*.md');
+  let pageCount = noteFiles.length;
+  let linkCount = 0;
+  let wordCount = 0;
+  let formulaCount = 0;
+  let imageCount = 0;
+  noteFiles.forEach(file => {
+    const content = fs.readFileSync(file, 'utf-8');
+    const matches = content.match(/\[\[.*?\]\]/g);
+    if (matches) linkCount += matches.length;
+    // 统计字数（仅中文和英文单词/数字）
+    const words = content.match(/[\u4e00-\u9fa5\w]+/g);
+    if (words) wordCount += words.length;
+    // 统计公式数（$...$ 或 $$...$$）
+    const formulas = content.match(/\${1,2}[^$]+\${1,2}/g);
+    if (formulas) formulaCount += formulas.length;
+    // 统计图片数（![](...)）
+    const images = content.match(/!\[[^\]]*\]\([^\)]+\)/g);
+    if (images) imageCount += images.length;
+  });
+  const siteStats = { pageCount, linkCount, wordCount, formulaCount, imageCount };
+
   const meta = {
     env: process.env.ELEVENTY_ENV,
     theme: process.env.THEME,
@@ -71,6 +96,7 @@ module.exports = async (data) => {
     siteBaseUrl: baseUrl,
     styleSettingsCss,
     buildDate: new Date(),
+    siteStats,
   };
 
   return meta;
