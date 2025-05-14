@@ -38,7 +38,16 @@
             {% endfor %}
           </div>
         {% endif %}
+        
       </div>
+      </header>
+      {% for imp in dynamics.common.beforeContent %}
+        {% include imp %}
+      {% endfor %}
+      {% for imp in dynamics.index.beforeContent %}
+        {% include imp %}
+      {% endfor %}
+      {{ content | hideDataview | taggify | link | safe}}
       <div class="site-stats" style="display:flex;gap:2em;margin:2em 0 1em 0;justify-content:center;flex-wrap:wrap;">
         <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
           <div style="font-size:2em;">📄</div>
@@ -66,20 +75,6 @@
           <div class="stat-label" style="font-size:1em;color:#888;">图片数</div>
         </div>
       </div>
-      {% for imp in dynamics.common.header %}
-        {% include imp %}
-      {% endfor %}
-      {% for imp in dynamics.index.header %}
-        {% include imp %}
-      {% endfor %}
-      </header>
-      {% for imp in dynamics.common.beforeContent %}
-        {% include imp %}
-      {% endfor %}
-      {% for imp in dynamics.index.beforeContent %}
-        {% include imp %}
-      {% endfor %}
-      {{ content | hideDataview | taggify | link | safe}}
       {% for imp in dynamics.common.afterContent %}
         {% include imp %}
       {% endfor %}
