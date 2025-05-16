@@ -795,3 +795,10 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   position: relative;
   z-index: 1;
 }
+
+.graph-title {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
