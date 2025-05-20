@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","permalink":"/Nonlinear/","pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-05-14T23:54:50.976+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","permalink":"/Nonlinear/","pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-05-21T00:57:47.336+08:00"}
 ---
 
 
@@ -56,8 +56,9 @@ root((本网站))
 >“方存乎见少，又奚以自多！”——《[[秋水\|秋水]]》· 庄周
 >"How can one be self-important when they have seen so little?"--"Autumn Floods," Zhuang Zhou
 
-> 指穷于为薪，火传也，不知其尽也。
+> 指"穷于为薪，火传也，不知其尽也。"
 
+> "人生总有出路，活着才有未来。"
 ***
 ### 一、该网站的核心思想 
 本网站的由来其实也不能完全说是一种巧合，更多的是源于一种兴致的上升，一种想要传播基础知识的念头，一个致力于构建知识体系、惠及他人的想法。
