@@ -1,7 +1,6 @@
 ---
-{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32 ADC.md","permalink":"/MCU微控制器/STM32/STM32 ADC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-30T16:17:38.715+08:00","updated":"2025-03-25T13:38:17.196+08:00"}
+{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32 ADC.md","permalink":"/MCU微控制器/STM32/STM32 ADC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-30T16:17:38.000+08:00","updated":"2025-05-23T17:31:00.000+08:00"}
 ---
-
 
 
 STM32 内置的ADC [[STM32片上外设\|外设资源]]： **逐次逼近型**[[ADC#逐次比较型\|ADC]]

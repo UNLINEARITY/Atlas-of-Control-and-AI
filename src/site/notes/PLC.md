@@ -1,8 +1,8 @@
 ---
-{"aliases":["可编程逻辑控制器"],"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC.md","permalink":"/A4- 过程控制系统/PLC/PLC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-03T15:41:38.876+08:00","updated":"2025-05-21T01:06:51.435+08:00"}
+{"aliases":["可编程逻辑控制器"],"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC.md","permalink":"/A4- 过程控制系统/PLC/PLC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-03T15:41:38.876+08:00","updated":"2025-05-21T10:40:33.636+08:00"}
 ---
 
-
+ 
 (terminology::**Programmable Logic Controller**)  可编程逻辑控制器
 是一种高度专业化的工业数字[[计算机\|计算机]]，它被设计用来在恶劣的工业环境中执行各种自动化控制任务。PLC 的核心功能是提供一种可靠、灵活且易于编程的方式来控制机械和过程。
 以[[罗克韦尔\|罗克韦尔]] PLC  micro800 为例

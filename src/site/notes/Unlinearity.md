@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-pinned":true,"dg-path":"A0- 关于该网站/Unlinearity.md","permalink":"/A0- 关于该网站/Unlinearity/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-19T20:22:30.740+08:00","updated":"2025-04-28T00:44:08.544+08:00"}
+{"dg-publish":true,"dg-pinned":true,"dg-path":"A0- 关于该网站/Unlinearity.md","permalink":"/A0- 关于该网站/Unlinearity/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-19T20:22:30.740+08:00","updated":"2025-05-22T01:32:21.359+08:00"}
 ---
 
 
@@ -11,9 +11,13 @@
 出生年月：2004-10-02    籍贯：中国 · 江西 · 吉安
 联系方式：
 - WeChat ID：unlinearity
-- Github 库： https://github.com/UNLINEARITY/Learn-Everything
+- Github 库： https://github.com/UNLINEARITY/Atlas-of-Control-and-AI
+
 ### 个人自述
-我高中的时候很喜欢看天上的星星，并觉得我将来应该从事航空航天的事业，探索宇宙的奥秘。但是由于种种原因，大学期间还是选择了自动化专业，一来是觉得航空航天技术还是有待发展，二来是觉得应该先了解系统的概念，从控制的角度开始学习。
+我高中的时候很喜欢看天上的星星，并觉得我将来应该从事航空航天的事业，探索宇宙的奥秘。
+但是由于种种原因，大学期间还是选择了自动化专业，一来是觉得航空航天技术还是有待发展，二来是觉得应该先了解系统的概念，从控制的角度开始学习。 
+
+
 ### 建设网站？
 个人认为**双向链接**和**关系图谱**的思想很有助于学习和思想的，~~而在网络上，类似像这样的网站少之又少~~，于是在 2024-04-16 受到 **Digital Garden** 思想的启发，决定将自己的积累贡献出来，致力于构建一个以**数学知识为根基**的体系或知识库。（然而似乎还是太浅显了）
 

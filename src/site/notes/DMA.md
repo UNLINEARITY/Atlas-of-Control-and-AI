@@ -1,5 +1,5 @@
 ---
-{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/DMA.md","permalink":"/MCU微控制器/STM32/DMA/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-22T00:29:54.803+08:00","updated":"2025-03-19T10:15:14.146+08:00"}
+{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/DMA.md","permalink":"/MCU微控制器/STM32/DMA/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-22T00:29:54.000+08:00","updated":"2025-05-23T17:31:30.000+08:00"}
 ---
 
 
@@ -18,11 +18,6 @@ STM32 可拥有 12 个独立可配置的通道
 >存储器到存储器一般选用软件触发
 > [[STM32片上外设\|外设]]到存储器一般选用硬件触发，不同的外设有不同的硬件触发源
 >
-
-
-
-
-
 
 ### 框图
 
@@ -48,7 +43,6 @@ CPU 通过此来对 DMA 进行配置
 外设通过DMA 请求，硬件触发 DMA 进行数据转运
 
 ### 基本结构
-
 ![Pasted image 20240805004624.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240805004624.png)
 
 **起始地址**
@@ -123,12 +117,6 @@ void DMA_ClearFlag(uint32_t DMAy_FLAG);//清除标志位
 ITStatus DMA_GetITStatus(uint32_t DMAy_IT);//获取中断状态
 void DMA_ClearITPendingBit(uint32_t DMAy_IT);//清除中断挂起位
 ```
-
-
-
-
-
-
 
 
 
