@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM变换器.md","permalink":"/A3- 电机及电力拖动/PWM变换器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.821+08:00","updated":"2025-04-14T18:38:58.853+08:00"}
+{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM变换器.md","permalink":"/A3- 电机及电力拖动/PWM变换器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.821+08:00","updated":"2025-05-26T00:59:49.659+08:00"}
 ---
 
 [[PWM调速系统\|PWM调速系统]]
@@ -155,7 +155,7 @@ PWM变换器的直流电源
 
 ![Pasted image 20240616235945.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240616235945.png)
 #### 泵升电压的产生原因
-对于PWM变换器中的滤波[[电容\|电容]]，其作用除[[滤波器\|滤波]] 外，还有当电机制动时吸收运行系统动能的作用
+对于PWM变换器中的滤波[[电容\|电容]]，其作用除[[滤波电路\|滤波]] 外，还有当电机制动时吸收运行系统动能的作用
 
 由于直流电源靠二极管整流器供电，不可能回馈电能，电机制动时只好对滤波电容充电，这将使电容两端电压升高，称作“泵升电压”
 

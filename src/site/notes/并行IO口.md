@@ -1,12 +1,12 @@
 ---
-{"dg-publish":true,"dg-path":"MCU微控制器/51 单片机/并行IO口.md","permalink":"/MCU微控制器/51 单片机/并行IO口/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-06-09T21:52:54.268+08:00","updated":"2024-12-02T14:55:13.228+08:00"}
+{"dg-publish":true,"dg-path":"MCU微控制器/51 单片机/并行IO口.md","permalink":"/MCU微控制器/51 单片机/并行IO口/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-06-09T21:52:54.268+08:00","updated":"2025-05-26T00:43:29.398+08:00"}
 ---
 
 
 (terminology::**Parallel I/O Ports**)
 MCS-51系列单片机有4个8位并行I/O端口,称为P0、P1、P2、P3
 每个端口都是准双向口，都包括一个[[锁存器\|锁存器]]、一个输出驱动器和一个输入缓冲器
-- 输出时，有[[FET\|FET]]，数据可以锁存
+- 输出时，有[[场效应三极管\|场效应三极管]]，数据可以锁存
 - 输入时，有[[三态门\|三态门]]，数据可以缓冲
 
 作为输入端口使用时，**向端口写 1**，然后读入。(使得内部的场效应管截止（不锁存）)   （四个端口都是如此）
