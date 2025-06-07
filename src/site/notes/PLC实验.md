@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC实验.md","permalink":"/A4- 过程控制系统/PLC/PLC实验/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-12-28T12:50:18.838+08:00","updated":"2025-05-21T01:06:51.436+08:00"}
+{"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC实验.md","permalink":"/A4- 过程控制系统/PLC/PLC实验/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-12-28T12:50:18.000+08:00","updated":"2025-06-03T19:04:56.000+08:00"}
 ---
 
 
@@ -17,11 +17,9 @@ RSLinx：查看 ip 地址
 编码器是用于位置测量的传感器
 
 ==驱动器/ 变频器==：PowerFlex 525 
-**控制交流电机**
-改变电机工作电源频率的方式来控制交流电动机
+**控制交流电机**：改变电机工作电源频率的方式来控制交流电动机
 
-==HSC==
-嵌入式 I/O  
+==HSC==  嵌入式 I/O  
 
 HSC 
 HSCAPP 
@@ -29,10 +27,8 @@ HSCAPP. Accumulator 返回计数值
 
 ==电机轴 PTO 组态 ==
 
-
 **控制步进电机**
 步进电机指令块 
-
 MC_Home  归位
 MC_MoveAbsolute  绝对运动
 MC_MoveRelative  相对运动
