@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","permalink":"/Nonlinear/","pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-03T19:07:18.000+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","permalink":"/Nonlinear/","pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-09T00:24:15.859+08:00"}
 ---
 
 
@@ -84,6 +84,7 @@ root((本网站))
 ***
 ### 关于网站
 有关网站的相关信息查看[[关于该网站\|关于该网站]]，如果其中的内容对你有帮助，你可以为本网站[开源的项目](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI) 点一颗⭐star，感激不尽！
+
 
 [![Stars|240](https://img.shields.io/github/stars/UNLINEARITY/Atlas-of-Control-and-AI.svg)](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/stargazers)
 
