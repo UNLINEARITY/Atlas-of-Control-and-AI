@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/micro-ROS.md","permalink":"/机器人/micro-ROS/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-09T17:26:12.361+08:00","updated":"2025-05-19T19:01:53.369+08:00"}
+{"dg-publish":true,"dg-path":"机器人/micro-ROS.md","permalink":"/机器人/micro-ROS/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-09T17:26:12.361+08:00","updated":"2025-06-18T22:12:37.806+08:00"}
 ---
 
 
@@ -10,7 +10,7 @@
 
 [[RCL\|RCL]]
 [[XRCE-DDS\|XRCE-DDS]]
-[[micro-ROS Platformio\|micro-ROS Platformio]]
+[[micro-ROS PlatformIO\|micro-ROS PlatformIO]]
 [[ROS2 Agent\|ROS2 Agent]] 
 [[ROS2 Message\|ROS2 Message]]
 

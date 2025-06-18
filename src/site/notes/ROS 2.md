@@ -1,9 +1,8 @@
 ---
-{"tags":["OpenSource","Framework"],"dg-publish":true,"dg-path":"机器人/ROS 2.md","permalink":"/机器人/ROS 2/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-28T16:44:19.000+08:00","updated":"2025-05-02T17:44:05.434+08:00"}
+{"tags":["OpenSource","Framework"],"dg-publish":true,"dg-path":"机器人/ROS 2.md","permalink":"/机器人/ROS 2/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-28T16:44:19.000+08:00","updated":"2025-06-19T00:42:40.964+08:00"}
 ---
 
 (website::https://docs.ros.org/)
-
 (terminology::**Robot Operating System 2**)  第二代机器人操作系统
 是一个用于[[机器人\|机器人]]软件开发的开源框架。它提供了一套工具和库，使得开发者能够更容易地创建复杂的机器人应用程序。ROS的核心目标是实现代码的复用、模块化以及跨平台的机器人软件开发。
 模块化、分布式
@@ -16,26 +15,21 @@ ROS2 是在 ROS 的基础上设计开发的第二代机器人操作系统，可�
 [[ROS2 相关基础\|ROS2 相关基础]]
 [[ROS2 的安装\|ROS2 的安装]]
 [[ROS2 Architecture\|ROS2 Architecture]]
-
 [[ROS2 Package\|ROS2 Package]]
 [[ROS2 Message\|ROS2 Message]]
 [[ROS2 Communication\|ROS2 Communication]]
 [[Ros2 bag\|Ros2 bag]]
-
+[[ROS and mqtt 代码使用\|ROS and mqtt 代码使用]]
 
 ![Pasted image 20250501214912.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501214912.png)
 
 
 ### 概念 Concepts 
-
 #### Basic Concepts 
 [[ROS2 Nodes\|ROS2 Nodes]]
 [[ROS2 Topics\|ROS2 Topics]]
 [[ROS2 Services\|ROS2 Services]]
-[[ROS2 Services\|ROS2 Services]]
-
 [[RCL\|RCL]]
-
 
 ### 实际实践
 创建工作区
