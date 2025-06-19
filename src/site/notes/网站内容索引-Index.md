@@ -13,15 +13,15 @@
 
 | File                        | terminology                                                            |
 | --------------------------- | ---------------------------------------------------------------------- |
+| [[复变函数论\|复变函数论]]         | **Complex Function**                                                   |
+| [[线性代数\|线性代数]]           | **Linear Algebra**                                                     |
+| [[概率论\|概率论]]             | **Probability**                                                        |
 | [[机器人\|机器人]]             | **Robotics**                                                           |
 | [[微积分\|微积分]]             | **Calculus**                                                           |
-| [[线性代数\|线性代数]]           | **Linear Algebra**                                                     |
 | [[数字电路\|数字电路]]           | <ul><li>**Digital Circuit**</li><li>**Memory Logic Circuit**</li></ul> |
-| [[复变函数论\|复变函数论]]         | **Complex Function**                                                   |
 | [[51 单片机\|51 单片机]]       | **8051 MCU**                                                           |
 | [[调节器与执行器\|调节器与执行器]]     | **Regulator and Actuator**                                             |
 | [[检测仪表\|检测仪表]]           | **Measurement Instruments**                                            |
-| [[概率论\|概率论]]             | **Probability**                                                        |
 | [[模拟电路\|模拟电路]]           | **Analog Circuit**                                                     |
 | [[现代控制理论\|现代控制理论]]       | **Modern Control Theory**                                              |
 | [[电机及电力拖动\|电机及电力拖动]]     | **Motor  Drive**                                                       |
@@ -56,6 +56,9 @@
 
 | File                                            | 术语-terminology                                                                                                                                                                                      |
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [[计算机控制系统\|计算机控制系统]]                         | **Computer Control System**                                                                                                                                                                         |
+| [[IoT\|IoT]]                                 | **Internet of Things**                                                                                                                                                                              |
+| [[Python\|Python]]                           | \-                                                                                                                                                                                                  |
 | [[泰勒级数\|泰勒级数]]                               | **Taylor Series**                                                                                                                                                                                   |
 | [[复变函数项级数\|复变函数项级数]]                         | \-                                                                                                                                                                                                  |
 | [[最小二乘法\|最小二乘法]]                             | **Least Squares Method**                                                                                                                                                                            |
@@ -118,7 +121,6 @@
 | [[初等函数\|初等函数]]                               | **Elementary Functions**                                                                                                                                                                            |
 | [[强化学习\|强化学习]]                               | **Reinforcement Learning**                                                                                                                                                                          |
 | [[邻域\|邻域]]                                   | **Neighborhood**                                                                                                                                                                                    |
-| [[Python\|Python]]                           | \-                                                                                                                                                                                                  |
 | [[复积分\|复积分]]                                 | **Complex Integral**                                                                                                                                                                                |
 | [[List\|List]]                               | \-                                                                                                                                                                                                  |
 | [[复合闭路定理\|复合闭路定理]]                           | \-                                                                                                                                                                                                  |
@@ -130,7 +132,6 @@
 | [[算法\|算法]]                                   | **Algorithm**                                                                                                                                                                                       |
 | [[中断\|中断]]                                   | **Interrupt**                                                                                                                                                                                       |
 | [[8051中断系统\|8051中断系统]]                       | \-                                                                                                                                                                                                  |
-| [[计算机控制系统\|计算机控制系统]]                         | **Computer Control System**                                                                                                                                                                         |
 | [[8051汇编指令集\|8051汇编指令集]]                     | \-                                                                                                                                                                                                  |
 | [[C51\|C51]]                                 | \-                                                                                                                                                                                                  |
 | [[微控制器\|微控制器]]                               | **Microcontroller Unit**                                                                                                                                                                            |
@@ -323,7 +324,6 @@
 | [[传递函数矩阵\|传递函数矩阵]]                           | **Transfer Function Matrix**                                                                                                                                                                        |
 | [[史密斯预估补偿控制\|史密斯预估补偿控制]]                     | \-                                                                                                                                                                                                  |
 | [[RTOS\|RTOS]]                               | **Real-Time Operating System**                                                                                                                                                                      |
-| [[IoT\|IoT]]                                 | **Internet of Things**                                                                                                                                                                              |
 | [[MQTT\|MQTT]]                               | **Message Queuing Telemetry Transport**                                                                                                                                                             |
 | [[DDS\|DDS]]                                 | **Data Distribution Service**                                                                                                                                                                       |
 | [[聚类\|聚类]]                                   | **Clustering**                                                                                                                                                                                      |

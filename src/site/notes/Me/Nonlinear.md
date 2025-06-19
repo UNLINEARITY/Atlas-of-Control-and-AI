@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","permalink":"/Nonlinear/","pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-09T00:24:15.859+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-19T11:43:17.495+08:00"}
 ---
 
 
