@@ -1,5 +1,5 @@
 ---
-{"aliases":["物联网"],"dg-publish":true,"dg-path":"IoT/IoT.md","dg-pinned":true,"permalink":"/IoT/IoT/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-11-21T15:59:31.851+08:00","updated":"2025-05-02T16:58:01.260+08:00"}
+{"aliases":["物联网"],"dg-publish":true,"dg-path":"IoT/IoT.md","dg-pinned":true,"permalink":"/IoT/IoT/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-11-21T15:59:31.851+08:00","updated":"2025-06-19T11:34:53.891+08:00"}
 ---
 
 (terminology::**Internet of Things**)  **物联网**
@@ -56,4 +56,11 @@
 物联网不仅是一项技术，更是数字社会的新型信息基础设施。它以“万物可连接、万物可计算、万物可协作”为愿景，推动社会从信息化、网络化迈向智能化。物联网的发展已经从“技术探索”进入“规模化落地”阶段，未来将在 AIoT 融合、智能边缘、隐私计算、数字孪生、6G 融合通信等方向持续拓展应用边界。
 
 如今，物联网不再局限于“物与物的连接”，而是迈向“物、网、云、边、智”的一体化协同，正在重塑产业链、价值链与创新链，对未来社会的运行模式、产业发展乃至人类生活方式产生深远影响。
+
+
+
+#### 相关理论
+[[Age of Information\|Age of Information]]
+[[Artificial Internet of Things\|Artificial Internet of Things]]
+
 

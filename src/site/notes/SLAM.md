@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/SLAM.md","permalink":"/机器人/SLAM/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-22T16:05:05.090+08:00","updated":"2025-06-19T01:04:35.883+08:00"}
+{"dg-publish":true,"dg-path":"机器人/SLAM.md","permalink":"/机器人/SLAM/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-22T16:05:05.090+08:00","updated":"2025-06-20T22:56:45.729+08:00"}
 ---
 
 (terminology::**Simultaneous Localization and Mapping**)  同步定位与地图构建
@@ -102,7 +102,7 @@ $$
 - **优点：** 理论成熟，实时性好。
 - **缺点：** 计算复杂度高（随地图规模增加而恶化），对非线性系统适用性有限。
 
-基于粒子滤波的 SLAM：FastSLAM
+基于[[粒子滤波\|粒子滤波]]的 SLAM：FastSLAM
 - 将路径和地图分开估计，使用粒子滤波估计路径，条件独立地使用 EKF 估计地图。
 - **优点：** 适合大规模环境，复杂度较低。
 - **缺点：** 粒子数需要足够多以保证精度，粒子退化问题。

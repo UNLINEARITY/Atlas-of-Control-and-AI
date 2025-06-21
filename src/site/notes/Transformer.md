@@ -1,10 +1,11 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/深度学习/Transformer.md","permalink":"/人工智能/深度学习/Transformer/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-13T23:08:41.000+08:00","updated":"2025-04-29T11:37:06.008+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/深度学习/Transformer.md","permalink":"/人工智能/深度学习/Transformer/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-13T23:08:41.000+08:00","updated":"2025-06-22T00:52:05.580+08:00"}
 ---
 
 
 (terminology::**Transformer**)   Seq2seq  model with  Self-attention
 Transformer是一种基于**自注意力机制**（(terminology::**Self-attention**) ）的[[深度学习\|深度学习]]模型框架，最早用于处理序列数据，尤其在自然语言处理（NLP）中取得了突破性成果，如今也广泛应用于计算机视觉、语音处理等领域。
+
 与传统的递归神经网络（[[RNN\|RNN]]）、卷积神经网络（[[CNN\|CNN]]）不同，Transformer完全基于注意力机制，摒弃了序列依赖和局部卷积，能够并行处理整个输入序列。
 
 ### 提出背景

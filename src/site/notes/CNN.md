@@ -1,5 +1,5 @@
 ---
-{"aliases":["卷积神经网络"],"dg-publish":true,"dg-path":"人工智能/深度学习/CNN.md","permalink":"/人工智能/深度学习/CNN/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-31T21:58:18.000+08:00","updated":"2025-05-20T18:39:14.000+08:00"}
+{"aliases":["卷积神经网络"],"dg-publish":true,"dg-path":"人工智能/深度学习/CNN.md","permalink":"/人工智能/深度学习/CNN/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-31T21:58:18.000+08:00","updated":"2025-06-22T00:42:59.731+08:00"}
 ---
 
 (terminology::**Convolutional Neural Network** ) 卷积神经网络
@@ -33,4 +33,6 @@ $$\begin{align}
 5. **卷积神经网络**
 卷积神经网络（Convolutional Neural Network, CNN）是一种深度学习模型，利用卷积层来提取输入数据的特征。卷积层的基本操作包括卷积、激活函数和池化（如最大池化）。
 
+
+[[ResNet\|ResNet]]：残差网络
 

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","permalink":"/Nonlinear/","pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-09T00:24:15.859+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-21T00:18:46.463+08:00"}
 ---
 
 
@@ -59,6 +59,8 @@ root((本网站))
 > "指穷于为薪，火传也，不知其尽也"
 
 > "人生总有出路，活着才有未来"
+
+
 ***
 ### 一、该网站的核心思想 
 本网站的由来其实也不能完全说是一种巧合，更多的是源于一种兴致的上升，一种想要传播基础知识的念头，一个致力于构建知识体系、惠及他人的想法。
@@ -83,6 +85,8 @@ root((本网站))
 
 ***
 ### 关于网站
+> Nothing really matters; starting is what counts most.
+
 有关网站的相关信息查看[[关于该网站\|关于该网站]]，如果其中的内容对你有帮助，你可以为本网站[开源的项目](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI) 点一颗⭐star，感激不尽！
 
 
