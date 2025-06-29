@@ -1,5 +1,5 @@
 ---
-{"tags":["OpenSource","Framework"],"dg-publish":true,"dg-path":"机器人/ROS 2.md","permalink":"/机器人/ROS 2/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-28T16:44:19.000+08:00","updated":"2025-06-19T00:42:40.964+08:00"}
+{"tags":["OpenSource","Framework"],"dg-publish":true,"dg-path":"机器人/ROS 2.md","permalink":"/机器人/ROS 2/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-28T16:44:19.000+08:00","updated":"2025-06-27T00:11:27.819+08:00"}
 ---
 
 (website::https://docs.ros.org/)
@@ -39,6 +39,10 @@ ROS2 是在 ROS 的基础上设计开发的第二代机器人操作系统，可�
 测试通信 ros2 topic echo / ros2 topic pub
  
 ### 相关工具
+
+
+
+
 
 | 相关工具       | 简要介绍         |
 | ---------- | ------------ |
