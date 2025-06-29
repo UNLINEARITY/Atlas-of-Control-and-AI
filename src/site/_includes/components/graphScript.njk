@@ -88,6 +88,8 @@
         }
         function getNodeColorByPath(dgPath, defaultColor) {
             if (!dgPath) return defaultColor;
+            if (dgPath.includes("代数")) return "#F59E0B";    
+            if (dgPath.includes("机器人")) return "#84CC16";
             if (dgPath.includes("过程控制")) return "#9A4E90";
             if (dgPath.includes("智能")) return "#FF0000";
             if (dgPath.includes("控制")) return "#7496ff";
