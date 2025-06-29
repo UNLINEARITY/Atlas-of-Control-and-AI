@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/SLAM.md","permalink":"/机器人/SLAM/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-22T16:05:05.090+08:00","updated":"2025-06-20T22:56:45.729+08:00"}
+{"dg-publish":true,"dg-path":"机器人/SLAM.md","permalink":"/机器人/SLAM/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-22T16:05:05.090+08:00","updated":"2025-06-29T22:28:17.340+08:00"}
 ---
 
 (terminology::**Simultaneous Localization and Mapping**)  同步定位与地图构建
@@ -7,10 +7,14 @@
 > 本质上是一个 **递归状态估计问题**，可以抽象成[[概率图模型\|概率图模型]]
 
 在未知环境中，让机器人或自动驾驶汽车等智能体通过传感器数据实时地构建环境地图并同时定位自身位置的技术。
+
+[[Map\|Map]]
+
 ### SLAM的基本知识
  SLAM 两大任务：**定位**，**建图**
 1. **运动估计（前端）**：根据传感器信息估计机器人当前位姿。
 2. **地图优化（后端）**：构建地图，纠正漂移，保证全局一致性。
+
 
 #### 关键技术组件
 | 模块    | 主要算法                                              |
@@ -155,3 +159,4 @@ RTAB-Map  RGB-D SLAM
 #### 2. 实际使用
 [[ROS2  slam_toolbox\|ROS2  slam_toolbox]]
 
+### 开源库
