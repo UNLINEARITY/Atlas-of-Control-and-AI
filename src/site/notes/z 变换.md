@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-04-20T19:26:00.487+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-30T17:13:17.000+08:00"}
 ---
 
 
@@ -23,10 +23,13 @@ E(z)=\mathscr{Z}[e(t)] =\mathscr{Z}[e^{*}(t)]=\sum\limits_{k=0}^{\infty} e(nT){\
 $\mathscr{Z}$ 表示取 z 变换，习惯上称 $E(z)$ 是采样信号的 z 变换。
 
 
+常用结论：
 $$\begin{align}
 \large \delta(t-kT)\quad  {\color{red}\Leftrightarrow} \quad e^{ -kTs } \quad{\color{red}\Leftrightarrow} \quad  z^{-k}
 \end{align}$$
+
 均表示信号延迟了 $k$ 个采样周期，则 $z^{-1}$ 就为单位延迟因子：表示信号延迟了一个采样周期
+
 ### 二、z 变换方法
 #### 1. 级数求和法（定义）
 根据定义写为级数展开形式，根据[[常数项级数#1. 等比级数/几何级数\|级数知识]]得到最终表达式：
@@ -40,6 +43,7 @@ $$\begin{align}
 
 #### 2. 部分分式法
 先求**已知连续函数的拉氏变换**  $E(s)$ ，将有理分式 $E(s)$ 展开为**部分分式之和**的形式，对每个部分分式进行 z 变换。（展开为部分分式重要的是用[[留数#2. 极点（主要）\|留数法]]来求系数 $c_{i}$）
+
 $$\begin{align}
 E(s)= \sum\limits_{i=1}^{n} \dfrac{c_{i}}{s-p_{i}}\quad \Rightarrow \quad E(z)=\sum\limits_{i=1}^{n} \dfrac{c_{i}}{1-e^{ p_{i}T }z^{-1}}
 \end{align}$$
@@ -47,6 +51,8 @@ m 重极点的系数：
 $$\begin{align}
 c_{i}= \dfrac{1}{(m-1)!} \lim\limits_{ z \to z_{0} } \dfrac{\mathrm{d}^{m-1} }{\mathrm{d} z^{m-1}} \left[(z-z_{0})^{m}e(z)\right] 
 \end{align}$$
+
+
 ### 三、常见函数的 z 变换
 
 |           |        时间函数         |           离散信号           |        拉普拉斯变换         |                         z 变换                          |
@@ -72,7 +78,7 @@ $$\begin{align}
 
 ### 四、z 变换的性质
 #### 1. 线性定理
-z 变换是一种[[线性变换\|线性变换]]，满足齐次性与均匀性
+z 变换是一种[[线性变换\|线性变换]]，满足齐次性与均匀性：
 $$\begin{align}
 \mathscr{Z}[ae(t)]&=aE(z) \\
 \mathscr{Z}[e_{1}(t)\pm e_{2}(t)]&=E_{1}(z)\pm E_{2}(z)
@@ -93,10 +99,12 @@ $$\begin{align}
  & =z^{-m}F(z)
 \end{align}$$
 
+
 - 向左平移为**超前**：
 $$\begin{align}
 \mathscr{Z}[f(kT+mT)]&=z^{m}\left[F(z)-\sum\limits_{n=0}^{m-1}f(nT)z^{-n}\right]
 \end{align}$$
+
 令 $k+m=n$，得到：
 $$\begin{align}
 \mathscr{Z}[f(kT+mT)] & =\sum\limits_{k=0}^{\infty} f(kT+mT)z^{-k}  =\sum\limits_{n=m}^{\infty} f(nT)z^{-(n-m)} \\
@@ -121,7 +129,6 @@ e(\infty)=\lim\limits_{ n \to \infty } e(nT)=\lim\limits_{ z \to 1 } (z-1)E(z)
 
 > [!important] 
 > **注意终值定理的使用条件： 如果不稳定，不能直接使用**！！！
-
 
 #### 5. 微分定理
 $$\begin{align}

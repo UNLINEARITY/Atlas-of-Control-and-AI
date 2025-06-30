@@ -1,9 +1,9 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/Park变换.md","tags":["Transform"],"permalink":"/A1- 数学/8. 变换/Park变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-18T14:32:37.776+08:00","updated":"2025-04-14T18:36:05.317+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/Park变换.md","tags":["Transform"],"permalink":"/A1- 数学/8. 变换/Park变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-18T14:32:37.000+08:00","updated":"2025-06-30T16:57:54.000+08:00"}
 ---
 
 
-Park 变换是电机控制中的另一种坐标变换，它将 [[Clarke变换\|Clarke变换]]得到的两相正交坐标系（α、β）转换为与转子磁通同步旋转的 dq 坐标系。这种变换对于实现永磁同步电机（PMSM）和无刷直流电机（BLDC）的矢量控制至关重要，因为它允许控制算法在旋转坐标系中独立地控制电机的磁场和转矩。
+Park 变换是电机控制中的另一种坐标变换，它将 [[Clarke 变换\|Clarke 变换]]得到的两相正交坐标系（α、β）转换为与转子磁通同步旋转的 dq 坐标系。这种变换对于实现永磁同步电机（PMSM）和无刷直流电机（BLDC）的矢量控制至关重要，因为它允许控制算法在旋转坐标系中独立地控制电机的磁场和转矩。
 
 Park 变换的数学表达式如下：
  $$\begin{bmatrix} i_d \\ i_q \end{bmatrix} = \begin{bmatrix} \cos (\theta) & \sin (\theta) \\ -\sin (\theta) & \cos (\theta) \end{bmatrix} \begin{bmatrix} i_{\alpha} \\ i_{\beta} \end{bmatrix}$$

@@ -1,9 +1,10 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/5. 概率论/t分布.md","permalink":"/A1- 数学/5. 概率论/t分布/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-15T17:01:07.717+08:00","updated":"2025-04-14T18:25:19.708+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/5. 概率论/t分布.md","permalink":"/A1- 数学/5. 概率论/t分布/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-15T17:01:07.717+08:00","updated":"2025-06-30T22:46:02.330+08:00"}
 ---
 
-(terminology::**Student's t-distribution**)  $T\sim t(n)$
->小样本的分布
+(terminology::**Student's t-Distribution**)  $T\sim t(n)$
+> 小样本的分布
+
 
 $T= \dfrac{X}{\sqrt{Y / n}}$   服从自由度为 $n$ 的 t 分布 $T\sim t(n)$
 -  $X\sim N(0,1)$   [[正态分布\|正态分布]]

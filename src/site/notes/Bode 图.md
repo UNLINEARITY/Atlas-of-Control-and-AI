@@ -1,11 +1,11 @@
 ---
-{"dg-publish":true,"dg-path":"A2- 控制理论/1. 经典控制理论/Bode图.md","tags":["Graph"],"permalink":"/A2- 控制理论/1. 经典控制理论/Bode图/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.724+08:00","updated":"2025-05-03T21:23:11.574+08:00"}
+{"dg-publish":true,"dg-path":"A2- 控制理论/1. 经典控制理论/Bode图.md","tags":["Graph"],"permalink":"/A2- 控制理论/1. 经典控制理论/Bode图/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-30T16:13:58.000+08:00"}
 ---
 
 (terminology::**Bode Plot**)  **对数频率特性图**
 > 一种将**系统的频率响应**以**对数坐标**表示的图形工具，用于描述传递函数 $G(s)$ 在 $s=j\omega$ 时的性质，便于进行频域分析与控制系统设计。
 
-- **横坐标**：频率的[[对数分度\|对数分度]]   $\lg \omega$    $rad / s$
+- **横坐标**：频率的对数分度   $\lg \omega$    $rad / s$
 - **纵坐标：**  [[频率特性\|频率特性]]
 	- **幅频特性**：$L(\omega)=20\lg |G(j\omega)|$    单位： [[分贝\|dB]]   显示增益随频率变化的趋势
 	- **相频特性**：$\phi(\omega)=\angle G(j\omega)$           单位：$度^{\circ}$    显示相角随频率变化的趋势
@@ -31,7 +31,9 @@ G(s)&=\dfrac{K\prod\limits_{i=1}^{m}(\tau_{i}s+1)}{s^{v}\prod\limits_{i=1}^{n-v}
 一般补画**对数相频特性**曲线
 #### 1. 低频段初始角度补画
 在 [[Nyquist图\|Nyquist图]]中：从 $G(0^{+})$ 逆时针开始补画 $v\times 90^{\circ}$ ，半径为 $\infty$ 的顺时针圆弧
+
 对应于 Bode 图中：从 $\omega$ 较小，且 $L(\omega)>0$ 的点向上补画 $v\times 90^{\circ}$ 的一条虚直线
+
 #### 2. 不连续相位补画
 在 Nyquist 图中：从 $G(j\omega_{n}^{-})$ 以半径为无穷大顺时针作 $v\times 180^{\circ}$ 的圆弧至 $G(j\omega_{n}^{+})$
 
