@@ -1,6 +1,7 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:11:42.646+08:00","updated":"2025-06-30T23:45:56.353+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:11:42.646+08:00","updated":"2025-07-05T19:11:01.949+08:00"}
 ---
+
 
 (terminology::**Lie Group**)  李群
 同时具有[[群\|群]]结构和[[流形\|流形]]结构的数学对象
