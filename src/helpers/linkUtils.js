@@ -30,18 +30,28 @@ function extractLinks(content) {
   ];
 }
 
-function getGraph(data) {
+// 修改为 async 函数
+async function getGraph(data) {
   let nodes = {};
   let links = [];
   let stemURLs = {};
   let homeAlias = "/";
-  (data.collections.note || []).forEach((v, idx) => {
-    let fpath = v.filePathStem.replace("/notes/", "");
-    let parts = fpath.split("/");
+
+  const noteEntries = data.collections.note || [];
+
+  for (let idx = 0; idx < noteEntries.length; idx++) {
+    const v = noteEntries[idx];
+    const fpath = v.filePathStem.replace("/notes/", "");
+    const parts = fpath.split("/");
     let group = "none";
     if (parts.length >= 3) {
       group = parts[parts.length - 2];
     }
+
+    // ✅ 异步读取模板内容
+    await v.template.read();
+    const rawContent = v.template.frontMatter.content;
+
     nodes[v.url] = {
       id: idx,
       title: v.data.title || v.fileSlug,
@@ -51,12 +61,13 @@ function getGraph(data) {
         v.data["dg-home"] ||
         (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1) ||
         false,
-      outBound: extractLinks(v.template.frontMatter.content),
+      outBound: extractLinks(rawContent),
       neighbors: new Set(),
       backLinks: new Set(),
       noteIcon: v.data.noteIcon || process.env.NOTE_ICON_DEFAULT,
       hide: v.data.hideInGraph || false,
     };
+
     stemURLs[fpath] = v.url;
     if (
       v.data["dg-home"] ||
@@ -64,7 +75,8 @@ function getGraph(data) {
     ) {
       homeAlias = v.url;
     }
-  });
+  }
+
   Object.values(nodes).forEach((node) => {
     let outBound = new Set();
     node.outBound.forEach((olink) => {
@@ -82,11 +94,13 @@ function getGraph(data) {
       }
     });
   });
+
   Object.keys(nodes).map((k) => {
     nodes[k].neighbors = Array.from(nodes[k].neighbors);
     nodes[k].backLinks = Array.from(nodes[k].backLinks);
     nodes[k].size = nodes[k].neighbors.length;
   });
+
   return {
     homeAlias,
     nodes,
@@ -94,6 +108,7 @@ function getGraph(data) {
   };
 }
 
+// 导出
 exports.wikiLinkRegex = wikiLinkRegex;
 exports.internalLinkRegex = internalLinkRegex;
 exports.extractLinks = extractLinks;
