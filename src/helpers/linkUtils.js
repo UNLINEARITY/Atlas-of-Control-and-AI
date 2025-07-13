@@ -7,22 +7,22 @@ function caselessCompare(a, b) {
 
 function extractLinks(content) {
   return [
-    ...(content.match(wikiLinkRegex) || []).map(
+    ...(content?.match(wikiLinkRegex) || []).map(
       (link) =>
         link
           .slice(2, -2)
           .split("|")[0]
-          .replace(/.(md|markdown)\s?$/i, "")
+          .replace(/\.(md|markdown)\s?$/i, "")
           .replace("\\", "")
           .trim()
           .split("#")[0]
     ),
-    ...(content.match(internalLinkRegex) || []).map(
+    ...(content?.match(internalLinkRegex) || []).map(
       (link) =>
         link
           .slice(6, -1)
           .split("|")[0]
-          .replace(/.(md|markdown)\s?$/i, "")
+          .replace(/\.(md|markdown)\s?$/i, "")
           .replace("\\", "")
           .trim()
           .split("#")[0]
@@ -30,17 +30,15 @@ function extractLinks(content) {
   ];
 }
 
-// 修改为 async 函数
-async function getGraph(data) {
+function getGraph(data) {
   let nodes = {};
   let links = [];
   let stemURLs = {};
   let homeAlias = "/";
 
-  const noteEntries = data.collections.note || [];
+  const notes = (data?.collections && data.collections.note) || [];
 
-  for (let idx = 0; idx < noteEntries.length; idx++) {
-    const v = noteEntries[idx];
+  notes.forEach((v, idx) => {
     const fpath = v.filePathStem.replace("/notes/", "");
     const parts = fpath.split("/");
     let group = "none";
@@ -48,9 +46,7 @@ async function getGraph(data) {
       group = parts[parts.length - 2];
     }
 
-    // ✅ 异步读取模板内容
-    await v.template.read();
-    const rawContent = v.template.frontMatter.content;
+    const content = v?.template?.frontMatter?.content || "";
 
     nodes[v.url] = {
       id: idx,
@@ -59,9 +55,9 @@ async function getGraph(data) {
       group,
       home:
         v.data["dg-home"] ||
-        (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1) ||
+        (v.data.tags && v.data.tags.includes("gardenEntry")) ||
         false,
-      outBound: extractLinks(rawContent),
+      outBound: extractLinks(content),
       neighbors: new Set(),
       backLinks: new Set(),
       noteIcon: v.data.noteIcon || process.env.NOTE_ICON_DEFAULT,
@@ -69,33 +65,35 @@ async function getGraph(data) {
     };
 
     stemURLs[fpath] = v.url;
+
     if (
       v.data["dg-home"] ||
-      (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1)
+      (v.data.tags && v.data.tags.includes("gardenEntry"))
     ) {
       homeAlias = v.url;
     }
-  }
+  });
 
   Object.values(nodes).forEach((node) => {
     let outBound = new Set();
     node.outBound.forEach((olink) => {
-      let link = (stemURLs[olink] || olink).split("#")[0];
+      const link = (stemURLs[olink] || olink).split("#")[0];
       outBound.add(link);
     });
     node.outBound = Array.from(outBound);
+
     node.outBound.forEach((link) => {
-      let n = nodes[link];
-      if (n) {
-        n.neighbors.add(node.url);
-        n.backLinks.add(node.url);
-        node.neighbors.add(n.url);
-        links.push({ source: node.id, target: n.id });
+      const targetNode = nodes[link];
+      if (targetNode) {
+        targetNode.neighbors.add(node.url);
+        targetNode.backLinks.add(node.url);
+        node.neighbors.add(targetNode.url);
+        links.push({ source: node.id, target: targetNode.id });
       }
     });
   });
 
-  Object.keys(nodes).map((k) => {
+  Object.keys(nodes).forEach((k) => {
     nodes[k].neighbors = Array.from(nodes[k].neighbors);
     nodes[k].backLinks = Array.from(nodes[k].backLinks);
     nodes[k].size = nodes[k].neighbors.length;
@@ -108,7 +106,6 @@ async function getGraph(data) {
   };
 }
 
-// 导出
 exports.wikiLinkRegex = wikiLinkRegex;
 exports.internalLinkRegex = internalLinkRegex;
 exports.extractLinks = extractLinks;
