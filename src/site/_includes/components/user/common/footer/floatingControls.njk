@@ -2,12 +2,11 @@
     <a id="github" href="https://github.com/UNLINEARITY/Learn-Everything" data-tooltip="Star On Github" data-tooltip-position="top">
         <i class="svg-icon" icon-name="star" aria-hidden="true"></i>
     </a>
-
-    <a id="sourcefile" href="#" target="_blank" data-tooltip="查看本页源文件" data-tooltip-position="top">
+    {% set sourcePath = page.inputPath | replace('src/site/notes/', '') %}
+    <a id="sourcefile" href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/tree/main/src/site/notes/{{ sourcePath }}" data-tooltip="查看本页源文件" data-tooltip-position="top" target="_blank">
         <i class="svg-icon" icon-name="file-code" aria-hidden="true"></i>
     </a>
-
-    <a id="donate" href="https://www.unlinearity.top/A0-%20%E5%85%B3%E4%BA%8E%E8%AF%A5%E7%BD%91%E7%AB%99/%E6%94%AF%E6%8C%81%E6%9C%AC%E7%BD%91%E7%AB%99/" 
+    <a id="donate" href="https://www.unlinearity.top/%E5%85%B3%E4%BA%8E%E8%AF%A5%E7%BD%91%E7%AB%99/%E6%94%AF%E6%8C%81%E6%9C%AC%E7%BD%91%E7%AB%99/" 
        data-tooltip="Donate or Sponsor" data-tooltip-position="top">
         <i class="svg-icon" icon-name="heart" aria-hidden="true"></i>
     </a>
@@ -188,25 +187,4 @@
             }
         });
     }
-
-    // 跳转到本页面源文件按钮逻辑
-    (function(){
-        let sourceBtn = document.getElementById('sourcefile');
-        if(sourceBtn){
-            // 假设 window.pageMeta.dgPath 或 window.pageMeta.permalink 可用
-            let mdPath = '';
-            if(window.pageMeta && window.pageMeta.dgPath){
-                mdPath = window.pageMeta.dgPath.replace(/^\//, '');
-            }else if(window.permalink){
-                mdPath = window.permalink.replace(/^\//, '').replace(/\/$/, '') + '.md';
-            }
-            let githubBase = 'https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/tree/main/src/site/notes/';
-            if(mdPath){
-                sourceBtn.href = githubBase + mdPath;
-            }else{
-                sourceBtn.style.display = 'none';
-            }
-        }
-    })();
-
 </script>

@@ -1,30 +1,49 @@
 const sortTree = (unsorted) => {
+  //Sort by folder before file, then by name
   const orderedTree = Object.keys(unsorted)
     .sort((a, b) => {
+
       let a_pinned = unsorted[a].pinned || false;
       let b_pinned = unsorted[b].pinned || false;
       if (a_pinned != b_pinned) {
-        return a_pinned ? -1 : 1;
+        if (a_pinned) {
+          return -1;
+        } else {
+          return 1;
+        }
       }
 
-      const a_is_note = a.includes(".md");
-      const b_is_note = b.includes(".md");
-      if (a_is_note !== b_is_note) {
-        return a_is_note ? 1 : -1;
+      const a_is_note = a.indexOf(".md") > -1;
+      const b_is_note = b.indexOf(".md") > -1;
+
+      if (a_is_note && !b_is_note) {
+        return 1;
       }
 
+      if (!a_is_note && b_is_note) {
+        return -1;
+      }
+
+      //Regular expression that extracts any initial decimal number
       const aNum = parseFloat(a.match(/^\d+(\.\d+)?/));
       const bNum = parseFloat(b.match(/^\d+(\.\d+)?/));
+
       const a_is_num = !isNaN(aNum);
       const b_is_num = !isNaN(bNum);
-      if (a_is_num && b_is_num && aNum !== bNum) {
-        return aNum - bNum;
+
+      if (a_is_num && b_is_num && aNum != bNum) {
+        return aNum - bNum; //Fast comparison between numbers
       }
 
-      return a.toLowerCase().localeCompare(b.toLowerCase());
+      if (a.toLowerCase() > b.toLowerCase()) {
+        return 1;
+      }
+
+      return -1;
     })
     .reduce((obj, key) => {
       obj[key] = unsorted[key];
+
       return obj;
     }, {});
 
@@ -44,38 +63,47 @@ function getPermalinkMeta(note, key) {
   let noteIcon = process.env.NOTE_ICON_DEFAULT;
   let hide = false;
   let pinned = false;
-  let folders = [];
-
+  let folders = null;
   try {
-    permalink = note.data?.permalink || permalink;
-    if (note.data?.tags?.includes("gardenEntry")) {
-      permalink = "/";
+    if (note.data.permalink) {
+      permalink = note.data.permalink;
     }
-    name = note.data?.title || name;
-    noteIcon = note.data?.noteIcon || noteIcon;
-    hide = note.data?.hide || false;
-    pinned = note.data?.pinned || false;
-
-    if (note.data?.["dg-path"]) {
+    if (note.data.tags && note.data.tags.indexOf("gardenEntry") != -1) {
+      permalink = "/";
+    }    
+    if (note.data.title) {
+      name = note.data.title;
+    }
+    if (note.data.noteIcon) {
+      noteIcon = note.data.noteIcon;
+    }
+    // Reason for adding the hide flag instead of removing completely from file tree is to
+    // allow users to use the filetree data elsewhere without the fear of losing any data.
+    if (note.data.hide) {
+      hide = note.data.hide;
+    }
+    if (note.data.pinned) {
+      pinned = note.data.pinned;
+    }
+    if (note.data["dg-path"]) {
       folders = note.data["dg-path"].split("/");
     } else {
-      folders = note.filePathStem.split("notes/")[1].split("/");
+      folders = note.filePathStem
+        .split("notes/")[1]
+        .split("/");
     }
-
-    if (folders.length > 0) {
-      folders[folders.length - 1] += ".md";
-    }
-  } catch (e) {
-    console.warn(`Failed to parse note metadata: ${note.filePathStem}`, e);
+    folders[folders.length - 1]+= ".md";
+  } catch {
+    //ignore
   }
 
   return [{ permalink, name, noteIcon, hide, pinned }, folders];
 }
 
 function assignNested(obj, keyPath, value) {
-  const lastKeyIndex = keyPath.length - 1;
-  for (let i = 0; i < lastKeyIndex; ++i) {
-    const key = keyPath[i];
+  lastKeyIndex = keyPath.length - 1;
+  for (var i = 0; i < lastKeyIndex; ++i) {
+    key = keyPath[i];
     if (!(key in obj)) {
       obj[key] = { isFolder: true };
     }
@@ -85,15 +113,13 @@ function assignNested(obj, keyPath, value) {
 }
 
 function getFileTree(data) {
-  const notes = (data?.collections?.note) || []; // ✅ 防御性访问
   const tree = {};
-
-  notes.forEach((note) => {
+  (data.collections.note || []).forEach((note) => {
     const [meta, folders] = getPermalinkMeta(note);
     assignNested(tree, folders, { isNote: true, ...meta });
   });
-
-  return sortTree(tree);
+  const fileTree = sortTree(tree);
+  return fileTree;
 }
 
 exports.getFileTree = getFileTree;
