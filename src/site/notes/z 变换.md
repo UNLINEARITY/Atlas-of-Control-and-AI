@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-30T17:13:17.000+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-07-09T15:40:58.000+08:00"}
 ---
 
 
@@ -16,12 +16,13 @@ e^{*}(t)&= e(t)\delta _{T}(t)=\sum\limits_{n=0}^{\infty} e(nT)\delta(t-nT)
 $$\begin{align}
 E^{*}(s)&=\mathscr{L}[e^{*}(t)]=\sum\limits_{n=0}^{\infty} e(nT) {\color{red}   \mathscr{L}\left[\delta(t-nT)\right]} =\sum\limits_{n=0}^{\infty} e(nT){\color{red  }e^{ -nsT } } 
 \end{align}$$
+
 3. 令 $\large z=e^{ sT }$，得到 z 变换：
 $$\begin{align}
 E(z)=\mathscr{Z}[e(t)] =\mathscr{Z}[e^{*}(t)]=\sum\limits_{k=0}^{\infty} e(nT){\color{red}   z^{-k}} 
 \end{align}$$
-$\mathscr{Z}$ 表示取 z 变换，习惯上称 $E(z)$ 是采样信号的 z 变换。
 
+$\mathscr{Z}$ 表示取 z 变换，习惯上称 $E(z)$ 是采样信号的 z 变换。
 
 常用结论：
 $$\begin{align}
@@ -29,6 +30,7 @@ $$\begin{align}
 \end{align}$$
 
 均表示信号延迟了 $k$ 个采样周期，则 $z^{-1}$ 就为单位延迟因子：表示信号延迟了一个采样周期
+
 
 ### 二、z 变换方法
 #### 1. 级数求和法（定义）
