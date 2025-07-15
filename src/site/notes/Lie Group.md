@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:11:42.646+08:00","updated":"2025-07-05T19:11:01.949+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:11:42.646+08:00","updated":"2025-07-16T00:46:34.578+08:00"}
 ---
 
 
@@ -9,6 +9,10 @@
 - **流形结构**：是一个连续可微的空间，可以进行微积分运算。
 
 > Lie群是一种可以平滑变化的连续群，群元素之间不仅可以做代数运算，而且可以连续移动、微分、优化。
+
+
+![Pasted image 20250716004633.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250716004633.png)
+
 
 ### 数学定义
 一个集合 $G$ 是一个 Lie 群，当且仅当满足以下两个条件：
