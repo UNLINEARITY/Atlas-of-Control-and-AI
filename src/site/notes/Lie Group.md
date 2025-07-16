@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:11:42.646+08:00","updated":"2025-07-16T00:46:34.578+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:11:42.646+08:00","updated":"2025-07-16T09:28:24.781+08:00"}
 ---
 
 
@@ -11,7 +11,7 @@
 > Lie群是一种可以平滑变化的连续群，群元素之间不仅可以做代数运算，而且可以连续移动、微分、优化。
 
 
-![Pasted image 20250716004633.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250716004633.png)
+
 
 
 ### 数学定义
@@ -22,9 +22,15 @@
    * 单位元存在：存在元素 $e \in G$，使得对于所有 $a \in G$，有 $e \cdot a = a \cdot e = a$。
    * 逆元存在：对于所有 $a \in G$，存在 $a^{-1} \in G$，使得 $a \cdot a^{-1} = a^{-1} \cdot a = e$。
 
+
+
+
 2. $G$ 是一个光滑流形，且群运算和取逆运算是光滑（可微）映射：
    * $\mu : G \times G \to G, \quad \mu(a, b) = a \cdot b$
    * $\iota : G \to G, \quad \iota(a) = a^{-1}$
+
+![Pasted image 20250716004633.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250716004633.png)
+
 
 ### 常见 Lie Group
 Lie群的微分结构由其**李代数**（[[Lie Algebra\|Lie Algebra]]）描述。
