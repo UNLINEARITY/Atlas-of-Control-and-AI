@@ -1,6 +1,7 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-06-21T00:18:46.463+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-07-18T08:42:43.147+08:00"}
 ---
+
 
 
 ```mermaid
@@ -53,19 +54,17 @@ root((本网站))
 			计算机控制系统
 ```
 
->“方存乎见少，又奚以自多！”——《[[秋水\|秋水]]》· 庄周
+
+> “方存乎见少，又奚以自多！”——《[[秋水\|秋水]]》· 庄周
 >"How can one be self-important when they have seen so little?"--"Autumn Floods," Zhuang Zhou
 
 > "指穷于为薪，火传也，不知其尽也"
 
-> "人生总有出路，活着才有未来"
-
-
 ***
 ### 一、该网站的核心思想 
-本网站的由来其实也不能完全说是一种巧合，更多的是源于一种兴致的上升，一种想要传播基础知识的念头，一个致力于构建知识体系、惠及他人的想法。
+本网站的由来不能完全说是一种巧合，更多的是源于一种兴致的上升，一种想要传播基础知识的念头，一个致力于构建知识体系、惠及他人的想法。
 
-本网站的内容将包括基础的数理知识，然后在此基础上深化，期望通过构建**基础知识的网络**，不断地将看似 “毫无用处而枯燥”的数学知识与**特定领域**或**现实世界**结合起来。
+本网站的内容将包括基础的数理知识，然后在此基础上深化，期望通过构建**基础知识的网络**，不断地将**看似** “毫无用处而枯燥”的数学知识与**特定领域**或**现实世界**结合起来。
 
 ### 二、目录导航
 >“一切高级数学，归根结底都是**微积分**和**线性代数**的各种变化” 
@@ -75,6 +74,7 @@ root((本网站))
 > **信号**则是数据的电气或电磁表现形式
 
 目前上传的总文件一览：[[网站内容索引-Index\|网站内容索引-Index]] （注意目前的内容偏向自动化：整体性系统性的东西，计算机相关的还不够完善）
+
 
 
 |                      |                               **数理基础**                                |                                                                                         **专业相关**                                                                                         |
@@ -90,7 +90,19 @@ root((本网站))
 有关网站的相关信息查看[[关于该网站\|关于该网站]]，如果其中的内容对你有帮助，你可以为本网站[开源的项目](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI) 点一颗⭐star，感激不尽！
 
 
-[![Stars|240](https://img.shields.io/github/stars/UNLINEARITY/Atlas-of-Control-and-AI.svg)](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/stargazers)
+<div style="text-align:center">
+  <a href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/stargazers" 
+     target="_blank"
+     style="display: inline-block; transition: transform 0.3s"
+     onmouseover="this. style. transform='scale (1.2)'"
+     onmouseout="this. style. transform='scale (1)'">
+    <img src="https://img.shields.io/github/stars/UNLINEARITY/Atlas-of-Control-and-AI.svg" 
+         alt="GitHub Stars"
+         style="width: 240px; border-radius: 4px">
+  </a>
+</div>
+
 
 I'm grateful to **Obsidian** and the open-source plugin **Digital Garden**, which have enabled my knowledge network to be presented to the public.
+
 
