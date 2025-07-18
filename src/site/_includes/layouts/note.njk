@@ -190,7 +190,7 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
     </script>
 
 //  图片点击放大
-  <style>
+<style>
       .image-overlay {
         position: fixed;
         top: 0;
@@ -206,9 +206,10 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
       }
 
       .image-overlay img {
+        cursor: grab;
         max-width: 90%;
         max-height: 90%;
-        transition: transform 0.2s ease;
+        transition: transform 0.1s linear;
       }
     </style>
 
@@ -227,23 +228,50 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
             document.body.appendChild(overlay);
 
             let scale = 1;
+            let panning = false;
             let pointX = 0;
             let pointY = 0;
+            let start = { x: 0, y: 0 };
 
             function setTransform() {
               enlargedImage.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
             }
 
+            enlargedImage.addEventListener('mousedown', (e) => {
+              e.preventDefault();
+              panning = true;
+              start = { x: e.clientX - pointX, y: e.clientY - pointY };
+              enlargedImage.style.cursor = 'grabbing';
+            });
+
+            overlay.addEventListener('mouseup', () => {
+              panning = false;
+              enlargedImage.style.cursor = 'grab';
+            });
+
+            overlay.addEventListener('mouseleave', () => {
+                panning = false;
+                enlargedImage.style.cursor = 'grab';
+            });
+
+            overlay.addEventListener('mousemove', (e) => {
+              if (!panning) return;
+              pointX = (e.clientX - start.x);
+              pointY = (e.clientY - start.y);
+              setTransform();
+            });
+
             overlay.addEventListener('wheel', (e) => {
               e.preventDefault();
-              const xs = (e.clientX - pointX) / scale;
-              const ys = (e.clientY - pointY) / scale;
-              const delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
-
-              (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
+              const rect = enlargedImage.getBoundingClientRect();
+              const oldScale = scale;
               
-              pointX = e.clientX - xs * scale;
-              pointY = e.clientY - ys * scale;
+              const delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+              (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
+
+              // Adjust translation to keep the image centered
+              pointX += (rect.width / oldScale - (rect.width / oldScale) * scale) / 2;
+              pointY += (rect.height / oldScale - (rect.height / oldScale) * scale) / 2;
 
               setTransform();
             });
