@@ -64,7 +64,17 @@
         if (graphData == null) {
             return;
         }
-        const el = document.getElementById(id);
+        const el = document.getElementById(id); 
+
+
+        window.addEventListener('resize', () => {
+            if (Graph) {
+                Graph.width(el.offsetWidth);
+                Graph.height(el.offsetHeight);
+            }
+        });        
+
+
         width = el.offsetWidth;
         height = el.offsetHeight;
         const highlightNodes = new Set();
