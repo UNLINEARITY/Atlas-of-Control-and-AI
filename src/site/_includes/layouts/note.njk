@@ -189,5 +189,58 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
       }
     </script>
 
+//  图片点击放大
+ <style>
+      .image-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .image-overlay img {
+        max-width: 90%;
+        max-height: 90%;
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+        const images = document.querySelectorAll('.content img');
+        images.forEach(image => {
+          image.addEventListener('click', () => {
+            const overlay = document.createElement('div');
+            overlay.classList.add('image-overlay');
+            
+            const enlargedImage = document.createElement('img');
+            enlargedImage.src = image.src;
+            
+            overlay.appendChild(enlargedImage);
+            document.body.appendChild(overlay);
+
+            overlay.addEventListener('dblclick', () => {
+              document.body.removeChild(overlay);
+            });
+          });
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            const overlay = document.querySelector('.image-overlay');
+            if (overlay) {
+              document.body.removeChild(overlay);
+            }
+          }
+        });
+      });
+    </script>
+
+
   </body>
 </html>
