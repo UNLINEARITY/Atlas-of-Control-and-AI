@@ -190,7 +190,7 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
     </script>
 
 //  图片点击放大
- <style>
+   <style>
       .image-overlay {
         position: fixed;
         top: 0;
@@ -202,11 +202,14 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
         justify-content: center;
         align-items: center;
         z-index: 1000;
+        overflow: hidden;
       }
 
       .image-overlay img {
+        cursor: grab;
         max-width: 90%;
         max-height: 90%;
+        transition: transform 0.2s ease;
       }
     </style>
 
@@ -224,8 +227,53 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
             overlay.appendChild(enlargedImage);
             document.body.appendChild(overlay);
 
-            overlay.addEventListener('dblclick', () => {
-              document.body.removeChild(overlay);
+            let scale = 1;
+            let panning = false;
+            let pointX = 0;
+            let pointY = 0;
+            let start = { x: 0, y: 0 };
+
+            function setTransform() {
+              enlargedImage.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+            }
+
+            enlargedImage.addEventListener('mousedown', (e) => {
+              e.preventDefault();
+              panning = true;
+              start = { x: e.clientX - pointX, y: e.clientY - pointY };
+              enlargedImage.style.cursor = 'grabbing';
+            });
+
+            enlargedImage.addEventListener('mouseup', () => {
+              panning = false;
+              enlargedImage.style.cursor = 'grab';
+            });
+
+            overlay.addEventListener('mousemove', (e) => {
+              if (!panning) return;
+              pointX = (e.clientX - start.x);
+              pointY = (e.clientY - start.y);
+              setTransform();
+            });
+
+            overlay.addEventListener('wheel', (e) => {
+              e.preventDefault();
+              const xs = (e.clientX - pointX) / scale;
+              const ys = (e.clientY - pointY) / scale;
+              const delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+
+              (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
+              
+              pointX = e.clientX - xs * scale;
+              pointY = e.clientY - ys * scale;
+
+              setTransform();
+            });
+
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    document.body.removeChild(overlay);
+                }
             });
           });
         });
