@@ -190,7 +190,7 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
     </script>
 
 //  图片点击放大
-   <style>
+  <style>
       .image-overlay {
         position: fixed;
         top: 0;
@@ -206,7 +206,6 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
       }
 
       .image-overlay img {
-        cursor: grab;
         max-width: 90%;
         max-height: 90%;
         transition: transform 0.2s ease;
@@ -228,33 +227,12 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
             document.body.appendChild(overlay);
 
             let scale = 1;
-            let panning = false;
             let pointX = 0;
             let pointY = 0;
-            let start = { x: 0, y: 0 };
 
             function setTransform() {
               enlargedImage.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
             }
-
-            enlargedImage.addEventListener('mousedown', (e) => {
-              e.preventDefault();
-              panning = true;
-              start = { x: e.clientX - pointX, y: e.clientY - pointY };
-              enlargedImage.style.cursor = 'grabbing';
-            });
-
-            enlargedImage.addEventListener('mouseup', () => {
-              panning = false;
-              enlargedImage.style.cursor = 'grab';
-            });
-
-            overlay.addEventListener('mousemove', (e) => {
-              if (!panning) return;
-              pointX = (e.clientX - start.x);
-              pointY = (e.clientY - start.y);
-              setTransform();
-            });
 
             overlay.addEventListener('wheel', (e) => {
               e.preventDefault();
