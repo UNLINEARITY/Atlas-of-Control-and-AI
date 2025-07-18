@@ -12,6 +12,11 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
     {% for imp in dynamics.notes.head %}
       {% include imp %}
     {% endfor %}
+
+
+  <link rel="stylesheet" href="https://unpkg.com/@excalidraw/excalidraw@0.14.2/dist/excalidraw.min.css"/> 
+
+
   </head>
   <body class="theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}">
     {%include "components/notegrowthhistory.njk"%}
