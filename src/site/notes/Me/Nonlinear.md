@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-07-18T08:42:43.147+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-07-25T16:54:27.350+08:00"}
 ---
 
 
@@ -83,6 +83,8 @@ root((本网站))
 | **即<br>将<br>完<br>善** |                          [[线性代数\|线性代数]]<br><br>物理                           |                                                                   [[数字电路\|数字电路]]<br><br>计算机网络<br><br>[[机器学习\|机器学习]]<br><br>[[机器人\|机器人]]                                                                   |
 
 
+
+![pre.png](/img/user/Functional%20files/Photo%20Resources/pre.png)
 ***
 ### 关于网站
 > Nothing really matters; starting is what counts most.
