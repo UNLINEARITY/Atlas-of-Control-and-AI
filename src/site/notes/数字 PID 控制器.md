@@ -1,13 +1,15 @@
 ---
-{"tags":["Discrete"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-05-02T17:47:12.994+08:00"}
+{"tags":["Discrete"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-07-27T09:29:22.004+08:00"}
 ---
 
 
 [[模拟式PID控制器\|模拟式PID控制器]]的离散化，得到[[数字控制器\|数字控制器]]
+
 ### 一、数字 PID 算法
 $$\begin{align}
 u(t)=K_{p}\left[e(t)+ \dfrac{1}{T_{i}} \int _{0}^{t} e(\tau)\, d\tau +T_{d}\dfrac{\mathrm{d} e(t)}{\mathrm{d} t}  \right] \quad {\color{red}\Leftrightarrow} \quad D(s)=\dfrac{U(s)}{E(s)}= K_{p}(1+\dfrac{1}{T_{i}s}+T_{d}s)
 \end{align}$$
+
 $$\begin{align}
 \begin{cases}
  & u(t) \approx u(k) \\
@@ -24,6 +26,7 @@ u(k)=K_{p}e(k)+K_{i} \sum\limits_{j=0}^{k} e(j)+K_{d}\left[e(k)-e(k-1)\right]
 
 - 稳态精度高，直观易于理解
 - 计算量大，容易出现积分饱和
+
 #### 2. 增量式 PID 算法
 $$\begin{align}
 \Delta u & =u(k)-u(k-1) \\
@@ -32,6 +35,7 @@ $$\begin{align}
 \end{align}$$
 - 节约内存和计算时间；控制量冲击小，能平滑过渡
 - 无积分环节积累，可能存在一定误差
+
 #### 3. 一般 PID 算法的离散化
 一般常用[[模拟控制器离散化#二、差分变换法\|模拟控制器离散化#二、差分变换法]] ，用后向差分，或双线性差分，并写为控制器的形式
 ### 二、改进的数字 PID 算法
@@ -79,14 +83,16 @@ u(k)= \dfrac{T_{f}}{T_{f}+T} u(k-1)+\dfrac{T}{T_{f}+T} u_{1}(k)
 \end{align}$$
 
 #### 5. 微分先行
-![Pasted image 20250420145831.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250420145831.png)
+![微分先行.png](/img/user/Functional%20files/Photo%20Resources/%E5%BE%AE%E5%88%86%E5%85%88%E8%A1%8C.png)
 
-**输出量微分：只对输出量进行微分**，避免因给定值变化给控制系统带来超调量过大、调节阀动作剧烈的冲击
-**偏差量微分：对给定值和输出量均微分**
+- **输出量微分：只对输出量进行微分**，避免因给定值变化给控制系统带来超调量过大、调节阀动作剧烈的冲击
+- **偏差量微分：对给定值和输出量均微分**
 
 控制器的正反作用实现：
 反作用：$e=r-y$
 正作用：$e=y-r$
+
+
 #### 6. 带死区的 PID 
 $$\sum\limits_{i=0}^{k} e(i)=\begin{cases}
 \sum\limits_{i=0}^{k} e(i)\quad  \left\lvert  e(k) \right\rvert > e_{0} \\ \\
