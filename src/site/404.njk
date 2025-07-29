@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="{{ meta.mainLanguage }}">
     <head>
-        <title>Nothing here</title>
+        <title>404 迷失于知识之海 Lost in the Sea of Knowledge</title>
         <link href="/styles/digital-garden-base.css" rel="stylesheet">
         {%-if meta.themeStyle%}
             <link href="/styles/obsidian-base.css" rel="stylesheet">
@@ -12,22 +11,130 @@
         {%endif%}
 
         <link href="/styles/custom-style.css" rel="stylesheet">
-        
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background-color: var(--background-primary);
+                color: var(--text-normal);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                text-align: center;
+                padding: 20px;
+                box-sizing: border-box;
+                overflow: hidden; /* Prevent scrollbars from graph */
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                z-index: 1; /* Ensure text is above the graph */
+                position: relative;
+            }
+            h1 {
+                font-size: 3em;
+                margin-bottom: 0.5em;
+                color: var(--text-title);
+                /* Gradient Text */
+                background: linear-gradient(90deg, #8e2de2, #4a00e0, #00c6ff); /* Deep starry sky gradient */
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-fill-color: transparent;
+            }
+            p {
+                font-size: 1.2em;
+                line-height: 1.6;
+                margin-bottom: 1em;
+            }
+            .actions a {
+                display: inline-block;
+                margin: 10px;
+                padding: 10px 20px;
+                border: 1px solid var(--interactive-accent);
+                border-radius: 5px;
+                text-decoration: none;
+                color: var(--interactive-accent);
+                transition: all 0.3s ease;
+            }
+            .actions a:hover {
+                background-color: var(--interactive-accent);
+                color: var(--text-on-accent);
+            }
+            .graph-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.1; /* Subtle background */
+                z-index: 0;
+            }
+        </style>
     </head>
     <body class="theme-{{meta.baseTheme}} markdown-preview-view">
-        <div class="content centered">
-
-            {%-if not meta.themeStyle%}
-                <div class="font-bg"> &#x1F60E; </div>
-            {%endif%}
-            <h1>There is nothing here</h1>
-        <p>If you got here from a link, this note is probably not made public.<br>
-        如果你点击链接来到这里，说明这块内容还没有完善。<br>
-        注意段落中有颜色的亮暗区别，暗色表示还未完善，较为亮色的表示存在链接，可以点击。</p>
-<p>你可以直接<a href="javascript:history.back()">返回 Go Back </a>。</p>
-            <p>你也可以点击右下角的“邮件”按钮发邮件告知你需要这一块内容，或者直接在本项目库一同合作</p>
-           
+        <div class="graph-background" id="graph-background"></div>
+        <div class="container">
+            <h1>404 Lost in the Sea of Knowledge</h1>
+            <p>您似乎进入了一片未知的领域，这里没有您要寻找的知识节点。</p>
+            <p>或许，您可以在这片浩瀚的知识图谱中重新定位方向。</p>
+            <div class="actions">
+                <a href="/">返回主页</a>
+                <a href="javascript:history.back()">返回上一页</a>
+                <a href="/3D-graph/" target="_blank">探索知识图谱</a>
+            </div>
+            <p style="font-size: 0.9em; margin-top: 2em;">如果您认为这是一个错误，请通过邮件告知我们。</p>
         </div>
 
+        <script src="https://unpkg.com/three"></script>
+        <script src="https://unpkg.com/3d-force-graph"></script>
+        <script>
+            const graphContainer = document.getElementById('graph-background');
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const graphUrl = isLocal ? '/graph.json' : window.location.origin + '/graph.json';
+
+            fetch(graphUrl)
+                .then(res => res.json())
+                .then(data => {
+                    const nodes = [];
+                    const links = [];
+
+                    for (const nodeId in data.nodes) {
+                        const node = data.nodes[nodeId];
+                        if (node.hide) continue;
+                        nodes.push({
+                            id: node.url,
+                            name: node.title,
+                            val: node.size,
+                        });
+                        if (node.outBound) {
+                            node.outBound.forEach(targetUrl => {
+                                if (data.nodes[targetUrl] && !data.nodes[targetUrl].hide) {
+                                    links.push({ source: node.url, target: targetUrl });
+                                }
+                            });
+                        }
+                    }
+
+                    const graphData = { nodes, links };
+
+                    ForceGraph3D()(graphContainer)
+                        .graphData(graphData)
+                        .backgroundColor('rgba(0,0,0,0)') // Transparent background
+                        .nodeAutoColorBy('group')
+                        .nodeLabel('name')
+                        .linkWidth(0.5)
+                        .linkDirectionalParticles(1)
+                        .linkDirectionalParticleWidth(1.2)
+                        .linkDirectionalParticleSpeed(0.006)
+                        .linkColor('#666666')
+                        .d3Force('link').distance(() => 30)
+                        .d3Force('charge').strength(-120);
+                })
+                .catch(error => {
+                    console.error("Error loading graph data for 404 page:", error);
+                });
+        </script>
     </body>
 </html>
