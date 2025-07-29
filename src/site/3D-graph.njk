@@ -120,7 +120,7 @@
         };
 
                 const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        const graphUrl = isLocal ? '/graph.json' : 'https://www.nonlinear.top/graph.json';
+        const graphUrl = isLocal ? '/graph.json' : window.location.origin + '/graph.json';
 
         fetch(graphUrl)
             .then(res => res.json())
