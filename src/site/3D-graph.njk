@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Knowledge Graph</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; }
+        .graph-container {
+            width: 100vw;
+            height: 100vh;
+            transition: background-color .3s;
+        }
+        #graph-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background-color: rgba(0,0,0,.5);
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 300px;
+            transition: background-color .3s, color .3s;
+        }
+        /* 主题选择器 */
+        #theme-switch {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+        #theme-switch select {
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: none;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="graph-container" class="graph-container"></div>
+
+    <!-- 主题切换 -->
+    <div id="theme-switch">
+        <select id="theme-select">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+        </select>
+    </div>
+
+    <div id="graph-info">
+    <p><strong>Interactive Knowledge Graph</strong></p>
+    <p>Hover over nodes to see titles. Click to focus.</p>
+    <p>Use your mouse to rotate, pan, and zoom.</p>
+    <p><u>Tip:</u> Right-click a node to open its page.</p>
+    </div>  
+
+    <script src="https://unpkg.com/three"></script>
+    <script src="https://unpkg.com/3d-force-graph"></script>
+
+    <script>
+        const container = document.getElementById('graph-container');
+        const infoBox   = document.getElementById('graph-info');
+        const themeSel  = document.getElementById('theme-select');
+
+        // 主题配色表
+        const themes = {
+            dark: {
+                bg: '#000003',
+                infoBg: 'rgba(0,0,0,.5)',
+                infoText: '#ffffff',
+                linkColor: '#666666'
+            },
+            light: {
+                bg: '#ffffff',
+                infoBg: 'rgba(255,255,255,.85)',
+                infoText: '#000000',
+                linkColor: '#cccccc'
+            },
+        };
+
+        // 应用主题
+        function applyTheme(name) {
+            const t = themes[name];
+            container.style.backgroundColor = t.bg;
+            infoBox.style.backgroundColor   = t.infoBg;
+            infoBox.style.color             = t.infoText;
+
+            // 更新已加载的图样式
+            if (window.Graph) {
+                window.Graph.backgroundColor(t.bg);
+                window.Graph.linkColor(t.linkColor);
+            }
+        }
+
+        // 监听下拉框
+        themeSel.addEventListener('change', e => applyTheme(e.target.value));
+
+        // 默认主题
+        applyTheme('dark');
+
+
+        const getColor = (group) => {
+            const colors = {
+                'default': '#ffbf00',
+                '/A1- 数学/': '#ff6347',
+                '/A2- 控制理论/': '#4682b4',
+                '/A3- 电机及电力拖动/': '#32cd32',
+                '/A4- 过程控制系统/': '#9370db',
+                '/MCU微控制器/': '#ffa500',
+                '/电子技术/': '#20b2aa',
+                '/计算机/': '#dc143c',
+                '/编程语言/': '#00bfff',
+                '/人工智能/': '#da70d6',
+                '/机器人/': '#6a5acd',
+                '/IoT/': '#40e0d0',
+            };
+            const topLevel = Object.keys(colors).find(key => group.startsWith(key));
+            return topLevel ? colors[topLevel] : colors['default'];
+        };
+
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const graphUrl = isLocal ? '/graph.json' : 'https://www.nonlinear.top/graph.json';
+
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const graphUrl = isLocal ? '/graph.json' : 'https://www.nonlinear.top/graph.json';
+
+        fetch(graphUrl)
+            .then(res => res.json())
+            .then(data => {
+                const nodes = [];
+                const links = [];
+
+                for (const nodeId in data.nodes) {
+                    const node = data.nodes[nodeId];
+                    if (node.hide) continue;
+                    nodes.push({
+                        id: node.url,
+                        name: node.title,
+                        val: node.size,
+                        color: getColor(node.url)
+                    });
+                    if (node.outBound) {
+                        node.outBound.forEach(targetUrl => {
+                            if (data.nodes[targetUrl] && !data.nodes[targetUrl].hide) {
+                                links.push({ source: node.url, target: targetUrl });
+                            }
+                        });
+                    }
+                }
+
+                const graphData = { nodes, links };
+
+                window.Graph = ForceGraph3D()(container)
+                    .graphData(graphData)
+                    .backgroundColor(themes.dark.bg)
+                    .nodeLabel('name')
+                    .nodeAutoColorBy('color')
+                    .linkWidth(0.5)
+                    .linkDirectionalParticles(1)
+                    .linkDirectionalParticleWidth(1.2)
+                    .linkDirectionalParticleSpeed(0.006)
+                    .linkColor(themes.dark.linkColor)
+                    .onNodeClick(node => {
+                        const distance = 100;
+                        const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+                        window.Graph.cameraPosition(
+                            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
+                            node,
+                            2000
+                        );
+                    });
+                window.Graph.onNodeRightClick(node => {
+                    const baseUrl = isLocal ? '' : 'https://www.nonlinear.top';
+                    const fullUrl = baseUrl + node.id;
+                    window.open(fullUrl, '_blank');
+                });
+                window.Graph.d3Force('link').distance(() => 30);
+                window.Graph.d3Force('charge').strength(-120);
+            })
+
+            
+            .catch(error => {
+                console.error("Error loading graph data:", error);
+                container.innerHTML = '<div style="color:red;text-align:center;padding-top:50px;">Failed to load graph data.</div>';
+            });
+    </script>
+</body>
+</html>
