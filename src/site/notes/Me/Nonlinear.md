@@ -1,7 +1,6 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-07-27T23:10:12.438+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-07-29T12:12:15.772+08:00"}
 ---
-
 
 
 ```mermaid
@@ -66,10 +65,6 @@ root((本网站))
 
 本网站的内容将包括基础的数理知识，然后在此基础上深化，期望通过构建**基础知识的网络**，不断地将**看似** “毫无用处而枯燥”的数学知识与**特定领域**或**现实世界**结合起来。
 
-
-![pre.png](/img/user/Functional%20files/Photo%20Resources/pre.png)
-
-
 ### 二、目录导航
 >“一切高级数学，归根结底都是**微积分**和**线性代数**的各种变化” 
 
@@ -87,12 +82,14 @@ root((本网站))
 | **即<br>将<br>完<br>善** |                          [[线性代数\|线性代数]]<br><br>物理                           |                                                                   [[数字电路\|数字电路]]<br><br>计算机网络<br><br>[[机器学习\|机器学习]]<br><br>[[机器人\|机器人]]                                                                   |
 
 
+
 ***
-### 关于网站
+### 三、关于网站
 > Nothing really matters; starting is what counts most.
 
-有关网站的相关信息查看[[关于该网站\|关于该网站]]，如果其中的内容对你有帮助，你可以为本网站[开源的项目](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI) 点一颗⭐star，感激不尽！
+![md_wordcloud.png](/img/user/Functional%20files/Photo%20Resources/md_wordcloud.png)
 
+有关网站的相关信息查看[[关于该网站\|关于该网站]]，如果其中的内容对你有帮助，你可以为本网站[开源的项目](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI) 点一颗⭐star，感激不尽！
 
 
 <div style="text-align:center">
@@ -106,7 +103,6 @@ root((本网站))
          style="width: 240px; border-radius: 4px">
   </a>
 </div>
-
 
 I'm grateful to **Obsidian** and the open-source plugin **Digital Garden**, which have enabled my knowledge network to be presented to the public.
 
