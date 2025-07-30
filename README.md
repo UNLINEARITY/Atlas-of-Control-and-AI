@@ -13,55 +13,6 @@ This is a project based on Obsidian + Digital Garden + Vercel
 
 <p align='center'><img src='src/pre1.png' width=95%></p>
 
-```mermaid
-mindmap
-root((本网站))
-	数理基础
-		数学
-			微积分
-			概率论
-			数理统计
-			复变函数
-			变换
-			线性代数
-	自动控制
-		经典控制
-			时域分析
-			根轨迹法
-			频域分析
-			离散系统
-		现代控制
-			状态空间
-			非线性控制
-			最优控制
-	计算机
-		人工智能
-			机器学习
-			机器人
-		Linux
-		微控制器
-		    8051
-		    STM32
-		    ESP32
-		编程与算法
-			数据结构
-			算法
-			C++
-			Python
-	自动化
-		电子技术
-			电路分析
-			数字电路
-			模拟电路
-		电力拖动
-			直流拖动系统
-			交流拖动系统
-		过程控制
-			过程检测仪表
-			调节器与执行器
-			过程控制系统
-			计算机控制系统
-```
 
 > [!warning]
 > Due to the limitations of time, energy, and skill of the website builder, the main content of the website is currently presented in Chinese. An English version will be added in the future.
