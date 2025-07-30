@@ -1,5 +1,5 @@
 ---
-{"tags":["OpenSource"],"dg-publish":true,"dg-path":"编程语言/Python/PyTorch.md","permalink":"/编程语言/Python/PyTorch/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-19T00:17:48.191+08:00","updated":"2025-04-29T11:35:24.103+08:00"}
+{"tags":["OpenSource"],"dg-publish":true,"dg-path":"编程语言/Python/PyTorch.md","permalink":"/编程语言/Python/PyTorch/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-19T00:17:48.191+08:00","updated":"2025-07-28T16:02:47.965+08:00"}
 ---
 
 
@@ -13,6 +13,8 @@ PyTorch是一个**动态图**框架，意味着：
 - 运算发生时就构建计算图（不是事先定义好一整个图）。
 - 你可以像写普通 Python 代码一样，灵活控制每一步。
 这两个本质——**Tensor + Autograd（自动求导）**，贯穿始终，任何PyTorch程序都是围绕它们展开的。
+
+
 ### 2. 张量（Tensor）操作（核心对象）
 
 #### 2.1 创建Tensor

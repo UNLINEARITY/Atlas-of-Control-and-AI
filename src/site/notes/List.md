@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"编程语言/Python/List.md","permalink":"/编程语言/Python/List/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.864+08:00","updated":"2025-06-12T21:06:12.979+08:00"}
+{"dg-publish":true,"dg-path":"编程语言/Python/List.md","permalink":"/编程语言/Python/List/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.864+08:00","updated":"2025-07-28T14:02:15.582+08:00"}
 ---
 
 
@@ -78,19 +78,10 @@ l1.extend(l2)
 ```
 
 #### Remove 
-`pop() `method removes and returns value 
-移除指定索引的元素，并返回该元素的值
-未指定参数时，默认弹出最后一个元素
-
-`del` removes it without returning anything 
-移除特定索引的元素（不会返回值）
-
-`remove()`  remove a specific value 
-移除特定值的元素 
-
-`clear()`   remove all items 
-清除所有的元素 
-
+`pop() ` method removes and returns value ：移除指定索引的元素，并返回该元素的值, 未指定参数时，默认弹出最后一个元素
+`del` removes it without returning anything：移除特定索引的元素（不会返回值）
+`remove()`  remove a specific value : 移除特定值的元素
+`clear()`   remove all items : 清除所有的元素 
 使用 [[Set\|Set]]  移除重复的元素 
 
 ```python
@@ -119,7 +110,6 @@ list(set(my_list))  # [1, 2, 3, 5]
 `list.sort()`    **在原数组上排序（修改原数组）**  不会返回任何值！！！是对原数组的操作
 `list_sorted= sorted(list)`  返回新 list，而不修改原 list
 默认升序排列，均可设置 `reverse=True`   降序排列
-
 
 ```python 
 my_list = [10, 2, 5, 4, 2] 
@@ -164,7 +154,4 @@ lst  # [1, 2, 3, 4]
 
 rev = reversed(lst)  # [4, 3, 2, 1] 
 ```
-
-
-### 多个 list 的操作
 
