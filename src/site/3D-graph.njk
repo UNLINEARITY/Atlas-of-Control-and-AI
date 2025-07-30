@@ -69,13 +69,15 @@
                 bg: '#000003',
                 infoBg: 'rgba(0,0,0,.5)',
                 infoText: '#ffffff',
-                linkColor: '#666666'
+                linkColor: '#20c3d1ff',
+                fadedLinkColor: 'rgba(203, 63, 58, 0.62)'
             },
             light: {
                 bg: '#ffffff',
                 infoBg: 'rgba(255,255,255,.85)',
                 infoText: '#000000',
-                linkColor: '#cccccc'
+                linkColor: '#000000',
+                fadedLinkColor: 'rgba(0, 0, 0, 0.2)'
             },
         };
 
@@ -119,7 +121,7 @@
             return topLevel ? colors[topLevel] : colors['default'];
         };
 
-                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
         const graphUrl = isLocal ? '/graph.json' : window.location.origin + '/graph.json';
 
         fetch(graphUrl)
@@ -148,6 +150,10 @@
 
                 const graphData = { nodes, links };
 
+                const highlightedNodes = new Set();
+                const highlightedLinks = new Set();
+                const theme = themes[themeSel.value];
+
                 window.Graph = ForceGraph3D()(container)
                     .graphData(graphData)
                     .backgroundColor(themes.dark.bg)
@@ -157,26 +163,58 @@
                     .linkDirectionalParticles(1)
                     .linkDirectionalParticleWidth(1.2)
                     .linkDirectionalParticleSpeed(0.006)
-                    .linkColor(themes.dark.linkColor)
+                    .linkColor(theme.linkColor)
                     .onNodeClick(node => {
-                        const distance = 100;
-                        const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+                        const distance = 120;
+                        const distRatio = 1.2 + distance / Math.hypot(node.x, node.y, node.z);
                         window.Graph.cameraPosition(
                             { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
                             node,
                             2000
                         );
+                    })
+                    .onNodeRightClick(node => {
+                        const baseUrl = isLocal ? '' : window.location.origin;
+                        const fullUrl = baseUrl + node.id;
+                        window.open(fullUrl, '_blank');
+                    })
+                    .onNodeHover(node => {
+                        if (!node) {
+                            // Reset to default when no node is hovered
+                            window.Graph.nodeColor(n => n.color)
+                                .nodeVal(n => n.val)
+                                .linkColor(theme.linkColor)
+                                .linkWidth(0.5)
+                                .nodeLabel(n => n.name);
+                            return;
+                        }
+
+                        // Highlight nodes and links
+                        const highlightedNodes = new Set();
+                        const highlightedLinks = new Set();
+                        highlightedNodes.add(node.id);
+                        graphData.links.forEach(link => {
+                            const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
+                            const targetId = typeof link.target === 'object' ? link.target.id : link.target;
+                            if (sourceId === node.id || targetId === node.id) {
+                                highlightedLinks.add(link);
+                                highlightedNodes.add(sourceId);
+                                highlightedNodes.add(targetId);
+                            }
+                        });
+
+                        // Update styles based on highlight
+                        const currentTheme = themes[themeSel.value];
+                        window.Graph.nodeColor(n => highlightedNodes.has(n.id) ? n.color : 'rgba(170, 170, 170, 0.6)')
+                            .nodeVal(n => highlightedNodes.has(n.id) ? n.val * 1.5 : n.val)
+                            .linkColor(link => highlightedLinks.has(link) ? currentTheme.linkColor : currentTheme.fadedLinkColor)
+                            .linkWidth(link => highlightedLinks.has(link) ? 2 : 0.5)
+                            .nodeLabel(n => highlightedNodes.has(n.id) ? n.name : '');
                     });
-               window.Graph.onNodeRightClick(node => {
-                    const baseUrl = isLocal ? '' : window.location.origin;
-                    const fullUrl = baseUrl + node.id;
-                    window.open(fullUrl, '_blank');
-                });
+
                 window.Graph.d3Force('link').distance(() => 30);
                 window.Graph.d3Force('charge').strength(-120);
             })
-
-            
             .catch(error => {
                 console.error("Error loading graph data:", error);
                 container.innerHTML = '<div style="color:red;text-align:center;padding-top:50px;">Failed to load graph data.</div>';
