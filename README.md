@@ -11,7 +11,7 @@ This is a project based on Obsidian + Digital Garden + Vercel
 [![Issues](https://img.shields.io/github/issues/UNLINEARITY/Atlas-of-Control-and-AI.svg)]()
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/UNLINEARITY/Atlas-of-Control-and-AI.svg) 
 
-<p align='center'><img src='src/pre.png' width=95%></p>
+<p align='center'><img src='src/pre1.png' width=95%></p>
 
 ```mermaid
 mindmap
