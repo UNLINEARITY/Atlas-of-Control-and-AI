@@ -167,8 +167,8 @@
                             2000
                         );
                     });
-                window.Graph.onNodeRightClick(node => {
-                    const baseUrl = isLocal ? '' : 'https://www.nonlinear.top';
+               window.Graph.onNodeRightClick(node => {
+                    const baseUrl = isLocal ? '' : window.location.origin;
                     const fullUrl = baseUrl + node.id;
                     window.open(fullUrl, '_blank');
                 });
