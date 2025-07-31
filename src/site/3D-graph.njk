@@ -95,11 +95,20 @@
             }
         }
 
-        // 监听下拉框
+        // 监听下拉框，只更新本页主题
         themeSel.addEventListener('change', e => applyTheme(e.target.value));
 
-        // 默认主题
-        applyTheme('dark');
+        // --- One-way theme synchronization from main site ---
+        let detectedTheme = window.localStorage.getItem('site-theme') || 'auto';
+
+        if (detectedTheme === 'auto') {
+            // If set to auto, detect OS preference
+            detectedTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+        }
+        
+        // Apply the detected theme ('dark' or 'light')
+        applyTheme(detectedTheme);
+        themeSel.value = detectedTheme; // Sync dropdown to show the correct theme
 
 
         const getColor = (group) => {
@@ -127,6 +136,16 @@
         fetch(graphUrl)
             .then(res => res.json())
             .then(data => {
+
+                // --- Correct Theme Synchronization ---
+                let detectedTheme = window.localStorage.getItem('site-theme') || 'auto';
+                if (detectedTheme === 'auto') {
+                    detectedTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+                }
+                applyTheme(detectedTheme);
+                themeSel.value = detectedTheme;
+                // --- End of Theme Sync ---
+
                 const nodes = [];
                 const links = [];
 
@@ -152,18 +171,18 @@
 
                 const highlightedNodes = new Set();
                 const highlightedLinks = new Set();
-                const theme = themes[themeSel.value];
+                const theme = themes[detectedTheme]; // Use the correctly detected theme
 
                 window.Graph = ForceGraph3D()(container)
                     .graphData(graphData)
-                    .backgroundColor(themes.dark.bg)
+                    .backgroundColor(theme.bg) // Initialize with the correct theme background
                     .nodeLabel('name')
                     .nodeAutoColorBy('color')
                     .linkWidth(0.5)
                     .linkDirectionalParticles(1)
                     .linkDirectionalParticleWidth(1.2)
                     .linkDirectionalParticleSpeed(0.006)
-                    .linkColor(theme.linkColor)
+                    .linkColor(theme.linkColor) // Initialize with the correct theme link color
                     .onNodeClick(node => {
                         const distance = 120;
                         const distRatio = 1.2 + distance / Math.hypot(node.x, node.y, node.z);
