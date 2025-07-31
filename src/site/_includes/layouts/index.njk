@@ -49,33 +49,36 @@
         {% include imp %}
       {% endfor %}
       {{ content | hideDataview | taggify | link | safe}}
+
       <div class="site-stats">
         <div class="stat-card pages">
           <div class="icon-container"><i icon-name="file-text"></i></div>
-          <div class="stat-num">{{ meta.siteStats.pageCount }}</div>
+          <div class="stat-num" data-target="{{ meta.siteStats.pageCount }}">0</div>
           <div class="stat-label">Pages</div>
         </div>
         <div class="stat-card links">
           <div class="icon-container"><i icon-name="link-2"></i></div>
-          <div class="stat-num">{{ meta.siteStats.linkCount }}</div>
+          <div class="stat-num" data-target="{{ meta.siteStats.linkCount }}">0</div>
           <div class="stat-label">Internal Links</div>
         </div>
         <div class="stat-card words">
           <div class="icon-container"><i icon-name="pen-tool"></i></div>
-          <div class="stat-num">{{ meta.siteStats.wordCount }}</div>
+          <div class="stat-num" data-target="{{ meta.siteStats.wordCount }}">0</div>
           <div class="stat-label">Wordcount</div>
         </div>
         <div class="stat-card formulas">
           <div class="icon-container"><i icon-name="function-square"></i></div>
-          <div class="stat-num">{{ meta.siteStats.formulaCount }}</div>
+          <div class="stat-num" data-target="{{ meta.siteStats.formulaCount }}">0</div>
           <div class="stat-label">Formulas</div>
         </div>
         <div class="stat-card images">
           <div class="icon-container"><i icon-name="image"></i></div>
-          <div class="stat-num">{{ meta.siteStats.imageCount }}</div>
+          <div class="stat-num" data-target="{{ meta.siteStats.imageCount }}">0</div>
           <div class="stat-label">Pictures</div>
         </div>
       </div>
+
+
       {% for imp in dynamics.common.afterContent %}
         {% include imp %}
       {% endfor %}
