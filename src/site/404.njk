@@ -91,7 +91,7 @@
             <div class="actions">
                 <a href="/">返回主页</a>
                 <a href="javascript:history.back()">返回上一页</a>
-                <a href="/3D-graph/" target="_blank">探索知识图谱</a>
+                <a href="/3D-graph/">探索知识图谱</a>
             </div>
             <p style="font-size: 0.9em; margin-top: 2em;">如果您认为这是一个错误，请通过邮件告知我们。</p>
         </div>
@@ -139,6 +139,14 @@
                         .linkColor('#666666')
                         .enableNavigationControls(false); // Disable user interaction
                     
+                    // Make it responsive
+                    window.addEventListener('resize', () => {
+                        Graph.width(graphContainer.clientWidth);
+                        Graph.height(graphContainer.clientHeight);
+                    });
+                    Graph.width(graphContainer.clientWidth);
+                    Graph.height(graphContainer.clientHeight);
+
                     Graph.d3Force('link').distance(() => 30);
                     Graph.d3Force('charge').strength(-120);
 
