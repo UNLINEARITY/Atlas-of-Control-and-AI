@@ -26,6 +26,12 @@
     margin-bottom: 0.2em;
 }
 
+.stat-card .icon-container svg {
+    width: 40px;
+    height: 40px;
+}
+
+
 .stat-card .stat-num {
     font-size: 2em;
     font-weight: bold;
