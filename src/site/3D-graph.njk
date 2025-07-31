@@ -22,6 +22,14 @@
             max-width: 300px;
             transition: background-color .3s, color .3s;
         }
+        #info-toggle {
+            cursor: pointer;
+            font-weight: bold;
+            padding-right: 5px;
+        }
+        .info-content.collapsed {
+            display: none;
+        }
         /* 主题选择器 */
         #theme-switch {
             position: absolute;
@@ -49,14 +57,16 @@
     </div>
 
     <div id="graph-info">
-    <p><strong>Interactive Knowledge Graph</strong></p>
-    <p>Hover over nodes to see titles. Click to focus.</p>
-    <p>Use your mouse to rotate, pan, and zoom.</p>
-    <p><u>Tip:</u> Right-click a node to open its page.</p>
+    <span id="info-toggle">[+]</span>
+    <div class="info-content">
+        <p><strong>Interactive Knowledge Graph</strong></p>
+        <p>Hover over nodes to see titles. Click to focus.</p>
+        <p>Use your mouse to rotate, pan, and zoom.</p>
+        <p><u>Tip:</u> Right-click or Double-click a node to open its page.</p>
+    </div>
     </div>  
 
-    <script src="https://unpkg.com/three"></script>
-    <script src="https://unpkg.com/3d-force-graph"></script>
+    <script src="https://unpkg.com/3d-force-graph/dist/3d-force-graph.min.js"></script>
 
     <script>
         const container = document.getElementById('graph-container');
@@ -130,6 +140,15 @@
             return topLevel ? colors[topLevel] : colors['default'];
         };
 
+        // --- Info Box Toggle --- 
+        const toggle = document.getElementById('info-toggle');
+        const content = document.querySelector('.info-content');
+        toggle.addEventListener('click', () => {
+            content.classList.toggle('collapsed');
+            toggle.textContent = content.classList.contains('collapsed') ? '[+]' : '[-]';
+        });
+        // --- End of Info Box Toggle ---
+
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
         const graphUrl = isLocal ? '/graph.json' : window.location.origin + '/graph.json';
 
@@ -173,6 +192,11 @@
                 const highlightedLinks = new Set();
                 const theme = themes[detectedTheme]; // Use the correctly detected theme
 
+                // --- Double-click handling --- 
+                let lastClickTime = 0;
+                let lastClickedNode = null;
+                // --- End of Double-click handling ---
+
                 window.Graph = ForceGraph3D()(container)
                     .graphData(graphData)
                     .backgroundColor(theme.bg) // Initialize with the correct theme background
@@ -184,19 +208,24 @@
                     .linkDirectionalParticleSpeed(0.006)
                     .linkColor(theme.linkColor) // Initialize with the correct theme link color
                     .onNodeClick(node => {
-                        const distance = 120;
-                        const distRatio = 1.2 + distance / Math.hypot(node.x, node.y, node.z);
-                        window.Graph.cameraPosition(
-                            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
-                            node,
-                            2000
-                        );
+                        const now = new Date().getTime();
+                        if (now - lastClickTime < 300 && node === lastClickedNode) {
+                            // Double-click detected
+                            openNodeUrl(node);
+                        } else {
+                            // Single-click action: focus camera
+                            const distance = 120;
+                            const distRatio = 1.2 + distance / Math.hypot(node.x, node.y, node.z);
+                            window.Graph.cameraPosition(
+                                { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
+                                node,
+                                2000
+                            );
+                        }
+                        lastClickTime = now;
+                        lastClickedNode = node;
                     })
-                    .onNodeRightClick(node => {
-                        const baseUrl = isLocal ? '' : window.location.origin;
-                        const fullUrl = baseUrl + node.id;
-                        window.location.href = fullUrl;
-                    })
+                    .onNodeRightClick(openNodeUrl)
                     .onNodeHover(node => {
                         if (!node) {
                             // Reset to default when no node is hovered
@@ -230,6 +259,20 @@
                             .linkWidth(link => highlightedLinks.has(link) ? 2 : 0.5)
                             .nodeLabel(n => highlightedNodes.has(n.id) ? n.name : '');
                     });
+
+                // Make it responsive
+                window.addEventListener('resize', () => {
+                    window.Graph.width(container.clientWidth);
+                    window.Graph.height(container.clientHeight);
+                });
+                window.Graph.width(container.clientWidth);
+                window.Graph.height(container.clientHeight);
+
+                function openNodeUrl(node) {
+                    const baseUrl = isLocal ? '' : window.location.origin;
+                    const fullUrl = baseUrl + node.id;
+                    window.location.href = fullUrl; // Navigate in the current tab
+                }
 
                 window.Graph.d3Force('link').distance(() => 30);
                 window.Graph.d3Force('charge').strength(-120);
