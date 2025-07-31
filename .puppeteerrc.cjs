@@ -1,3 +1,3 @@
-{
-  "args": ["--no-sandbox"]
-}
+module.exports = {
+  args: ['--no-sandbox']
+};
