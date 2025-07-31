@@ -1,28 +1,38 @@
 <aside id="floating-control" style="right: 70px; bottom: 1.5 vmax; font-size: 1.35em; display: flex; align-items: center; gap: 0.8em;">
 
-    <a id="graph-view" href="/3D-graph/"  data-tooltip="3D" data-tooltip-position="top">
+    <a id="graph-view" onclick="open3DGraph()" data-tooltip="全局3D视图" data-tooltip-position="top">
             <i class="svg-icon" icon-name="loader" aria-hidden="true"></i>
     </a>
+
     <a id="github" href="https://github.com/UNLINEARITY/Learn-Everything" data-tooltip="Star On Github" data-tooltip-position="top">
         <i class="svg-icon" icon-name="star" aria-hidden="true"></i>
     </a>
+
     {% set sourcePath = page.inputPath | replace('src/site/notes/', '') %}
+
     <a id="sourcefile" href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/tree/main/src/site/notes/{{ sourcePath }}" data-tooltip="查看本页源文件" data-tooltip-position="top" target="_blank">
         <i class="svg-icon" icon-name="file-code" aria-hidden="true"></i>
     </a>
+
     <a id="donate" href="https://www.unlinearity.top/%E5%85%B3%E4%BA%8E%E8%AF%A5%E7%BD%91%E7%AB%99/%E6%94%AF%E6%8C%81%E6%9C%AC%E7%BD%91%E7%AB%99/" 
        data-tooltip="Donate or Sponsor" data-tooltip-position="top">
         <i class="svg-icon" icon-name="heart" aria-hidden="true"></i>
     </a>
+
     <a id="emailme" href="mailto:unlinearity@gmail.com?subject=Regarding {{title}}&body=Discussing {{meta.siteBaseUrl}}{{permalink}}" 
        data-tooltip="Discuss" data-tooltip-position="top">
         <i class="svg-icon" icon-name="mail-plus" aria-hidden="true"></i>
     </a>
+
+    
     <span id="theme-switch" style="cursor:pointer;">
         <i class="svg-icon light" icon-name="sun" data-tooltip="Light Mode" data-tooltip-position="top" aria-hidden="true"></i>
         <i class="svg-icon dark" icon-name="moon" data-tooltip="Dark Mode" data-tooltip-position="top" aria-hidden="true"></i>
         <i class="svg-icon auto" icon-name="sun-moon" data-tooltip="Auto Mode" data-tooltip-position="top" aria-hidden="true"></i>
     </span>
+
+    
+
     <span id="random-page-btn" style="cursor:pointer;display:inline-block;vertical-align:middle;" data-tooltip="随机跳转页面" data-tooltip-position="top">
         <i class="svg-icon" icon-name="dice-5" aria-hidden="true"></i>
     </span>
@@ -170,6 +180,11 @@
         window.localStorage.setItem('site-theme', theme);
         window.theme = theme;
     })
+
+    // 3D Graph 页面跳转逻辑
+    function open3DGraph() {
+        window.location.href = '/3D-graph/';
+    }
 
     // 随机跳转按钮逻辑
     const randomBtn = document.getElementById('random-page-btn');
