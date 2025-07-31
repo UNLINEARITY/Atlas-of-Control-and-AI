@@ -1,14 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="{{ meta.mainLanguage }}">
     <head>
-        <title>404 迷失于知识之海 Lost in the Sea of Knowledge</title>
+        <title>迷失于知识之海 / Lost in the Sea of Knowledge</title>
         <link href="/styles/digital-garden-base.css" rel="stylesheet">
-        {%-if meta.themeStyle%}
+        {%- if meta.themeStyle and meta.themeStyle.trim() !== '' %}
             <link href="/styles/obsidian-base.css" rel="stylesheet">
     	    <link href="{{meta.themeStyle}}" rel="stylesheet">
         {% else %}
             <link href="/styles/style.css" rel="stylesheet">
-        {%endif%}
+        {%- endif %}
 
         <link href="/styles/custom-style.css" rel="stylesheet">
         <style>
@@ -31,17 +32,17 @@
                 margin: 0 auto;
                 z-index: 1; /* Ensure text is above the graph */
                 position: relative;
+                background-color: rgba(0, 0, 0, 0.2); /* Lighter scrim */
+                padding: 2em 3em;
+                border-radius: 15px;
+                backdrop-filter: blur(5px); /* Softer blur */
+                border: 1px solid rgba(255, 255, 255, 0.1);
             }
             h1 {
                 font-size: 3em;
                 margin-bottom: 0.5em;
                 color: var(--text-title);
-                /* Gradient Text */
-                background: linear-gradient(90deg, #8e2de2, #4a00e0, #00c6ff); /* Deep starry sky gradient */
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                text-fill-color: transparent;
+                text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
             }
             p {
                 font-size: 1.2em;
@@ -56,6 +57,7 @@
                 border-radius: 5px;
                 text-decoration: none;
                 color: var(--interactive-accent);
+                background-color: transparent;
                 transition: all 0.3s ease;
             }
             .actions a:hover {
@@ -68,15 +70,22 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                opacity: 0.1; /* Subtle background */
+                opacity: 0.5; /* Adjusted for a more subtle effect */
                 z-index: 0;
+                pointer-events: none; /* Disable all mouse interactions */
+            }
+            /* Center the floating controls */
+            #floating-control {
+                left: 50%;
+                transform: translateX(-50%);
+                right: auto !important; /* Override inline style */
             }
         </style>
     </head>
     <body class="theme-{{meta.baseTheme}} markdown-preview-view">
         <div class="graph-background" id="graph-background"></div>
         <div class="container">
-            <h1>404 Lost in the Sea of Knowledge</h1>
+            <h1>404-Lost in the Sea of Knowledge</h1>
             <p>您似乎进入了一片未知的领域，这里没有您要寻找的知识节点。</p>
             <p>或许，您可以在这片浩瀚的知识图谱中重新定位方向。</p>
             <div class="actions">
@@ -87,8 +96,7 @@
             <p style="font-size: 0.9em; margin-top: 2em;">如果您认为这是一个错误，请通过邮件告知我们。</p>
         </div>
 
-        <script src="https://unpkg.com/three"></script>
-        <script src="https://unpkg.com/3d-force-graph"></script>
+        <script src="https://unpkg.com/3d-force-graph/dist/3d-force-graph.min.js"></script>
         <script>
             const graphContainer = document.getElementById('graph-background');
             const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -119,7 +127,7 @@
 
                     const graphData = { nodes, links };
 
-                    ForceGraph3D()(graphContainer)
+                    const Graph = ForceGraph3D()(graphContainer)
                         .graphData(graphData)
                         .backgroundColor('rgba(0,0,0,0)') // Transparent background
                         .nodeAutoColorBy('group')
@@ -129,12 +137,27 @@
                         .linkDirectionalParticleWidth(1.2)
                         .linkDirectionalParticleSpeed(0.006)
                         .linkColor('#666666')
-                        .d3Force('link').distance(() => 30)
-                        .d3Force('charge').strength(-120);
+                        .enableNavigationControls(false); // Disable user interaction
+                    
+                    Graph.d3Force('link').distance(() => 30);
+                    Graph.d3Force('charge').strength(-120);
+
+                    // Auto-rotation
+                    let angle = 0;
+                    setInterval(() => {
+                        Graph.cameraPosition({
+                            x: 650 * Math.sin(angle),
+                            z: 650 * Math.cos(angle)
+                        });
+                        angle -= Math.PI / 800; // Increased rotation speed
+                    }, 10);
                 })
                 .catch(error => {
                     console.error("Error loading graph data for 404 page:", error);
                 });
         </script>
+
+        {% include "components/user/common/footer/floatingControls.njk" %}
+
     </body>
 </html>
