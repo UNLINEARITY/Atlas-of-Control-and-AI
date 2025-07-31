@@ -195,7 +195,7 @@
                     .onNodeRightClick(node => {
                         const baseUrl = isLocal ? '' : window.location.origin;
                         const fullUrl = baseUrl + node.id;
-                        window.open(fullUrl, '_blank');
+                        window.location.href = fullUrl;
                     })
                     .onNodeHover(node => {
                         if (!node) {
