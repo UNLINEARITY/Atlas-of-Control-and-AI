@@ -145,7 +145,26 @@ module.exports = function (eleventyConfig) {
         const token = tokens[idx];
         if (token.info === "mermaid") {
           const code = token.content.trim();
-          return `<pre class="mermaid">${code}</pre>`;
+          const { execSync } = require('child_process');
+          const fs = require('fs');
+          const path = require('path');
+
+          const tmpFile = path.join(__dirname, 'temp_mermaid.mmd');
+          fs.writeFileSync(tmpFile, code);
+
+          try {
+            execSync(`npx mmdc -i ${tmpFile} -o ${tmpFile}.svg`);
+            const svgContent = fs.readFileSync(`${tmpFile}.svg`, 'utf8');
+            return `<div class="mermaid">${svgContent}</div>`;
+          } catch (error) {
+            console.error('Error rendering Mermaid diagram:', error);
+            return `<pre class="mermaid-error">${code}</pre>`;
+          } finally {
+            fs.unlinkSync(tmpFile);
+            if (fs.existsSync(`${tmpFile}.svg`)) {
+              fs.unlinkSync(`${tmpFile}.svg`);
+            }
+          }
         }
         if (token.info === "transclusion") {
           const code = token.content.trim();
@@ -196,15 +215,25 @@ module.exports = function (eleventyConfig) {
             collapseClasses += " is-collapsed"
           }
 
-          let res = `<div data-callout-metadata class="callout ${collapseClasses}" data-callout="${token.info.substring(3)
-            }">${titleDiv}\n<div class="callout-content">${md.render(
+          let res = `<div data-callout-metadata class="callout ${collapseClasses}" data-callout="${token.info.substring(3)}
+            ">${titleDiv}\n<div class="callout-content">${md.render(
               parts.slice(nbLinesToSkip).join("\n")
             )}</div></div>`;
           return res
         }
 
-        // Other languages
-        return origFenceRule(tokens, idx, options, env, slf);
+        const langName = token.info.split(' ')[0] || 'unknown';
+        const originalFenceRule = origFenceRule(tokens, idx, options, env, slf);
+
+        return `<div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="language">${langName}</span>
+                        <button class="copy-code-button" aria-label="Copy code to clipboard">
+                            Copy
+                        </button>
+                    </div>
+                    ${originalFenceRule}
+                </div>`;
       };
 
       const defaultImageRule =
@@ -521,6 +550,7 @@ module.exports = function (eleventyConfig) {
     return content;
   });
 
+  eleventyConfig.addPassthroughCopy("src/site/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/site/img");
   eleventyConfig.addPassthroughCopy("src/site/scripts");
   eleventyConfig.addPassthroughCopy("src/site/styles/_theme.*.css");
