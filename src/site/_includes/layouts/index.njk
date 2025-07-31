@@ -48,33 +48,36 @@
         {% include imp %}
       {% endfor %}
       {{ content | hideDataview | taggify | link | safe}}
-      <div class="site-stats" style="display:flex;gap:2em;margin:2em 0 1em 0;justify-content:center;flex-wrap:wrap;">
-        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
-          <div style="font-size:2em;">📄</div>
-          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#00bcd4;">{{ meta.siteStats.pageCount }}</div>
-          <div class="stat-label" style="font-size:1em;color:#888;">Pages</div>
+
+      <div class="site-stats">
+        <div class="stat-card pages">
+          <div class="icon-container"><i icon-name="file-text"></i></div>
+          <div class="stat-num">{{ meta.siteStats.pageCount }}</div>
+          <div class="stat-label">Pages</div>
         </div>
-        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
-          <div style="font-size:2em;">🔗</div>
-          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#ff9800;">{{ meta.siteStats.linkCount }}</div>
-          <div class="stat-label" style="font-size:1em;color:#888;">Internal Linkes</div>
+        <div class="stat-card links">
+          <div class="icon-container"><i icon-name="link-2"></i></div>
+          <div class="stat-num">{{ meta.siteStats.linkCount }}</div>
+          <div class="stat-label">Internal Links</div>
         </div>
-        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
-          <div style="font-size:2em;">✍️</div>
-          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#4caf50;">{{ meta.siteStats.wordCount }}</div>
-          <div class="stat-label" style="font-size:1em;color:#888;">Wordcount</div>
+        <div class="stat-card words">
+          <div class="icon-container"><i icon-name="pen-tool"></i></div>
+          <div class="stat-num">{{ meta.siteStats.wordCount }}</div>
+          <div class="stat-label">Wordcount</div>
         </div>
-        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
-          <div style="font-size:2em;">🧮</div>
-          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#9c27b0;">{{ meta.siteStats.formulaCount }}</div>
-          <div class="stat-label" style="font-size:1em;color:#888;">Formulas</div>
+        <div class="stat-card formulas">
+          <div class="icon-container"><i icon-name="function-square"></i></div>
+          <div class="stat-num">{{ meta.siteStats.formulaCount }}</div>
+          <div class="stat-label">Formulas</div>
         </div>
-        <div class="stat-card" style="text-align:center;min-width:110px;padding:1em 1.2em;background:#f8fafc;border-radius:1em;box-shadow:0 2px 8px #e0e7ef33;">
-          <div style="font-size:2em;">🖼️</div>
-          <div class="stat-num" style="font-size:2em;font-weight:bold;color:#e91e63;">{{ meta.siteStats.imageCount }}</div>
-          <div class="stat-label" style="font-size:1em;color:#888;">Pictures</div>
+        <div class="stat-card images">
+          <div class="icon-container"><i icon-name="image"></i></div>
+          <div class="stat-num">{{ meta.siteStats.imageCount }}</div>
+          <div class="stat-label">Pictures</div>
         </div>
       </div>
+
+
       {% for imp in dynamics.common.afterContent %}
         {% include imp %}
       {% endfor %}
