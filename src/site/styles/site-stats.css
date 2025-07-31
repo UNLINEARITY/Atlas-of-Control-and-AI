@@ -1,0 +1,52 @@
+.site-stats {
+    display: flex;
+    gap: 2em;
+    margin: 2em 0 1em 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    text-align: center;
+    min-width: 110px;
+    padding: 1em 1.2em;
+    background-color: var(--background-secondary, #f8fafc);
+    border-radius: 1em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card .icon-container {
+    font-size: 2em;
+    margin-bottom: 0.2em;
+}
+
+.stat-card .stat-num {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.stat-card .stat-label {
+    font-size: 1em;
+    color: var(--text-muted, #888);
+}
+
+.stat-card.pages .stat-num { color: #00bcd4; }
+.stat-card.links .stat-num { color: #ff9800; }
+.stat-card.words .stat-num { color: #4caf50; }
+.stat-card.formulas .stat-num { color: #9c27b0; }
+.stat-card.images .stat-num { color: #e91e63; }
+
+.theme-dark .stat-card {
+    background-color: var(--background-secondary-dark, #2a2a2a);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.theme-dark .stat-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
