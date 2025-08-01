@@ -118,7 +118,7 @@ body {
     &>div:not(.graph) {
       top: 10px;
       width: 325px;
-      max-height: calc(100% - 70px);;
+      max-height: calc(100% - 70px);
       overflow-y: auto;
     }
     @media (max-width: 1490px) {
@@ -129,7 +129,7 @@ body {
   }
 
   .content {
-    max-width: 900px !important;
+    max-width: 870px !important;
     width: 100%;
     box-sizing: border-box;
   }
@@ -317,7 +317,7 @@ body {
     bottom: 1vmax;
     right: 1vmax;
     font-size: 24px;
-    z-index: 999999;
+    z-index: 999;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -470,7 +470,7 @@ body {
     width: calc(100% - 20px);
     border-radius: 10px;
     border: var(--cards-border-width) solid var(--background-modifier-border);
-    z-index: 99999;
+    z-index: 90;
 
     .navbar-inner {
       h1::before {
@@ -480,7 +480,7 @@ body {
         height: 1.2em;
         background-size: contain;
         background-repeat: no-repeat;
-        background-image: url(/site/img/Logo.svg);
+        background-image: url(/img/Logo.svg);
         margin-right: 5px;
         background-position: bottom;
       }
@@ -682,7 +682,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 .sidebar {
   .toc-container {
     max-height: unset;
-      right: 10px;
+      right: 0.5px;
       top: 15px;
 
     @media (max-width: 1400px) {
@@ -764,27 +764,6 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   }
 }
 
-/* 点击极限时遮幕聚焦效果 */
-.click-focus-mask {
-  position: fixed;
-  left: 0; top: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 99998;
-  pointer-events: none;
-  background: rgba(0,0,0,0.45);
-  /* 中心透明聚焦圆 */
-  -webkit-mask-image: radial-gradient(circle var(--focus-r, 120px) at var(--focus-x, 50vw) var(--focus-y, 50vh), transparent 0px, transparent calc(var(--focus-r, 120px) - 2px), black calc(var(--focus-r, 120px) + 2px), black 100%);
-  mask-image: radial-gradient(circle var(--focus-r, 120px) at var(--focus-x, 50vw) var(--focus-y, 50vh), transparent 0px, transparent calc(var(--focus-r, 120px) - 2px), black calc(var(--focus-r, 120px) + 2px), black 100%);
-  animation: focus-mask-fade 0.7s cubic-bezier(0.4,0,0.2,1);
-}
-@keyframes focus-mask-fade {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
 
 .content.cm-s-obsidian {
   margin-left: auto;
@@ -802,3 +781,27 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   margin-right: auto !important;
 }
 
+.sidebar .graph-fs {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100000;
+    background: var(--background-primary);
+}
+
+.sidebar.on-top {
+    z-index: 10000;
+}
+
+.graph-fs #full-graph {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100001; /* Slightly higher than the local graph fullscreen */
+    background: var(--background-primary);
+}
+
+.graph-fs #full-graph-container {
+    width: 100%;
+    height: 100%;
+}

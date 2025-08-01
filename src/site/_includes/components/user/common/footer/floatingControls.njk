@@ -339,4 +339,14 @@
             }, 500); // Wait for notification to show
         });
     }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.key === 'g') {
+            event.preventDefault();
+            const graphFsBtn = document.getElementById('graph-fs-btn');
+            if (graphFsBtn) {
+                graphFsBtn.click();
+            }
+        }
+    });
 </script>
