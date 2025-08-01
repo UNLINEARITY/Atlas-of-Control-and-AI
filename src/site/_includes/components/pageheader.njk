@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.115.0/dist/umd/lucide.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script async type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -7,7 +8,8 @@
 
 {%include "components/calloutScript.njk"%}
 
-<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+
+<script src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
 
 <script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
 <script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
@@ -28,7 +30,7 @@
 <link href="{{style}}" rel="stylesheet">
 {%- endfor -%}
 
-{% favicons './src/site/favicon.svg', appleIconBgColor='#123' %}
+{# {% favicons './src/site/favicon.svg', appleIconBgColor='#123' %} #}
 
 {% if metatags %}
     {% for name, content in metatags %}

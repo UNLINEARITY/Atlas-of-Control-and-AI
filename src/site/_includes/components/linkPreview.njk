@@ -1,156 +1,262 @@
 <!-- Credit for the link preview implementation goes to https://github.com/maximevaillancourt/digital-garden-jekyll-template/blob/master/_includes/link-previews.html -->
 <style>
-#tooltip-wrapper {
+
+
+.tooltip-wrapper {
+
   background: var(--background-primary);
   padding: 1em;
-  border-radius: 4px;
-  overflow: hidden;
+  border-radius: 8px; /* Increased border-radius for more rounded corners */
+  border: 2px solid; /* Added border, color will be set dynamically */
+  overflow: auto;
   position: fixed;
-  width: 80%;
-  max-width: 400px;
+  width: 550px;
+
+  max-width: 650px; /* Increased max-width */
   height: auto;
-  max-height: 300px;
-  font-size: 0.8em;
+  max-height: 500px; /* Increased max-height */
+  min-width: 300px; /* Increased min-width */
+  min-height: 200px; /* Increased min-height */
+
+  resize: both; /* Added for resizing */
+  font-size: 1em; /* Increased base font-size */
   box-shadow: 0 5px 10px rgba(0,0,0,0.1);
   opacity: 0;
   transition: opacity 100ms;
   unicode-bidi: plaintext;
-  overflow-y: scroll;
   z-index: 10;
+  cursor: grab; /* Make the whole window draggable */
+  display: none; /* Hidden by default */
+
 }
 
-#tooltip-wrapper:after {
+
+
+.tooltip-wrapper:after {
   content: "";
   position: absolute;
   z-index: 1;
   bottom: 0;
   left: 0;
   pointer-events: none;
-  width: 100%;
+  width: 80%;
   unicode-bidi: plaintext;
   height: 75px;
 }
 </style>
-<div style="opacity: 0; display: none;" id='tooltip-wrapper'>
-  <div id='tooltip-content'>
-  </div>
-</div>
-
-<iframe style="display: none; height: 0; width: 0;" id='link-preview-iframe' src="">
-</iframe>
 
 <script>
-  var opacityTimeout;
-  var contentTimeout;
-  var transitionDurationMs = 100;
+  const transitionDurationMs = 100;
+  const linkHistories = {}; // Cache for fetched content
+  const openTooltips = new Map(); // Map to store active LinkPreview instances by a unique ID
+  let tooltipCounter = 0; // Counter to create unique IDs
 
-  var iframe = document.getElementById('link-preview-iframe')
-  var tooltipWrapper = document.getElementById('tooltip-wrapper')
-  var tooltipContent = document.getElementById('tooltip-content')
+  class LinkPreview {
+    constructor(uniqueId, contentURL, linkElement, isUnresolved = false) {
+      this.uniqueId = uniqueId; // Use a unique ID to manage multiple instances
+      this.contentURL = contentURL;
+      this.linkElement = linkElement; // Store the link element that triggered this preview
+      this.isUnresolved = isUnresolved; // Store the unresolved status
+      this.isDragging = false;
+      this.dragOffsetX = 0;
+      this.dragOffsetY = 0;
+      this.opacityTimeout = null;
+      this.contentTimeout = null;
 
-  var linkHistories = {};
+      this.createElement();
+      this.addEventListeners();
+    }
 
-  function hideTooltip() {
-    opacityTimeout = setTimeout(function () {
-      tooltipWrapper.style.opacity = 0;
-      contentTimeout = setTimeout(function () {
-        tooltipContent.innerHTML = '';
-        tooltipWrapper.style.display = 'none';
-      }, transitionDurationMs + 1);
-    }, transitionDurationMs)
-  }
+    createElement() {
+      this.wrapper = document.createElement('div');
+      this.wrapper.className = 'tooltip-wrapper';
+      document.body.appendChild(this.wrapper);
 
-  function showTooltip(event) {
-    var elem = event.target;
-    var elem_props = elem.getClientRects()[elem.getClientRects().length - 1];
-    var top = window.pageYOffset || document.documentElement.scrollTop;
-    var url = event.target.getAttribute("href");
-    if (url.indexOf("http") === -1 || url.indexOf(window.location.host) !== -1) {
-      let contentURL = url.split('#')[0]
-      if (!linkHistories[contentURL]) {
-        iframe.src = contentURL
-        iframe.onload = function () {
-          tooltipContentHtml = ''
-          tooltipContentHtml += '<div style="font-weight: bold; unicode-bidi: plaintext;">' + iframe.contentWindow.document.querySelector('h1').innerHTML + '</div>'
-          tooltipContentHtml += iframe.contentWindow.document.querySelector('.content').innerHTML
-          tooltipContent.innerHTML = tooltipContentHtml
-          linkHistories[contentURL] = tooltipContentHtml
-          tooltipWrapper.style.display = 'block';
-          tooltipWrapper.scrollTop = 0;
-          setTimeout(function () {
-            tooltipWrapper.style.opacity = 1;
-            if (url.indexOf("#") != -1) {
-              let id = url.split('#')[1];
-              const focus = tooltipWrapper.querySelector(`[id='${id}']`);
-              focus.classList.add('referred');
-              console.log(focus);
-              focus.scrollIntoView({behavior: 'smooth'}, true)
-            } else {
-              tooltipWrapper.scroll(0, 0);
-            }
-          }, 1)
+      this.content = document.createElement('div');
+      this.content.className = 'tooltip-content';
+      this.wrapper.appendChild(this.content);
+
+      this.iframe = document.createElement('iframe');
+      this.iframe.style.display = 'none';
+      this.iframe.style.height = '0';
+      this.iframe.style.width = '0';
+      document.body.appendChild(this.iframe);
+    }
+
+    addEventListeners() {
+      this.wrapper.addEventListener('mousedown', (e) => this.startDrag(e));
+      this.wrapper.addEventListener('dblclick', () => this.hide());
+      // Prevent default right-click menu on the tooltip itself
+      this.wrapper.addEventListener('contextmenu', (e) => e.preventDefault());
+
+      // Add ResizeObserver for responsive font sizing
+      this.resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+          this.adjustFontSize(entry.contentRect.width);
         }
+      });
+      this.resizeObserver.observe(this.wrapper);
+    }
+
+    adjustFontSize(width) {
+      // Define breakpoints and corresponding font sizes
+      const breakpoints = [
+        { width: 300, fontSize: 1.0 }, // Smaller window, smaller font
+        { width: 450, fontSize: 1.08 }, // Medium window, base font
+        { width: 650, fontSize: 1.1}  // Larger window, larger font
+      ];
+
+      let newFontSize = 1.0; // Default font size
+      for (let i = 0; i < breakpoints.length; i++) {
+        if (width >= breakpoints[i].width) {
+          newFontSize = breakpoints[i].fontSize;
+        }
+      }
+      this.content.style.fontSize = `${newFontSize}em`;
+    }
+
+    startDrag(e) {
+      this.isDragging = true;
+      this.dragOffsetX = e.clientX - this.wrapper.getBoundingClientRect().left;
+      this.dragOffsetY = e.clientY - this.wrapper.getBoundingClientRect().top;
+      this.wrapper.style.cursor = 'grabbing';
+    }
+
+    doDrag(e) {
+      if (this.isDragging) {
+        this.wrapper.style.left = (e.clientX - this.dragOffsetX) + 'px';
+        this.wrapper.style.top = (e.clientY - this.dragOffsetY) + 'px';
+      }
+    }
+
+    stopDrag() {
+      if (this.isDragging) {
+        this.isDragging = false;
+        this.wrapper.style.cursor = 'grab';
+      }
+    }
+
+    show(event) {
+      clearTimeout(this.opacityTimeout);
+      clearTimeout(this.contentTimeout);
+
+      this.wrapper.style.display = 'block';
+
+      // Get the computed color of the link that triggered this preview
+      const linkColor = window.getComputedStyle(this.linkElement).color;
+      this.wrapper.style.borderColor = linkColor;
+
+      if (this.isUnresolved) {
+        this.content.innerHTML = 'There is no content.';
+        this.wrapper.scrollTop = 0;
+        setTimeout(() => this.wrapper.style.opacity = 1, 1);
+        this.positionTooltip(event);
+      } else if (linkHistories[this.contentURL]) {
+        this.content.innerHTML = linkHistories[this.contentURL];
+        this.wrapper.scrollTop = 0;
+        setTimeout(() => this.wrapper.style.opacity = 1, 1);
+        this.positionTooltip(event);
       } else {
-        tooltipContent.innerHTML = linkHistories[contentURL]
-        tooltipWrapper.style.display = 'block';
-        setTimeout(function () {
-          tooltipWrapper.style.opacity = 1;
-          if (url.indexOf("#") != -1) {
-              let id = url.split('#')[1];
-              const focus = tooltipWrapper.querySelector(`[id='${id}']`);
-              focus.classList.add('referred');
-              focus.scrollIntoView({behavior: 'smooth'}, true)
-          } else {
-              tooltipWrapper.scroll(0, 0);
+        this.iframe.src = this.contentURL;
+        this.iframe.onload = () => {
+          let tooltipContentHtml = '';
+          try {
+            tooltipContentHtml += this.iframe.contentWindow.document.querySelector('.content').innerHTML;
+          } catch (e) {
+            console.error('Error reading iframe content:', e);
+            tooltipContentHtml = 'Failed to load preview content.';
           }
-        }, 1)
+          this.content.innerHTML = tooltipContentHtml;
+          linkHistories[this.contentURL] = tooltipContentHtml;
+          this.wrapper.scrollTop = 0;
+          setTimeout(() => this.wrapper.style.opacity = 1, 1);
+          this.positionTooltip(event);
+        };
+      }
+    }
+
+    hide() {
+      this.opacityTimeout = setTimeout(() => {
+        this.wrapper.style.opacity = 0;
+        this.contentTimeout = setTimeout(() => {
+          this.content.innerHTML = '';
+          this.wrapper.style.display = 'none';
+          // Remove from openTooltips map and DOM when hidden
+          openTooltips.delete(this.uniqueId);
+          this.wrapper.remove();
+          this.iframe.remove();
+        }, transitionDurationMs + 1);
+      }, transitionDurationMs);
+    }
+
+    positionTooltip(event) {
+      const elem_props = event.target.getClientRects()[event.target.getClientRects().length - 1];
+      const top = window.pageYOffset || document.documentElement.scrollTop;
+
+      this.wrapper.style.left = elem_props.left - (this.wrapper.offsetWidth / 2) + (elem_props.width / 2) + "px";
+
+      if ((window.innerHeight - elem_props.top) < (this.wrapper.offsetHeight)) {
+        this.wrapper.style.top = elem_props.top + top - this.wrapper.offsetHeight - 10 + "px";
+      } else if ((window.innerHeight - elem_props.top) > (this.wrapper.offsetHeight)) {
+        this.wrapper.style.top = elem_props.top + top + 35 + "px";
       }
 
-      function getInnerWidth(elem) {
-        var style = window.getComputedStyle(elem);
-        return elem.offsetWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight) - parseFloat(style.borderLeft) - parseFloat(style.borderRight) - parseFloat(style.marginLeft) - parseFloat(style.marginRight);
-      }
-
-      tooltipWrapper.style.left = elem_props.left - (tooltipWrapper.offsetWidth / 2) + (elem_props.width / 2) + "px";
-
-      if ((window.innerHeight - elem_props.top) < (tooltipWrapper.offsetHeight)) {
-        tooltipWrapper.style.top = elem_props.top + top - tooltipWrapper.offsetHeight - 10 + "px";
-      } else if ((window.innerHeight - elem_props.top) > (tooltipWrapper.offsetHeight)) {
-        tooltipWrapper.style.top = elem_props.top + top + 35 + "px";
-      }
-
-      if ((elem_props.left + (elem_props.width / 2)) < (tooltipWrapper.offsetWidth / 2)) {
-        tooltipWrapper.style.left = "10px";
-      } else if ((document.body.clientWidth - elem_props.left - (elem_props.width / 2)) < (tooltipWrapper.offsetWidth / 2)) {
-        tooltipWrapper.style.left = document.body.clientWidth - tooltipWrapper.offsetWidth - 20 + "px";
+      if ((elem_props.left + (elem_props.width / 2)) < (this.wrapper.offsetWidth / 2)) {
+        this.wrapper.style.left = "10px";
+      } else if ((document.body.clientWidth - elem_props.left - (elem_props.width / 2)) < (this.wrapper.offsetWidth / 2)) {
+        this.wrapper.style.left = document.body.clientWidth - this.wrapper.offsetWidth - 20 + "px";
       }
     }
   }
 
+  // Global mousemove and mouseup listeners for dragging
+  document.addEventListener('mousemove', (e) => {
+    openTooltips.forEach(tooltip => tooltip.doDrag(e));
+  });
+
+  document.addEventListener('mouseup', () => {
+    openTooltips.forEach(tooltip => tooltip.stopDrag());
+  });
+
   function setupListeners(linkElement) {
-    linkElement.addEventListener('mouseleave', function (_event) {
-      hideTooltip();
-    });
+    linkElement.addEventListener('contextmenu', function (event) {
+      event.preventDefault(); // Prevent default right-click context menu
+      event.stopPropagation(); // Stop event from bubbling up to parent tooltips
+      const url = event.target.getAttribute("href");
+      const contentURL = url.split('#')[0];
 
-    tooltipWrapper.addEventListener('mouseleave', function (_event) {
-      hideTooltip();
-    });
-
-    linkElement.addEventListener('mouseenter', function (event) {
-      clearTimeout(opacityTimeout);
-      clearTimeout(contentTimeout);
-      showTooltip(event);
-    });
-
-    tooltipWrapper.addEventListener('mouseenter', function (event) {
-      clearTimeout(opacityTimeout);
-      clearTimeout(contentTimeout);
+      // Always create a new preview. This avoids issues with nested/duplicate previews.
+      if (url.indexOf("http") === -1 || url.indexOf(window.location.host) !== -1) {
+        tooltipCounter++;
+        const uniqueId = `${contentURL}-${tooltipCounter}`;
+        const isUnresolved = linkElement.classList.contains('is-unresolved');
+        
+        const tooltipInstance = new LinkPreview(uniqueId, contentURL, event.target, isUnresolved);
+        openTooltips.set(uniqueId, tooltipInstance);
+        tooltipInstance.show(event);
+      }
     });
   }
 
-  window.addEventListener("load", function(event) 
-  {
+  window.addEventListener("load", function() {
+    // Initial setup for links outside of preview windows
     document.querySelectorAll('.internal-link').forEach(setupListeners);
     document.querySelectorAll('.backlink-card a').forEach(setupListeners);
+
+    // MutationObserver to handle dynamically added links (e.g., within preview windows)
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.addedNodes) {
+          mutation.addedNodes.forEach(node => {
+            if (node.nodeType === 1) { // Element node
+              node.querySelectorAll('.internal-link').forEach(setupListeners);
+              node.querySelectorAll('.backlink-card a').forEach(setupListeners);
+            }
+          });
+        }
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
   });
 </script>
