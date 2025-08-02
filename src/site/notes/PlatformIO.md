@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"编程语言/PlatformIO.md","permalink":"/编程语言/PlatformIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-11-11T15:21:51.000+08:00","updated":"2025-05-23T17:10:57.000+08:00"}
+{"dg-publish":true,"dg-path":"编程语言/PlatformIO.md","permalink":"/编程语言/PlatformIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.427+08:00","updated":"2025-08-02T10:36:28.427+08:00"}
 ---
 
 
@@ -45,4 +45,4 @@ python globle source
 lib_ldf_mode=deep+
 ```
 
-![Pasted image 20241118201130.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241118201130.png)
+![Pasted image 20241118201130.png](/img/user/Photo%20Resources/Pasted%20image%2020241118201130.png)

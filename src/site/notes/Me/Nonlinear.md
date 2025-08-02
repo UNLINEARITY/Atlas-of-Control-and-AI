@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-07-29T12:12:15.772+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.419+08:00","updated":"2025-08-02T10:36:28.419+08:00"}
 ---
 
 
@@ -87,7 +87,7 @@ root((本网站))
 ### 三、关于网站
 > Nothing really matters; starting is what counts most.
 
-![md_wordcloud.png](/img/user/Functional%20files/Photo%20Resources/md_wordcloud.png)
+![md_wordcloud.png](/img/user/Photo%20Resources/md_wordcloud.png)
 
 有关网站的相关信息查看[[关于该网站\|关于该网站]]，如果其中的内容对你有帮助，你可以为本网站[开源的项目](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI) 点一颗⭐star，感激不尽！
 

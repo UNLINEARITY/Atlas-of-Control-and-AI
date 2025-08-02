@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-06T11:27:23.000+08:00","updated":"2025-05-14T00:36:52.450+08:00"}
+{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-06T11:27:23.000+08:00","updated":"2025-08-02T10:36:28.612+08:00"}
 ---
 
 
@@ -76,7 +76,7 @@ W(s)= K_{P}(s)  \dfrac{1+T_{D}s}{1+ \dfrac{T_{D}}{K_{D}}s}\quad  \Delta y=K_{P}\
 
 ### 四、PID 运算规律
 
-![Pasted image 20241031161544.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241031161544.png)
+![Pasted image 20241031161544.png](/img/user/Photo%20Resources/Pasted%20image%2020241031161544.png)
 #### PID 控制器的构成
 1. **放大器和 PID 反馈电路**：运算电路简单，相互干扰系数大
 2. **PD 和 PI 电路串联**：相互干扰系数较小，各级串联使得累计误差较大，精度要求较高

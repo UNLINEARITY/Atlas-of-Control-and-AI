@@ -1,5 +1,5 @@
 ---
-{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/USART.md","permalink":"/MCU微控制器/STM32/USART/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-17T11:36:41.299+08:00","updated":"2025-03-19T10:15:37.453+08:00"}
+{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/USART.md","permalink":"/MCU微控制器/STM32/USART/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-17T11:36:41.299+08:00","updated":"2025-08-02T10:36:28.479+08:00"}
 ---
 
 
@@ -28,7 +28,7 @@ USART1（APB2）、USART2（APB1）、USART3（APB1）
 ### 结构框图
 引脚图见 [[STM32F103C8T6\|STM32F103C8T6]]
 
-![Pasted image 20240811174444.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240811174444.png)
+![Pasted image 20240811174444.png](/img/user/Photo%20Resources/Pasted%20image%2020240811174444.png)
 
 #### 基础功能
 程序上共用地址 DR ，实际在物理上分为两个独立的寄存器：
@@ -79,7 +79,7 @@ APB 时钟分频，得到发送和接收的时钟
 波特率= $\dfrac{f_{PCLKn}}{16*DIV}$
 
 ### 基本结构图
-![Pasted image 20240916192050.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240916192050.png)
+![Pasted image 20240916192050.png](/img/user/Photo%20Resources/Pasted%20image%2020240916192050.png)
 
 ### 基本流程
 开启时钟，将 USART、GPIO 的时钟打开

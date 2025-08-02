@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/深度学习/Transformer.md","permalink":"/人工智能/深度学习/Transformer/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-13T23:08:41.000+08:00","updated":"2025-06-22T00:52:05.580+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/深度学习/Transformer.md","permalink":"/人工智能/深度学习/Transformer/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-13T23:08:41.000+08:00","updated":"2025-08-02T10:36:28.476+08:00"}
 ---
 
 
@@ -93,12 +93,12 @@ $$\begin{gathered}\mathrm{PE}_{(pos,2i)}=\sin\left(\frac{pos}{10000^{2i/d_{model
 
 
 
-![Pasted image 20240513234553.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240513234553.png)
+![Pasted image 20240513234553.png](/img/user/Photo%20Resources/Pasted%20image%2020240513234553.png)
 
 
 
-![Pasted image 20240513235157.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240513235157.png)
+![Pasted image 20240513235157.png](/img/user/Photo%20Resources/Pasted%20image%2020240513235157.png)
 
-![Pasted image 20240513235314.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240513235314.png)
+![Pasted image 20240513235314.png](/img/user/Photo%20Resources/Pasted%20image%2020240513235314.png)
 
 

@@ -82,7 +82,7 @@ l1.extend(l2)
 `del` removes it without returning anything：移除特定索引的元素（不会返回值）
 `remove()`  remove a specific value : 移除特定值的元素
 `clear()`   remove all items : 清除所有的元素 
-使用 [[Set\|Set]]  移除重复的元素 
+使用 [[set\|Set]]  移除重复的元素 
 
 ```python
 my_list = [1, 2, 3, 4, 5] 

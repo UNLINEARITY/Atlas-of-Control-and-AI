@@ -1,12 +1,12 @@
 ---
-{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/G-M系统.md","permalink":"/A3- 电机及电力拖动/G-M系统/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-05-20T18:04:51.000+08:00"}
+{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/G-M系统.md","permalink":"/A3- 电机及电力拖动/G-M系统/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.390+08:00","updated":"2025-08-02T10:36:28.390+08:00"}
 ---
 
 **Generator-Motor**
 旋转变流机组：用交流电动机和直流发电机组成机组，以获得可调的直流电压
 
 ### 基本原理
-![Pasted image 20240419162026.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240419162026.png)
+![Pasted image 20240419162026.png](/img/user/Photo%20Resources/Pasted%20image%2020240419162026.png)
 
 G 直流发电机，M 直流电动机
 - 由原动机(柴油机、交流异步或同步电动机)拖动直流发电机G实现变流，
