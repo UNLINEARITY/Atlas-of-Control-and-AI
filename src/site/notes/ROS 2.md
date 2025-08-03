@@ -1,5 +1,5 @@
 ---
-{"tags":["OpenSource","Framework"],"dg-publish":true,"dg-path":"机器人/ROS 2.md","permalink":"/机器人/ROS 2/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-28T16:44:19.000+08:00","updated":"2025-06-27T00:11:27.819+08:00"}
+{"tags":["OpenSource","Framework"],"dg-publish":true,"dg-path":"机器人/ROS 2.md","permalink":"/机器人/ROS 2/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.457+08:00","updated":"2025-08-03T10:59:26.454+08:00"}
 ---
 
 (website::https://docs.ros.org/)
@@ -21,7 +21,7 @@ ROS2 是在 ROS 的基础上设计开发的第二代机器人操作系统，可�
 [[Ros2 bag\|Ros2 bag]]
 [[ROS and mqtt 代码使用\|ROS and mqtt 代码使用]]
 
-![Pasted image 20250501214912.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501214912.png)
+![Functional files/Photo Resources/Pasted image 20250501214912.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501214912.png)
 
 
 ### 概念 Concepts 

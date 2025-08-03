@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:11:42.646+08:00","updated":"2025-07-16T09:28:24.781+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.400+08:00","updated":"2025-08-03T10:59:25.668+08:00"}
 ---
 
 
@@ -29,7 +29,7 @@
    * $\mu : G \times G \to G, \quad \mu(a, b) = a \cdot b$
    * $\iota : G \to G, \quad \iota(a) = a^{-1}$
 
-![Pasted image 20250716004633.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250716004633.png)
+![Functional files/Photo Resources/Pasted image 20250716004633.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250716004633.png)
 
 
 ### 常见 Lie Group

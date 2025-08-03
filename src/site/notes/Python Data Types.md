@@ -25,7 +25,7 @@
 | Advanced | [[Range\|Range]]         | immutable | Iterable | `range()`   |
 | Advanced | [[Tuple\|Tuple]] 元组      | immutable | Iterable | `tuple()`   |
 | Advanced | [[List\|List]]  列表      | mutable   | Iterable | `list()`    |
-| Advanced | [[Set\|Set]]  集合       | mutable   | Iterable | `set()`     |
+| Advanced | [[set\|Set]]  集合       | mutable   | Iterable | `set()`     |
 | Advanced | [[Dictionary\|Dictionary]] 字典 | mutable   | Iterable | `dict()`    |
 
 
