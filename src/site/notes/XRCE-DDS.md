@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/XRCE-DDS.md","permalink":"/机器人/XRCE-DDS/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-27T15:35:41.804+08:00","updated":"2025-05-19T19:02:16.687+08:00"}
+{"dg-publish":true,"dg-path":"机器人/XRCE-DDS.md","permalink":"/机器人/XRCE-DDS/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-27T15:35:41.804+08:00","updated":"2025-08-03T10:59:27.154+08:00"}
 ---
 
 
@@ -14,7 +14,7 @@ DDS-XRCE 协议的目标是让资源受限设备能够访问 DDS 全局数据空
 
 
 
-![Pasted image 20250501165537.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501165537.png)
+![Functional files/Photo Resources/Pasted image 20250501165537.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501165537.png)
 
 ### Components
 Micro XRCE-DDS 由两个主要部分组成：

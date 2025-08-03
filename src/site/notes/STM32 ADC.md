@@ -1,5 +1,5 @@
 ---
-{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32 ADC.md","permalink":"/MCU微控制器/STM32/STM32 ADC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-30T16:17:38.000+08:00","updated":"2025-05-23T17:31:00.000+08:00"}
+{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32 ADC.md","permalink":"/MCU微控制器/STM32/STM32 ADC/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.462+08:00","updated":"2025-08-03T10:59:26.595+08:00"}
 ---
 
 
@@ -27,7 +27,7 @@ STM32 内置的ADC [[STM32片上外设\|外设资源]]： **逐次逼近型**[[A
 **模拟看门狗**
 自动监测输入电压范围，可以设置阈值，使用模拟[[WDG\|看门狗]]在一定的条件下执行特定的操作，当达到阈值时，自动申请中断，在中断函数中执行相应的操作
 
-![Pasted image 20240731115749.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240731115749.png)
+![Functional files/Photo Resources/Pasted image 20240731115749.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240731115749.png)
 
 $V_{REF_{+}}\quad V_{REF_{-}}$   决定 ADC 输入电压的范围
 $V_{DDA} \quad V_{SSA}$    ADC 的供电引脚
@@ -43,7 +43,7 @@ ADCCLK 来源于 ADC 预分频器，也就是来源于 [[RCC#RCC 时钟树\|RCC]
 只能选择 6 分频 $\dfrac{72}{6}=12MHz$ 和 8 分频 $\dfrac{72}{8}=9MHz$
 
 转换结束后，信号可以进入 [[NVIC\|NVIC]] 中申请中断
-![Pasted image 20240731122759.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240731122759.png)
+![Functional files/Photo Resources/Pasted image 20240731122759.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240731122759.png)
 
 ### STM32 中 ADC 的基础介绍
 #### 输入通道

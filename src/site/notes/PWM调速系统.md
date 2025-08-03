@@ -1,12 +1,12 @@
 ---
-{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM调速系统.md","permalink":"/A3- 电机及电力拖动/PWM调速系统/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-17T23:29:32.000+08:00","updated":"2025-05-20T18:08:20.000+08:00"}
+{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM调速系统.md","permalink":"/A3- 电机及电力拖动/PWM调速系统/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.429+08:00","updated":"2025-08-03T10:59:26.179+08:00"}
 ---
 
 脉宽调制变换器-直流电动机调速系统
 简单单管控制：直流斩波器 -->  逐渐发展：脉宽调制变换器 (基本原理：[[PWM\|脉冲宽度调制]])
 直流PWM调速系统作为一种新技术，发展迅速，应用日益广泛，特别在中、小容量的系统中，已取代 [[V-M系统\|V-M系统]]成为主要的直流调速方式。
 ### 直流斩波器
-![Pasted image 20240419163600.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240419163600.png)
+![Functional files/Photo Resources/Pasted image 20240419163600.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240419163600.png)
 
 - VT 电力电子开关器件   [[斩波器\|斩波器]]
 - VD 续流二极管

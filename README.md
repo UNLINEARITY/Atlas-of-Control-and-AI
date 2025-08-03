@@ -164,12 +164,6 @@ In actual work and life, basic mathematics and physics knowledge are often neede
 - [x] Linear Algebra
 - [x] Manim
 
-**Future additions:**
-- [x] Machine Learning
-- [x] Philosophy
-- [ ] Biology
-  - [ ] Ecology
-
 ***
 
 ## IV. How to Contribute to the Website
@@ -200,13 +194,13 @@ For specific contribution steps, check the [readme file](https://github.com/UNLI
 If you think the website should have new features and have the ability to improve it, you can make adjustments anytime.
 Possible features to implement?
 Already implemented:
-
-~~- [x] Like and comment on articles~~, this was already implemented, but considering its actual use was not significant, it was removed.
+- [x] Dark mode?
+- [x] 3D display of the knowledge graph
+- [x] Like and comment on articles, this was already implemented, but considering its actual use was not significant, it was removed.
 
 Not implemented:
 - [ ] Switch between Chinese and English?
-- [ ] Dark mode?
-- [ ] 3D display of the knowledge graph
+
 
 ***
 

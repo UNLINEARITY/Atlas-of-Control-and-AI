@@ -6,6 +6,7 @@ const faviconsPlugin = require("eleventy-plugin-gen-favicons");
 const tocPlugin = require("eleventy-plugin-nesting-toc");
 const { parse } = require("node-html-parser");
 const htmlMinifier = require("html-minifier-terser");
+const path = require("path");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 const { headerToId, namedHeadingsFilter } = require("./src/helpers/utils");
@@ -223,6 +224,17 @@ module.exports = function (eleventyConfig) {
           return self.renderToken(tokens, idx, options, env, self);
         };
       md.renderer.rules.image = (tokens, idx, options, env, self) => {
+        const token = tokens[idx];
+        const src = token.attrGet("src");
+
+        if (src && !src.startsWith("/") && !src.startsWith("http")) {
+          const pagePath = env.page.inputPath;
+          const resolvedImagePath = path.resolve(path.dirname(pagePath), src);
+          const siteRoot = path.resolve("./src/site");
+          const newSrc = "/" + path.relative(siteRoot, resolvedImagePath).replace(/\\/g, "/");
+          token.attrSet("src", newSrc);
+        }
+
         const imageName = tokens[idx].content;
         //"image.png|metadata?|width"
         const [fileName, ...widthAndMetaData] = imageName.split("|");
@@ -468,7 +480,7 @@ module.exports = function (eleventyConfig) {
 
         try {
           const meta = transformImage(
-            "./src/site" + decodeURI(imageTag.getAttribute("src")),
+            path.join(path.dirname(env.page.inputPath), decodeURI(src)),
             cls.toString(),
             alt,
             ["(max-width: 480px)", "(max-width: 1024px)"]

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"MCU微控制器/STM32/EXTI.md","permalink":"/MCU微控制器/STM32/EXTI/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-17T00:16:52.272+08:00","updated":"2024-09-10T11:52:21.463+08:00"}
+{"dg-publish":true,"dg-path":"MCU微控制器/STM32/EXTI.md","permalink":"/MCU微控制器/STM32/EXTI/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:26.365+08:00","updated":"2025-08-03T10:59:25.107+08:00"}
 ---
 
 (terminology::**Extern Interrupt**)   外部中断
@@ -16,7 +16,7 @@ EXTI 可以监测指定 [[GPIO\|GPIO]] 口的电平信号，当其指定的 GPIO
 	不会触发 CPU 的中断，而是触发其他外设操作
 	属于外设之间的联合工作
 
-![Pasted image 20240716212859.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240716212859.png)
+![Functional files/Photo Resources/Pasted image 20240716212859.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240716212859.png)
 
 
 [[AFIO \|AFIO ]] 中断引脚选择模块，实际上是一个[[数据选择器\|数据选择器]]
@@ -33,7 +33,7 @@ GPIO 的 16 个端口与 4 个蹭网的外设并列接入 EXTI 电路
 	20 条输出
 
 
-![Pasted image 20240716220251.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240716220251.png)
+![Functional files/Photo Resources/Pasted image 20240716220251.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240716220251.png)
 
 
 屏蔽寄存器与输入的中断信号相与，相当于开关控制

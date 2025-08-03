@@ -1,5 +1,5 @@
 ---
-{"tags":["Discrete"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-07-27T09:29:22.004+08:00"}
+{"tags":["Discrete"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-08-03T10:59:30.537+08:00"}
 ---
 
 
@@ -39,7 +39,7 @@ $$\begin{align}
 #### 3. 一般 PID 算法的离散化
 一般常用[[模拟控制器离散化#二、差分变换法\|模拟控制器离散化#二、差分变换法]] ，用后向差分，或双线性差分，并写为控制器的形式
 ### 二、改进的数字 PID 算法
-![改进PID.png](/img/user/Functional%20files/Photo%20Resources/%E6%94%B9%E8%BF%9BPID.png)
+![Functional files/Photo Resources/改进PID.png](../img/user/Functional%20files/Photo%20Resources/%E6%94%B9%E8%BF%9BPID.png)
 
 #### 1.  积分分离算法
 在系统误差较大时，取消积分作用；当误差减小到一定值时，再重新积分。$e_{0}$ 为积分分离阈值
@@ -83,7 +83,7 @@ u(k)= \dfrac{T_{f}}{T_{f}+T} u(k-1)+\dfrac{T}{T_{f}+T} u_{1}(k)
 \end{align}$$
 
 #### 5. 微分先行
-![微分先行.png](/img/user/Functional%20files/Photo%20Resources/%E5%BE%AE%E5%88%86%E5%85%88%E8%A1%8C.png)
+![Functional files/Photo Resources/微分先行.png](../img/user/Functional%20files/Photo%20Resources/%E5%BE%AE%E5%88%86%E5%85%88%E8%A1%8C.png)
 
 - **输出量微分：只对输出量进行微分**，避免因给定值变化给控制系统带来超调量过大、调节阀动作剧烈的冲击
 - **偏差量微分：对给定值和输出量均微分**

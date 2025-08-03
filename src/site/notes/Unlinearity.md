@@ -1,9 +1,9 @@
 ---
-{"dg-publish":true,"dg-pinned":true,"dg-path":"A0- 关于该网站/Unlinearity.md","permalink":"/A0- 关于该网站/Unlinearity/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-19T20:22:30.740+08:00","updated":"2025-07-18T08:39:03.615+08:00"}
+{"dg-publish":true,"dg-pinned":true,"dg-path":"A0- 关于该网站/Unlinearity.md","permalink":"/A0- 关于该网站/Unlinearity/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-19T20:22:30.740+08:00","updated":"2025-08-03T10:59:27.061+08:00"}
 ---
 
 
-![logo.png](/img/user/Functional%20files/Photo%20Resources/logo.png)
+![Functional files/Photo Resources/logo.png](../img/user/Functional%20files/Photo%20Resources/logo.png)
 
 >“你灵魂的欲望，是你命运的先知”
 >"The desires of your soul are the prophets of your destiny."
