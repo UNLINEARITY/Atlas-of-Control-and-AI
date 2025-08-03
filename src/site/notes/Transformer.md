@@ -93,12 +93,12 @@ $$\begin{gathered}\mathrm{PE}_{(pos,2i)}=\sin\left(\frac{pos}{10000^{2i/d_{model
 
 
 
-![Functional files/Photo Resources/Pasted image 20240513234553.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240513234553.png)
+![Functional files/Photo Resources/Pasted image 20240513234553.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240513234553.png)
 
 
 
-![Functional files/Photo Resources/Pasted image 20240513235157.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240513235157.png)
+![Functional files/Photo Resources/Pasted image 20240513235157.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240513235157.png)
 
-![Functional files/Photo Resources/Pasted image 20240513235314.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240513235314.png)
+![Functional files/Photo Resources/Pasted image 20240513235314.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240513235314.png)
 
 

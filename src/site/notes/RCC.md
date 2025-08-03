@@ -25,7 +25,7 @@ RCC 产生时钟并将配置好的时钟发送到各个外设的系统
 时钟是所有外设运行的基础，所以也应该是最先要配置好的东西
 `SystemInit( )`
 
-![Functional files/Photo Resources/Pasted image 20240718232416.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240718232416.png)
+![Functional files/Photo Resources/Pasted image 20240718232416.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240718232416.png)
 
 #### 1. 时钟产生电路
 ##### 基本原理

@@ -10,7 +10,7 @@
 中断向量表：向量地址，相当于中断程序的跳板
 使用 NVIC 统一管理中断，每个中断通道都拥有 16 个可编程的优先等级，可对优先级进行分组，进一步设置抢占优先级和响应优先级
 
-![Functional files/Photo Resources/Pasted image 20240716180800.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240716180800.png)
+![Functional files/Photo Resources/Pasted image 20240716180800.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240716180800.png)
 
 一个外设可能占据多个中断通道
 NVIC 只有一个输出口，根据中断优先级分配中断的先后顺序

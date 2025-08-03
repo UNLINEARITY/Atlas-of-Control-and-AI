@@ -3,7 +3,7 @@
 ---
 
 
-![Functional files/Photo Resources/logo.png](/img/user/Functional%20files/Photo%20Resources/logo.png)
+![Functional files/Photo Resources/logo.png](../img/user/Functional%20files/Photo%20Resources/logo.png)
 
 >“你灵魂的欲望，是你命运的先知”
 >"The desires of your soul are the prophets of your destiny."

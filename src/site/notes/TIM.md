@@ -23,7 +23,7 @@
 
 ### 一、基本定时器
 
-![Functional files/Photo Resources/Pasted image 20240717185503.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240717185503.png)
+![Functional files/Photo Resources/Pasted image 20240717185503.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240717185503.png)
 
 #### 时基单元
 [[时基单元相关时序图\|时基单元相关时序图]]
@@ -62,7 +62,7 @@ TRGO 转换到 DAC 的触发引脚上，就无需通过中断来触发 DAC 转�
 支持**向上计数**、**向下计数**、三种**中央对齐计数**的多种计数模式
 （一般选用向上计数）
 
-![Functional files/Photo Resources/Pasted image 20240717185555.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240717185555.png)
+![Functional files/Photo Resources/Pasted image 20240717185555.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240717185555.png)
 
 [[输入滤波\|输入滤波]]
 
@@ -163,7 +163,7 @@ CH1： TI1FP1、 CH2：TI2FP2
 
 ### 三、高级定时器
 
-![Functional files/Photo Resources/Pasted image 20240717171009.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240717171009.png)
+![Functional files/Photo Resources/Pasted image 20240717171009.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240717171009.png)
 
 
 #### 8. 重复次数计数器

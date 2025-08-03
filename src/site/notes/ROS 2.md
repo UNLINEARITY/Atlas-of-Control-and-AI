@@ -21,7 +21,7 @@ ROS2 是在 ROS 的基础上设计开发的第二代机器人操作系统，可�
 [[Ros2 bag\|Ros2 bag]]
 [[ROS and mqtt 代码使用\|ROS and mqtt 代码使用]]
 
-![Functional files/Photo Resources/Pasted image 20250501214912.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501214912.png)
+![Functional files/Photo Resources/Pasted image 20250501214912.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501214912.png)
 
 
 ### 概念 Concepts 

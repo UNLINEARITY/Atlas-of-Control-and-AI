@@ -7,7 +7,7 @@ All MATLAB variables are _arrays_. So, each numeric variable can contain multip
 
 Because arrays are a basic programming tool in the MATLAB language, it's important to get to know them and the terminology used to describe them.
 
-![Functional files/Photo Resources/Pasted image 20250718005356.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250718005356.png)
+![Functional files/Photo Resources/Pasted image 20250718005356.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250718005356.png)
 ### 标量  scalar 
 In MATLAB, a single number, called a _scalar_, is represented by a 1-by-1 array, meaning the array contains one row and one column.
 
