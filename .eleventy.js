@@ -594,8 +594,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/site/scripts");
   eleventyConfig.addPassthroughCopy("src/site/styles/_theme.*.css");
   eleventyConfig.addPassthroughCopy("src/site/styles/lazy-loading.css");
-  eleventyConfig.addPassthroughCopy("manifest.json");
-  eleventyConfig.addPassthroughCopy("sw.js");
+  eleventyConfig.addPassthroughCopy({"src/site/manifest.json": "/manifest.json"});
+  eleventyConfig.addPassthroughCopy({"src/site/sw.js": "/sw.js"});
   eleventyConfig.addPassthroughCopy("browserconfig.xml");
   eleventyConfig.addPlugin(faviconsPlugin, { outputDir: "dist" });
   eleventyConfig.addPlugin(tocPlugin, {
