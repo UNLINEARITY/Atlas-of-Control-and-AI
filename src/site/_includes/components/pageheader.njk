@@ -20,7 +20,7 @@
 <link href="/styles/digital-garden-base.css" rel="stylesheet">
 {%-if meta.themeStyle%}
     <link href="/styles/obsidian-base.css" rel="stylesheet">
-    <link href="{{meta.themeStyle}}" rel="stylesheet">
+    <link href="{{ meta.themeStyle }}" rel="stylesheet">
 {% else %}
     <link href="/styles/style.css" rel="stylesheet">
 {%endif%}
@@ -38,10 +38,311 @@
     {% endfor %}
 {% endif %}
 
+<!-- Primary Meta Tags -->
+<meta name="title" content="{% if title %}{{ title }} - {{ meta.siteName }}{% else %}{{ meta.siteName }} - Control Theory & AI Knowledge Base{% endif %}">
+<meta name="description" content="{% if description %}{{ description }}{% else %}Comprehensive knowledge base covering control theory, AI, mathematics, and engineering concepts with detailed explanations and interactive visualizations.{% endif %}">
+<meta name="keywords" content="{% if tags %}{{ tags | join(', ') }}{% else %}control theory, AI, machine learning, mathematics, engineering, nonlinear systems, automation{% endif %}">
+<meta name="author" content="Nonlinear">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{% if page.url == '/' %}website{% else %}article{% endif %}">
+<meta property="og:url" content="">
+<meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ meta.siteName }}{% endif %}">
+<meta property="og:description" content="{% if description %}{{ description }}{% else %}Educational content on control theory, AI, and mathematics{% endif %}">
+<meta property="og:image" content="">
+<meta property="og:site_name" content="{{ meta.siteName }}">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="">
+<meta property="twitter:title" content="{% if title %}{{ title }}{% else %}{{ meta.siteName }}{% endif %}">
+<meta property="twitter:description" content="{% if description %}{{ description }}{% else %}Educational content on control theory and AI{% endif %}">
+<meta property="twitter:image" content="">
+
+<script>
+// Auto-detect current domain for canonical URLs
+(function() {
+    const currentUrl = window.location.origin + window.location.pathname;
+    const currentDomain = window.location.origin;
+    
+    // Set canonical URL
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) canonicalLink.href = currentUrl;
+    
+    // Set Open Graph URLs
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.content = currentUrl;
+    
+    const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+    if (twitterUrl) twitterUrl.content = currentUrl;
+    
+    // Set Open Graph and Twitter images
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    const twitterImage = document.querySelector('meta[property="twitter:image"]');
+    const imageUrl = currentDomain + '/img/logo.png';
+    
+    if (ogImage) ogImage.content = imageUrl;
+    if (twitterImage) twitterImage.content = imageUrl;
+})();
+</script>
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ meta.siteName }}",
+  "description": "Comprehensive knowledge base covering control theory, AI, mathematics, and engineering concepts",
+  "url": "https://unlinearity.top",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://unlinearity.top/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{% if page.url == '/' %}WebSite{% else %}Article{% endif %}",
+  "headline": "{% if title %}{{ title }}{% else %}{{meta.siteName}}{% endif %}",
+  "description": "{% if description %}{{ description }}{% else %}Educational content on control theory, AI, and mathematics{% endif %}",
+  "url": "https://unlinearity.top{{ page.url }}",
+  {% if page.date %}"datePublished": "{{ page.date | date('YYYY-MM-DD') }}",{% endif %}
+  {% if updated %}"dateModified": "{{ updated | date('YYYY-MM-DD') }}",{% endif %}
+  "author": {
+    "@type": "Organization",
+    "name": "Nonlinear"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Nonlinear",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://unlinearity.top/img/logo.png"
+    }
+  },
+  "image": "https://unlinearity.top/img/logo.png",
+  "keywords": [{% if tags %}{% for tag in tags %}"{{ tag }}"{% if not loop.last %},{% endif %}{% endfor %}{% else %}"control theory", "AI", "mathematics"{% endif %}]
+}
+</script>
+
+
+{% raw %}
+<script>
+// Dynamic domain handling for multiple domains
+(function() {
+    const currentUrl = window.location.origin + window.location.pathname;
+    const currentDomain = window.location.origin;
+    const imageUrl = currentDomain + '/img/logo.png';
+    
+    // Update canonical and meta URLs
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) canonicalLink.href = currentUrl;
+    
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.content = currentUrl;
+    
+    const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+    if (twitterUrl) twitterUrl.content = currentUrl;
+    
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    const twitterImage = document.querySelector('meta[property="twitter:image"]');
+    if (ogImage) ogImage.content = imageUrl;
+    if (twitterImage) twitterImage.content = imageUrl;
+    
+    // Fix structured data with proper JSON
+    const structuredDataScripts = document.querySelectorAll('script[type="application/ld+json"]');
+    structuredDataScripts.forEach(script => {
+        try {
+            const data = JSON.parse(script.textContent);
+            if (data.url === "") data.url = currentUrl;
+            if (data.image === "") data.image = imageUrl;
+            if (data.publisher && data.publisher.logo && data.publisher.logo.url === "") {
+                data.publisher.logo.url = imageUrl;
+            }
+            script.textContent = JSON.stringify(data, null, 2);
+        } catch (e) {
+            console.warn('Failed to update structured data:', e);
+        }
+    });
+})();
+
+// Handle multiple domains dynamically
+(function() {
+    const host = window.location.hostname;
+    const domains = ['unlinearity.top', 'www.nonlinear.top', 'nonlinear.top'];
+    
+    // Update domain-specific elements
+    const updateDomainLinks = () => {
+        const baseUrl = window.location.origin;
+        
+        // Update manifest.json URL
+        const manifestLink = document.querySelector('link[rel="manifest"]');
+        if (manifestLink) {
+            manifestLink.href = baseUrl + '/manifest.json';
+        }
+        
+        // Update service worker registration
+        if ('serviceWorker' in navigator) {
+            const swUrl = baseUrl + '/sw.js';
+            navigator.serviceWorker.getRegistration().then(reg => {
+                if (!reg) {
+                    navigator.serviceWorker.register(swUrl);
+                }
+            });
+        }
+    };
+    
+    updateDomainLinks();
+})();
+</script>
+{% endraw %}
+
 {% if meta.styleSettingsCss %}
     <style>
         {{ meta.styleSettingsCss | safe }}
     </style>
 {% endif %}
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#61baf5">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="{{meta.siteName}}">
+    <link rel="apple-touch-icon" href="/img/logo-192.png">
+    <meta name="msapplication-TileColor" content="#61baf5">
+    <meta name="msapplication-TileImage" content="/img/logo-192.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+
+    <script>
+    // Service Worker注册
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js')
+                .then(function(registration) {
+                    console.log('ServiceWorker registration successful');
+                })
+                .catch(function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+        });
+    }
+
+    // PWA安装提示
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // 显示安装按钮（可选）
+        const installButton = document.createElement('button');
+        installButton.textContent = '安装应用';
+        installButton.className = 'install-pwa-button';
+        installButton.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            padding: 12px 24px;
+            background: #61baf5;
+            color: white;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: none;
+        `;
+        
+        document.body.appendChild(installButton);
+        
+        installButton.addEventListener('click', function() {
+            installButton.style.display = 'none';
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function(choiceResult) {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+            });
+        });
+        
+        setTimeout(() => {
+            installButton.style.display = 'block';
+        }, 3000);
+    });
+
+    // 网络状态监听
+    function updateNetworkStatus() {
+        if (!navigator.onLine) {
+            const offlineIndicator = document.createElement('div');
+            offlineIndicator.textContent = '离线模式';
+            offlineIndicator.className = 'offline-indicator';
+            offlineIndicator.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #ff6b6b;
+                color: white;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 14px;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            if (!document.querySelector('.offline-indicator')) {
+                document.body.appendChild(offlineIndicator);
+                setTimeout(() => {
+                    offlineIndicator.remove();
+                }, 3000);
+            }
+        } else {
+            const indicator = document.querySelector('.offline-indicator');
+            if (indicator) indicator.remove();
+        }
+    }
+
+    window.addEventListener('online', updateNetworkStatus);
+    window.addEventListener('offline', updateNetworkStatus);
+    updateNetworkStatus();
+    </script>
+
+    <style>
+    /* PWA样式 */
+    .install-pwa-button {
+        animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes slideUp {
+        from {
+            transform: translateY(100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateX(100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    </style>
+
 <style>
 </style>
