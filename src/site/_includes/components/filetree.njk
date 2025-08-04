@@ -32,7 +32,8 @@
         
         <div x-show="showFilesMobile && !isDesktop" @click="showFilesMobile = false" style="display:none;" class="fullpage-overlay"></div>
 
-      <nav class="filetree-sidebar"  x-show.important="isDesktop || showFilesMobile" style="display: none;">
+      <nav class="filetree-sidebar"  x-show.important="isDesktop || showFilesMobile" style="display: none;" 
+           x-bind:class="{ 'show': showFilesMobile && !isDesktop }">
         {% for imp in dynamics.filetree.beforeTitle %}
             {% include imp %}
         {% endfor %}

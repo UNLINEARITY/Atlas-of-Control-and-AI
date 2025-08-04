@@ -1,44 +1,119 @@
-<aside id="floating-control" style="right: 70px; bottom: 1.5 vmax; font-size: 1.35em; display: flex; align-items: center; gap: 0.8em;">
-
-    <a id="graph-view" onclick="open3DGraph()" data-tooltip="全局3D视图" data-tooltip-position="top">
+<aside id="floating-control">
+    <div class="floating-controls-container">
+        <a id="graph-view" onclick="open3DGraph()" data-tooltip="全局3D视图" data-tooltip-position="top" class="control-btn">
             <i class="svg-icon" icon-name="loader" aria-hidden="true"></i>
-    </a>
+        </a>
 
-    <a id="github"  href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI" data-tooltip="Star On Github" data-tooltip-position="top">
-        <i class="svg-icon" icon-name="star" aria-hidden="true"></i>
-    </a>
+        <span id="graph-fs-btn" class="control-btn" onclick="toggleLocalGraphFullscreen()" data-tooltip="Fullscreen Graph" data-tooltip-position="top">
+            <i class="svg-icon" icon-name="maximize" aria-hidden="true"></i>
+        </span>
 
-    {% set sourcePath = page.inputPath | replace('src/site/notes/', '') %}
+        <a id="github" href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI" data-tooltip="Star On Github" data-tooltip-position="top" class="control-btn">
+            <i class="svg-icon" icon-name="star" aria-hidden="true"></i>
+        </a>
 
-    <a id="sourcefile" href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/tree/main/src/site/notes/{{ sourcePath }}" data-tooltip="View source file" data-tooltip-position="top" target="_blank">
-        <i class="svg-icon" icon-name="file-code" aria-hidden="true"></i>
-    </a>
+        {% set sourcePath = page.inputPath | replace('src/site/notes/', '') %}
 
-    <a id="donate" href="/A0- 关于该网站/支持本网站/" 
-       data-tooltip="Donate or Sponsor" data-tooltip-position="top">
-        <i class="svg-icon" icon-name="heart" aria-hidden="true"></i>
-    </a>
+        <a id="sourcefile" href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/tree/main/src/site/notes/{{ sourcePath }}" data-tooltip="View source file" data-tooltip-position="top" target="_blank" class="control-btn">
+            <i class="svg-icon" icon-name="file-code" aria-hidden="true"></i>
+        </a>
 
-    <a id="emailme" href="mailto:unlinearity@gmail.com?subject=Regarding {{title}}&body=Discussing {{meta.siteBaseUrl}}{{permalink}}" 
-       data-tooltip="Discuss" data-tooltip-position="top">
-        <i class="svg-icon" icon-name="mail-plus" aria-hidden="true"></i>
-    </a>
+        <a id="donate" href="/A0- 关于该网站/支持本网站/" 
+           data-tooltip="Donate or Sponsor" data-tooltip-position="top" class="control-btn">
+            <i class="svg-icon" icon-name="heart" aria-hidden="true"></i>
+        </a>
 
-    
-    <span id="theme-switch" style="cursor:pointer;">
-        <i class="svg-icon light" icon-name="sun" data-tooltip="Light Mode" data-tooltip-position="top" aria-hidden="true"></i>
-        <i class="svg-icon dark" icon-name="moon" data-tooltip="Dark Mode" data-tooltip-position="top" aria-hidden="true"></i>
-        <i class="svg-icon auto" icon-name="sun-moon" data-tooltip="Auto Mode" data-tooltip-position="top" aria-hidden="true"></i>
-    </span>
+        <a id="emailme" href="mailto:unlinearity@gmail.com?subject=Regarding {{title}}&body=Discussing {{meta.siteBaseUrl}}{{permalink}}" 
+           data-tooltip="Discuss" data-tooltip-position="top" class="control-btn">
+            <i class="svg-icon" icon-name="mail-plus" aria-hidden="true"></i>
+        </a>
 
-    
+        <span id="theme-switch" class="control-btn theme-switch-btn">
+            <i class="svg-icon light" icon-name="sun" data-tooltip="Light Mode" data-tooltip-position="top" aria-hidden="true"></i>
+            <i class="svg-icon dark" icon-name="moon" data-tooltip="Dark Mode" data-tooltip-position="top" aria-hidden="true"></i>
+            <i class="svg-icon auto" icon-name="sun-moon" data-tooltip="Auto Mode" data-tooltip-position="top" aria-hidden="true"></i>
+        </span>
 
-    <span id="random-page-btn" style="cursor:pointer;display:inline-block;vertical-align:middle;" data-tooltip="Random-Page" data-tooltip-position="top">
-        <i class="svg-icon" icon-name="dice-5" aria-hidden="true"></i>
-    </span>
+        <span id="random-page-btn" class="control-btn" data-tooltip="Random-Page" data-tooltip-position="top">
+            <i class="svg-icon" icon-name="dice-5" aria-hidden="true"></i>
+        </span>
+        
+        
+    </div>
 </aside>
 
 <style>
+    /* 统一底部浮动控制栏 */
+    #floating-control {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 20px;
+        z-index: 1000;
+    }
+
+    .floating-controls-container {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        background: var(--background-secondary);
+        border: 1px solid var(--background-modifier-border);
+        border-radius: 12px;
+        padding: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    /* 统一控制按钮样式 */
+    .control-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: var(--text-muted);
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+
+    .control-btn:hover {
+        background: var(--background-modifier-hover);
+        color: var(--text-normal);
+        transform: translateY(-1px);
+    }
+
+    .control-btn:active {
+        transform: translateY(0);
+    }
+
+    /* 主题切换按钮特殊样式 */
+    .theme-switch-btn {
+        position: relative;
+    }
+
+    .theme-switch-btn .svg-icon {
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .theme-switch-btn.light .svg-icon.light,
+    .theme-switch-btn.dark .svg-icon.dark,
+    .theme-switch-btn.auto .svg-icon.auto {
+        opacity: 1;
+    }
+
+    /* 统一图标大小 */
+    .control-btn .svg-icon {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+    }
+
     /* 工具提示样式 */
     [data-tooltip] {
         position: relative;
@@ -49,101 +124,123 @@
         content: attr(data-tooltip);
         position: absolute;
         white-space: nowrap;
-        padding: 4px 8px;
-        background-color: #333;
-        color: #fff;
-        border-radius: 4px;
+        padding: 6px 10px;
+        background: var(--background-modifier-hover);
+        color: var(--text-normal);
+        border-radius: 6px;
         font-size: 12px;
+        font-weight: 500;
         opacity: 0;
-        transition: opacity 0.3s;
+        transition: all 0.3s ease;
         pointer-events: none;
-        z-index: 1000; /* 确保工具提示在其他元素之上 */
+        z-index: 1000;
+        border: 1px solid var(--background-modifier-border);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     [data-tooltip][data-tooltip-position="top"]::after {
-        bottom: 100%; /* 工具提示在元素上方 */
+        bottom: 100%;
         left: 50%;
         transform: translateX(-50%);
-        margin-bottom: 5px; /* 工具提示与元素之间的间距 */
-    }
-
-    [data-tooltip][data-tooltip-position="bottom"]::after {
-        top: 100%; /* 工具提示在元素下方 */
-        left: 50%;
-        transform: translateX(-50%);
-        margin-top: 5px; /* 工具提示与元素之间的间距 */
-    }
-
-    [data-tooltip][data-tooltip-position="left"]::after {
-        top: 50%;
-        right: 100%; /* 工具提示在元素左侧 */
-        transform: translateY(-50%);
-        margin-right: 5px; /* 工具提示与元素之间的间距 */
-    }
-
-    [data-tooltip][data-tooltip-position="right"]::after {
-        top: 50%;
-        left: 100%; /* 工具提示在元素右侧 */
-        transform: translateY(-50%);
-        margin-left: 5px; /* 工具提示与元素之间的间距 */
+        margin-bottom: 8px;
     }
 
     [data-tooltip]:hover::after {
         opacity: 1;
     }
 
-    /* 动画样式 */
-    .svg-icon {
-        display: inline-block;
-        transition: all 0.3s ease;
-    }
-
-    .svg-icon:hover {
-        animation: jelly 0.6s;
-        fill: #ff6347; /* 鼠标悬停时的填充颜色，可以根据需要修改 */
-    }
-
+    /* 动画效果 */
     @keyframes jelly {
-        0%, 100% {
-            transform: scale(1, 1);
-        }
-        25% {
-            transform: scale(0.9, 1.1);
-        }
-        50% {
-            transform: scale(1.1, 0.9);
-        }
-        75% {
-            transform: scale(0.95, 1.05);
-        }
+        0%, 100% { transform: scale(1, 1); }
+        25% { transform: scale(0.9, 1.1); }
+        50% { transform: scale(1.1, 0.9); }
+        75% { transform: scale(0.95, 1.05); }
     }
 
-    /* Theme Notification Styles */
+    .control-btn:hover .svg-icon {
+        animation: jelly 0.6s ease-in-out;
+    }
+
+
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+        #floating-control {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 15px;
+        }
+        
+        .floating-controls-container {
+            gap: 0.5rem;
+            padding: 0.4rem;
+        }
+        
+        .control-btn {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .control-btn .svg-icon {
+            width: 18px;
+            height: 18px;
+        }
+        
+    }
+
+    @media (max-width: 480px) {
+        #floating-control {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 15px;
+        }
+        
+        .floating-controls-container {
+            gap: 0.4rem;
+            padding: 0.3rem;
+        }
+        
+        .control-btn {
+            width: 36px;
+            height: 36px;
+        }
+        
+        .control-btn .svg-icon {
+            width: 16px;
+            height: 16px;
+        }
+        
+
+    }
+
+    /* 主题通知样式 - 与新设计统一 */
     .theme-notification {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: var(--background-primary); /* Use theme background */
-        color: var(--text-normal); /* Use theme text color */
+        background: var(--background-secondary);
+        color: var(--text-normal);
         padding: 12px 20px;
-        border-radius: 10px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         gap: 10px;
-        font-size: 1.2em;
-        font-weight: bold;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        font-size: 1.1em;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-        z-index: 9999; /* Ensure it's on top */
-        border: 1px solid var(--interactive-accent); /* Subtle border with accent color */
+        transition: all 0.3s ease;
+        z-index: 9999;
+        border: 1px solid var(--background-modifier-border);
+        backdrop-filter: blur(10px);
     }
+    
     .theme-notification .svg-icon {
-        width: 1.5em; /* Adjust icon size */
-        height: 1.5em;
-        fill: var(--interactive-accent); /* Icon color from theme */
+        width: 20px;
+        height: 20px;
+        fill: var(--interactive-accent);
     }
 </style>
 
@@ -182,7 +279,7 @@
         notificationTimeout = setTimeout(() => {
             themeNotification.style.opacity = '0';
             themeNotification.style.visibility = 'hidden';
-        }, 500);
+        }, 300);
     }
 
     function setThemeIcon(theme, showNotification = false) {
@@ -265,7 +362,7 @@
         showThemeNotification('Opening 3D Graph', 'loader');
         setTimeout(() => {
             window.location.href = '/3D-graph/';
-        }, 500); // Wait for notification to show
+        }, 300); // Wait for notification to show
     }
 
     // GitHub 按钮逻辑
@@ -276,7 +373,7 @@
             showThemeNotification('Starring on Github', 'star');
             setTimeout(() => {
                 window.open(githubBtn.href, '_blank'); // Open in new tab as before
-            }, 500); // Wait for notification to show
+            }, 300); // Wait for notification to show
         });
     }
 
@@ -288,7 +385,7 @@
             showThemeNotification('Opening Source File', 'file-code');
             setTimeout(() => {
                 window.open(sourcefileBtn.href, '_blank');
-            }, 500);
+            }, 300);
         });
     }
 
@@ -300,7 +397,7 @@
             showThemeNotification('Redirecting to Donation Page', 'heart');
             setTimeout(() => {
                 window.location.href = donateBtn.href;
-            }, 500);
+            }, 300);
         });
     }
 
@@ -312,7 +409,7 @@
             showThemeNotification('Opening Email Client', 'mail-plus');
             setTimeout(() => {
                 window.location.href = emailBtn.href;
-            }, 500);
+            }, 300);
         });
     }
 
@@ -320,7 +417,9 @@
     const randomBtn = document.getElementById('random-page-btn');
     if(randomBtn){
         randomBtn.addEventListener('click', async function(){
+
             showThemeNotification('Jumping to Random Page', 'dice-5');
+            
             setTimeout(async () => {
                 // 尝试从 window.docs 或 /searchIndex.json 获取所有已上传页面
                 let docs = window.docs;
@@ -336,7 +435,7 @@
                 }else{
                     alert('未找到可跳转的页面');
                 }
-            }, 500); // Wait for notification to show
+            }, 300); // Wait for notification to show
         });
     }
 
@@ -349,4 +448,8 @@
             }
         }
     });
+
+    function toggleLocalGraphFullscreen() {
+        window.dispatchEvent(new CustomEvent('toggle-graph-fullscreen'));
+    }
 </script>

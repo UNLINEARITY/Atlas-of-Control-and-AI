@@ -1,0 +1,127 @@
+/* 图片懒加载优化样式 */
+
+/* 图片占位符和过渡效果 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* 懒加载占位符 */
+img[data-src],
+img[loading="lazy"] {
+  background-color: #f5f5f5;
+  background-image: linear-gradient(90deg, #f5f5f5 0%, #e0e0e0 50%, #f5f5f5 100%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 响应式图片容器 */
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+/* 防止CLS的布局偏移 */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* 响应式图片的懒加载效果 */
+@media (max-width: 480px) {
+  img {
+    max-width: 100vw;
+  }
+}
+
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+  }
+}
+
+/* 无JavaScript时的回退样式 */
+noscript img {
+  opacity: 1;
+}
+
+/* 图片加载失败时的样式 */
+img.error {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 14px;
+}
+
+/* 针对Eleventy生成的图片的特定样式 */
+.cm-s-obsidian img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 移动端优化 */
+@media (max-width: 480px) {
+  .cm-s-obsidian img {
+    margin: 0.5rem 0;
+  }
+}
+
+/* 图片加载动画 */
+img.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* 防止布局偏移的容器 */
+.image-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.image-wrapper::before {
+  content: '';
+  display: block;
+  padding-bottom: 56.25%; /* 16:9 比例 */
+}
+
+.image-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
