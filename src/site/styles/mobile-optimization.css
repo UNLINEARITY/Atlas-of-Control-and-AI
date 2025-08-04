@@ -126,9 +126,9 @@ html {
     
     
     
-    /* 防止水平滚动 */
+    /* 移除滚动限制以允许正常滑动 */
     body {
-        overflow-x: hidden;
+        overflow-x: visible;
     }
     
     .container {

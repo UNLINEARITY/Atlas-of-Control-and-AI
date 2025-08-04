@@ -60,22 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, { passive: false });
     
-    // 防止iOS橡皮筋效果
-    let startY = 0;
-    document.addEventListener('touchstart', function(e) {
-        startY = e.touches[0].clientY;
-    }, { passive: true });
     
-    document.addEventListener('touchmove', function(e) {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const touchY = e.touches[0].clientY;
-        const direction = touchY - startY > 0 ? 'down' : 'up';
-        
-        if ((direction === 'up' && scrollTop === 0) || 
-            (direction === 'down' && scrollTop >= document.documentElement.scrollHeight - window.innerHeight)) {
-            e.preventDefault();
-        }
-    }, { passive: false });
     
     // 优化输入框体验
     const inputs = document.querySelectorAll('input, textarea, select');
