@@ -1,13 +1,11 @@
-<nav class="navbar filetree-navbar">
+<nav class="navbar">
     <div class="navbar-inner">
-        <button class="mobile-menu-btn" @click="showFilesMobile=!showFilesMobile" aria-label="Toggle menu">
-            <i icon-name="menu"></i>
-        </button>
+        <span style="font-size: 1.5rem; margin-right: 10px;" @click="showFilesMobile=!showFilesMobile"><i  icon-name="menu"></i></span>
         {% for imp in dynamics.filetree.beforeTitle %}
             {% include imp %}
         {% endfor %}
-        <a href="/" style="text-decoration: none;" class="site-title">
-            <h1>{{meta.siteName}}</h1>
+        <a href="/" style="text-decoration: none;">
+            <h1 style="margin: 15px !important;">{{meta.siteName}}</h1>
         </a>
         {% for imp in dynamics.filetree.afterTitle %}
             {% include imp %}
@@ -15,8 +13,6 @@
     </div>
     
     {% if settings.dgEnableSearch === true%}
-        <div class="navbar-search">
-            {% include "components/searchButton.njk" %}
-        </div>
+        {% include "components/searchButton.njk" %}
     {%endif%}
 </nav>

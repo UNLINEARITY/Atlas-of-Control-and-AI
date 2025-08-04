@@ -311,232 +311,55 @@ body {
     margin-right: -10px;
   }
 
-  /* #floating-control 样式已迁移到 floatingControls.njk 中统一管理 */
+  #floating-control {
+    position: fixed;
+    color: var(--link-color);
+    bottom: 1vmax;
+    right: 1vmax;
+    font-size: 24px;
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
 
-  /* 移动端导航优化 */
-  @media (max-width: 768px) {
-    nav.navbar,
-    nav.filetree-navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: 60px;
-      background: var(--background-primary);
-      border-bottom: 1px solid var(--background-modifier-border);
-      border-radius: 0;
-      z-index: 1000;
-      padding: 0 15px;
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      backdrop-filter: blur(10px);
-    }
-
-    .navbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      margin: 0;
-      gap: 10px;
-    }
-
-    .navbar-inner h1 {
-      font-size: 1.2rem !important;
-      margin: 0 !important;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .mobile-menu-btn {
-      background: none;
-      border: none;
-      padding: 8px;
+    .svg-icon,
+    i {
       cursor: pointer;
-      color: var(--text-normal);
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height: 24px;
+      width: auto;
     }
 
-    .site-title h1 {
-      margin: 0 !important;
-      font-size: 1.2rem !important;
-    }
+    #theme-switch {
+      .light {
+        display: none;
+      }
 
-    .navbar-search {
-      display: flex;
-      align-items: center;
-    }
+      .dark {
+        display: none;
+      }
 
-    /* 移动端文件树样式优化 */
-    nav.filetree-sidebar {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      width: 280px;
-      max-width: 80vw;
-      height: calc(100vh - 60px);
-      background: var(--background-primary);
-      border-right: 1px solid var(--background-modifier-border);
-      z-index: 999;
-      overflow-y: auto;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      border-radius: 0;
-      padding: 15px;
-      box-sizing: border-box;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    nav.filetree-sidebar.show {
-      transform: translateX(0);
-    }
-
-    nav.filetree-sidebar .search-button {
-      margin: 0 0 15px 0;
-      min-width: unset;
-      width: 100%;
-    }
-
-    nav.filetree-sidebar h1 {
-      font-size: 1.1rem !important;
-      margin-bottom: 15px !important;
-      text-align: center;
-    }
-
-    nav.filetree-sidebar .folder {
-      margin-top: 0;
-    }
-
-    /* 小屏幕设备优化 */
-    @media (max-width: 480px) {
-      nav.filetree-sidebar {
-        width: 260px;
-        max-width: 85vw;
-        top: 50px;
-        height: calc(100vh - 50px);
-        padding: 12px;
+      .auto {
+        display: none;
       }
     }
 
-    @media (max-width: 375px) {
-      nav.filetree-sidebar {
-        width: 240px;
-        max-width: 90vw;
-      }
-
-      .content {
-        padding-top: 65px;
+    #theme-switch.light {
+      .light {
+        display: inline;
       }
     }
 
-    nav.filetree-sidebar.show {
-      transform: translateX(0);
-    }
-
-    .fullpage-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 998;
-      backdrop-filter: blur(2px);
-    }
-
-    /* 搜索框层级提升 */
-    .search-container {
-      z-index: 2000 !important;
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-    }
-
-    .search-box {
-      z-index: 2001 !important;
-      position: relative !important;
-      margin-top: 60px !important;
-    }
-
-    @media (max-width: 768px) {
-      .search-box {
-        margin-top: 60px !important;
-        width: 90% !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-      }
-      
-    body {
-      padding-top: 60px;
-      padding-bottom: 140px; /* 为浮动控制栏留出更多空间 */
-    }
-      
-    }
-
-    @media (max-width: 480px) {
-      .search-box {
-        margin-top: 50px !important;
-        width: 95% !important;
+    #theme-switch.dark {
+      .dark {
+        display: inline;
       }
     }
 
-    body {
-      padding-top: 60px;
-      padding-bottom: 140px; /* 为浮动控制栏留出更多空间 */
-    }
-
-    .content {
-      margin-top: 0;
-      padding-top: 80px;
-    }
-
-    /* 确保标题不被遮挡 */
-    .content > header {
-      padding-top: 20px;
-    }
-
-    .content > header h1 {
-      margin-top: 0;
-      padding-top: 10px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    nav.navbar,
-    nav.filetree-navbar {
-      height: 50px;
-      padding: 0 10px;
-    }
-
-    .navbar-inner h1 {
-      font-size: 1rem !important;
-    }
-
-    nav.filetree-sidebar {
-      top: 50px;
-      height: calc(100vh - 50px);
-    }
-
-    body {
-      padding-top: 50px;
-      padding-bottom: 120px; /* 为浮动控制栏留出更多空间 */
-    }
-
-    .content {
-      padding-top: 70px;
-    }
-
-    .content > header {
-      padding-top: 15px;
+    #theme-switch.auto {
+      .auto {
+        display: inline;
+      }
     }
   }
 
