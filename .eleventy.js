@@ -16,8 +16,6 @@ const {
 } = require("./src/helpers/userSetup");
 
 const Image = require("@11ty/eleventy-img");
-const sharp = require("sharp");
-
 function transformImage(src, cls, alt, sizes, widths = ["500", "700", "auto"]) {
   let options = {
     widths: widths,
@@ -30,21 +28,6 @@ function transformImage(src, cls, alt, sizes, widths = ["500", "700", "auto"]) {
   Image(src, options);
   let metadata = Image.statsSync(src, options);
   return metadata;
-}
-
-// 获取图片尺寸的函数
-async function getImageDimensions(src) {
-  try {
-    const image = sharp(src);
-    const metadata = await image.metadata();
-    return {
-      width: metadata.width,
-      height: metadata.height
-    };
-  } catch (error) {
-    console.warn(`无法获取图片尺寸: ${src}`, error);
-    return { width: 800, height: 600 }; // 默认尺寸
-  }
 }
 
 function getAnchorLink(filePath, linkTitle) {
@@ -278,27 +261,6 @@ module.exports = function (eleventyConfig) {
           }
         }
 
-        // 添加懒加载和异步解码属性
-        const loadingIndex = tokens[idx].attrIndex("loading");
-        if (loadingIndex < 0) {
-          tokens[idx].attrPush(["loading", "lazy"]);
-        }
-
-        const decodingIndex = tokens[idx].attrIndex("decoding");
-        if (decodingIndex < 0) {
-          tokens[idx].attrPush(["decoding", "async"]);
-        }
-
-        // 为没有width/height的图片添加占位符尺寸防止CLS
-        const hasWidth = tokens[idx].attrIndex("width") >= 0;
-        const hasHeight = tokens[idx].attrIndex("height") >= 0;
-        
-        if (!hasWidth && !hasHeight && !src.startsWith("http")) {
-          // 这里可以添加获取图片尺寸的代码，暂时使用占位符
-          tokens[idx].attrPush(["width", "auto"]);
-          tokens[idx].attrPush(["height", "auto"]);
-        }
-
         return defaultImageRule(tokens, idx, options, env, self);
       };
 
@@ -471,11 +433,6 @@ module.exports = function (eleventyConfig) {
 
   function fillPictureSourceSets(src, cls, alt, meta, width, imageTag) {
     imageTag.tagName = "picture";
-    
-    // 获取图片原始尺寸用于CLS预防
-    let originalWidth = width || (meta.jpeg && meta.jpeg[0] && meta.jpeg[0].width) || 'auto';
-    let originalHeight = (meta.jpeg && meta.jpeg[0] && meta.jpeg[0].height) || 'auto';
-    
     let html = `<source
       media="(max-width:480px)"
       srcset="${meta.webp[0].url}"
@@ -503,10 +460,7 @@ module.exports = function (eleventyConfig) {
       class="${cls.toString()}"
       src="${src}"
       alt="${alt}"
-      width="${originalWidth}"
-      height="${originalHeight}"
-      loading="lazy"
-      decoding="async"
+      width="${width}"
       />`;
     imageTag.innerHTML = html;
   }
@@ -593,10 +547,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/site/img");
   eleventyConfig.addPassthroughCopy("src/site/scripts");
   eleventyConfig.addPassthroughCopy("src/site/styles/_theme.*.css");
-  eleventyConfig.addPassthroughCopy("src/site/styles/lazy-loading.css");
-  eleventyConfig.addPassthroughCopy("manifest.json");
-  eleventyConfig.addPassthroughCopy("sw.js");
-  eleventyConfig.addPassthroughCopy("browserconfig.xml");
   eleventyConfig.addPlugin(faviconsPlugin, { outputDir: "dist" });
   eleventyConfig.addPlugin(tocPlugin, {
     ul: true,
@@ -607,18 +557,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("dateToZulu", function (date) {
     try {
       return new Date(date).toISOString("dd-MM-yyyyTHH:mm:ssZ");
-    } catch {
-      return "";
-    }
-  });
-
-  eleventyConfig.addFilter("date", function (date, format) {
-    try {
-      const d = new Date(date);
-      if (format === "YYYY-MM-DD") {
-        return d.toISOString().split("T")[0];
-      }
-      return d.toISOString().split("T")[0]; // default format
     } catch {
       return "";
     }

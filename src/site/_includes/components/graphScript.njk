@@ -236,7 +236,7 @@
         return null;
     }
 </script>
-<div @toggle-graph-fullscreen.window="fullScreen = !fullScreen" x-init="{graphData, fullGraphData} = await fetchGraphData();" x-data="{ graphData: null, depth: 1, graph: null, fullGraph: null, showFullGraph: false, fullScreen: false, fullGraphData: null}" id="graph-component" x-bind:class="fullScreen ? 'graph graph-fs' : 'graph'" x-effect="const sidebar = $el.closest('.sidebar'); if (sidebar) { fullScreen ? sidebar.classList.add('on-top') : sidebar.classList.remove('on-top') }" v-scope>
+<div  x-init="{graphData, fullGraphData} = await fetchGraphData();" x-data="{ graphData: null, depth: 1, graph: null, fullGraph: null, showFullGraph: false, fullScreen: false, fullGraphData: null}" id="graph-component" x-bind:class="fullScreen ? 'graph graph-fs' : 'graph'" x-effect="const sidebar = $el.closest('.sidebar'); if (sidebar) { fullScreen ? sidebar.classList.add('on-top') : sidebar.classList.remove('on-top') }" v-scope>
     <div class="graph-title-container">
         <div class="graph-title">关系图谱 Graph</div>
         <div id="graph-controls">
