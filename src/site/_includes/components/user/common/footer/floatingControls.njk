@@ -74,20 +74,20 @@
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
-        color: var(--text-muted);
+        color: var(--interactive-accent); /* 使用强调色 */
         background: transparent;
         border: none;
         outline: none;
     }
 
     .control-btn:hover {
-        background: var(--background-modifier-hover);
-        color: var(--text-normal);
-        transform: translateY(-1px);
+        filter: brightness(1.2); /* 悬停时变亮 */
+        transform: translateY(-1px); /* 保持浮动效果 */
     }
 
     .control-btn:active {
-        transform: translateY(0);
+        transform: scale(0.9); /* 点击时缩小 */
+        transition: transform 0.1s ease-out; /* 快速反馈 */
     }
 
     /* 主题切换按钮特殊样式 */
