@@ -57,12 +57,12 @@ self.addEventListener('activate', event => {
 
 // 获取事件 - 缓存优先策略
 self.addEventListener('fetch', event => {
-  // 跳过chrome-extension协议的请求
-  if (event.request.url.startsWith('chrome-extension://')) {
+  // Specifically ignore Vercel analytics script and other browser-specific protocols
+  if (event.request.url.includes('/_vercel/insights/script.js') || event.request.url.startsWith('chrome-extension://')) {
     return;
   }
   
-  // 跳过POST等非GET请求
+  // Only handle GET requests
   if (event.request.method !== 'GET') {
     return;
   }
@@ -70,30 +70,34 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // 如果缓存中有，直接返回
+        // If the resource is in the cache, return it
         if (response) {
           return response;
         }
 
-        // 克隆请求
-        const fetchRequest = event.request.clone();
+        // If not in cache, fetch from the network
+        return fetch(event.request.clone())
+          .then(response => {
+            // A non-200 response or an opaque response (from a third-party CDN without CORS) should not be cached.
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
 
-        return fetch(fetchRequest).then(response => {
-          // 检查是否有效响应
-          if (!response || response.status !== 200 || response.type !== 'basic') {
+            // Clone the response stream because it can only be consumed once.
+            const responseToCache = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                cache.put(event.request, responseToCache);
+              });
+
             return response;
-          }
-
-          // 克隆响应
-          const responseToCache = response.clone();
-
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        });
+          })
+          .catch(err => {
+            console.warn(`Service worker fetch failed for ${event.request.url}. The device may be offline.`, err);
+            // If the fetch fails (e.g., user is offline), you could return a fallback page here.
+            // For now, we let the browser handle it, which will show the default network error page.
+          });
       })
   );
 });
