@@ -5,7 +5,7 @@
         </a>
 
         <span id="graph-fs-btn" class="control-btn" onclick="toggleLocalGraphFullscreen()" data-tooltip="Fullscreen Graph" data-tooltip-position="top">
-            <i class="svg-icon" icon-name="maximize" aria-hidden="true"></i>
+            <i class="svg-icon" icon-name="expand" aria-hidden="true"></i>
         </span>
 
         <a id="github" href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI" data-tooltip="Star On Github" data-tooltip-position="top" class="control-btn">
@@ -86,7 +86,7 @@
     }
 
     .control-btn:active {
-        transform: scale(0.9); /* 点击时缩小 */
+        transform: scale(0.75); /* 点击时缩小 */
         transition: transform 0.1s ease-out; /* 快速反馈 */
     }
 
@@ -111,7 +111,8 @@
     .control-btn .svg-icon {
         width: 20px;
         height: 20px;
-        fill: currentColor;
+        stroke: currentColor;
+        fill: none;
     }
 
     /* 工具提示样式 */
@@ -245,6 +246,81 @@
 </style>
 
 <script>
+    // --- 优化后的随机跳转逻辑 ---
+
+    // 1. 在脚本加载时就准备好页面列表和相关函数
+    let allPages = [];
+    let isFetchingPages = false;
+
+    async function fetchPages() {
+        if (allPages.length > 0 || isFetchingPages) {
+            return; // 如果已经有数据或正在获取中，则不重复执行
+        }
+        isFetchingPages = true;
+        try {
+            // 优先尝试从 window.docs 获取
+            if (window.docs && window.docs.length > 0) {
+                allPages = window.docs;
+            } else {
+                // 否则从 searchIndex.json 获取
+                const response = await fetch('/searchIndex.json');
+                if (!response.ok) throw new Error('Network response was not ok');
+                allPages = await response.json();
+            }
+        } catch (error) {
+            console.error("Failed to fetch page list for random jump:", error);
+            allPages = []; // 出错时置空
+        } finally {
+            isFetchingPages = false;
+        }
+    }
+
+    // 页面加载后立即开始获取列表，不阻塞页面渲染
+    document.addEventListener('DOMContentLoaded', fetchPages);
+
+    function getRandomPageUrl() {
+        if (!allPages || allPages.length === 0) {
+            return null; // 没有页面数据
+        }
+
+        if (allPages.length === 1) {
+            return allPages[0].permalink || allPages[0].url;
+        }
+
+        let randomPage;
+        let targetUrl = '';
+        const currentPath = window.location.pathname;
+
+        // 循环直到找到一个与当前页面不同的 URL
+        do {
+            const idx = Math.floor(Math.random() * allPages.length);
+            randomPage = allPages[idx];
+            targetUrl = randomPage.permalink || randomPage.url || randomPage.path || randomPage.dgPath || '';
+        } while (targetUrl === currentPath);
+
+        return targetUrl;
+    }
+
+    const randomBtn = document.getElementById('random-page-btn');
+    if (randomBtn) {
+        randomBtn.addEventListener('click', function() {
+            const targetUrl = getRandomPageUrl();
+
+            if (targetUrl) {
+                showThemeNotification('Jumping to Random Page', 'dice-5');
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 300);
+            } else {
+                // 2. 使用统一的通知样式来提示错误
+                showThemeNotification('Failed to find a page', 'alert-circle');
+            }
+        });
+    }
+
+
+    // --- 原有的其他逻辑（主题切换、按钮动画等）保持不变 ---
+
     // Theme Notification Elements
     const themeNotification = document.createElement('div');
     themeNotification.id = 'theme-notification';
@@ -253,29 +329,21 @@
         <i class="svg-icon" id="notification-icon" aria-hidden="true"></i>
         <span id="notification-text"></span>
     `;
-    document.body.appendChild(themeNotification); // Append to body for centering
+    document.body.appendChild(themeNotification);
 
     const notificationIcon = document.getElementById('notification-icon');
     const notificationText = document.getElementById('notification-text');
     let notificationTimeout;
 
     function showThemeNotification(themeDisplayName, iconName) {
-        clearTimeout(notificationTimeout); // Clear any existing timeout
-
-        // Set icon and text
+        clearTimeout(notificationTimeout);
         notificationIcon.setAttribute('icon-name', iconName);
         notificationText.textContent = themeDisplayName;
-
-        // Manually trigger Lucide icon rendering for the new icon
         if (typeof lucide !== 'undefined' && lucide.createIcons) {
             lucide.createIcons();
         }
-
-        // Make visible
         themeNotification.style.opacity = '1';
         themeNotification.style.visibility = 'visible';
-
-        // Hide after 0.5 seconds
         notificationTimeout = setTimeout(() => {
             themeNotification.style.opacity = '0';
             themeNotification.style.visibility = 'hidden';
@@ -285,12 +353,8 @@
     function setThemeIcon(theme, showNotification = false) {
         let iconName;
         let themeDisplayName;
-
-        // Update the theme switch button icon
         const themeSwitchElement = document.getElementById('theme-switch');
-        // Remove existing theme classes
         themeSwitchElement.classList.remove('dark', 'light', 'auto');
-
         switch (theme) {
             case 'dark':
                 themeSwitchElement.classList.add('dark');
@@ -302,14 +366,12 @@
                 iconName = 'sun';
                 themeDisplayName = 'Light Mode';
                 break;
-            default: // 'auto'
+            default:
                 themeSwitchElement.classList.add('auto');
                 iconName = 'sun-moon';
                 themeDisplayName = 'Auto Mode';
                 break;
         }
-        
-        // Only trigger the notification if explicitly requested
         if (showNotification) {
             showThemeNotification(themeDisplayName, iconName);
         }
@@ -329,10 +391,9 @@
             theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
             setTheme(theme, false, showNotification);
         }
-        
     }
     let theme = window.localStorage.getItem('site-theme') || "light";
-    setTheme(theme, true, false); // Initial load: do NOT show notification
+    setTheme(theme, true, false);
     window.theme = theme;
     window.localStorage.setItem('site-theme', theme);
 
@@ -340,7 +401,7 @@
         const settings = window.localStorage.getItem('site-theme');
         if (!settings || settings == "auto") {
             window.localStorage.setItem('site-theme', "auto");
-            setTheme("auto", true, true); // Show notification on auto-change
+            setTheme("auto", true, true);
         }
     });
     document.getElementById('theme-switch').addEventListener('click', function() {
@@ -352,32 +413,29 @@
         } else {
             theme = 'auto';
         }
-        setTheme(theme, true, true); // User click: show notification
+        setTheme(theme, true, true);
         window.localStorage.setItem('site-theme', theme);
         window.theme = theme;
     })
 
-    // 3D Graph 页面跳转逻辑
     function open3DGraph() {
         showThemeNotification('Opening 3D Graph', 'loader');
         setTimeout(() => {
             window.location.href = '/3D-graph/';
-        }, 300); // Wait for notification to show
+        }, 300);
     }
 
-    // GitHub 按钮逻辑
     const githubBtn = document.getElementById('github');
     if (githubBtn) {
         githubBtn.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default navigation immediately
+            event.preventDefault();
             showThemeNotification('Starring on Github', 'star');
             setTimeout(() => {
-                window.open(githubBtn.href, '_blank'); // Open in new tab as before
-            }, 300); // Wait for notification to show
+                window.open(githubBtn.href, '_blank');
+            }, 300);
         });
     }
 
-    // Sourcefile 按钮逻辑
     const sourcefileBtn = document.getElementById('sourcefile');
     if (sourcefileBtn) {
         sourcefileBtn.addEventListener('click', function(event) {
@@ -389,7 +447,6 @@
         });
     }
 
-    // Donate 按钮逻辑
     const donateBtn = document.getElementById('donate');
     if (donateBtn) {
         donateBtn.addEventListener('click', function(event) {
@@ -401,7 +458,6 @@
         });
     }
 
-    // Email 按钮逻辑
     const emailBtn = document.getElementById('emailme');
     if (emailBtn) {
         emailBtn.addEventListener('click', function(event) {
@@ -410,32 +466,6 @@
             setTimeout(() => {
                 window.location.href = emailBtn.href;
             }, 300);
-        });
-    }
-
-    // 随机跳转按钮逻辑
-    const randomBtn = document.getElementById('random-page-btn');
-    if(randomBtn){
-        randomBtn.addEventListener('click', async function(){
-
-            showThemeNotification('Jumping to Random Page', 'dice-5');
-            
-            setTimeout(async () => {
-                // 尝试从 window.docs 或 /searchIndex.json 获取所有已上传页面
-                let docs = window.docs;
-                if(!docs){
-                    try{
-                        docs = await fetch('/searchIndex.json').then(r=>r.json());
-                    }catch{docs = []}
-                }
-                if(docs && docs.length){
-                    const idx = Math.floor(Math.random()*docs.length);
-                    const url = docs[idx].permalink || docs[idx].url || docs[idx].path || docs[idx].dgPath || '';
-                    if(url) window.location.href = url;
-                }else{
-                    alert('未找到可跳转的页面');
-                }
-            }, 300); // Wait for notification to show
         });
     }
 
