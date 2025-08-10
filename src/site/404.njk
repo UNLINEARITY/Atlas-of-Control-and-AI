@@ -13,20 +13,6 @@
         {%- endif %}
 
         <link href="/styles/custom-style.css" rel="stylesheet">
-        <!DOCTYPE html>
-<html lang="{{ meta.mainLanguage }}">
-    <head>
-        <title>迷失于知识之海 / Lost in the Sea of Knowledge</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/styles/digital-garden-base.css" rel="stylesheet">
-        {%- if meta.themeStyle and meta.themeStyle.trim() !== '' %}
-            <link href="/styles/obsidian-base.css" rel="stylesheet">
-    	    <link href="{{meta.themeStyle}}" rel="stylesheet">
-        {% else %}
-            <link href="/styles/style.css" rel="stylesheet">
-        {%- endif %}
-
-        <link href="/styles/custom-style.css" rel="stylesheet">
         <style>
             body {
                 display: flex;
@@ -113,114 +99,6 @@
                 }
             }
         </style>
-        <script type="importmap">
-        {
-          "imports": {
-            "three": "https://unpkg.com/three@0.164.1/build/three.module.js",
-            "3d-force-graph": "https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.mjs"
-          }
-        }
-        </script>
-    </head>
-    <body class="theme-{{meta.baseTheme}} markdown-preview-view">
-        <div class="graph-background" id="graph-background"></div>
-        <div class="container">
-            <h1>404-Lost in the Sea of Knowledge</h1>
-            <p>您似乎进入了一片未知的领域，这里没有您要寻找的知识节点。</p>
-            <p>或许，您可以在这片浩瀚的知识图谱中重新定位方向。</p>
-            <div class="actions">
-                <a href="/">返回主页</a>
-                <a href="javascript:history.back()">返回上一页</a>
-                <a href="/3D-graph/">探索知识图谱</a>
-            </div>
-            <p style="font-size: 0.9em; margin-top: 2em;">如果您认为这是一个错误，请通过邮件告知我们。</p>
-        </div>
-
-        <script type="module">
-            import * as THREE from 'three';
-            import ForceGraph3D from '3d-force-graph';
-
-            const graphContainer = document.getElementById('graph-background');
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const graphUrl = isLocal ? '/graph.json' : window.location.origin + '/graph.json';
-
-            fetch(graphUrl)
-                .then(res => res.json())
-                .then(data => {
-                    const allNodes = [];
-                    for (const nodeId in data.nodes) {
-                        const node = data.nodes[nodeId];
-                        if (node.hide) continue;
-                        allNodes.push({
-                            id: node.url,
-                            name: node.title,
-                            val: node.size,
-                            outBound: node.outBound || []
-                        });
-                    }
-
-                    // --- New sampling logic ---
-                    const MAX_NODES = 75; // Max nodes for the background
-                    const sampledNodes = [];
-                    const sampledNodeIds = new Set();
-
-                    while (sampledNodes.length < MAX_NODES && allNodes.length > 0) {
-                        const randomIndex = Math.floor(Math.random() * allNodes.length);
-                        const node = allNodes.splice(randomIndex, 1)[0];
-                        sampledNodes.push(node);
-                        sampledNodeIds.add(node.id);
-                    }
-
-                    const links = [];
-                    sampledNodes.forEach(node => {
-                        if (node.outBound) {
-                            node.outBound.forEach(targetUrl => {
-                                if (sampledNodeIds.has(targetUrl)) {
-                                    links.push({ source: node.id, target: targetUrl });
-                                }
-                            });
-                        }
-                    });
-
-                    const graphData = { nodes: sampledNodes, links };
-                    // --- End of sampling logic ---
-
-                    const Graph = ForceGraph3D()(graphContainer)
-                        .graphData(graphData)
-                        .backgroundColor('rgba(0,0,0,0)')
-                        // --- Simplified styling for background ---
-                        .nodeColor(() => 'rgba(128, 128, 128, 0.8)')
-                        .nodeVal(1)
-                        .linkColor(() => 'rgba(128, 128, 128, 0.5)')
-                        .linkWidth(0.4)
-                        // --- End of simplified styling ---
-                        .enableNavigationControls(false);
-                    
-                    window.addEventListener('resize', () => {
-                        Graph.width(graphContainer.clientWidth);
-                        Graph.height(graphContainer.clientHeight);
-                    });
-                    Graph.width(graphContainer.clientWidth);
-                    Graph.height(graphContainer.clientHeight);
-
-                    Graph.d3Force('link').distance(30);
-                    Graph.d3Force('charge').strength(-120);
-
-                    let angle = 0;
-                    setInterval(() => {
-                        Graph.cameraPosition({
-                            x: 400 * Math.sin(angle),
-                            z: 400 * Math.cos(angle)
-                        });
-                        angle -= Math.PI / 900;
-                    }, 10);
-                })
-                .catch(error => {
-                    console.error("Error loading graph data for 404 page:", error);
-                });
-        </script>
-    </body>
-</html>
     </head>
     <body class="theme-{{meta.baseTheme}} markdown-preview-view">
         <div class="graph-background" id="graph-background"></div>
