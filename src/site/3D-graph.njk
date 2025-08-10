@@ -66,13 +66,9 @@
     </div>
     </div>  
 
-        <script type="module">
-        import * as THREE from 'https://unpkg.com/three@0.164.1/build/three.module.js';
-        import ForceGraph3D from 'https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.mjs';
+    <script src="https://unpkg.com/3d-force-graph/dist/3d-force-graph.min.js"></script>
 
-        // 3d-force-graph expects THREE to be in the global scope
-        window.THREE = THREE;
-
+    <script>
         const container = document.getElementById('graph-container');
         const infoBox   = document.getElementById('graph-info');
         const themeSel  = document.getElementById('theme-select');

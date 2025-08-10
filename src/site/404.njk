@@ -114,9 +114,8 @@
             <p style="font-size: 0.9em; margin-top: 2em;">如果您认为这是一个错误，请通过邮件告知我们。</p>
         </div>
 
-        <script type="module">
-            import ForceGraph3D from 'https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.mjs';
-
+        <script src="https://unpkg.com/3d-force-graph/dist/3d-force-graph.min.js"></script>
+        <script>
             const graphContainer = document.getElementById('graph-background');
             const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
             const graphUrl = isLocal ? '/graph.json' : window.location.origin + '/graph.json';
@@ -124,55 +123,41 @@
             fetch(graphUrl)
                 .then(res => res.json())
                 .then(data => {
-                    const allNodes = [];
+                    const nodes = [];
+                    const links = [];
+
                     for (const nodeId in data.nodes) {
                         const node = data.nodes[nodeId];
                         if (node.hide) continue;
-                        allNodes.push({
+                        nodes.push({
                             id: node.url,
                             name: node.title,
                             val: node.size,
-                            outBound: node.outBound || []
                         });
-                    }
-
-                    // --- New sampling logic ---
-                    const MAX_NODES = 75; // Max nodes for the background
-                    const sampledNodes = [];
-                    const sampledNodeIds = new Set();
-
-                    while (sampledNodes.length < MAX_NODES && allNodes.length > 0) {
-                        const randomIndex = Math.floor(Math.random() * allNodes.length);
-                        const node = allNodes.splice(randomIndex, 1)[0];
-                        sampledNodes.push(node);
-                        sampledNodeIds.add(node.id);
-                    }
-
-                    const links = [];
-                    sampledNodes.forEach(node => {
                         if (node.outBound) {
                             node.outBound.forEach(targetUrl => {
-                                if (sampledNodeIds.has(targetUrl)) {
-                                    links.push({ source: node.id, target: targetUrl });
+                                if (data.nodes[targetUrl] && !data.nodes[targetUrl].hide) {
+                                    links.push({ source: node.url, target: targetUrl });
                                 }
                             });
                         }
-                    });
+                    }
 
-                    const graphData = { nodes: sampledNodes, links };
-                    // --- End of sampling logic ---
+                    const graphData = { nodes, links };
 
                     const Graph = ForceGraph3D()(graphContainer)
                         .graphData(graphData)
-                        .backgroundColor('rgba(0,0,0,0)')
-                        // --- Simplified styling for background ---
-                        .nodeColor(() => 'rgba(128, 128, 128, 0.8)')
-                        .nodeVal(1)
-                        .linkColor(() => 'rgba(128, 128, 128, 0.5)')
-                        .linkWidth(0.4)
-                        // --- End of simplified styling ---
-                        .enableNavigationControls(false);
+                        .backgroundColor('rgba(0,0,0,0)') // Transparent background
+                        .nodeAutoColorBy('group')
+                        .nodeLabel('name')
+                        .linkWidth(0.5)
+                        .linkDirectionalParticles(1)
+                        .linkDirectionalParticleWidth(1.2)
+                        .linkDirectionalParticleSpeed(0.006)
+                        .linkColor('#666666')
+                        .enableNavigationControls(false); // Disable user interaction
                     
+                    // Make it responsive
                     window.addEventListener('resize', () => {
                         Graph.width(graphContainer.clientWidth);
                         Graph.height(graphContainer.clientHeight);
@@ -180,21 +165,25 @@
                     Graph.width(graphContainer.clientWidth);
                     Graph.height(graphContainer.clientHeight);
 
-                    Graph.d3Force('link').distance(30);
+                    Graph.d3Force('link').distance(() => 30);
                     Graph.d3Force('charge').strength(-120);
 
+                    // Auto-rotation
                     let angle = 0;
                     setInterval(() => {
                         Graph.cameraPosition({
-                            x: 400 * Math.sin(angle),
-                            z: 400 * Math.cos(angle)
+                            x: 650 * Math.sin(angle),
+                            z: 650 * Math.cos(angle)
                         });
-                        angle -= Math.PI / 900;
+                        angle -= Math.PI / 800; // Increased rotation speed
                     }, 10);
                 })
                 .catch(error => {
                     console.error("Error loading graph data for 404 page:", error);
                 });
         </script>
+
+        
+
     </body>
 </html>
