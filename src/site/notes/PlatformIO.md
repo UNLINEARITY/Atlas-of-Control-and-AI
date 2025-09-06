@@ -1,10 +1,10 @@
 ---
-{"dg-publish":true,"dg-path":"编程语言/PlatformIO.md","permalink":"/编程语言/PlatformIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.427+08:00","updated":"2025-08-03T10:59:26.218+08:00"}
+{"dg-publish":true,"dg-path":"编程语言/PlatformIO.md","permalink":"/编程语言/PlatformIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-09-01T10:16:58.000+08:00"}
 ---
 
 
-(website::https://platformio.org/) 
-[[VSCode\|VSCode]]
+(website::https://platformio.org/) [[VSCode\|VSCode]]
+
 
 ### Basic 
 PlatformIO project consists of 3 main items:
@@ -45,4 +45,6 @@ python globle source
 lib_ldf_mode=deep+
 ```
 
-![Functional files/Photo Resources/Pasted image 20241118201130.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241118201130.png)
+![Pasted image 20241118201130.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241118201130.png)
+
+

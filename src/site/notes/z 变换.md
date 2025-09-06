@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-07-09T15:40:58.000+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-08-28T21:53:12.842+08:00"}
 ---
 
 
@@ -17,7 +17,7 @@ $$\begin{align}
 E^{*}(s)&=\mathscr{L}[e^{*}(t)]=\sum\limits_{n=0}^{\infty} e(nT) {\color{red}   \mathscr{L}\left[\delta(t-nT)\right]} =\sum\limits_{n=0}^{\infty} e(nT){\color{red  }e^{ -nsT } } 
 \end{align}$$
 
-3. 令 $\large z=e^{ sT }$，得到 z 变换：
+3. 令 $z=e^{ sT }$，得到 z 变换：
 $$\begin{align}
 E(z)=\mathscr{Z}[e(t)] =\mathscr{Z}[e^{*}(t)]=\sum\limits_{k=0}^{\infty} e(nT){\color{red}   z^{-k}} 
 \end{align}$$

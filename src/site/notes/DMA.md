@@ -1,5 +1,5 @@
 ---
-{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/DMA.md","permalink":"/MCU微控制器/STM32/DMA/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:26.364+08:00","updated":"2025-08-03T10:59:25.035+08:00"}
+{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/DMA.md","permalink":"/MCU微控制器/STM32/DMA/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:26.364+08:00","updated":"2025-08-28T21:53:12.587+08:00"}
 ---
 
 
@@ -21,7 +21,7 @@ STM32 可拥有 12 个独立可配置的通道
 
 ### 框图
 
-![Functional files/Photo Resources/Pasted image 20240804175209.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240804175209.png)
+![Pasted image 20240804175209.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240804175209.png)
 
 
 总线矩阵的左端为主动单元，拥有存储器的访问权
@@ -43,7 +43,7 @@ CPU 通过此来对 DMA 进行配置
 外设通过DMA 请求，硬件触发 DMA 进行数据转运
 
 ### 基本结构
-![Functional files/Photo Resources/Pasted image 20240805004624.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240805004624.png)
+![Pasted image 20240805004624.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240805004624.png)
 
 **起始地址**
 - 外设起始地址
@@ -84,10 +84,10 @@ CPU 通过此来对 DMA 进行配置
 注意在开关控制 DISABLE 时要对传输计数器写值，再打开
 不能在 DMA 开启的时候对传输计数器写值
 
-![Functional files/Photo Resources/DMA1映像.png](../img/user/Functional%20files/Photo%20Resources/DMA1%E6%98%A0%E5%83%8F.png)
+![DMA1映像.png](/img/user/Functional%20files/Photo%20Resources/DMA1%E6%98%A0%E5%83%8F.png)
 
 ### DMA 使用
-![Functional files/Photo Resources/Pasted image 20240805011737.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240805011737.png)
+![Pasted image 20240805011737.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240805011737.png)
 
 配合 [[STM32 ADC#规则组的转换模式\|ADC扫描模式]]
 - 外设地址不自增

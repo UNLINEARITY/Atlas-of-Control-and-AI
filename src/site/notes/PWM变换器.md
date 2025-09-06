@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM变换器.md","permalink":"/A3- 电机及电力拖动/PWM变换器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.429+08:00","updated":"2025-08-03T10:59:26.156+08:00"}
+{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM变换器.md","permalink":"/A3- 电机及电力拖动/PWM变换器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.429+08:00","updated":"2025-08-28T21:53:12.760+08:00"}
 ---
 
 [[PWM调速系统\|PWM调速系统]]
@@ -8,7 +8,7 @@
 ### 无制动的不可逆变换器
 直流斩波电路
 
-![Functional files/Photo Resources/Pasted image 20240424162532.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240424162532.png)
+![Pasted image 20240424162532.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240424162532.png)
 
 $U_{s}$ 为直流电源电压，$C$ 为滤波电容器，VT 为功率开关器件，VD 为续流二极管，M 为直流电动机，VT 的栅极由脉宽可调的脉冲电压系列 $U_{g}$ 驱动
 
@@ -31,7 +31,7 @@ $$\begin{align}
 
 ### 有制动的不可逆变换器
  
-![Functional files/Photo Resources/Pasted image 20240616210600.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240616210600.png)
+![Pasted image 20240616210600.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240616210600.png)
 #### 一般电动状态
 VT1和VD2交替导通
 
@@ -57,7 +57,7 @@ VT2和VD1 交替导通
 - 第3阶段，VD2续流，电流 id 沿回路2流通
 - 第4阶段，VT2导通，电流 – id 沿回路3流通
 
-![Functional files/Photo Resources/Pasted image 20240424165605.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240424165605.png)
+![Pasted image 20240424165605.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240424165605.png)
 
 ## 可逆变换器
 ### 桥式可逆变换器
@@ -69,7 +69,7 @@ H 形电路
 
 桥式（H形）主电路结构：
 
-![Functional files/Photo Resources/Pasted image 20240424165642.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240424165642.png)
+![Pasted image 20240424165642.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240424165642.png)
 
 #### 正向运行
 VT1 、  VT4
@@ -98,7 +98,7 @@ VD2 、 VD3
 	电流 $-i_{d}$ 沿回路 3流通，电动机 M 两端电压 $U_{AB} = -U_{s}$ 
 
 
-![Functional files/Photo Resources/Pasted image 20240616233250.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240616233250.png)
+![Pasted image 20240616233250.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240616233250.png)
 #### 输出平均电压
 $$\begin{align}
   U_{d}&= \dfrac{t_{on}}{T} U_{s}- \dfrac{T-t_{on}}{T}U_{s}\\
@@ -153,7 +153,7 @@ PWM变换器的直流电源
 	并采用大电容C 滤波，以获得恒定的直流电压，
 	电容C同时对感性负载的无功功率起储能缓冲作用
 
-![Functional files/Photo Resources/Pasted image 20240616235945.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240616235945.png)
+![Pasted image 20240616235945.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240616235945.png)
 #### 泵升电压的产生原因
 对于PWM变换器中的滤波[[电容\|电容]]，其作用除[[滤波电路\|滤波]] 外，还有当电机制动时吸收运行系统动能的作用
 
@@ -162,7 +162,7 @@ PWM变换器的直流电源
 电力电子器件的耐压限制着最高泵升电压，
 在大容量或负载有较大惯量的系统中，不可能只靠电容器来限制泵升电压
 #### 泵升电压限制电路
-![Functional files/Photo Resources/Pasted image 20240512152207.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240512152207.png)
+![Pasted image 20240512152207.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240512152207.png)
 
 - $R_{b}$    镇流电阻、制动电阻
 	消耗掉部分电能

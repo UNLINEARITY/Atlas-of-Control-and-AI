@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-06T11:27:23.000+08:00","updated":"2025-08-03T10:59:31.102+08:00"}
+{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-06T11:27:23.000+08:00","updated":"2025-09-01T10:05:04.000+08:00"}
 ---
 
 
@@ -18,6 +18,7 @@ W(s)=K_{p}(1+ \dfrac{1}{T_{i}s}+ T_{d}s)
 $$\begin{align}
 W(s)= K_{P}F  \dfrac{1+ \dfrac{1}{FT_{I}s}+\dfrac{T_{D}}{F}s}{1+ \dfrac{1}{K_{I}T_{I}s}+ \dfrac{T_{D}}{K_{D}s}}
 \end{align}$$
+
 控制器之间的干扰系数：  $F= 1+\alpha\dfrac{ T_{D}}{T_{I}}$
 
 ### 一、P 运算规律
@@ -66,9 +67,11 @@ $$\begin{align}
 **微分时间越长，微分作用越强**。（过大可能引起高频振荡）
 
 #### 3.2 实际 PD 控制器
+
 $$\begin{align}
 W(s)= K_{P}(s)  \dfrac{1+T_{D}s}{1+ \dfrac{T_{D}}{K_{D}}s}\quad  \Delta y=K_{P}\varepsilon \left[1+(K_{D}-1)e^{  -\frac{K_{D}}{T_{D}}t }\right] 
 \end{align}$$
+
 ==微分增益==：$K_{D}=\dfrac{\Delta y(0)}{\Delta y(\infty)}$  阶跃信号作用下，PD 控制器输出变化的初始值与最终值的比。
 微分增益越大，微分作用越理想。
 
@@ -76,7 +79,7 @@ W(s)= K_{P}(s)  \dfrac{1+T_{D}s}{1+ \dfrac{T_{D}}{K_{D}}s}\quad  \Delta y=K_{P}\
 
 ### 四、PID 运算规律
 
-![Functional files/Photo Resources/Pasted image 20241031161544.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241031161544.png)
+![Pasted image 20241031161544.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241031161544.png)
 #### PID 控制器的构成
 1. **放大器和 PID 反馈电路**：运算电路简单，相互干扰系数大
 2. **PD 和 PI 电路串联**：相互干扰系数较小，各级串联使得累计误差较大，精度要求较高
