@@ -48,7 +48,7 @@ $$\begin{align}
 
 ### 二、改进的数字 PID 算法
 
-![改进PID.png](/img/user/Functional%20files/Photo%20Resources/%E6%94%B9%E8%BF%9BPID.png)
+![改进PID.png](../img/user/Functional%20files/Photo%20Resources/%E6%94%B9%E8%BF%9BPID.png)
 
 #### 1.  积分分离算法
 在系统误差较大时，取消积分作用；当误差减小到一定值时，再重新积分。$e_{0}$ 为积分分离阈值
@@ -94,7 +94,7 @@ u(k)= \dfrac{T_{f}}{T_{f}+T} u(k-1)+\dfrac{T}{T_{f}+T} u_{1}(k)
 \end{align}$$
 
 #### 5. 微分先行
-![微分先行.png](/img/user/Functional%20files/Photo%20Resources/%E5%BE%AE%E5%88%86%E5%85%88%E8%A1%8C.png)
+![微分先行.png](../img/user/Functional%20files/Photo%20Resources/%E5%BE%AE%E5%88%86%E5%85%88%E8%A1%8C.png)
 
 - **输出量微分：只对输出量进行微分**，避免因给定值变化给控制系统带来超调量过大、调节阀动作剧烈的冲击
 - **偏差量微分：对给定值和输出量均微分**

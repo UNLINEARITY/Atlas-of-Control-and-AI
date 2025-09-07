@@ -6,7 +6,7 @@
 旋转变流机组：用交流电动机和直流发电机组成机组，以获得可调的直流电压
 
 ### 基本原理
-![Pasted image 20240419162026.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240419162026.png)
+![Pasted image 20240419162026.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240419162026.png)
 
 G 直流发电机，M 直流电动机
 - 由原动机(柴油机、交流异步或同步电动机)拖动直流发电机G实现变流，

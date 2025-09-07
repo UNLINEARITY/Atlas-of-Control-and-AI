@@ -14,7 +14,7 @@ DDS-XRCE 协议的目标是让资源受限设备能够访问 DDS 全局数据空
 
 
 
-![Pasted image 20250501165537.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501165537.png)
+![Pasted image 20250501165537.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501165537.png)
 
 ### Components
 Micro XRCE-DDS 由两个主要部分组成：

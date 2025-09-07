@@ -29,7 +29,7 @@
    * $\mu : G \times G \to G, \quad \mu(a, b) = a \cdot b$
    * $\iota : G \to G, \quad \iota(a) = a^{-1}$
 
-![Pasted image 20250716004633.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250716004633.png)
+![Pasted image 20250716004633.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250716004633.png)
 
 
 ### 常见 Lie Group

@@ -28,7 +28,7 @@ USART 是 STM32 内部集成的硬件外设，通用同步/异步收发器，可
 ### 结构框图
 引脚图见 [[STM32F103C8T6\|STM32F103C8T6]]
 
-![Pasted image 20240811174444.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240811174444.png)
+![Pasted image 20240811174444.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240811174444.png)
 
 #### 基础功能
 程序上共用地址 DR ，实际在物理上分为两个独立的寄存器：
@@ -65,7 +65,7 @@ USART Address 来给串口分配地址，实现多个从设备的通信
 
 
 ### 基本结构图
-![Pasted image 20240916192050.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240916192050.png)
+![Pasted image 20240916192050.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240916192050.png)
 
 ### 基本流程
 开启时钟，将 USART、GPIO 的时钟打开

@@ -45,6 +45,6 @@ python globle source
 lib_ldf_mode=deep+
 ```
 
-![Pasted image 20241118201130.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241118201130.png)
+![Pasted image 20241118201130.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241118201130.png)
 
 

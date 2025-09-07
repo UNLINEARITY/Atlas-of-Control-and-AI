@@ -19,7 +19,7 @@ TIME 时间
 ### 基本元件
 左母线-->右母线，程序顺序循环执行，相当于编程语言中 `while`，按 rung 梯级从上到下执行，不断循环
 
-![Pasted image 20241228130131.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241228130131.png)
+![Pasted image 20241228130131.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241228130131.png)
 
 Direct Contact 
 Reverse Contact 
@@ -27,7 +27,7 @@ Reverse Contact
 ### 常用功能指令块 Instruction Block
 时序图应该关注：信号、高低电平、上升沿、下降沿
 #### 定时器
-![Pasted image 20241211104346.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241211104346.png)
+![Pasted image 20241211104346.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241211104346.png)
 
 `T # 3s  `   表示 T = 3s 
 
@@ -86,7 +86,7 @@ Neg 取反
 
 SFC 程序按照步的顺序依次执行。当某个步的前一个步满足转换条件时，系统会自动切换到该步，并执行与该步相关联的动作。一旦该步的转换条件满足，又会触发下一个步的执行，如此循环，直到整个顺序控制过程结束。
 
-![Pasted image 20241229124253.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241229124253.png)
+![Pasted image 20241229124253.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241229124253.png)
 
 #### 主要类型
 **单序列**：最基本的 SFC 结构，由一系列相继激活的步组成，每个步后面只有一个转换，每个转换后面只有一个步。

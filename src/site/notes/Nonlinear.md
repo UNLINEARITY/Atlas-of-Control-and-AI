@@ -87,7 +87,7 @@ root((本网站))
 ### 三、关于网站
 > Nothing really matters; starting is what counts most.
 
-![md_wordcloud.png](/img/user/Functional%20files/Photo%20Resources/md_wordcloud.png)
+![md_wordcloud.png](../img/user/Functional%20files/Photo%20Resources/md_wordcloud.png)
 
 有关网站的相关信息查看[[关于该网站\|关于该网站]]，如果其中的内容对你有帮助，你可以为本网站[开源的项目](https://github.com/UNLINEARITY/Atlas-of-Control-and-AI) 点一颗⭐star，感激不尽！
 

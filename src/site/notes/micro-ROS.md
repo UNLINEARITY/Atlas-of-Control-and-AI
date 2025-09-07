@@ -6,7 +6,7 @@
 (website::https://micro.ros.org/ )
 > micro-ROS puts [[ROS 2\|ROS 2]]  onto microcontrollers
 ### 架构
-![Pasted image 20250501011135.png](/img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501011135.png)
+![Pasted image 20250501011135.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501011135.png)
 
 [[RCL\|RCL]]
 [[XRCE-DDS\|XRCE-DDS]]
