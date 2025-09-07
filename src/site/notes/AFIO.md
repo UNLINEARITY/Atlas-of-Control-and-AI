@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"MCU微控制器/STM32/AFIO.md","permalink":"/MCU微控制器/STM32/AFIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:26.360+08:00","updated":"2025-08-03T10:59:24.861+08:00"}
+{"dg-publish":true,"dg-path":"MCU微控制器/STM32/AFIO.md","permalink":"/MCU微控制器/STM32/AFIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:26.360+08:00","updated":"2025-08-28T21:53:12.520+08:00"}
 ---
 
 复用功能输入/输出: (terminology::**Alternate Function I/O**)
@@ -23,7 +23,7 @@ GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable , ENABLE); //将默认串口调�
 需要将端口先变为普通端口再进行重映射 
 
 ### 引脚定义图
-![Functional files/Photo Resources/STM32F103C8T6引脚定义.png](../img/user/Functional%20files/Photo%20Resources/STM32F103C8T6%E5%BC%95%E8%84%9A%E5%AE%9A%E4%B9%89.png)
+![STM32F103C8T6引脚定义.png](../img/user/Functional%20files/Photo%20Resources/STM32F103C8T6%E5%BC%95%E8%84%9A%E5%AE%9A%E4%B9%89.png)
 
 ### GPIO. h
 ```C

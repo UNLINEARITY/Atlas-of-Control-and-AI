@@ -1,11 +1,11 @@
 ---
-{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/V-M系统.md","permalink":"/A3- 电机及电力拖动/V-M系统/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:34:29.000+08:00","updated":"2025-08-03T10:59:27.093+08:00"}
+{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/V-M系统.md","permalink":"/A3- 电机及电力拖动/V-M系统/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:34:29.000+08:00","updated":"2025-08-28T21:53:12.821+08:00"}
 ---
 
 (terminology::**Voltage-Motor System**)
 晶闸管-电动机系统，静止式可控整流器
 ### 基本原理
-![Functional files/Photo Resources/Pasted image 20240418220745.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240418220745.png)
+![Pasted image 20240418220745.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240418220745.png)
 
 - GT 触发装置      
 - VT  [[晶闸管\|晶闸管]]可控整流器
@@ -74,7 +74,7 @@ T_{smax}= \dfrac{1}{mf}
 
 晶闸管一旦导通后，控制电压的变化在该器件关断以前就不再起作用，直到下一相触发脉冲来到时才能使输出整流电压发生变化，这就造成整流电压滞后于控制电压的状况
 
-![Functional files/Photo Resources/Pasted image 20240512144935.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240512144935.png)
+![Pasted image 20240512144935.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020240512144935.png)
 
 输入输出关系为:
 $$\begin{align}
