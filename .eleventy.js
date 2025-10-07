@@ -619,8 +619,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/site/img": "img" });
   eleventyConfig.addPassthroughCopy({ "src/site/scripts": "scripts" });
   eleventyConfig.addPassthroughCopy({ "src/site/vendor": "vendor" });
-  eleventyConfig.addPassthroughCopy({ "src/site/styles/_theme.*.css": "styles" });
-  eleventyConfig.addPassthroughCopy({ "src/site/styles/lazy-loading.css": "styles" });
   eleventyConfig.addPassthroughCopy({"src/site/manifest.json": "/manifest.json"});
   eleventyConfig.addPassthroughCopy({"src/site/sw.js": "/sw.js"});
   eleventyConfig.addPassthroughCopy("browserconfig.xml");
