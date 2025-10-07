@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.400+08:00","updated":"2025-08-28T21:53:12.715+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-09-29T18:48:13.000+08:00"}
 ---
 
 
@@ -9,9 +9,6 @@
 - **流形结构**：是一个连续可微的空间，可以进行微积分运算。
 
 > Lie群是一种可以平滑变化的连续群，群元素之间不仅可以做代数运算，而且可以连续移动、微分、优化。
-
-
-
 
 
 ### 数学定义
@@ -33,8 +30,9 @@
 
 
 ### 常见 Lie Group
+
 Lie群的微分结构由其**李代数**（[[Lie Algebra\|Lie Algebra]]）描述。
-**Lie Group** 描述全局运动（非线性），**Lie Algebra** 描述局部运动（线性）。
+> **Lie Group** 描述全局运动（非线性），**Lie Algebra** 描述局部运动（线性）。
 
 
 | Lie 群          | 群元素形式               | Lie 代数                         | 解释             | 在机器人中的应用       |
@@ -57,6 +55,8 @@ Lie群的微分结构由其**李代数**（[[Lie Algebra\|Lie Algebra]]）描述
 | 伴随矩阵（Adjoint） | 坐标变换下李代数的映射 | 用于误差传播、变化率变换  |
 
 ### 实际应用
+
+
 1. **处理旋转和刚体运动**（的最佳数学工具）：避免[[欧拉角\|欧拉角]]奇异性，比[[四元数\|四元数]]更自然地支持导数和优化
 2. **误差建模**：在SE(3)下可以合理定义姿态误差，而非简单的减法
 3. **运动规划与控制**：运动路径可以在Lie群中连续变化，支持平滑插值，支持基于Lie群的运动优化算法，如 [[CHOMP\|CHOMP]]、[[STOMP\|STOMP]]

@@ -1,13 +1,13 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/URDF.md","permalink":"/机器人/URDF/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:30:49.411+08:00","updated":"2025-05-19T19:04:57.307+08:00"}
+{"dg-publish":true,"dg-path":"机器人/URDF.md","permalink":"/机器人/URDF/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:30:49.000+08:00","updated":"2025-09-12T12:50:33.000+08:00"}
 ---
 
 
 (terminology::**Unified Robot Description Format**)   统一机器人描述格式
 使用 [[XML\|XML]] 格式进行描述
 
-
 基本组成：声明信息+两种关键组件
+
 ### 声明信息
 第一部分是xml的声明信息
 第二部分是机器人的声明，通过robot标签就可以声明一个机器人模型

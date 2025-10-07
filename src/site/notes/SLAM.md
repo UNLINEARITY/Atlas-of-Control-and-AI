@@ -1,12 +1,14 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/SLAM.md","permalink":"/机器人/SLAM/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-06T09:50:21.931+08:00","updated":"2025-08-28T21:53:12.781+08:00"}
+{"dg-publish":true,"dg-path":"机器人/SLAM.md","permalink":"/机器人/SLAM/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-06T09:50:21.000+08:00","updated":"2025-09-12T12:50:18.000+08:00"}
 ---
 
 (terminology::**Simultaneous Localization and Mapping**)  同步定位与地图构建
+
 > 在不知道环境地图的情况下，同时估计自身的位置和构建地图 [[Map\|Map]]
 > 本质上是一个 **递归状态估计问题**，可以抽象成[[概率图模型\|概率图模型]]
 
 在未知环境中，让机器人或自动驾驶汽车等智能体通过传感器数据实时地构建环境地图并同时定位自身位置的技术。
+
 
 ### SLAM的基本知识
  SLAM 两大任务：**定位**，**建图**
@@ -97,6 +99,7 @@ $$
 - **滤波器（EKF、粒子滤波）**
 - **图优化（高斯-牛顿、Levenberg-Marquardt、g2o、Ceres）**
 
+
 ### 一、按状态估计方法分类
 #### 1. 基于滤波 Filtering-based SLAM
 早期的主流方法，将 SLAM 视为一个[[隐马尔可夫模型\|隐马尔可夫模型]]
@@ -158,6 +161,7 @@ RTAB-Map  RGB-D SLAM
 1. 稠密建图（Dense Mapping）：完整还原环境，适用于三维重建
 2. 稀疏建图（Sparse Mapping）：只记录特征点与轨迹，适合导航定位
 3. 拓扑建图（Topological Mapping）：使用图结构表示节点和连边，不保存具体几何信息
+
 
 ### 四、发展趋势与实际使用
 #### 1. 发展趋势

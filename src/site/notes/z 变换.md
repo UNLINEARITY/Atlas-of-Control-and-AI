@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-08-28T21:53:12.842+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-09-12T16:38:30.872+08:00"}
 ---
 
 
@@ -8,21 +8,23 @@
 > **离散时间信号处理**中的一个重要数学工具，在[[信号采样\|信号采样]]的基础上，由连续时间信号处理中的[[拉普拉斯变换\|拉普拉斯变换]]引申出来的变换方法。（将 $s$ 的超越函数转化为 $z$ 的[[幂级数\|幂级数]]或 $z$ 的有理分式）
 
 ### 一、z 变换定义
+
 1. 采样信号 $e^{*}(t)$ 的时域表达：
 $$\begin{align}
-e^{*}(t)&= e(t)\delta _{T}(t)=\sum\limits_{n=0}^{\infty} e(nT)\delta(t-nT)
+e^{*}(t)&= e(t)\delta _{T}(t)=\sum\limits_{k=0}^{\infty} e(kT)\delta(t-kT)
 \end{align}$$
 2. 采样信号的拉普拉斯变换为：
 $$\begin{align}
-E^{*}(s)&=\mathscr{L}[e^{*}(t)]=\sum\limits_{n=0}^{\infty} e(nT) {\color{red}   \mathscr{L}\left[\delta(t-nT)\right]} =\sum\limits_{n=0}^{\infty} e(nT){\color{red  }e^{ -nsT } } 
+E^{*}(s)&=\mathscr{L}[e^{*}(t)]=\sum\limits_{k=0}^{\infty} e(kT) {\color{red}   \mathscr{L}\left[\delta(t-kT)\right]} =\sum\limits_{k=0}^{\infty} e(kT){\color{red  }e^{ -ksT } } 
 \end{align}$$
 
 3. 令 $z=e^{ sT }$，得到 z 变换：
 $$\begin{align}
-E(z)=\mathscr{Z}[e(t)] =\mathscr{Z}[e^{*}(t)]=\sum\limits_{k=0}^{\infty} e(nT){\color{red}   z^{-k}} 
+E(z)=\mathscr{Z}[e(t)] =\mathscr{Z}[e^{*}(t)]=\sum\limits_{k=0}^{\infty} e(kT){\color{red}   z^{-k}} 
 \end{align}$$
 
 $\mathscr{Z}$ 表示取 z 变换，习惯上称 $E(z)$ 是采样信号的 z 变换。
+
 
 常用结论：
 $$\begin{align}
@@ -33,6 +35,7 @@ $$\begin{align}
 
 
 ### 二、z 变换方法
+
 #### 1. 级数求和法（定义）
 根据定义写为级数展开形式，根据[[常数项级数#1. 等比级数/几何级数\|级数知识]]得到最终表达式：
 $$\begin{align}
