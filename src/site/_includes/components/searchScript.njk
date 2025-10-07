@@ -137,24 +137,10 @@
     async function init() {
         //init offline search index
 
-        const searchIndexDate = '{{meta.buildDate|isoDate}}';
-        let shouldFetch = true;
-        if(localStorage.getItem("searchIndex")) {
-            let {date, docs}= JSON.parse(localStorage.getItem('searchIndex'));
-            if(date === searchIndexDate){
-                shouldFetch = false;
-                let index = createIndex(docs);
-                window.docs = docs
-                window.index = index;
-            }        
-        }
-        if(shouldFetch){
-            let docs = await(await fetch('/searchIndex.json?v={{meta.buildDate|isoDate}}')).json();
-            let index = createIndex(docs);
-            localStorage.setItem("searchIndex", JSON.stringify({date: '{{meta.buildDate|isoDate}}', docs}));
-            window.docs = docs
-            window.index = index;
-        }
+        let docs = await(await fetch('/searchIndex.json?v={{meta.buildDate|isoDate}}')).json();
+        let index = createIndex(docs);
+        window.docs = docs
+        window.index = index;
 
         //open searchmodal when ctrl + k is pressed, cmd + k on mac
         document.addEventListener('keydown', (e) => {
