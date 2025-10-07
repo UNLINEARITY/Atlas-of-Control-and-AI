@@ -1,5 +1,5 @@
 ---
-{"tags":["Discrete","Practical","Control"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-09-01T10:07:34.000+08:00"}
+{"tags":["Discrete","Practical","Control"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-09-12T17:12:33.695+08:00"}
 ---
 
 
@@ -50,6 +50,7 @@ $$\begin{align}
 
 ![改进PID.png](../img/user/Functional%20files/Photo%20Resources/%E6%94%B9%E8%BF%9BPID.png)
 
+
 #### 1.  积分分离算法
 在系统误差较大时，取消积分作用；当误差减小到一定值时，再重新积分。$e_{0}$ 为积分分离阈值
 
@@ -64,7 +65,9 @@ $$\sum\limits_{i=0}^{k} e(i)=\begin{cases}
 \sum\limits_{i=0}^{k-1} e(i)\quad  \left\lvert  e(k) \right\rvert> e_{0} 
 \end{cases}$$
 #### 2. 抗饱和积分算法
+
 输出限幅，输出超限时不积分
+
 $$\sum\limits_{i=0}^{k} e(i)=\begin{cases}
 \sum\limits_{i=0}^{k} e(i)\quad  u_{min}\leq u(k) \leq u_{max}\\ \\
 \sum\limits_{i=0}^{k-1} e(i)\quad  u_{min}> u(k) \; \text{or}\; u(k)> u_{max}
@@ -94,6 +97,7 @@ u(k)= \dfrac{T_{f}}{T_{f}+T} u(k-1)+\dfrac{T}{T_{f}+T} u_{1}(k)
 \end{align}$$
 
 #### 5. 微分先行
+
 ![微分先行.png](../img/user/Functional%20files/Photo%20Resources/%E5%BE%AE%E5%88%86%E5%85%88%E8%A1%8C.png)
 
 - **输出量微分：只对输出量进行微分**，避免因给定值变化给控制系统带来超调量过大、调节阀动作剧烈的冲击
