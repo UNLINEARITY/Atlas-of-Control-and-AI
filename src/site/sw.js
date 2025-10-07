@@ -57,6 +57,16 @@ self.addEventListener('activate', event => {
 
 // 获取事件 - 缓存优先策略
 self.addEventListener('fetch', event => {
+  // 跳过chrome-extension协议的请求
+  if (event.request.url.startsWith('chrome-extension://')) {
+    return;
+  }
+  
+  // 跳过POST等非GET请求
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -90,13 +100,26 @@ self.addEventListener('fetch', event => {
 
 // 网络优先策略 - 用于API和动态内容
 function networkFirst(request) {
+  // 跳过chrome-extension协议的请求
+  if (request.url.startsWith('chrome-extension://')) {
+    return fetch(request);
+  }
+  
+  // 跳过POST等非GET请求
+  if (request.method !== 'GET') {
+    return fetch(request);
+  }
+
   return fetch(request)
     .then(response => {
-      const responseClone = response.clone();
-      caches.open(CACHE_NAME)
-        .then(cache => {
-          cache.put(request, responseClone);
-        });
+      // 只缓存有效的GET响应
+      if (response && response.status === 200 && response.type === 'basic') {
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME)
+          .then(cache => {
+            cache.put(request, responseClone);
+          });
+      }
       return response;
     })
     .catch(() => {
@@ -182,6 +205,16 @@ async function updateContent() {
     await Promise.all(
       requests.map(async request => {
         try {
+          // 跳过chrome-extension协议的请求
+          if (request.url.startsWith('chrome-extension://')) {
+            return;
+          }
+          
+          // 跳过非GET请求
+          if (request.method !== 'GET') {
+            return;
+          }
+          
           const response = await fetch(request, { cache: 'no-cache' });
           if (response.ok) {
             await cache.put(request, response);

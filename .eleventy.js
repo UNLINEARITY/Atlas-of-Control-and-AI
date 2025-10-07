@@ -47,6 +47,8 @@ async function getImageDimensions(src) {
   }
 }
 
+const noteMetadataCache = new Map();
+
 function getAnchorLink(filePath, linkTitle) {
   const {attributes, innerHTML} = getAnchorAttributes(filePath, linkTitle);
   return `<a ${Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(" ")}>${innerHTML}</a>`;
@@ -60,25 +62,43 @@ function getAnchorAttributes(filePath, linkTitle) {
     [fileName, header] = filePath.split("#");
     headerLinkPath = `#${headerToId(header)}`;
   }
-
-  let noteIcon = process.env.NOTE_ICON_DEFAULT;
   const title = linkTitle ? linkTitle : fileName;
+
+  // Use a consistent cache key that is the full path to the note file
+  const startPath = "./src/site/notes/";
+  const fullPath = fileName.endsWith(".md")
+    ? `${startPath}${fileName}`
+    : `${startPath}${fileName}.md`;
+
+  // 1. Check cache first
+  if (noteMetadataCache.has(fullPath)) {
+    const cached = noteMetadataCache.get(fullPath);
+    if (cached.deadLink) {
+      return {
+        attributes: { class: "internal-link is-unresolved", href: "/404", target: "" },
+        innerHTML: title,
+      };
+    }
+    return {
+      attributes: {
+        ...cached.attributes,
+        href: `${cached.attributes.href}${headerLinkPath}`,
+      },
+      innerHTML: title,
+    };
+  }
+
+  // 2. If not in cache, read file and compute attributes
+  let noteIcon = process.env.NOTE_ICON_DEFAULT;
   let permalink = `/notes/${slugify(filePath)}`;
   let deadLink = false;
   try {
-    const startPath = "./src/site/notes/";
-    const fullPath = fileName.endsWith(".md")
-      ? `${startPath}${fileName}`
-      : `${startPath}${fileName}.md`;
     const file = fs.readFileSync(fullPath, "utf8");
     const frontMatter = matter(file);
     if (frontMatter.data.permalink) {
       permalink = frontMatter.data.permalink;
     }
-    if (
-      frontMatter.data.tags &&
-      frontMatter.data.tags.indexOf("gardenEntry") != -1
-    ) {
+    if (frontMatter.data.tags && frontMatter.data.tags.indexOf("gardenEntry") != -1) {
       permalink = "/";
     }
     if (frontMatter.data.noteIcon) {
@@ -88,25 +108,31 @@ function getAnchorAttributes(filePath, linkTitle) {
     deadLink = true;
   }
 
+  // 3. Store result in cache and return
   if (deadLink) {
+    noteMetadataCache.set(fullPath, { deadLink: true });
     return {
-      attributes: {
-        "class": "internal-link is-unresolved",
-        "href": "/404",
-        "target": "",
-      },
+      attributes: { class: "internal-link is-unresolved", href: "/404", target: "" },
       innerHTML: title,
-    }
+    };
   }
+
+  const computedAttributes = {
+    class: "internal-link",
+    target: "",
+    "data-note-icon": noteIcon,
+    href: permalink, // Store base permalink, append header path later
+  };
+  
+  noteMetadataCache.set(fullPath, { attributes: computedAttributes });
+
   return {
     attributes: {
-      "class": "internal-link",
-      "target": "",
-      "data-note-icon": noteIcon,
-      "href": `${permalink}${headerLinkPath}`,
+      ...computedAttributes,
+      href: `${permalink}${headerLinkPath}`,
     },
     innerHTML: title,
-  }
+  };
 }
 
 const tagRegex = /(^|\s|\>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?!([^<]*>))/g;
@@ -592,6 +618,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/site/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/site/img");
   eleventyConfig.addPassthroughCopy("src/site/scripts");
+  eleventyConfig.addPassthroughCopy("src/site/vendor");
   eleventyConfig.addPassthroughCopy("src/site/styles/_theme.*.css");
   eleventyConfig.addPassthroughCopy("src/site/styles/lazy-loading.css");
   eleventyConfig.addPassthroughCopy({"src/site/manifest.json": "/manifest.json"});

@@ -188,10 +188,10 @@ html {
     h2 { font-size: 1.375rem; }
     h3 { font-size: 1.25rem; }
     
-    /* 简化布局 */
+    /* 简化布局
     .sidebar {
         display: none;
-    }
+    }  */
     
     .main-content {
         margin: 0;
