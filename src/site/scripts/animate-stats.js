@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const animateStat = (element) => {
         const target = parseInt(element.dataset.target, 10);
         let current = 0;
-        const increment = target / 300; // Animate over 100 steps
-        const stepTime = 20; // 20ms per step
+        const increment = target / 100; // Animate over 100 steps
+        const stepTime = 15; // 20ms per step
 
         const timer = setInterval(() => {
             current += increment;
