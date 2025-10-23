@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32片上外设.md","tags":["Preipheral"],"permalink":"/MCU微控制器/STM32/STM32片上外设/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-22T07:55:45.000+08:00","updated":"2025-04-22T16:50:43.000+08:00"}
+{"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32片上外设.md","tags":["Preipheral"],"permalink":"/MCU微控制器/STM32/STM32片上外设/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-22T07:55:45.000+08:00","updated":"2025-10-10T10:45:06.000+08:00"}
 ---
 
 (terminology::**Preipheral**)
@@ -43,6 +43,7 @@ void Preipheral_ClearITPendingBit(USART_TypeDef* USARTx, uint16_t USART_IT);
 
 
 ### 说明
+
 >[!important] 注意
 >调用初始化函数，将结构体地址传入函数时，就写入到硬件的寄存器中了
 >所以可以直接更改值继续使用，初始化其他外设
