@@ -1,5 +1,5 @@
 ---
-{"tags":["Programming"],"dg-publish":true,"dg-path":"编程语言/Python/Python.md","dg-pinned":true,"permalink":"/编程语言/Python/Python/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-08-28T21:53:12.768+08:00"}
+{"tags":["Programming"],"dg-publish":true,"dg-path":"编程语言/Python/Python.md","dg-pinned":true,"permalink":"/编程语言/Python/Python/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-10-24T09:39:38.000+08:00"}
 ---
 
 
@@ -30,7 +30,7 @@
 | 库名/工具            | 功能             |
 | ---------------- | -------------- |
 | [[Jupyter\|Jupyter]]      | 核心平台           |
-| [[manim\|manim]]        | 制作专业的数学视频      |
+| [[manim\|Manim]]        | 制作专业的数学视频      |
 | [[Numpy\|Numpy]]        | 科学计算           |
 | [[Pandas\|Pandas]]       | 数据处理           |
 | [[matplotlib\|Matplotlib]]   | 绘图             |
