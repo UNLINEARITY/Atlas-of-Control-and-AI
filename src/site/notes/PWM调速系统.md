@@ -1,6 +1,8 @@
 ---
-{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM调速系统.md","permalink":"/A3- 电机及电力拖动/PWM调速系统/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.429+08:00","updated":"2025-08-28T21:53:12.761+08:00"}
+{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM调速系统.md","permalink":"/A3- 电机及电力拖动/PWM调速系统/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-10-24T12:24:48.000+08:00"}
 ---
+
+(terminology::**PWM Speed Control System**)
 
 脉宽调制变换器-直流电动机调速系统
 简单单管控制：直流斩波器 -->  逐渐发展：脉宽调制变换器 (基本原理：[[PWM\|脉冲宽度调制]])
@@ -33,7 +35,9 @@ U_{d}= \dfrac{t_{on}}{T}U_{s}=\rho U_{s}
 **三种控制方式**：
 1.  $t_{on}$ 改变   PWM  脉冲宽度调制
 2.  $T$ 改变     PFW   脉冲频率调制
-3.  $t_{on}、T$  均改变    混合调制
+3.  $t_{on}、T$  均改变混合调制
+
+
 ### PWM 变换器
 [[PWM变换器\|PWM变换器]]
 用PWM调制的方法，把恒定的直流电源电压调制成频率一定、宽度可变的脉冲电压系列，从而可以改变平均输出电压的大小，以调节电机转速

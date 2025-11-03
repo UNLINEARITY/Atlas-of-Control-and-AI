@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/MCP.md","permalink":"/人工智能/MCP/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-15T22:48:10.220+08:00","updated":"2025-08-03T22:30:48.477+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/MCP.md","permalink":"/人工智能/MCP/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-15T22:48:10.000+08:00","updated":"2025-10-21T16:37:09.000+08:00"}
 ---
 
 (terminology::**Model Context Protocol**)  模型上下文协议  
