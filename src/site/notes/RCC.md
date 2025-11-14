@@ -1,5 +1,5 @@
 ---
-{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/RCC.md","permalink":"/MCU微控制器/STM32/RCC/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-09-23T17:00:25.000+08:00"}
+{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/RCC.md","permalink":"/MCU微控制器/STM32/RCC/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-09-23T17:00:26.000+08:00"}
 ---
 
 

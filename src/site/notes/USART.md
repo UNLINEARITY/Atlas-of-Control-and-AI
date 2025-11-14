@@ -1,5 +1,5 @@
 ---
-{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/USART.md","permalink":"/MCU微控制器/STM32/USART/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-17T11:36:41.299+08:00","updated":"2025-08-28T21:53:12.814+08:00"}
+{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/USART.md","permalink":"/MCU微控制器/STM32/USART/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-17T11:36:41.290+08:00","updated":"2025-08-28T21:53:14.000+08:00"}
 ---
 
 

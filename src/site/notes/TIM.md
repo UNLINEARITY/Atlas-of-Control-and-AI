@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"MCU微控制器/STM32/TIM.md","permalink":"/MCU微控制器/STM32/TIM/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-16T18:09:07.591+08:00","updated":"2025-08-28T21:53:12.808+08:00"}
+{"dg-publish":true,"dg-path":"MCU微控制器/STM32/TIM.md","permalink":"/MCU微控制器/STM32/TIM/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-16T18:09:07.590+08:00","updated":"2025-08-28T21:53:14.000+08:00"}
 ---
 
 **Timer**    定时器 [[STM32片上外设\|STM32片上外设]]

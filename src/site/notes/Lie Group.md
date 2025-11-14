@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-09-29T18:48:13.000+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Lie Group.md","permalink":"/机器人/Lie Group/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-09-29T18:48:14.000+08:00"}
 ---
 
 

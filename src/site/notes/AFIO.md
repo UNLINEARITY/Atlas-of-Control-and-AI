@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"MCU微控制器/STM32/AFIO.md","permalink":"/MCU微控制器/STM32/AFIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:26.360+08:00","updated":"2025-08-28T21:53:12.520+08:00"}
+{"dg-publish":true,"dg-path":"MCU微控制器/STM32/AFIO.md","permalink":"/MCU微控制器/STM32/AFIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:26.360+08:00","updated":"2025-08-28T21:53:14.000+08:00"}
 ---
 
 复用功能输入/输出: (terminology::**Alternate Function I/O**)

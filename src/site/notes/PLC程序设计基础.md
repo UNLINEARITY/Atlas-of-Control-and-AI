@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC程序设计基础.md","permalink":"/A4- 过程控制系统/PLC/PLC程序设计基础/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.428+08:00","updated":"2025-08-28T21:53:12.750+08:00"}
+{"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC程序设计基础.md","permalink":"/A4- 过程控制系统/PLC/PLC程序设计基础/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-10-31T11:37:32.000+08:00"}
 ---
 
 
@@ -7,6 +7,7 @@
 基本环境：CCW 
 主要语言：梯形图（Ladder Diagram，LD）
 软件编程：双击图标，设置与硬件的映射关系
+
 ### 基本数据类型
 BOOL 布尔值
 DATE  日期
@@ -17,6 +18,7 @@ REAL 实数浮点型
 STRING  字符串
 TIME 时间
 ### 基本元件
+
 左母线-->右母线，程序顺序循环执行，相当于编程语言中 `while`，按 rung 梯级从上到下执行，不断循环
 
 ![Pasted image 20241228130131.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241228130131.png)
@@ -25,8 +27,11 @@ Direct Contact
 Reverse Contact 
 
 ### 常用功能指令块 Instruction Block
+
 时序图应该关注：信号、高低电平、上升沿、下降沿
+
 #### 定时器
+
 ![Pasted image 20241211104346.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020241211104346.png)
 
 `T # 3s  `   表示 T = 3s 

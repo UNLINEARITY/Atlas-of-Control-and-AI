@@ -1,11 +1,21 @@
 ---
-{"dg-publish":true,"dg-path":"Deepseek-OCR.md","permalink":"/Deepseek-OCR/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.322+08:00","updated":"2025-11-03T23:53:21.379+08:00"}
+{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-14T17:24:09.239+08:00"}
 ---
 
 
 (website::https://github.com/deepseek-ai/DeepSeek-OCR)
 - Transformers + PyTorch + FlashAttention 模式
 - vLLM 模式
+
+[[Deepseek-OCR API示例\|Deepseek-OCR API示例]]
+[[LaTex Converter\|LaTex Converter]]
+
+```
+<|grounding|>Convert the document to markdown.
+Describe this image in detail.
+Locate <|ref|>eyes<|/ref|> in the image.
+```
+
 
 ### 一、环境配置
 #### 1. CUDA 安装
@@ -18,7 +28,7 @@ nvcc --version # 看是否有 cuda
 # 如果无cuda  下载cuda 
 sudo apt update
 sudo apt install nvidia-cuda-toolkit   #注意此指令默认最新 13.0 的版本
-# 选地版本下载地址 https://developer.nvidia.com/cuda-11-8-0-download-archive  
+# 11.8 版本下载地址 https://developer.nvidia.com/cuda-11-8-0-download-archive  
 
 # 如果有cuda（错误版本） 
 sudo apt-get --purge remove "cuda*" "nvidia-cuda*" "libcudart*" "libcublas*" "libcusolver*" "libcufft*" "libcurand*" "libcusparse*" "libnpp*" "libnvjitlink*" "libnvrtc*" "libnccl*" "libcudnn*" -y
@@ -52,7 +62,8 @@ git clone https://github.com/deepseek-ai/DeepSeek-OCR.git
 #### 3. Conda 环境创建
 [[Anaconda\|Anaconda]]
 
-##### 必要流程
+##### 3.1 必要流程
+
 ```bash
 # 检查conda版本 或 是否有conda环境
 conda --version
@@ -63,15 +74,25 @@ conda activate deepseek-ocr
 
 # 下载好必要的库文件
 pip install -r requirements.txt
+transformers==4.46.3
+tokenizers==0.20.3
+PyMuPDF
+img2pdf
+einops
+easydict
+addict 
+Pillow
+numpy
 ```
 
-##### Pytorch 方式下载指令
+##### 3.2 Pytorch 方式下载指令
+
 ```bash
 pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu118
 pip install flash-attn==2.7.3 --no-build-isolation
 ```
 
-##### VLLM 方式下载指令
+##### 3.3 VLLM 方式下载指令
 首先下载  [[vllm\|vllm]] -0.8.5 对应版本到本地文件夹中（下载地址 https://github.com/vllm-project/vllm/releases/tag/v0.8.5  ）
 
 然后下载到 conda 环境中：
@@ -80,6 +101,10 @@ pip install flash-attn==2.7.3 --no-build-isolation
 pip install vllm-0.8.5+cu118-cp38-abi3-manylinux1_x86_64.whl #vllm
 ```
 
+```
+pip install accelerate>=0.26.0
+pip install bitsandbytes 
+```
 ### 二、模型文件下载
 DeepSeek-OCR 模型文件较大，必须启用 LFS。
 #### 1. LFS 下载
@@ -125,6 +150,12 @@ pip install bitsandbytes
 
 
 
+
+### 8GB 显存改动 (未完善)
+
+![Pasted image 20251114161142.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020251114161142.png)
+
+
 ### OCR 识别
 ```text
 input_file = '/home/nonlinear/DeepSeek-OCR/Input/test.pdf' # 或 .png
@@ -142,3 +173,9 @@ output_path/
 
 
 
+```
+python -m vllm.entrypoints.openai.api_server \
+  --model /home/nonlinear/DeepSeek-OCR/models/DeepSeek-OCR \
+  --host 0.0.0.0 \
+  --port 8000
+```

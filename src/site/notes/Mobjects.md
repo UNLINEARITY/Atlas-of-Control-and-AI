@@ -1,5 +1,5 @@
 ---
-{"dg-path":"Manim/Mobjects.md","dg-publish":true,"permalink":"/Manim/Mobjects/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-21T22:10:29.901+08:00","updated":"2025-10-23T18:57:33.936+08:00"}
+{"dg-path":"Manim/Mobjects.md","dg-publish":true,"permalink":"/Manim/Mobjects/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-21T22:10:29.900+08:00","updated":"2025-10-23T18:57:34.000+08:00"}
 ---
 
 

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/XML.md","permalink":"/机器人/XML/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:36:18.000+08:00","updated":"2025-09-12T12:51:07.000+08:00"}
+{"dg-publish":true,"dg-path":"机器人/XML.md","permalink":"/机器人/XML/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:36:18.000+08:00","updated":"2025-09-12T12:51:08.000+08:00"}
 ---
 
 

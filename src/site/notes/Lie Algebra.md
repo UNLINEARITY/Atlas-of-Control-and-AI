@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Lie Algebra.md","permalink":"/机器人/Lie Algebra/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:35:22.688+08:00","updated":"2025-06-30T23:47:57.992+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Lie Algebra.md","permalink":"/机器人/Lie Algebra/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:35:22.680+08:00","updated":"2025-06-30T23:47:58.000+08:00"}
 ---
 
 (terminology::**Lie Algebra**)   李代数
