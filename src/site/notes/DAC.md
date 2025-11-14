@@ -1,5 +1,5 @@
 ---
-{"aliases":["数模转换器"],"dg-publish":true,"dg-path":"电子技术/数字电路/DAC.md","permalink":"/电子技术/数字电路/DAC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.742+08:00","updated":"2025-04-13T17:56:46.751+08:00"}
+{"aliases":["数模转换器"],"dg-publish":true,"dg-path":"电子技术/数字电路/DAC.md","permalink":"/电子技术/数字电路/DAC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.740+08:00","updated":"2025-04-13T17:56:48.000+08:00"}
 ---
 
 (terminology::**Digital-to-Analog Conversion**)      数模转换

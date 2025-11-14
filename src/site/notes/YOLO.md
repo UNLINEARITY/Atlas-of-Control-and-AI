@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/计算机视觉/YOLO.md","permalink":"/人工智能/计算机视觉/YOLO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-06T09:50:21.936+08:00","updated":"2025-08-28T21:53:12.828+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/计算机视觉/YOLO.md","permalink":"/人工智能/计算机视觉/YOLO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-06T09:50:21.930+08:00","updated":"2025-08-28T21:53:14.000+08:00"}
 ---
 
 (terminology::**You Only Look Once**)

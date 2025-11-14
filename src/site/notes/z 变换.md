@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-09-12T16:38:30.872+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-09-12T16:38:32.000+08:00"}
 ---
 
 

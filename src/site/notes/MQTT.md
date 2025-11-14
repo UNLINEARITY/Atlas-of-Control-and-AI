@@ -1,5 +1,5 @@
 ---
-{"tags":["Protocol"],"dg-publish":true,"dg-path":"IoT/MQTT.md","permalink":"/IoT/MQTT/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-12T17:16:53.000+08:00","updated":"2025-09-26T11:40:59.000+08:00"}
+{"tags":["Protocol"],"dg-publish":true,"dg-path":"IoT/MQTT.md","permalink":"/IoT/MQTT/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-12T17:16:53.000+08:00","updated":"2025-09-26T11:41:00.000+08:00"}
 ---
 
 

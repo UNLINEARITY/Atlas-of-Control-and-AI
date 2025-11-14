@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/计算机视觉/Vision Transformer.md","permalink":"/人工智能/计算机视觉/Vision Transformer/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-04-28T22:38:34.840+08:00","updated":"2025-08-30T17:56:35.829+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/计算机视觉/Vision Transformer.md","permalink":"/人工智能/计算机视觉/Vision Transformer/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-04-28T22:38:34.840+08:00","updated":"2025-08-30T17:56:36.000+08:00"}
 ---
 
 (terminology::**Vision Transformer**)  ViT

@@ -1,5 +1,5 @@
 ---
-{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32 ADC.md","permalink":"/MCU微控制器/STM32/STM32 ADC/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.462+08:00","updated":"2025-08-28T21:53:12.784+08:00"}
+{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32 ADC.md","permalink":"/MCU微控制器/STM32/STM32 ADC/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.460+08:00","updated":"2025-08-28T21:53:14.000+08:00"}
 ---
 
 

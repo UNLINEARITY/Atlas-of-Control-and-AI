@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/深度学习/Transformer.md","permalink":"/人工智能/深度学习/Transformer/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-13T23:08:41.000+08:00","updated":"2025-08-28T21:53:12.811+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/深度学习/Transformer.md","permalink":"/人工智能/深度学习/Transformer/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-13T23:08:41.000+08:00","updated":"2025-08-28T21:53:14.000+08:00"}
 ---
 
 

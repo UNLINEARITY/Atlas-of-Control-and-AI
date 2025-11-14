@@ -1,5 +1,5 @@
 ---
-{"tags":["Discrete","Practical","Control"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-09-12T17:12:33.695+08:00"}
+{"tags":["Discrete","Practical","Control"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-09-12T17:12:34.000+08:00"}
 ---
 
 

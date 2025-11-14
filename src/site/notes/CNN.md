@@ -1,5 +1,5 @@
 ---
-{"aliases":["卷积神经网络"],"dg-publish":true,"dg-path":"人工智能/深度学习/CNN.md","permalink":"/人工智能/深度学习/CNN/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-31T21:58:18.000+08:00","updated":"2025-06-22T00:42:59.731+08:00"}
+{"aliases":["卷积神经网络"],"dg-publish":true,"dg-path":"人工智能/深度学习/CNN.md","permalink":"/人工智能/深度学习/CNN/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-31T21:58:18.000+08:00","updated":"2025-06-22T00:43:00.000+08:00"}
 ---
 
 (terminology::**Convolutional Neural Network** ) 卷积神经网络
