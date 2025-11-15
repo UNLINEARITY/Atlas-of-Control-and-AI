@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-03T22:30:48.520+08:00","updated":"2025-09-02T21:49:38.000+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-03T22:30:48.520+08:00","updated":"2025-11-15T09:50:33.591+08:00"}
 ---
 
 
@@ -54,10 +54,11 @@ root((本网站))
 ```
 
 
-> “方存乎见少，又奚以自多！”——《[[秋水\|秋水]]》· 庄周
+> [!important] “方存乎见少，又奚以自多！”——《[[秋水\|秋水]]》· 庄周
 >"How can one be self-important when they have seen so little?"--"Autumn Floods," Zhuang Zhou
 
-> "指穷于为薪，火传也，不知其尽也"
+> [!important] "指穷于为薪，火传也，不知其尽也"
+
 
 ***
 ### 一、该网站的核心思想 

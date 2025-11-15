@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-14T17:24:09.239+08:00"}
+{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-15T09:59:40.517+08:00"}
 ---
 
 
@@ -145,9 +145,7 @@ pip install accelerate>=0.26.0
 pip install bitsandbytes 
 ```
 
-
 #### vLLM 调用方式
-
 
 
 
@@ -156,7 +154,9 @@ pip install bitsandbytes
 ![Pasted image 20251114161142.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020251114161142.png)
 
 
-### OCR 识别
+
+### OCR 识别结果
+
 ```text
 input_file = '/home/nonlinear/DeepSeek-OCR/Input/test.pdf' # 或 .png
 output_path = '/home/nonlinear/DeepSeek-OCR/Output'
@@ -170,8 +170,6 @@ output_path/
 ├── result_with_boxes.jpg  # ocr分块
 └── result.md      # 转换的md文件
 ```
-
-
 
 ```
 python -m vllm.entrypoints.openai.api_server \
