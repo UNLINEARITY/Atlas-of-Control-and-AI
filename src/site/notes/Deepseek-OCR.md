@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-15T09:59:40.517+08:00"}
+{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-17T09:29:38.501+08:00"}
 ---
 
 

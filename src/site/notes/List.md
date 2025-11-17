@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"编程语言/Python/List.md","permalink":"/编程语言/Python/List/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.860+08:00","updated":"2025-09-02T22:53:34.000+08:00"}
+{"dg-publish":true,"dg-path":"计算机/Python/List.md","permalink":"/计算机/Python/List/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.860+08:00","updated":"2025-11-17T10:04:53.543+08:00"}
 ---
 
 

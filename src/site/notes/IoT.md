@@ -1,5 +1,5 @@
 ---
-{"aliases":["物联网"],"dg-publish":true,"dg-path":"IoT/IoT.md","dg-pinned":true,"permalink":"/IoT/IoT/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-11-21T15:59:31.850+08:00","updated":"2025-06-19T11:34:54.000+08:00"}
+{"aliases":["物联网"],"dg-publish":true,"dg-path":"计算机/IoT.md","dg-pinned":true,"permalink":"/计算机/IoT/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-11-21T15:59:31.850+08:00","updated":"2025-11-17T09:55:57.354+08:00"}
 ---
 
 (terminology::**Internet of Things**)  **物联网**

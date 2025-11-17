@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"编程语言/Python/Python Data Types.md","permalink":"/编程语言/Python/Python Data Types/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-16T13:01:27.460+08:00","updated":"2025-06-14T22:04:24.000+08:00"}
+{"dg-publish":true,"dg-path":"计算机/Python/Python Data Types.md","permalink":"/计算机/Python/Python Data Types/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-16T13:01:27.460+08:00","updated":"2025-11-17T10:04:53.544+08:00"}
 ---
 
 

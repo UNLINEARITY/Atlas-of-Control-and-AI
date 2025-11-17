@@ -1,5 +1,5 @@
 ---
-{"tags":["Programming"],"dg-publish":true,"dg-path":"编程语言/Python/Python.md","dg-pinned":true,"permalink":"/编程语言/Python/Python/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-10-24T09:39:38.000+08:00"}
+{"tags":["Programming"],"dg-publish":true,"dg-path":"计算机/Python/Python.md","dg-pinned":true,"permalink":"/计算机/Python/Python/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-11-17T10:04:53.544+08:00"}
 ---
 
 
