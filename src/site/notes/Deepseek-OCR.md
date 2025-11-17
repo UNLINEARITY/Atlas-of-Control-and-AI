@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-17T09:29:38.501+08:00"}
+{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-17T15:59:15.154+08:00"}
 ---
 
 
@@ -8,7 +8,7 @@
 - vLLM 模式
 
 [[Deepseek-OCR API示例\|Deepseek-OCR API示例]]
-[[LaTex Converter\|LaTex Converter]]
+[[Deepseek-OCR 配套工具\|Deepseek-OCR 配套工具]]
 
 ```
 <|grounding|>Convert the document to markdown.
