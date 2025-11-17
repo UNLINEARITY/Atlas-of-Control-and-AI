@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"编程语言/PlatformIO.md","permalink":"/编程语言/PlatformIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-09-01T10:16:58.000+08:00"}
+{"dg-publish":true,"dg-path":"计算机/PlatformIO.md","permalink":"/计算机/PlatformIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-11-17T10:04:53.543+08:00"}
 ---
 
 
