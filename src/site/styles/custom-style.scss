@@ -132,6 +132,7 @@ body {
     max-width: 870px !important;
     width: 100%;
     box-sizing: border-box;
+    padding-bottom: 70px; /* 为底部悬浮控件留出空间 */
   }
   
   @media (max-width: 1000px) {
@@ -542,15 +543,25 @@ body {
 
   .fnote {
     display: none;
-    background-color: var(--background-primary);
-    border: 1px solid var(--text-accent);
+    background-color: rgba(var(--mono-rgb-100), 0.1); /* 半透明背景以实现玻璃效果 */
+    border: 1px solid var(--background-modifier-border);
     position: fixed;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    text-align: center;
-    z-index: 999;
+    
+    /* 居中定位 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    max-width: 500px;
+    
+    /* 外观和层级 */
+    padding: 20px;
+    text-align: left;
+    z-index: 1001; /* 高于悬浮控件 */
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* 更精致的阴影 */
+    backdrop-filter: blur(12px); /* 玻璃模糊效果 */
+    -webkit-backdrop-filter: blur(12px); /* 兼容 Safari */
   }
 
   .footnote-ref {
