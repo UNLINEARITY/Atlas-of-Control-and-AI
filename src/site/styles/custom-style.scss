@@ -1074,27 +1074,57 @@ body.has-fullscreen-graph #floating-control {
 }
 
 /* ----------------------------- */
-/* PWA INSTALL BUTTON
+/* PWA INSTALL BUTTON CONTAINER & BUTTONS
 /* ----------------------------- */
-.install-pwa-button {
-  padding: 12px 24px;
-  background: var(--interactive-accent);
-  color: white;
-  border: none;
-  border-radius: 24px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  font-size: 1rem;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: background-color 0.3s ease;
-  display: flex;
+#pwa-actions-container {
+  margin-top: auto !important; /* 推到底部 */
+  padding: 15px 10px !important;
+  display: flex !important;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  min-height: 44px;
-  min-width: 100px;
+  gap: 10px;
+  border-top: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  border-radius: 8px;
+  flex-shrink: 0; /* 防止被压缩 */
+  min-height: 65px; /* 保证最小高度 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.install-pwa-button {
+  padding: 10px 20px !important;
+  background: var(--interactive-accent) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 40px !important;
+  min-width: 90px !important;
+  height: 40px !important;
+  flex-shrink: 0 !important;
   
   &:hover {
-    background-color: var(--text-accent-hover);
+    background-color: var(--text-accent-hover) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
 }
