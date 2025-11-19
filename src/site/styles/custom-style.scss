@@ -978,7 +978,223 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
     background: var(--background-primary);
 }
 
+
+
 .graph-fs #full-graph-container {
+
+
+
     width: 100%;
+
+
+
     height: 100%;
+
+
+
 }
+
+
+
+
+
+
+
+/* START: Responsive Three-Column Layout for Desktop */
+
+
+
+@media (min-width: 1024px) {
+
+
+
+    body {
+
+
+
+        display: flex;
+
+
+
+        justify-content: space-between;
+
+
+
+        /* Re-introduce the gaps the user wanted */
+
+
+
+        padding-left: 10px;
+
+
+
+        padding-right: 17px;
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Override fixed positioning for sidebars to place them in the flex flow */
+
+
+
+    nav.filetree-sidebar,
+
+
+
+    .sidebar {
+
+
+
+        position: sticky !important; /* Use sticky to keep them in view while scrolling */
+
+
+
+        top: 15px !important;
+
+
+
+        height: calc(100vh - 30px); /* Adjust height to account for top offset */
+
+
+
+        flex-shrink: 0;
+
+
+
+        z-index: 1 !important;
+
+
+
+        overflow-y: auto;
+
+
+
+    }
+
+
+
+    
+
+
+
+    /* Remove original fixed positioning offsets */
+
+
+
+    nav.filetree-sidebar {
+
+
+
+      left: unset !important;
+
+
+
+    }
+
+
+
+    .sidebar {
+
+
+
+      right: unset !important;
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Center content column */
+
+
+
+    .content.cm-s-obsidian {
+
+
+
+        flex-grow: 1;
+
+
+
+        max-width: none !important;
+
+
+
+        margin: 0 2em !important; /* Reset margins and add a gap between columns */
+
+
+
+        height: 100vh;
+
+
+
+        overflow-y: auto;
+
+
+
+    }
+
+
+
+    
+
+
+
+    /* Ensure the children of the right sidebar have the correct width */
+
+
+
+    .sidebar-container > div:not(.graph) {
+
+
+
+      width: 325px;
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Hide mobile-specific elements on desktop */
+
+
+
+    .fullpage-overlay {
+
+
+
+        display: none !important;
+
+
+
+    }
+
+
+
+}
+
+
+
+/* END: Responsive Three-Column Layout for Desktop */
+
+
+
+
+
