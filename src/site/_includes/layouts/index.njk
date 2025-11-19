@@ -11,8 +11,14 @@
     {% endfor %}
     <link rel="stylesheet" href="/styles/site-stats.css">
     <link rel="stylesheet" href="/styles/lazy-loading.css">
+    <style>
+      .js-fouc-hidden {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+    </style>
   </head>
-  <body class="theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}">
+  <body class="js-fouc-hidden theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}">
     {%include "components/fouc-prevention.njk"%}
     <!-- Sidebar Toggle Buttons -->
     <button id="toggle-left-sidebar" class="sidebar-toggle-button">
