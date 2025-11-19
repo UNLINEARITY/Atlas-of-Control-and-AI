@@ -873,56 +873,136 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   }
 }
 
-/* Responsive Three-Column Layout for Desktop  nonlinear */ 
+/* START: Definitive Responsive Flexbox Layout */
+
 @media (min-width: 1024px) {
+
+  /* 1. Body as Flex Container */
+
   body {
+
     display: flex;
-    padding-left: 0px;
-    padding-right: 0px;
+
+    height: 100vh; /* Set body height to viewport height */
+
+    overflow: hidden; /* Hide body scrollbar */
+
+    padding: 0 5px; /* small gaps at the very edges */
+
   }
 
-  /* Sidebars in flex flow */
+
+
+  /* 2. Sidebars Configuration */
+
   nav.filetree-sidebar,
+
   .sidebar {
+
     position: sticky !important;
+
     top: 15px !important;
-    height: calc(100vh - 30px);
+
+    height: calc(100% - 30px); /* Height relative to body */
+
     flex-shrink: 0;
+
     z-index: 1 !important;
+
     overflow-y: auto;
-    transition: min-width 0.3s ease, opacity 0.3s ease;
-  }
-  nav.filetree-sidebar {
-    left: unset !important;
-  }
-  .sidebar {
-    right: unset !important;
-    margin-left: auto; /* Push sidebar to the far right */
+
   }
 
-  /* Center content column */
-  .content.cm-s-obsidian {
-    flex-grow: 1;
-    max-width: none !important;
-    margin: 0 0.5em !important;
-    height: 100vh;
-    overflow-y: auto;
-  }
   
-  .sidebar-container > div:not(.graph) {
+
+  /* Reset fixed-positioning properties */
+
+  nav.filetree-sidebar {
+
+    left: unset !important;
+
+  }
+
+  .sidebar {
+
+    right: unset !important;
+
+  }
+
+
+
+  /* 3. Content Area Configuration */
+
+  .content.cm-s-obsidian {
+
+    flex-grow: 1; /* Allow it to fill space */
+
+    max-width: none !important;
+
+    /* Use margin for gutters between columns */
+
+    margin: 0 1.5em !important;
+
+    height: 100%; /* Height relative to body */
+
+    overflow-y: auto;
+
+    transition: margin 0.3s ease;
+
+  }
+
+  
+
+  /* Give right sidebar a predictable width */
+
+  .sidebar-container {
+
     width: 325px;
+
   }
 
-  .fullpage-overlay {
-    display: none !important;
-  }
 
-  /* Sidebar Collapse Logic */
-  body.left-sidebar-collapsed nav.filetree-sidebar {
-    display: none;
-  }
+
+  /* 4. Sidebar Collapse Logic */
+
+  body.left-sidebar-collapsed nav.filetree-sidebar,
 
   body.right-sidebar-collapsed .sidebar {
+
     display: none;
+
   }
+
+  
+
+  /* Remove content margin when a sidebar is collapsed */
+
+  body.left-sidebar-collapsed .content.cm-s-obsidian {
+
+    margin-left: 0 !important;
+
+  }
+
+  body.right-sidebar-collapsed .content.cm-s-obsidian {
+
+    margin-right: 0 !important;
+
+  }
+
+
+
+  /* 5. Hide mobile elements */
+
+  .fullpage-overlay {
+
+    display: none !important;
+
+  }
+
 }
+
+/* END: Definitive Responsive Flexbox Layout */
+
+ 
+
+/* END: Responsive Three-Column Layout for Desktop */
