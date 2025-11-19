@@ -152,7 +152,7 @@ pre[class*="language-"] {
   .toc-container {
     max-height: unset;
     right: 0.5px;
-    top: 15px;
+    top: 5px;
     @media (max-width: 1400px) {
       max-height: 320px;
     }
@@ -819,12 +819,18 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 /* RECENT ADDITIONS & OVERRIDES
 /* ----------------------------- */
 
-/* Mermaid Centering */
+/* Center Images and Mermaid Diagrams */
+.cm-s-obsidian img,
+.cm-s-obsidian picture,
 .markdown-preview-view pre.mermaid {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    text-align: center;
+    display: block !important; /* Ensure block-level for centering */
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Mermaid-specific adjustments */
+.markdown-preview-view pre.mermaid {
+    text-align: center; /* Center SVG inside the pre tag */
     max-width: 100%;
     overflow-x: auto;
 }
