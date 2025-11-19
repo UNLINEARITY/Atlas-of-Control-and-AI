@@ -1085,10 +1085,15 @@ body.has-fullscreen-graph #floating-control {
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
   transition: background-color 0.3s ease;
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  min-width: 100px;
+  
   &:hover {
     background-color: var(--text-accent-hover);
   }
