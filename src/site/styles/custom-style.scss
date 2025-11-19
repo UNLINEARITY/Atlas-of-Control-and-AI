@@ -102,18 +102,18 @@ pre[class*="language-"] {
   .content {
     max-width: 98vw !important;
     padding: 0 8px;
+    padding-bottom: 70px;
   }
 }
 @media (max-width: 768px) {
   body {
     height: auto;
     overflow: auto !important;
-    padding-top: 80px !important; /* Force padding to prevent overlap */
-    padding-bottom: 140px; /* 为浮动控制栏留出更多空间 */
   }
   .content {
     margin-top: 5px;
-    padding-top: 80px;
+    padding-bottom: 70px;
+    margin-top: 70px; /* navbar高度 60px + 间距 10px */
   }
   .content > header {
     padding-top: 20px;
@@ -124,14 +124,9 @@ pre[class*="language-"] {
   }
 }
 @media (max-width: 480px) {
-  body {
-    height: auto;
-    overflow: auto !important;
-    padding-top: 70px !important; /* Force padding to prevent overlap */
-    padding-bottom: 120px; /* 为浮动控制栏留出更多空间 */
-  }
   .content {
-    padding-top: 70px;
+    margin-top: 60px; /* navbar高度 50px + 间距 10px */
+    padding-bottom: 70px;
   }
   .content > header {
     padding-top: 15px;
@@ -139,7 +134,7 @@ pre[class*="language-"] {
 }
 @media (max-width: 375px) {
   .content {
-    padding-top: 65px;
+    margin-top: 60px;
   }
 }
 
@@ -151,6 +146,13 @@ pre[class*="language-"] {
   box-sizing: border-box;
   position: relative;
   z-index: 1;
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .sidebar {
@@ -187,7 +189,7 @@ pre[class*="language-"] {
   &>div:not(.graph) {
     top: 10px;
     width: 285px;
-    max-height: calc(100% - 70px);  
+    max-height: calc(100% - 120px);  
     overflow-y: auto;
   }
   
@@ -838,10 +840,12 @@ body.has-fullscreen-graph #floating-control {
     margin-right: auto !important;
 }
 
-.markdown-preview-view svg {
-    max-width: 100%;
-    height: auto;
-}
+// .markdown-preview-view svg {
+//     max-width: 100%;
+//     height: auto;
+// }
+
+
 .markdown-preview-view pre.mermaid {
     text-align: center; /* Center SVG inside the pre tag */
     max-width: 100%;
@@ -851,7 +855,7 @@ body.has-fullscreen-graph #floating-control {
 /* Sidebar Toggle Buttons */
 .sidebar-toggle-button {
   position: fixed;
-  top: 50%;
+  top: 25%;  /* 改为 25% */
   transform: translateY(-50%);
   z-index: 1000;
   background-color: var(--background-secondary);
@@ -874,7 +878,7 @@ body.has-fullscreen-graph #floating-control {
   left: 15px;
 }
 #toggle-right-sidebar {
-  right: 40px; /* Diagnostic: Increase distance from edge */
+  right: 15px;
 }
 @media (max-width: 1023px) {
   .sidebar-toggle-button {
@@ -886,124 +890,64 @@ body.has-fullscreen-graph #floating-control {
 
 @media (min-width: 1024px) {
 
-  /* 1. Body as Flex Container */
-
   body {
-
     display: flex;
-    height: 100vh; /* Set body height to viewport height */
-    overflow: hidden; /* Hide body scrollbar */
-    padding: 0 5px; /* small gaps at the very edges */
-    padding-top: 20px !important; /* Force padding to prevent overlap */
-    padding-bottom: 30px; /* 为浮动控制栏留出更多空间 */
+    height: 100vh;
+    overflow: hidden;
+    padding: 0 5px;
+    padding-top: 0 !important;  /* 删除固定padding */
+    padding-bottom: 30px;
   }
-
-  /* 2. Sidebars Configuration */
 
   nav.filetree-sidebar,
-
   .sidebar {
-
     position: sticky !important;
-
-    top: 15px !important;
-
-    height: calc(100% - 30px); /* Height relative to body */
-
+    top: 70px !important;  /* 给navbar留出足够空间 */
+    height: calc(100% - 10px);
     flex-shrink: 0;
-
     z-index: 1 !important;
-
     overflow-y: auto;
-
   }
-
-  
-
-  /* Reset fixed-positioning properties */
 
   nav.filetree-sidebar {
-
     left: unset !important;
-
   }
 
   .sidebar {
-
     right: unset !important;
-
   }
-
-
-
-  /* 3. Content Area Configuration */
 
   .content.cm-s-obsidian {
-
-    flex-grow: 1; /* Allow it to fill space */
-
+    flex-grow: 1;
     max-width: none !important;
-
-    /* Use margin for gutters between columns */
-
-    margin: 0 1.2em !important;
-
-    height: 100%; /* Height relative to body */
-
+    margin: 0 1em !important;
+    margin-top: 45px !important;  /* 给navbar留出空间 */
+    height: calc(100% - 20px);
     overflow-y: auto;
-
     transition: margin 0.3s ease;
-
+    padding-top: 20px;
   }
 
-  
-
-  /* Give right sidebar a predictable width */
-
-    .sidebar-container {
-
-      width: 320px;
-
-      height: calc(100% - 30px);
-
-    }
-
-
-
-  /* 4. Sidebar Collapse Logic */
+  .sidebar-container {
+    width: 320px;
+    height: calc(100% - 10px);
+  }
 
   body.left-sidebar-collapsed nav.filetree-sidebar,
-
   body.right-sidebar-collapsed .sidebar {
-
     display: none;
-
   }
 
-  
-
-  /* Remove content margin when a sidebar is collapsed */
-
   body.left-sidebar-collapsed .content.cm-s-obsidian {
-
     margin-left: 10px !important;
-
   }
 
   body.right-sidebar-collapsed .content.cm-s-obsidian {
-
-    margin-right: 10px  !important;
-
+    margin-right: 10px !important;
   }
 
-
-
-  /* 5. Hide mobile elements */
-
   .fullpage-overlay {
-
     display: none !important;
-
   }
 
 }
@@ -1013,3 +957,86 @@ body.has-fullscreen-graph #floating-control {
  
 
 /* END: Responsive Three-Column Layout for Desktop */
+
+/* PWA样式 */
+.install-pwa-button {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ----------------------------- */
+/* PWA INSTALL BUTTON CONTAINER & BUTTONS
+/* ----------------------------- */
+#pwa-actions-container {
+  margin-top: auto !important; /* 推到底部 */
+  padding: 15px 10px !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  border-top: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  border-radius: 8px;
+  flex-shrink: 0; /* 防止被压缩 */
+  min-height: 65px; /* 保证最小高度 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.install-pwa-button {
+  padding: 10px 20px !important;
+  background: var(--interactive-accent) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 40px !important;
+  min-width: 90px !important;
+  height: 40px !important;
+  flex-shrink: 0 !important;
+  
+  &:hover {
+    background-color: var(--text-accent-hover) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}

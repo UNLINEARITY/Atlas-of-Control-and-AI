@@ -1,9 +1,12 @@
 ---
-{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR-API.md","tags":["Code"],"permalink":"/模型部署/Deepseek-OCR-API/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-14T16:52:36.419+08:00","updated":"2025-11-17T22:01:26.998+08:00"}
+{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR-API.md","tags":["Code"],"permalink":"/模型部署/Deepseek-OCR-API/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-14T16:52:36.419+08:00","updated":"2025-11-19T22:36:00.102+08:00"}
 ---
 
 
+
+[[Deepseek-OCR\|Deepseek-OCR]]
 ### 简要说明
+示例视频： (website::https://www.bilibili.com/video/BV1RcCuBREhA/)
 #### 1. 路径处理接口 (n8n/自动化专用)
 - 路径: POST /ocr/process_path
 - 用途: 为服务器端的自动化流程设计, 例如给 n8n 或其他脚本调用. 它处理的是已经存在于服务器上的文件.
@@ -62,6 +65,8 @@
 
 
 ### API 代码 (稍微完善)
+
+
 修改 PDF 的处理逻辑, [[Deepseek-OCR\|Deepseek-OCR]]
 
 ```python 

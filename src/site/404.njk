@@ -97,6 +97,27 @@
         </style>
     </head>
     <body class="theme-{{meta.baseTheme}} markdown-preview-view">
+        <script>
+            // Immediately-invoked function to set theme before page render
+            (function() {
+                const storedTheme = localStorage.getItem('site-theme'); // Correct key
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                let theme = 'dark'; // Default theme
+
+                if (storedTheme === 'dark' || (storedTheme === 'auto' && prefersDark)) {
+                    theme = 'dark';
+                } else if (storedTheme === 'light' || (storedTheme === 'auto' && !prefersDark)) {
+                    theme = 'light';
+                } else if (prefersDark) { // Fallback if no storedTheme or 'auto'
+                    theme = 'dark';
+                } else {
+                    theme = 'light'; // Final fallback
+                }
+                
+                document.body.classList.remove('theme-dark', 'theme-light'); // Remove any default Eleventy class
+                document.body.classList.add('theme-' + theme);
+            })();
+        </script>
         <div class="graph-background" id="graph-background"></div>
         <div class="container">
             <h1>404-Lost in the Sea of Knowledge</h1>
