@@ -1045,3 +1045,48 @@ body.has-fullscreen-graph #floating-control {
  
 
 /* END: Responsive Three-Column Layout for Desktop */
+
+/* PWA样式 */
+.install-pwa-button {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ----------------------------- */
+/* PWA INSTALL BUTTON
+/* ----------------------------- */
+.install-pwa-button {
+  padding: 12px 24px;
+  background: var(--interactive-accent);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: var(--text-accent-hover);
+  }
+}

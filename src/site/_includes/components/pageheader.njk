@@ -255,47 +255,33 @@
 
     // PWA安装提示
     let deferredPrompt;
+    let originalTitle = document.title; // Store original title
+
     window.addEventListener('beforeinstallprompt', function(e) {
         e.preventDefault();
         deferredPrompt = e;
         
-        /* // 显示安装按钮（可选）
-        const installButton = document.createElement('button');
-        installButton.textContent = '安装应用';
-        installButton.className = 'install-pwa-button';
-        installButton.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-            padding: 12px 24px;
-            background: #61baf5;
-            color: white;
-            border: none;
-            border-radius: 24px;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            display: none;
-        `; */
+        // Temporarily change document.title to siteName from meta tag for PWA install prompt consistency
+        const siteNameMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+        if (siteNameMeta && siteNameMeta.content) {
+            document.title = siteNameMeta.content;
+        } else {
+            // Fallback if meta tag is not found or content is empty
+            document.title = "Nonlinear - Control Theory & AI Knowledge Base"; // Hardcode site name
+        }
+
+        window.dispatchEvent(new CustomEvent('pwa_prompt_available', { detail: deferredPrompt }));
         
-        document.body.appendChild(installButton);
-        
-        installButton.addEventListener('click', function() {
-            installButton.style.display = 'none';
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(function(choiceResult) {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                deferredPrompt = null;
-            });
+        // Restore original title after user choice
+        deferredPrompt.userChoice.then((choiceResult) => {
+            document.title = originalTitle; // Restore original title
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the PWA install prompt');
+            } else {
+                console.log('User dismissed the PWA install prompt');
+            }
+            deferredPrompt = null;
         });
-        
-        setTimeout(() => {
-            installButton.style.display = 'block';
-        }, 3000);
     });
 
     // 网络状态监听

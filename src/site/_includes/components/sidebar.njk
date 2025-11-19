@@ -64,6 +64,68 @@
                   {% for imp in dynamics.sidebar.bottom %}
                         {% include imp %}
                   {% endfor %}
+                  <div id="pwa-install-container" style="margin-top: 20px; text-align: center;"></div>
             </div>
       </div>
 </aside>
+<script>
+    let installPromptEvent;
+
+    // Listen for the custom event dispatched from pageheader.njk
+    window.addEventListener('pwa_prompt_available', (e) => {
+        installPromptEvent = e.detail;
+        showInstallButton();
+    });
+
+    function showInstallButton() {
+        const installContainer = document.getElementById('pwa-install-container');
+        if (!installContainer) return;
+
+        // Create the install button
+        const installButton = document.createElement('button');
+        installButton.textContent = '安装应用';
+        installButton.className = 'install-pwa-button'; // Add a class for styling
+        installButton.style.cssText = `
+            padding: 12px 24px;
+            background: var(--interactive-accent); /* Use theme variable */
+            color: white;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: none; /* Hidden by default, shown after timeout */
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        `;
+        installButton.onmouseover = function() {
+            this.style.backgroundColor = 'var(--text-accent-hover)';
+        };
+        installButton.onmouseout = function() {
+            this.style.backgroundColor = 'var(--interactive-accent)';
+        };
+
+        installButton.addEventListener('click', () => {
+            installButton.style.display = 'none';
+            if (installPromptEvent) {
+                installPromptEvent.prompt();
+                installPromptEvent.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the PWA install prompt');
+                    } else {
+                        console.log('User dismissed the PWA install prompt');
+                    }
+                    installPromptEvent = null;
+                });
+            }
+        });
+
+        installContainer.appendChild(installButton);
+
+        // Show button after a delay
+        setTimeout(() => {
+            if (installPromptEvent) { // Only show if the prompt is still available
+                installButton.style.display = 'block';
+            }
+        }, 3000);
+    }
+</script>
