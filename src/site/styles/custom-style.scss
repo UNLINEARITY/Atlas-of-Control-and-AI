@@ -96,6 +96,7 @@ pre[class*="language-"] {
   max-width: 870px !important;
   width: 100%;
   box-sizing: border-box;
+  padding-bottom: 70px; /* 为底部悬浮控件留出空间 */
 }
 @media (max-width: 1000px) {
   .content {

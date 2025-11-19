@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR-API.md","tags":["Code"],"permalink":"/模型部署/Deepseek-OCR-API/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-14T16:52:36.419+08:00","updated":"2025-11-17T15:58:56.447+08:00"}
+{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR-API.md","tags":["Code"],"permalink":"/模型部署/Deepseek-OCR-API/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-14T16:52:36.419+08:00","updated":"2025-11-17T22:01:26.998+08:00"}
 ---
 
 
@@ -52,6 +52,12 @@
 - 输出: 对应的图片文件本身.
 - 特点: 它将服务器上的 /home/nonlinear/DeepSeek-OCR/OCR 文件夹"开放"出来, 使得浏览器可以通过 http://.../outputs/
 这个 URL 前缀访问到里面的任何文件, 从而加载聊天记录中的图片.
+
+
+
+### 注意修改
+
+![Pasted image 20251117220111.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020251117220111.png)
 
 
 

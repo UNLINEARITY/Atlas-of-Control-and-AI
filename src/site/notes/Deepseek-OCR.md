@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-17T15:59:15.154+08:00"}
+{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-17T21:50:29.116+08:00"}
 ---
 
 
@@ -155,6 +155,8 @@ pip install bitsandbytes
 
 
 
+
+![Pasted image 20251117215008.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020251117215008.png)
 ### OCR 识别结果
 
 ```text
