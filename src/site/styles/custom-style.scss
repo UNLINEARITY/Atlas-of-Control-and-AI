@@ -96,6 +96,7 @@ pre[class*="language-"] {
   max-width: 870px !important;
   width: 100%;
   box-sizing: border-box;
+  padding-top: 60px;   /* 给顶部留空间 */
   padding-bottom: 70px; /* 为底部悬浮控件留出空间 */
 }
 @media (max-width: 1000px) {
@@ -838,10 +839,12 @@ body.has-fullscreen-graph #floating-control {
     margin-right: auto !important;
 }
 
-.markdown-preview-view svg {
-    max-width: 100%;
-    height: auto;
-}
+// .markdown-preview-view svg {
+//     max-width: 100%;
+//     height: auto;
+// }
+
+
 .markdown-preview-view pre.mermaid {
     text-align: center; /* Center SVG inside the pre tag */
     max-width: 100%;
@@ -946,7 +949,7 @@ body.has-fullscreen-graph #floating-control {
 
     /* Use margin for gutters between columns */
 
-    margin: 0 1.2em !important;
+    margin: 0 2em !important;
 
     height: 100%; /* Height relative to body */
 
