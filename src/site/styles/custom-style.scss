@@ -107,11 +107,11 @@ pre[class*="language-"] {
   body {
     height: auto;
     overflow: auto !important;
-    padding-top: 60px !important; /* Force padding to prevent overlap */
+    padding-top: 80px !important; /* Force padding to prevent overlap */
     padding-bottom: 140px; /* 为浮动控制栏留出更多空间 */
   }
   .content {
-    margin-top: 0;
+    margin-top: 5px;
     padding-top: 80px;
   }
   .content > header {
@@ -126,7 +126,7 @@ pre[class*="language-"] {
   body {
     height: auto;
     overflow: auto !important;
-    padding-top: 50px !important; /* Force padding to prevent overlap */
+    padding-top: 70px !important; /* Force padding to prevent overlap */
     padding-bottom: 120px; /* 为浮动控制栏留出更多空间 */
   }
   .content {
@@ -158,7 +158,7 @@ pre[class*="language-"] {
     right: 0.5px;
     top: 5px;
     @media (max-width: 1400px) {
-      max-height: 320px;
+      max-height: 285px;
     }
   }
 
@@ -185,10 +185,11 @@ pre[class*="language-"] {
 .sidebar-container {
   &>div:not(.graph) {
     top: 10px;
-    width: 325px;
-    max-height: calc(100% - 70px);
+    width: 285px;
+    max-height: calc(100% - 70px);  
     overflow-y: auto;
   }
+  
   @media (max-width: 1490px) {
     flex-wrap: wrap;
     flex-direction: row;
@@ -284,12 +285,12 @@ nav.navbar {
 }
 
 nav.filetree-sidebar {
-  width: 280px;
+  width: 285px;
   font-size: 1.08em;
   top: 15px;
   left: 10px;
   position: fixed;
-  height: calc(100% - 55px);
+  height: calc(100% - 20px);
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -334,7 +335,7 @@ nav.filetree-sidebar {
     position: fixed;
     top: 60px;
     left: 0;
-    width: 280px;
+    width: 300px;
     max-width: 80vw;
     height: calc(100vh - 60px);
     background: var(--background-primary);
@@ -819,9 +820,9 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   }
 }
 
-/* ----------------------------- */
-/* RECENT ADDITIONS & OVERRIDES
-/* ----------------------------- */
+.markdown-preview-view {
+    padding: 2px;
+}
 
 /* Center Images and Mermaid Diagrams */
 .cm-s-obsidian img,
@@ -941,7 +942,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
     /* Use margin for gutters between columns */
 
-    margin: 0 1.5em !important;
+    margin: 0 1.2em !important;
 
     height: 100%; /* Height relative to body */
 
@@ -955,11 +956,13 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
   /* Give right sidebar a predictable width */
 
-  .sidebar-container {
+    .sidebar-container {
 
-    width: 325px;
+      width: 320px;
 
-  }
+      height: calc(100% - 30px);
+
+    }
 
 
 
@@ -979,13 +982,13 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
   body.left-sidebar-collapsed .content.cm-s-obsidian {
 
-    margin-left: 0 !important;
+    margin-left: 10px !important;
 
   }
 
   body.right-sidebar-collapsed .content.cm-s-obsidian {
 
-    margin-right: 0 !important;
+    margin-right: 10px  !important;
 
   }
 
