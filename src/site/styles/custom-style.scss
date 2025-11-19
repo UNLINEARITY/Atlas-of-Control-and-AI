@@ -217,7 +217,7 @@ pre[class*="language-"] {
   &>div:not(.graph) {
     top: 10px;
     width: 285px;
-    max-height: calc(100% - 70px);  
+    max-height: calc(100% - 120px);  
     overflow-y: auto;
   }
   
@@ -1083,9 +1083,12 @@ body.has-fullscreen-graph #floating-control {
   border: none;
   border-radius: 24px;
   cursor: pointer;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
   font-size: 1rem;
   transition: background-color 0.3s ease;
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
   &:hover {
     background-color: var(--text-accent-hover);
   }

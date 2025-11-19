@@ -64,7 +64,10 @@
                   {% for imp in dynamics.sidebar.bottom %}
                         {% include imp %}
                   {% endfor %}
-                  <div id="pwa-install-container" style="margin-top: 20px; text-align: center;"></div>
+                  <div id="pwa-actions-container" style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+                        <button id="install-pwa-button" class="install-pwa-button">安装</button>
+                        <button id="refresh-cache-button" class="install-pwa-button">刷新</button>
+                  </div>
             </div>
       </div>
 </aside>
@@ -74,58 +77,54 @@
     // Listen for the custom event dispatched from pageheader.njk
     window.addEventListener('pwa_prompt_available', (e) => {
         installPromptEvent = e.detail;
-        showInstallButton();
+        const installButton = document.getElementById('install-pwa-button');
+        if (installButton) {
+            installButton.style.display = 'block'; // Show install button when prompt is available
+        }
     });
 
-    function showInstallButton() {
-        const installContainer = document.getElementById('pwa-install-container');
-        if (!installContainer) return;
+    // PWA Install Button Logic (no longer creating, just handling clicks)
+    document.addEventListener('DOMContentLoaded', () => {
+        const installButton = document.getElementById('install-pwa-button');
+        if (installButton) {
+            installButton.addEventListener('click', () => {
+                installButton.style.display = 'none'; // Hide button after click
+                if (installPromptEvent) {
+                    installPromptEvent.prompt();
+                    installPromptEvent.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the PWA install prompt');
+                        } else {
+                            console.log('User dismissed the PWA install prompt');
+                        }
+                        installPromptEvent = null;
+                    });
+                }
+            });
+        }
+    });
 
-        // Create the install button
-        const installButton = document.createElement('button');
-        installButton.textContent = '安装应用';
-        installButton.className = 'install-pwa-button'; // Add a class for styling
-        installButton.style.cssText = `
-            padding: 12px 24px;
-            background: var(--interactive-accent); /* Use theme variable */
-            color: white;
-            border: none;
-            border-radius: 24px;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            display: none; /* Hidden by default, shown after timeout */
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        `;
-        installButton.onmouseover = function() {
-            this.style.backgroundColor = 'var(--text-accent-hover)';
-        };
-        installButton.onmouseout = function() {
-            this.style.backgroundColor = 'var(--interactive-accent)';
-        };
 
-        installButton.addEventListener('click', () => {
-            installButton.style.display = 'none';
-            if (installPromptEvent) {
-                installPromptEvent.prompt();
-                installPromptEvent.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the PWA install prompt');
-                    } else {
-                        console.log('User dismissed the PWA install prompt');
-                    }
-                    installPromptEvent = null;
-                });
-            }
-        });
+    // Refresh Cache Button Logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const refreshButton = document.getElementById('refresh-cache-button');
+        if (refreshButton) {
+            refreshButton.addEventListener('click', () => {
+                if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                    console.log('Client: Requesting cache clear and reload from Service Worker.');
+                    // Display a temporary message to the user
+                    refreshButton.textContent = '正在刷新...';
+                    refreshButton.disabled = true;
 
-        installContainer.appendChild(installButton);
-
-        // Show button after a delay
-        setTimeout(() => {
-            if (installPromptEvent) { // Only show if the prompt is still available
-                installButton.style.display = 'block';
-            }
-        }, 3000);
-    }
+                    navigator.serviceWorker.controller.postMessage({
+                        type: 'CLEAR_CACHE_AND_RELOAD'
+                    });
+                    // Service Worker will handle the reload
+                } else {
+                    alert('Service Worker 不可用或未激活。请尝试手动刷新页面。');
+                    location.reload(true); // Force reload if SW not active
+                }
+            });
+        }
+    });
 </script>

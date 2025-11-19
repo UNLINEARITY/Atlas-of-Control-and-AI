@@ -139,6 +139,25 @@ function cacheFirst(request) {
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+  } else if (event.data && event.data.type === 'CLEAR_CACHE_AND_RELOAD') {
+    event.waitUntil(
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            console.log('Service Worker: Clearing cache:', cacheName);
+            return caches.delete(cacheName);
+          })
+        );
+      }).then(() => {
+        // Send message to all controlled clients to reload
+        self.clients.matchAll({ type: 'window' }).then(clientList => {
+          clientList.forEach(client => {
+            console.log('Service Worker: Reloading client:', client.url);
+            client.navigate(client.url); // Force reload the page
+          });
+        });
+      })
+    );
   }
 });
 
