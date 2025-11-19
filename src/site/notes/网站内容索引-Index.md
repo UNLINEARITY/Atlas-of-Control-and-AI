@@ -13,6 +13,7 @@
 
 | File                        | terminology                              |
 | --------------------------- | ---------------------------------------- |
+| [[机器人\|机器人]]             | **Robotics**                             |
 | [[机器学习\|机器学习]]           | **Machine Learning**                     |
 | [[线性代数\|线性代数]]           | **Linear Algebra**                       |
 | [[级数\|级数]]               | **Series**                               |
@@ -23,11 +24,10 @@
 | [[过程控制系统\|过程控制系统]]       | **Process Control System**               |
 | [[数字电路\|数字电路]]           | **Digital Circuit**                      |
 | [[检测仪表\|检测仪表]]           | **Measurement Instruments**              |
-| [[机器人\|机器人]]             | **Robotics**                             |
 | [[现代控制理论\|现代控制理论]]       | **Modern Control Theory**                |
 | [[电机及电力拖动\|电机及电力拖动]]     | **Motor  Drive**                         |
-| [[51 单片机\|51 单片机]]       | **8051 MCU**                             |
 | [[模拟电路\|模拟电路]]           | **Analog Circuit**                       |
+| [[51 单片机\|51 单片机]]       | **8051 MCU**                             |
 | [[微积分\|微积分]]             | **Calculus**                             |
 | [[变换\|变换]]               | **Transform**                            |
 | [[调节器与执行器\|调节器与执行器]]     | **Regulator and Actuator**               |
@@ -58,16 +58,17 @@
 
 | File                                            | 术语-terminology                                                                                                                                                                                      |
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [[Deepseek-OCR 配套工具\|Deepseek-OCR 配套工具]]     | \-                                                                                                                                                                                                  |
 | [[Deepseek-OCR\|Deepseek-OCR]]               | \-                                                                                                                                                                                                  |
 | [[Deepseek-OCR API示例\|Deepseek-OCR API示例]]   | \-                                                                                                                                                                                                  |
+| [[Deepseek-OCR 配套工具\|Deepseek-OCR 配套工具]]     | \-                                                                                                                                                                                                  |
+| [[Python\|Python]]                           | \-                                                                                                                                                                                                  |
+| [[Anaconda\|Anaconda]]                       | \-                                                                                                                                                                                                  |
 | [[编程语言的共性\|编程语言的共性]]                         | \-                                                                                                                                                                                                  |
 | [[程序底层实现\|程序底层实现]]                           | \-                                                                                                                                                                                                  |
 | [[算法\|算法]]                                   | **Algorithm**                                                                                                                                                                                       |
 | [[面向对象编程\|面向对象编程]]                           | **Object-Oriented Programming**                                                                                                                                                                     |
-| [[PyTorch\|PyTorch]]                         | \-                                                                                                                                                                                                  |
 | [[Python Data Types\|Python Data Types]]     | \-                                                                                                                                                                                                  |
-| [[Python\|Python]]                           | \-                                                                                                                                                                                                  |
+| [[PyTorch\|PyTorch]]                         | \-                                                                                                                                                                                                  |
 | [[图\|图]]                                     | **Graph**                                                                                                                                                                                           |
 | [[数组\|数组]]                                   | <ul><li>**Array**</li><li>**Index**</li></ul>                                                                                                                                                       |
 | [[机器语言\|机器语言]]                               | \-                                                                                                                                                                                                  |
@@ -100,7 +101,6 @@
 | [[ROS 2\|ROS 2]]                             | <ul><li>**Robot Operating System 2**</li><li>**Robot Operating System 2**</li></ul>                                                                                                                 |
 | [[微分中值定理\|微分中值定理]]                           | **Mean Value Theorem for Derivatives**                                                                                                                                                              |
 | [[CUDA\|CUDA]]                               | **Compute Unified Device Architecture**                                                                                                                                                             |
-| [[Anaconda\|Anaconda]]                       | \-                                                                                                                                                                                                  |
 | [[8051数模转换\|8051数模转换]]                       | \-                                                                                                                                                                                                  |
 | [[安全仪表系统\|安全仪表系统]]                           | **Safety Instrument System**                                                                                                                                                                        |
 | [[PLC程序设计基础\|PLC程序设计基础]]                     | **Sequential Function Chart**                                                                                                                                                                       |
@@ -330,8 +330,8 @@
 | [[直流电机的开环调速\|直流电机的开环调速]]                     | \-                                                                                                                                                                                                  |
 | [[直流电机的调速指标\|直流电机的调速指标]]                     | \-                                                                                                                                                                                                  |
 | [[0°根轨迹绘制规则\|0°根轨迹绘制规则]]                     | \-                                                                                                                                                                                                  |
-| [[8051串口通信\|8051串口通信]]                       | \-                                                                                                                                                                                                  |
 | [[8051模数转换\|8051模数转换]]                       | \-                                                                                                                                                                                                  |
+| [[8051串口通信\|8051串口通信]]                       | \-                                                                                                                                                                                                  |
 | [[AFIO\|AFIO]]                               | **Alternate Function I/O**                                                                                                                                                                          |
 | [[DDPM\|DDPM]]                               | **Denoising Diffusion Probabilistic Model**                                                                                                                                                         |
 | [[DMA\|DMA]]                                 | **Direct Memory Access**                                                                                                                                                                            |
@@ -341,10 +341,10 @@
 | [[STM32 ADC\|STM32 ADC]]                     | \-                                                                                                                                                                                                  |
 | [[TIM\|TIM]]                                 | \-                                                                                                                                                                                                  |
 | [[Transformer\|Transformer]]                 | <ul><li>**Transformer**</li><li>**Self-attention**</li></ul>                                                                                                                                        |
-| [[USART\|USART]]                             | **Universal Synchronous/Asynchronous Receiver/Transmitter**                                                                                                                                         |
 | [[Unlinearity\|Unlinearity]]                 | \-                                                                                                                                                                                                  |
-| [[XRCE-DDS\|XRCE-DDS]]                       | \-                                                                                                                                                                                                  |
+| [[USART\|USART]]                             | **Universal Synchronous/Asynchronous Receiver/Transmitter**                                                                                                                                         |
 | [[YOLO\|YOLO]]                               | **You Only Look Once**                                                                                                                                                                              |
+| [[XRCE-DDS\|XRCE-DDS]]                       | \-                                                                                                                                                                                                  |
 | [[二维分布函数\|二维分布函数]]                           | **Joint Distribution Function**                                                                                                                                                                     |
 | [[二维离散分布律\|二维离散分布律]]                         | \-                                                                                                                                                                                                  |
 | [[二重积分\|二重积分]]                               | **Double Integral**                                                                                                                                                                                 |
@@ -373,17 +373,17 @@
 | [[校正环节的设计\|校正环节的设计]]                         | \-                                                                                                                                                                                                  |
 | [[概率分布律\|概率分布律]]                             | **Probability mass function**                                                                                                                                                                       |
 | [[正态总体的假设检验\|正态总体的假设检验]]                     | **Hypothesis testing for normal populations**                                                                                                                                                       |
-| [[滞后校正\|滞后校正]]                               | \-                                                                                                                                                                                                  |
 | [[点集\|点集]]                                   | \-                                                                                                                                                                                                  |
 | [[热方程\|热方程]]                                 | **Heat Equation**                                                                                                                                                                                   |
-| [[特殊功能寄存器\|特殊功能寄存器]]                         | **Special Function Registers**                                                                                                                                                                      |
+| [[滞后校正\|滞后校正]]                               | \-                                                                                                                                                                                                  |
 | [[状态空间表达式的建立\|状态空间表达式的建立]]                   | **State Space Representation**                                                                                                                                                                      |
 | [[状态空间表达式的能控标准型和能观标准型\|状态空间表达式的能控标准型和能观标准型]] | \-                                                                                                                                                                                                  |
+| [[特殊功能寄存器\|特殊功能寄存器]]                         | **Special Function Registers**                                                                                                                                                                      |
 | [[现金流量图\|现金流量图]]                             | \-                                                                                                                                                                                                  |
 | [[电阻\|电阻]]                                   | **Resistance**                                                                                                                                                                                      |
 | [[直流电机的电流截止负反馈\|直流电机的电流截止负反馈]]               | \-                                                                                                                                                                                                  |
-| [[直流电机反馈控制的动态建模\|直流电机反馈控制的动态建模]]             | \-                                                                                                                                                                                                  |
 | [[直流电机的闭环调速系统\|直流电机的闭环调速系统]]                 | \-                                                                                                                                                                                                  |
+| [[直流电机反馈控制的动态建模\|直流电机反馈控制的动态建模]]             | \-                                                                                                                                                                                                  |
 | [[矩阵的初等变换\|矩阵的初等变换]]                         | **Elementary Matrix Transformations**                                                                                                                                                               |
 | [[离散系统稳态分析\|离散系统稳态分析]]                       | **Steady-state Analysis of Discrete Systems**                                                                                                                                                       |
 | [[笼型异步电机变压变频调速系统\|笼型异步电机变压变频调速系统]]           | **Variable Voltage Variable Frequency**                                                                                                                                                             |
