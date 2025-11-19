@@ -712,6 +712,10 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   height: 100%;
 }
 
+body.has-fullscreen-graph #floating-control {
+    display: none !important;
+}
+
 #forest-graph {
   display: flex;
   justify-content: center;
@@ -833,7 +837,10 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
     margin-right: auto !important;
 }
 
-/* Mermaid-specific adjustments */
+.markdown-preview-view svg {
+    max-width: 100%;
+    height: auto;
+}
 .markdown-preview-view pre.mermaid {
     text-align: center; /* Center SVG inside the pre tag */
     max-width: 100%;
@@ -883,16 +890,12 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   body {
 
     display: flex;
-
     height: 100vh; /* Set body height to viewport height */
-
     overflow: hidden; /* Hide body scrollbar */
-
     padding: 0 5px; /* small gaps at the very edges */
-
+    padding-top: 20px !important; /* Force padding to prevent overlap */
+    padding-bottom: 30px; /* 为浮动控制栏留出更多空间 */
   }
-
-
 
   /* 2. Sidebars Configuration */
 
