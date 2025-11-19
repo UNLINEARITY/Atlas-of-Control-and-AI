@@ -24,7 +24,7 @@ import os
 
 # ---------- CORE PROCESSING FUNCTIONS ----------
 def normalize_math_chars(text):
-#  Converts Unicode math variables to plain characters wrapped in $...$ 
+    """Converts Unicode math variables to plain characters wrapped in $...$"""
     def convert_char(match):
         original_text = match.group(0)
         normalized_text = unicodedata.normalize('NFKD', original_text)
@@ -118,12 +118,11 @@ def paste_image():
             messagebox.showinfo("Info", "Clipboard does not contain an image.")
         else:
             messagebox.showwarning("Warning", "No image found on clipboard.")
-            
     except Exception as e:
         messagebox.showerror("Error", f"Failed to paste image: {e}")
 
 def run_image_ocr():
-    #  Prepares and runs the OCR for the pasted image.
+    """Prepares and runs the OCR for the pasted image."""
     if pasted_image is None:
         messagebox.showwarning("Warning", "Please paste an image first.")
         return
@@ -163,13 +162,19 @@ def api_call_image_ocr(image, prompt):
         root.after(0, lambda: ocr_button.config(state=tk.NORMAL, text="DeepSeek OCR!"))
 
 def update_ui_with_ocr_result(text):
-    #Updates the input box with OCR result and triggers conversion.
+    """Updates the input box with OCR result and triggers conversion."""
     input_text.delete("1.0", tk.END)
     input_text.insert(tk.END, text)
     convert_action()
 
 # ---------- PDF DOCUMENT PROCESSING ----------
 def rename_files_in_path(path):
+    """
+    Renames files with whitespace in their names at the given path.
+    If path is a directory, scans all files within it.
+    If path is a file, checks and renames only that file.
+    Returns the potentially new path of the file, or the original directory path.
+    """
     if not os.path.exists(path):
         messagebox.showwarning("Warning", f"Input path does not exist: {path}")
         return path
@@ -235,6 +240,7 @@ def browse_output_folder():
         pdf_output_path_entry.insert(0, folder_path)
 
 def run_pdf_processing():
+    """Prepares and runs the PDF processing via API after sanitizing filenames."""
     input_path_raw = pdf_input_path_entry.get().strip()
     output_path = pdf_output_path_entry.get().strip()
 
@@ -424,14 +430,15 @@ output_text.pack(fill=tk.BOTH, expand=True)
 output_text.bind("<Control-a>", select_all)
 
 # --- Bottom Buttons ---
-
 bottom_button_frame = Frame(right_frame)
 bottom_button_frame.pack(fill=tk.X, pady=5)
 Button(bottom_button_frame, text="Clear Input", command=clear_input).pack(side=tk.LEFT)
 Button(bottom_button_frame, text="Convert", command=convert_action).pack(side=tk.LEFT, padx=5)
 Button(bottom_button_frame, text="Copy Result", command=copy_to_clipboard).pack(side=tk.RIGHT)
+
 root.mainloop()
 ```
+
 
 
 ### 简单逻辑 (只有 latex 转换)
