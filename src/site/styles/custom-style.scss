@@ -1000,7 +1000,331 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+/* Sidebar Toggle Buttons */
+
+
+
+
+
+
+
+.sidebar-toggle-button {
+
+
+
+
+
+
+
+    position: fixed;
+
+
+
+
+
+
+
+    top: 50%; /* Vertically center the button */
+
+
+
+
+
+
+
+    transform: translateY(-50%); /* Adjust for button's own height */
+
+
+
+
+
+
+
+    z-index: 100;
+
+
+
+
+
+
+
+    background-color: var(--background-secondary);
+
+
+
+
+
+
+
+    color: var(--text-muted);
+
+
+
+
+
+
+
+    border: 1px solid var(--background-modifier-border);
+
+
+
+
+
+
+
+    border-radius: 50%;
+
+
+
+
+
+
+
+    width: 32px;
+
+
+
+
+
+
+
+    height: 32px;
+
+
+
+
+
+
+
+    cursor: pointer;
+
+
+
+
+
+
+
+    display: flex;
+
+
+
+
+
+
+
+    justify-content: center;
+
+
+
+
+
+
+
+    align-items: center;
+
+
+
+
+
+
+
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar-toggle-button:hover {
+
+
+
+
+
+
+
+    background-color: var(--background-modifier-hover);
+
+
+
+
+
+
+
+    color: var(--text-normal);
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#toggle-left-sidebar {
+
+
+
+
+
+
+
+    left: 15px;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#toggle-right-sidebar {
+
+
+
+
+
+
+
+    right: 15px;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Hide buttons on mobile where the layout is not three-column */
+
+
+
+
+
+
+
+@media (max-width: 1023px) {
+
+
+
+
+
+
+
+    .sidebar-toggle-button {
+
+
+
+
+
+
+
+        display: none;
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* START: Responsive Three-Column Layout for Desktop */
+
+
+
+
 
 
 
@@ -1008,7 +1332,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
     body {
+
+
+
+
 
 
 
@@ -1016,7 +1348,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
         justify-content: space-between;
+
+
+
+
 
 
 
@@ -1024,7 +1364,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
         padding-left: 10px;
+
+
+
+
 
 
 
@@ -1032,7 +1380,19 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -1044,11 +1404,23 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
     nav.filetree-sidebar,
 
 
 
+
+
+
+
     .sidebar {
+
+
+
+
 
 
 
@@ -1056,7 +1428,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
         top: 15px !important;
+
+
+
+
 
 
 
@@ -1064,7 +1444,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
         flex-shrink: 0;
+
+
+
+
 
 
 
@@ -1072,11 +1460,31 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
         overflow-y: auto;
 
 
 
+
+
+
+
+        transition: min-width 0.3s ease, opacity 0.3s ease; /* Added transition */
+
+
+
+
+
+
+
     }
+
+
+
+
 
 
 
@@ -1084,7 +1492,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
     /* Remove original fixed positioning offsets */
+
+
+
+
 
 
 
@@ -1092,11 +1508,23 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
       left: unset !important;
 
 
 
+
+
+
+
     }
+
+
+
+
 
 
 
@@ -1104,11 +1532,27 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
       right: unset !important;
 
 
 
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -1120,7 +1564,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
     .content.cm-s-obsidian {
+
+
+
+
 
 
 
@@ -1128,7 +1580,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
         max-width: none !important;
+
+
+
+
 
 
 
@@ -1136,7 +1596,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
         height: 100vh;
+
+
+
+
 
 
 
@@ -1144,7 +1612,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
     }
+
+
+
+
 
 
 
@@ -1152,7 +1628,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
     /* Ensure the children of the right sidebar have the correct width */
+
+
+
+
 
 
 
@@ -1160,11 +1644,27 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
       width: 325px;
 
 
 
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -1176,7 +1676,15 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
     .fullpage-overlay {
+
+
+
+
 
 
 
@@ -1184,11 +1692,167 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
 
 
 
+
+
+
+
     }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    /* --- Sidebar Collapse Logic --- */
+
+
+
+
+
+
+
+    body.left-sidebar-collapsed nav.filetree-sidebar {
+
+
+
+
+
+
+
+        display: none; /* Simple and effective */
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    body.left-sidebar-collapsed #toggle-left-sidebar {
+
+
+
+
+
+
+
+        /* Optional: move button when sidebar is collapsed */
+
+
+
+
+
+
+
+        transform: translateX(-10px);
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    body.right-sidebar-collapsed .sidebar {
+
+
+
+
+
+
+
+        display: none; /* Simple and effective */
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    body.right-sidebar-collapsed #toggle-right-sidebar {
+
+
+
+
+
+
+
+        /* Optional: move button when sidebar is collapsed */
+
+
+
+
+
+
+
+        transform: translateX(10px);
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
 }
+
+
+
+
 
 
 
