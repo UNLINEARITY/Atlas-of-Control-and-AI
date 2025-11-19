@@ -105,7 +105,9 @@ pre[class*="language-"] {
 }
 @media (max-width: 768px) {
   body {
-    padding-top: 60px;
+    height: auto;
+    overflow: auto !important;
+    padding-top: 60px !important; /* Force padding to prevent overlap */
     padding-bottom: 140px; /* 为浮动控制栏留出更多空间 */
   }
   .content {
@@ -122,7 +124,9 @@ pre[class*="language-"] {
 }
 @media (max-width: 480px) {
   body {
-    padding-top: 50px;
+    height: auto;
+    overflow: auto !important;
+    padding-top: 50px !important; /* Force padding to prevent overlap */
     padding-bottom: 120px; /* 为浮动控制栏留出更多空间 */
   }
   .content {
@@ -161,7 +165,7 @@ pre[class*="language-"] {
   .backlinks {
     flex: unset;
     @media (max-width: 1400px) {
-      order: 3;
+      order: initial; /* Revert to source order */
     }
   }
 
@@ -684,7 +688,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   flex: unset !important;
   @media (max-width: 1490px) {
     display: block !important;
-    order: 3;
+    order: initial; /* Revert to source order */
   }
 }
 
@@ -840,7 +844,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 100;
+  z-index: 1000;
   background-color: var(--background-secondary);
   color: var(--text-muted);
   border: 1px solid var(--background-modifier-border);
@@ -861,7 +865,7 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   left: 15px;
 }
 #toggle-right-sidebar {
-  right: 15px;
+  right: 40px; /* Diagnostic: Increase distance from edge */
 }
 @media (max-width: 1023px) {
   .sidebar-toggle-button {
@@ -869,13 +873,12 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   }
 }
 
-/* Responsive Three-Column Layout for Desktop */
+/* Responsive Three-Column Layout for Desktop  nonlinear */ 
 @media (min-width: 1024px) {
   body {
     display: flex;
-    justify-content: space-between;
-    padding-left: 10px;
-    padding-right: 17px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   /* Sidebars in flex flow */
@@ -894,13 +897,14 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   }
   .sidebar {
     right: unset !important;
+    margin-left: auto; /* Push sidebar to the far right */
   }
 
   /* Center content column */
   .content.cm-s-obsidian {
     flex-grow: 1;
     max-width: none !important;
-    margin: 0 2em !important;
+    margin: 0 0.5em !important;
     height: 100vh;
     overflow-y: auto;
   }
