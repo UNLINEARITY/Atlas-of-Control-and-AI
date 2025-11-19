@@ -109,33 +109,55 @@ pre[class*="language-"] {
   body {
     height: auto;
     overflow: auto !important;
-    padding-top: 80px !important; /* Force padding to prevent overlap */
+    padding-top: 80px !important; /* Revert to original body padding */
     padding-bottom: 140px; /* 为浮动控制栏留出更多空间 */
   }
   .content {
     margin-top: 5px;
-    padding-top: 80px;
+    padding-top: 80px; /* Revert to original content padding */
   }
   .content > header {
-    padding-top: 20px;
+    padding-top: 20px; /* Revert to original header padding */
   }
   .content > header h1 {
     margin-top: 0;
     padding-top: 10px;
   }
+  /* Hide scrollbar for .content.cm-s-obsidian */
+  .content.cm-s-obsidian {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none; /* Firefox */
+  }
 }
 @media (max-width: 480px) {
+  nav.navbar,
+  nav.filetree-navbar {
+    height: 50px;
+    padding: 0 10px;
+  }
+  .navbar-inner h1 {
+    font-size: 1rem !important;
+  }
   body {
     height: auto;
     overflow: auto !important;
-    padding-top: 70px !important; /* Force padding to prevent overlap */
+    padding-top: 70px !important; /* Revert to original body padding */
     padding-bottom: 120px; /* 为浮动控制栏留出更多空间 */
   }
   .content {
-    padding-top: 70px;
+    padding-top: 70px; /* Revert to original content padding */
   }
   .content > header {
-    padding-top: 15px;
+    padding-top: 15px; /* Revert to original header padding */
+  }
+  /* Hide scrollbar for .content.cm-s-obsidian */
+  .content.cm-s-obsidian {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none; /* Firefox */
   }
 }
 @media (max-width: 375px) {
@@ -152,6 +174,13 @@ pre[class*="language-"] {
   box-sizing: border-box;
   position: relative;
   z-index: 1;
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .sidebar {
