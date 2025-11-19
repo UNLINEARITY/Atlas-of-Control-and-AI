@@ -1,9 +1,10 @@
 ---
-{"dg-path":"模型部署/LaTex Converter.py.md","tags":["Code"],"dg-publish":true,"permalink":"/模型部署/LaTex Converter.py/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-14T16:54:39.720+08:00","updated":"2025-11-17T16:00:31.930+08:00"}
+{"dg-path":"模型部署/Deepseek-OCR-配套工具.md","tags":["Code"],"dg-publish":true,"permalink":"/模型部署/Deepseek-OCR-配套工具/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-14T16:54:39.720+08:00","updated":"2025-11-18T17:26:58.540+08:00"}
 ---
 
 
 ### 集成 Deepseek-OCR 配套 API 
+
 [[Deepseek-OCR API示例#API 代码 (稍微完善)\|Deepseek-OCR API示例#API 代码 (稍微完善)]]
 
 ```python 
@@ -42,6 +43,7 @@ def convert_latex(text):
 
 
 ### 简单逻辑 (只有 latex 转换)
+
 ```python 
 import re
 import unicodedata
@@ -255,12 +257,14 @@ def run_pdf_processing():
 
     start_page_str = pdf_start_page_entry.get().strip()
     end_page_str = pdf_end_page_entry.get().strip()
+    prefix_str = pdf_prefix_entry.get().strip()
 
     try:
-        first_page = int(start_page_str) if start_page_str else None
-        last_page = int(end_page_str) if end_page_str else None
+        prefix = int(prefix_str) if prefix_str else 0
+        first_page = int(start_page_str) + prefix if start_page_str else None
+        last_page = int(end_page_str) + prefix if end_page_str else None
     except ValueError:
-        messagebox.showwarning("Warning", "Page numbers must be integers.")
+        messagebox.showwarning("Warning", "Page numbers and prefix must be integers.")
         return
 
     ocr_button.config(state=tk.DISABLED, text="Processing...")
@@ -377,12 +381,22 @@ Label(pdf_controls_frame, text="Page Range (opt):").grid(row=4, column=0, sticky
 
 page_frame = Frame(pdf_controls_frame)
 page_frame.grid(row=5, column=0, sticky="w", pady=(0, 10))
-Label(page_frame, text="Start:").pack(side=tk.LEFT)
-pdf_start_page_entry = Entry(page_frame, width=5)
-pdf_start_page_entry.pack(side=tk.LEFT, padx=(5, 15))
-Label(page_frame, text="End:").pack(side=tk.LEFT)
-pdf_end_page_entry = Entry(page_frame, width=5)
-pdf_end_page_entry.pack(side=tk.LEFT, padx=5)
+
+# Prefix
+Label(page_frame, text="Prefix:").grid(row=0, column=0, sticky="w", pady=(0, 2))
+pdf_prefix_entry = Entry(page_frame, width=10)
+pdf_prefix_entry.insert(0, "0") # Default value
+pdf_prefix_entry.grid(row=0, column=1, sticky="w", padx=(5, 0), pady=(0, 2))
+
+# Start
+Label(page_frame, text="Start:").grid(row=1, column=0, sticky="w", pady=(0, 2))
+pdf_start_page_entry = Entry(page_frame, width=10)
+pdf_start_page_entry.grid(row=1, column=1, sticky="w", padx=(5, 0), pady=(0, 2))
+
+# End
+Label(page_frame, text="End:").grid(row=2, column=0, sticky="w", pady=(0, 2))
+pdf_end_page_entry = Entry(page_frame, width=10)
+pdf_end_page_entry.grid(row=2, column=1, sticky="w", padx=(5, 0), pady=(0, 2))
 
 
 # --- Unified OCR Button ---
@@ -428,6 +442,7 @@ root.mainloop()
 
 
 ### 简单逻辑 (只有 latex 转换)
+
 {{CODE_BLOCK_1}}, text)
     text = normalize_math_chars(text)
     return text
@@ -719,12 +734,14 @@ def run_pdf_processing():
 
     start_page_str = pdf_start_page_entry.get().strip()
     end_page_str = pdf_end_page_entry.get().strip()
+    prefix_str = pdf_prefix_entry.get().strip()
 
     try:
-        first_page = int(start_page_str) if start_page_str else None
-        last_page = int(end_page_str) if end_page_str else None
+        prefix = int(prefix_str) if prefix_str else 0
+        first_page = int(start_page_str) + prefix if start_page_str else None
+        last_page = int(end_page_str) + prefix if end_page_str else None
     except ValueError:
-        messagebox.showwarning("Warning", "Page numbers must be integers.")
+        messagebox.showwarning("Warning", "Page numbers and prefix must be integers.")
         return
 
     ocr_button.config(state=tk.DISABLED, text="Processing...")
@@ -841,12 +858,22 @@ Label(pdf_controls_frame, text="Page Range (opt):").grid(row=4, column=0, sticky
 
 page_frame = Frame(pdf_controls_frame)
 page_frame.grid(row=5, column=0, sticky="w", pady=(0, 10))
-Label(page_frame, text="Start:").pack(side=tk.LEFT)
-pdf_start_page_entry = Entry(page_frame, width=5)
-pdf_start_page_entry.pack(side=tk.LEFT, padx=(5, 15))
-Label(page_frame, text="End:").pack(side=tk.LEFT)
-pdf_end_page_entry = Entry(page_frame, width=5)
-pdf_end_page_entry.pack(side=tk.LEFT, padx=5)
+
+# Prefix
+Label(page_frame, text="Prefix:").grid(row=0, column=0, sticky="w", pady=(0, 2))
+pdf_prefix_entry = Entry(page_frame, width=10)
+pdf_prefix_entry.insert(0, "0") # Default value
+pdf_prefix_entry.grid(row=0, column=1, sticky="w", padx=(5, 0), pady=(0, 2))
+
+# Start
+Label(page_frame, text="Start:").grid(row=1, column=0, sticky="w", pady=(0, 2))
+pdf_start_page_entry = Entry(page_frame, width=10)
+pdf_start_page_entry.grid(row=1, column=1, sticky="w", padx=(5, 0), pady=(0, 2))
+
+# End
+Label(page_frame, text="End:").grid(row=2, column=0, sticky="w", pady=(0, 2))
+pdf_end_page_entry = Entry(page_frame, width=10)
+pdf_end_page_entry.grid(row=2, column=1, sticky="w", padx=(5, 0), pady=(0, 2))
 
 
 # --- Unified OCR Button ---
@@ -892,4 +919,5 @@ root.mainloop()
 
 
 ### 简单逻辑 (只有 latex 转换)
+
 {{CODE_BLOCK_1}}
