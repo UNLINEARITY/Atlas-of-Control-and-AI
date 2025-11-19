@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/styles/lazy-loading.css">
   </head>
   <body class="theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}">
+    {%include "components/fouc-prevention.njk"%}
     <!-- Sidebar Toggle Buttons -->
     <button id="toggle-left-sidebar" class="sidebar-toggle-button">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-left"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></svg>
@@ -108,15 +109,11 @@
     {% for imp in dynamics.index.footer %}
       {% include imp %}
     {% endfor %}
-    {%include "components/lucideIcons.njk"%}
-
-      
-      </script>
-
       <script src="/scripts/lazy-loading.js"></script>
       <script src="/scripts/animate-stats.js"></script>
       <script src="/scripts/sidebar-toggle.js"></script>
       
+    {%include "components/lucideIcons.njk"%}
     {%include "components/main-footer.njk"%}
   </body>
   </html>
