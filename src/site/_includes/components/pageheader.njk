@@ -1,3 +1,23 @@
+<script>
+    // Prevent FOUC by setting theme class before page render
+    (function() {
+        const storedTheme = localStorage.getItem('site-theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let theme = 'dark'; // Default theme
+
+        if (storedTheme === 'dark' || (storedTheme === 'auto' && prefersDark)) {
+            theme = 'dark';
+        } else if (storedTheme === 'light' || (storedTheme === 'auto' && !prefersDark)) {
+            theme = 'light';
+        } else if (prefersDark) {
+            theme = 'dark';
+        } else {
+            theme = 'light';
+        }
+        document.body.classList.add('theme-' + theme);
+    })();
+</script>
+
 <script src="/vendor/lucide.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/vendor/mermaid.min.js"></script>
@@ -239,7 +259,7 @@
         e.preventDefault();
         deferredPrompt = e;
         
-        // 显示安装按钮（可选）
+        /* // 显示安装按钮（可选）
         const installButton = document.createElement('button');
         installButton.textContent = '安装应用';
         installButton.className = 'install-pwa-button';
@@ -256,7 +276,7 @@
             cursor: pointer;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             display: none;
-        `;
+        `; */
         
         document.body.appendChild(installButton);
         
