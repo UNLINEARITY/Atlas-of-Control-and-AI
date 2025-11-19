@@ -96,73 +96,45 @@ pre[class*="language-"] {
   max-width: 870px !important;
   width: 100%;
   box-sizing: border-box;
-  padding-top: 60px;   /* 给顶部留空间 */
   padding-bottom: 70px; /* 为底部悬浮控件留出空间 */
 }
 @media (max-width: 1000px) {
   .content {
     max-width: 98vw !important;
     padding: 0 8px;
+    padding-bottom: 70px;
   }
 }
 @media (max-width: 768px) {
   body {
     height: auto;
     overflow: auto !important;
-    padding-top: 80px !important; /* Revert to original body padding */
-    padding-bottom: 140px; /* 为浮动控制栏留出更多空间 */
   }
   .content {
     margin-top: 5px;
-    padding-top: 80px; /* Revert to original content padding */
+    padding-bottom: 70px;
+    margin-top: 70px; /* navbar高度 60px + 间距 10px */
   }
   .content > header {
-    padding-top: 20px; /* Revert to original header padding */
+    padding-top: 20px;
   }
   .content > header h1 {
     margin-top: 0;
     padding-top: 10px;
   }
-  /* Hide scrollbar for .content.cm-s-obsidian */
-  .content.cm-s-obsidian {
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    scrollbar-width: none; /* Firefox */
-  }
 }
 @media (max-width: 480px) {
-  nav.navbar,
-  nav.filetree-navbar {
-    height: 50px;
-    padding: 0 10px;
-  }
-  .navbar-inner h1 {
-    font-size: 1rem !important;
-  }
-  body {
-    height: auto;
-    overflow: auto !important;
-    padding-top: 70px !important; /* Revert to original body padding */
-    padding-bottom: 120px; /* 为浮动控制栏留出更多空间 */
-  }
   .content {
-    padding-top: 70px; /* Revert to original content padding */
+    margin-top: 60px; /* navbar高度 50px + 间距 10px */
+    padding-bottom: 70px;
   }
   .content > header {
-    padding-top: 15px; /* Revert to original header padding */
-  }
-  /* Hide scrollbar for .content.cm-s-obsidian */
-  .content.cm-s-obsidian {
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    scrollbar-width: none; /* Firefox */
+    padding-top: 15px;
   }
 }
 @media (max-width: 375px) {
   .content {
-    padding-top: 65px;
+    margin-top: 60px;
   }
 }
 
@@ -883,7 +855,7 @@ body.has-fullscreen-graph #floating-control {
 /* Sidebar Toggle Buttons */
 .sidebar-toggle-button {
   position: fixed;
-  top: 50%;
+  top: 25%;  /* 改为 25% */
   transform: translateY(-50%);
   z-index: 1000;
   background-color: var(--background-secondary);
@@ -906,7 +878,7 @@ body.has-fullscreen-graph #floating-control {
   left: 15px;
 }
 #toggle-right-sidebar {
-  right: 40px; /* Diagnostic: Increase distance from edge */
+  right: 15px;
 }
 @media (max-width: 1023px) {
   .sidebar-toggle-button {
@@ -918,124 +890,64 @@ body.has-fullscreen-graph #floating-control {
 
 @media (min-width: 1024px) {
 
-  /* 1. Body as Flex Container */
-
   body {
-
     display: flex;
-    height: 100vh; /* Set body height to viewport height */
-    overflow: hidden; /* Hide body scrollbar */
-    padding: 0 5px; /* small gaps at the very edges */
-    padding-top: 20px !important; /* Force padding to prevent overlap */
-    padding-bottom: 30px; /* 为浮动控制栏留出更多空间 */
+    height: 100vh;
+    overflow: hidden;
+    padding: 0 5px;
+    padding-top: 0 !important;  /* 删除固定padding */
+    padding-bottom: 30px;
   }
-
-  /* 2. Sidebars Configuration */
 
   nav.filetree-sidebar,
-
   .sidebar {
-
     position: sticky !important;
-
-    top: 15px !important;
-
-    height: calc(100% - 30px); /* Height relative to body */
-
+    top: 70px !important;  /* 给navbar留出足够空间 */
+    height: calc(100% - 10px);
     flex-shrink: 0;
-
     z-index: 1 !important;
-
     overflow-y: auto;
-
   }
-
-  
-
-  /* Reset fixed-positioning properties */
 
   nav.filetree-sidebar {
-
     left: unset !important;
-
   }
 
   .sidebar {
-
     right: unset !important;
-
   }
-
-
-
-  /* 3. Content Area Configuration */
 
   .content.cm-s-obsidian {
-
-    flex-grow: 1; /* Allow it to fill space */
-
+    flex-grow: 1;
     max-width: none !important;
-
-    /* Use margin for gutters between columns */
-
-    margin: 0 2em !important;
-
-    height: 100%; /* Height relative to body */
-
+    margin: 0 1em !important;
+    margin-top: 45px !important;  /* 给navbar留出空间 */
+    height: calc(100% - 20px);
     overflow-y: auto;
-
     transition: margin 0.3s ease;
-
+    padding-top: 20px;
   }
 
-  
-
-  /* Give right sidebar a predictable width */
-
-    .sidebar-container {
-
-      width: 320px;
-
-      height: calc(100% - 30px);
-
-    }
-
-
-
-  /* 4. Sidebar Collapse Logic */
+  .sidebar-container {
+    width: 320px;
+    height: calc(100% - 10px);
+  }
 
   body.left-sidebar-collapsed nav.filetree-sidebar,
-
   body.right-sidebar-collapsed .sidebar {
-
     display: none;
-
   }
 
-  
-
-  /* Remove content margin when a sidebar is collapsed */
-
   body.left-sidebar-collapsed .content.cm-s-obsidian {
-
     margin-left: 10px !important;
-
   }
 
   body.right-sidebar-collapsed .content.cm-s-obsidian {
-
-    margin-right: 10px  !important;
-
+    margin-right: 10px !important;
   }
 
-
-
-  /* 5. Hide mobile elements */
-
   .fullpage-overlay {
-
     display: none !important;
-
   }
 
 }
