@@ -36,6 +36,16 @@ function getGraph(data) {
   let stemURLs = {};
   let homeAlias = "/";
   (data.collections.note || []).forEach((v, idx) => {
+    const isHome =
+      v.data["dg-home"] ||
+      (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1);
+
+    // Hard-exclude notes marked with hideInGraph, but keep the home node (even if hidden)
+    // because the frontend graph script depends on its existence.
+    if (v.data.hideInGraph === true && !isHome) {
+      return;
+    }
+
     let fpath = v.filePathStem.replace("/notes/", "");
     let parts = fpath.split("/");
     let group = "none";
@@ -47,10 +57,7 @@ function getGraph(data) {
       title: v.data.title || v.fileSlug,
       url: v.url,
       group,
-      home:
-        v.data["dg-home"] ||
-        (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1) ||
-        false,
+      home: isHome || false,
       outBound: extractLinks(v.template.frontMatter.content),
       neighbors: new Set(),
       backLinks: new Set(),
