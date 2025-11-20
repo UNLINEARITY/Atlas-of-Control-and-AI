@@ -1,0 +1,20 @@
+<script>
+    // Prevent FOUC by setting theme class before page render
+    (function() {
+        const storedTheme = localStorage.getItem('site-theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let theme = 'dark'; // Default theme
+
+        if (storedTheme === 'dark' || (storedTheme === 'auto' && prefersDark)) {
+            theme = 'dark';
+        } else if (storedTheme === 'light' || (storedTheme === 'auto' && !prefersDark)) {
+            theme = 'light';
+        } else if (prefersDark) {
+            theme = 'dark';
+        } else {
+            theme = 'light';
+        }
+        document.body.classList.add('theme-' + theme);
+        document.body.classList.remove('js-fouc-hidden');
+    })();
+</script>

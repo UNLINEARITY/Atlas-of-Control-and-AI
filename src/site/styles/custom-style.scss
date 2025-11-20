@@ -288,10 +288,10 @@ nav.navbar {
 }
 
 nav.filetree-sidebar {
-  width: 285px;
-  font-size: 1.08em;
+  width: 255px;
+  font-size: 0.95em;
   top: 15px;
-  left: 10px;
+  left: 3px;
   position: fixed;
   height: calc(100% - 20px);
   display: flex;
@@ -990,6 +990,7 @@ body.has-fullscreen-graph #floating-control {
 /* ----------------------------- */
 #pwa-actions-container {
   margin-top: auto !important; /* 推到底部 */
+  margin-bottom: 60px;
   padding: 15px 10px !important;
   display: flex !important;
   flex-wrap: wrap;

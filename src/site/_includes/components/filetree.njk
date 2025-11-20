@@ -55,3 +55,15 @@
          </div>
       </nav>
     </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const filetreeSidebar = document.querySelector('.filetree-sidebar');
+    const activeNote = filetreeSidebar ? filetreeSidebar.querySelector('.active-note') : null;
+
+    if (activeNote && filetreeSidebar) {
+        // Scroll the active note into view, centered vertically
+        activeNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+});
+</script>
