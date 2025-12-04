@@ -86,6 +86,42 @@
         try {
             savedLayout = JSON.parse(localStorage.getItem(layoutKey) || '{}');
         } catch {}
+
+        // --- NEW: Logic to handle bidirectional link curvature ---
+        const linkCurvature = 0.4; // Increased curvature
+        const linksByPair = {};
+        graphData.links.forEach(link => {
+            const source = typeof link.source === 'object' ? link.source.id : link.source;
+            const target = typeof link.target === 'object' ? link.target.id : link.target;
+            const pairKey = [source, target].sort().join('-');
+            if (!linksByPair[pairKey]) {
+                linksByPair[pairKey] = [];
+            }
+            linksByPair[pairKey].push(link);
+        });
+
+        Object.values(linksByPair).forEach(linksInPair => {
+            if (linksInPair.length === 2) {
+                // --- FIX: Deterministic curvature assignment ---
+                const link1 = linksInPair[0];
+                const link2 = linksInPair[1];
+                const source1 = typeof link1.source === 'object' ? link1.source.id : link1.source;
+                const target1 = typeof link1.target === 'object' ? link1.target.id : link1.target;
+
+                // Assign curvature based on soure/target ID comparison, not array order
+                if (source1 < target1) {
+                    link1.curvature = linkCurvature;
+                    link2.curvature = -linkCurvature;
+                } else {
+                    link1.curvature = -linkCurvature;
+                    link2.curvature = linkCurvature;
+                }
+            } else {
+                linksInPair.forEach(l => l.curvature = 0);
+            }
+        });
+        // --- END of new logic ---
+
         if (id === 'full-graph-container' && savedLayout && graphData && graphData.nodes) {
             graphData.nodes.forEach(node => {
                 if (savedLayout[node.id]) {
@@ -113,6 +149,7 @@
             .nodeLabel('title')
             .linkSource('source')
             .linkTarget('target')
+            .linkCurvature('curvature') // --- NEW --- Apply curvature
             .d3AlphaDecay(0.10)
             .width(width)
             .height(height)
@@ -139,7 +176,8 @@
                 let nodeColor = getNodeColorByPath(node.url, color);
                 if (hoverNode == null) {
                     ctx.fillStyle = nodeColor;
-                } else {
+                }
+                else {
                     if (node == hoverNode || highlightNodes.has(node.url)) {
                         ctx.fillStyle = nodeColor;
                     } else {
@@ -191,6 +229,12 @@
                     localStorage.setItem(layoutKey, JSON.stringify(layout));
                 }
             });
+
+            // --- MODIFIED: Conditionally set shorter link distance ---
+            if (id === 'full-graph-container') {
+                Graph.d3Force('link').distance(15);
+            }
+            
             if (fullScreen || (delay != null && graphData.nodes.length > 4)) {
                 setTimeout(() => {
                     Graph.zoomToFit(5, 75);
@@ -241,7 +285,7 @@
         <div class="graph-title">关系图谱 Graph</div>
         <div id="graph-controls">
                 <div class="depth-control">
-                    <label for="graph-depth">联系深度 Depth</label>
+                    <label for="graph-depth">Depth</label>
                     <div class="slider">
                             <input x-model.number="depth" name="graph-depth" list="depthmarkers" type="range" step="1" min="1" max="3" id="graph-depth"/>
                     <datalist id="depthmarkers">
