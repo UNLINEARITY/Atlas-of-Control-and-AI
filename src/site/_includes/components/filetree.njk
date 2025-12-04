@@ -33,7 +33,15 @@
         <div x-show="showFilesMobile && !isDesktop" @click="showFilesMobile = false" style="display:none;" class="fullpage-overlay"></div>
 
       <nav class="filetree-sidebar"  x-show.important="isDesktop || showFilesMobile" style="display: none;" 
-           x-bind:class="{ 'show': showFilesMobile && !isDesktop }">
+           x-bind:class="{ 'show': showFilesMobile && !isDesktop }"
+           x-init="$watch('showFilesMobile', value => {
+                if (value === true) {
+                    setTimeout(() => {
+                        // Re-using the globally defined centerActiveNote function
+                        centerActiveNote(); 
+                    }, 350); // Wait for mobile slide-in animation (300ms) plus a buffer
+                }
+           })">
         {% for imp in dynamics.filetree.beforeTitle %}
             {% include imp %}
         {% endfor %}
