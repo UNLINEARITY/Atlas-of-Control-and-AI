@@ -1,36 +1,39 @@
 <!-- Credit for the link preview implementation goes to https://github.com/maximevaillancourt/digital-garden-jekyll-template/blob/master/_includes/link-previews.html -->
 <style>
-
-
 .tooltip-wrapper {
-
   background: var(--background-primary);
-  padding: 1em;
-  border-radius: 8px; /* Increased border-radius for more rounded corners */
-  border: 2px solid; /* Added border, color will be set dynamically */
-  overflow: auto;
+  border-radius: 8px;
+  border: 2px solid;
   position: fixed;
   width: 550px;
-
-  max-width: 650px; /* Increased max-width */
-  height: auto;
-  max-height: 500px; /* Increased max-height */
-  min-width: 300px; /* Increased min-width */
-  min-height: 200px; /* Increased min-height */
-
-  resize: both; /* Added for resizing */
-  font-size: 1em; /* Increased base font-size */
+  max-width: 650px;
+  max-height: 600px;
+  min-width: 300px;
+  min-height: 200px;
+  font-size: 1em;
   box-shadow: 0 5px 10px rgba(0,0,0,0.1);
   opacity: 0;
   transition: opacity 100ms;
   unicode-bidi: plaintext;
   z-index: 10;
-  cursor: grab; /* Make the whole window draggable */
-  display: none; /* Hidden by default */
-
+  cursor: grab;
+  display: none;
+  /* All flex properties removed */
 }
 
+/* --- FINAL FIX: Absolute positioning for the scroller --- */
+.tooltip-scroller {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  right: 0.5em;
+  bottom: 0.5em;
+  overflow: auto;
+}
 
+.tooltip-content {
+  /* No layout styles needed */
+}
 
 .tooltip-wrapper:after {
   content: "";
@@ -43,9 +46,45 @@
   unicode-bidi: plaintext;
   height: 75px;
 }
+
+/* --- MODIFIED --- Custom resize handle style */
+.tooltip-resize-handle {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    cursor: se-resize;
+    z-index: 11;
+    color: var(--text-faint);
+    transition: color 0.2s ease;
+}
+.tooltip-resize-handle:hover {
+    color: var(--text-normal);
+}
+
+/* --- MODIFIED --- Button to open link in new tab */
+.tooltip-open-link-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    z-index: 11;
+    color: var(--text-faint);
+    transition: color 0.2s ease;
+}
+.tooltip-open-link-button:hover {
+    color: var(--text-normal);
+}
 </style>
 
 <script>
+  // --- NEW --- SVG Icon definitions
+  const externalLinkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+  const resizeHandleIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="20" y1="14" x2="10" y2="24" /></svg>`;
+
+
   const transitionDurationMs = 100;
   const linkHistories = {}; // Cache for fetched content
   const openTooltips = new Map(); // Map to store active LinkPreview instances by a unique ID
@@ -53,15 +92,24 @@
 
   class LinkPreview {
     constructor(uniqueId, contentURL, linkElement, isUnresolved = false) {
-      this.uniqueId = uniqueId; // Use a unique ID to manage multiple instances
+      this.uniqueId = uniqueId;
       this.contentURL = contentURL;
-      this.linkElement = linkElement; // Store the link element that triggered this preview
-      this.isUnresolved = isUnresolved; // Store the unresolved status
+      this.linkElement = linkElement;
+      this.isUnresolved = isUnresolved;
+      this.opacityTimeout = null;
+      this.contentTimeout = null;
+
+      // Dragging properties
       this.isDragging = false;
       this.dragOffsetX = 0;
       this.dragOffsetY = 0;
-      this.opacityTimeout = null;
-      this.contentTimeout = null;
+
+      // Resizing properties
+      this.isResizing = false;
+      this.initialResizeX = 0;
+      this.initialResizeY = 0;
+      this.initialWidth = 0;
+      this.initialHeight = 0;
 
       this.createElement();
       this.addEventListeners();
@@ -70,11 +118,32 @@
     createElement() {
       this.wrapper = document.createElement('div');
       this.wrapper.className = 'tooltip-wrapper';
-      document.body.appendChild(this.wrapper);
+
+      // --- FIX: Create a dedicated scroller div ---
+      this.scroller = document.createElement('div');
+      this.scroller.className = 'tooltip-scroller';
 
       this.content = document.createElement('div');
       this.content.className = 'tooltip-content';
-      this.wrapper.appendChild(this.content);
+
+      this.scroller.appendChild(this.content); // Content lives inside the scroller
+      this.wrapper.appendChild(this.scroller); // Scroller lives inside the wrapper
+
+      document.body.appendChild(this.wrapper);
+      
+      this.resizeHandle = document.createElement('div');
+      this.resizeHandle.className = 'tooltip-resize-handle';
+      this.resizeHandle.innerHTML = resizeHandleIcon;
+      this.wrapper.appendChild(this.resizeHandle); // Handle is a child of wrapper
+
+      this.openLinkButton = document.createElement('a');
+      this.openLinkButton.className = 'tooltip-open-link-button';
+      this.openLinkButton.innerHTML = externalLinkIcon;
+      this.openLinkButton.href = this.contentURL;
+      this.openLinkButton.target = '_blank';
+      this.openLinkButton.rel = 'noopener noreferrer';
+      this.wrapper.appendChild(this.openLinkButton); // Button is a child of wrapper
+
 
       this.iframe = document.createElement('iframe');
       this.iframe.style.display = 'none';
@@ -84,38 +153,21 @@
     }
 
     addEventListeners() {
+      // Dragging the whole window
       this.wrapper.addEventListener('mousedown', (e) => this.startDrag(e));
+      
+      this.resizeHandle.addEventListener('mousedown', (e) => this.startResize(e));
+
+      // --- NEW --- Stop propagation on link button click
+      this.openLinkButton.addEventListener('mousedown', (e) => e.stopPropagation());
+
       this.wrapper.addEventListener('dblclick', () => this.hide());
-      // Prevent default right-click menu on the tooltip itself
       this.wrapper.addEventListener('contextmenu', (e) => e.preventDefault());
-
-      // Add ResizeObserver for responsive font sizing
-      this.resizeObserver = new ResizeObserver(entries => {
-        for (let entry of entries) {
-          this.adjustFontSize(entry.contentRect.width);
-        }
-      });
-      this.resizeObserver.observe(this.wrapper);
-    }
-
-    adjustFontSize(width) {
-      // Define breakpoints and corresponding font sizes
-      const breakpoints = [
-        { width: 300, fontSize: 1.0 }, // Smaller window, smaller font
-        { width: 450, fontSize: 1.08 }, // Medium window, base font
-        { width: 650, fontSize: 1.1}  // Larger window, larger font
-      ];
-
-      let newFontSize = 1.0; // Default font size
-      for (let i = 0; i < breakpoints.length; i++) {
-        if (width >= breakpoints[i].width) {
-          newFontSize = breakpoints[i].fontSize;
-        }
-      }
-      this.content.style.fontSize = `${newFontSize}em`;
     }
 
     startDrag(e) {
+      // Prevent starting a drag if a button was clicked
+      if (e.target === this.resizeHandle || e.target === this.openLinkButton) return;
       this.isDragging = true;
       this.dragOffsetX = e.clientX - this.wrapper.getBoundingClientRect().left;
       this.dragOffsetY = e.clientY - this.wrapper.getBoundingClientRect().top;
@@ -135,17 +187,41 @@
         this.wrapper.style.cursor = 'grab';
       }
     }
+    
+    // --- NEW --- Resize methods
+    startResize(e) {
+        e.preventDefault();
+        e.stopPropagation(); // Prevent drag from starting
+        this.isResizing = true;
+        this.initialResizeX = e.clientX;
+        this.initialResizeY = e.clientY;
+        const rect = this.wrapper.getBoundingClientRect();
+        this.initialWidth = rect.width;
+        this.initialHeight = rect.height;
+    }
+
+    doResize(e) {
+        if (this.isResizing) {
+            const deltaX = e.clientX - this.initialResizeX;
+            const deltaY = e.clientY - this.initialResizeY;
+            this.wrapper.style.width = (this.initialWidth + deltaX) + 'px';
+            this.wrapper.style.height = (this.initialHeight + deltaY) + 'px';
+        }
+    }
+
+    stopResize() {
+        if (this.isResizing) {
+            this.isResizing = false;
+        }
+    }
 
     show(event) {
+      // ... (rest of the show, hide, positionTooltip methods are unchanged)
       clearTimeout(this.opacityTimeout);
       clearTimeout(this.contentTimeout);
-
       this.wrapper.style.display = 'block';
-
-      // Get the computed color of the link that triggered this preview
       const linkColor = window.getComputedStyle(this.linkElement).color;
       this.wrapper.style.borderColor = linkColor;
-
       if (this.isUnresolved) {
         this.content.innerHTML = 'There is no content.';
         this.wrapper.scrollTop = 0;
@@ -181,7 +257,6 @@
         this.contentTimeout = setTimeout(() => {
           this.content.innerHTML = '';
           this.wrapper.style.display = 'none';
-          // Remove from openTooltips map and DOM when hidden
           openTooltips.delete(this.uniqueId);
           this.wrapper.remove();
           this.iframe.remove();
@@ -192,45 +267,49 @@
     positionTooltip(event) {
       const elem_props = event.target.getClientRects()[event.target.getClientRects().length - 1];
       const top = window.pageYOffset || document.documentElement.scrollTop;
-
       this.wrapper.style.left = elem_props.left - (this.wrapper.offsetWidth / 2) + (elem_props.width / 2) + "px";
-
       if ((window.innerHeight - elem_props.top) < (this.wrapper.offsetHeight)) {
         this.wrapper.style.top = elem_props.top + top - this.wrapper.offsetHeight - 10 + "px";
       } else if ((window.innerHeight - elem_props.top) > (this.wrapper.offsetHeight)) {
         this.wrapper.style.top = elem_props.top + top + 35 + "px";
       }
-
       if ((elem_props.left + (elem_props.width / 2)) < (this.wrapper.offsetWidth / 2)) {
         this.wrapper.style.left = "10px";
       } else if ((document.body.clientWidth - elem_props.left - (elem_props.width / 2)) < (this.wrapper.offsetWidth / 2)) {
         this.wrapper.style.left = document.body.clientWidth - this.wrapper.offsetWidth - 20 + "px";
       }
+
+      // --- NEW: Set a fixed default height as requested by the user ---
+      this.wrapper.style.height = '450px';
     }
   }
 
-  // Global mousemove and mouseup listeners for dragging
+  // --- MODIFIED --- Global listeners now handle both dragging and resizing
   document.addEventListener('mousemove', (e) => {
-    openTooltips.forEach(tooltip => tooltip.doDrag(e));
+    openTooltips.forEach(tooltip => {
+        tooltip.doDrag(e);
+        tooltip.doResize(e);
+    });
   });
 
   document.addEventListener('mouseup', () => {
-    openTooltips.forEach(tooltip => tooltip.stopDrag());
+    openTooltips.forEach(tooltip => {
+        tooltip.stopDrag();
+        tooltip.stopResize();
+    });
   });
 
   function setupListeners(linkElement) {
+    // ... (rest of the file is unchanged)
     linkElement.addEventListener('contextmenu', function (event) {
-      event.preventDefault(); // Prevent default right-click context menu
-      event.stopPropagation(); // Stop event from bubbling up to parent tooltips
+      event.preventDefault();
+      event.stopPropagation();
       const url = event.target.getAttribute("href");
       const contentURL = url.split('#')[0];
-
-      // Always create a new preview. This avoids issues with nested/duplicate previews.
       if (url.indexOf("http") === -1 || url.indexOf(window.location.host) !== -1) {
         tooltipCounter++;
         const uniqueId = `${contentURL}-${tooltipCounter}`;
         const isUnresolved = linkElement.classList.contains('is-unresolved');
-        
         const tooltipInstance = new LinkPreview(uniqueId, contentURL, event.target, isUnresolved);
         openTooltips.set(uniqueId, tooltipInstance);
         tooltipInstance.show(event);
@@ -239,11 +318,8 @@
   }
 
   window.addEventListener("load", function() {
-    // Initial setup for links outside of preview windows
     document.querySelectorAll('.internal-link').forEach(setupListeners);
     document.querySelectorAll('.backlink-card a').forEach(setupListeners);
-
-    // MutationObserver to handle dynamically added links (e.g., within preview windows)
     const observer = new MutationObserver(mutations => {
       mutations.forEach(mutation => {
         if (mutation.addedNodes) {
@@ -256,7 +332,6 @@
         }
       });
     });
-
     observer.observe(document.body, { childList: true, subtree: true });
   });
 </script>
