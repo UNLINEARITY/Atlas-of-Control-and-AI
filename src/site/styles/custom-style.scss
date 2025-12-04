@@ -936,16 +936,16 @@ body.has-fullscreen-graph #floating-control {
     height: calc(100% - 10px);
   }
 
-  body.left-sidebar-collapsed nav.filetree-sidebar,
-  body.right-sidebar-collapsed .sidebar {
+  html.left-sidebar-collapsed nav.filetree-sidebar,
+  html.right-sidebar-collapsed .sidebar {
     display: none;
   }
 
-  body.left-sidebar-collapsed .content.cm-s-obsidian {
+  html.left-sidebar-collapsed .content.cm-s-obsidian {
     margin-left: 10px !important;
   }
 
-  body.right-sidebar-collapsed .content.cm-s-obsidian {
+  html.right-sidebar-collapsed .content.cm-s-obsidian {
     margin-right: 10px !important;
   }
 
