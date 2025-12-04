@@ -7,7 +7,7 @@
   position: fixed;
   width: 550px;
   max-width: 650px;
-  max-height: 500px;
+  max-height: 600px;
   min-width: 300px;
   min-height: 200px;
   font-size: 1em;
@@ -24,10 +24,10 @@
 /* --- FINAL FIX: Absolute positioning for the scroller --- */
 .tooltip-scroller {
   position: absolute;
-  top: 1.2em;
-  left: 1.2em;
-  right: 1.2em;
-  bottom: 1.2em;
+  top: 0.5em;
+  left: 0.5em;
+  right: 0.5em;
+  bottom: 0.5em;
   overflow: auto;
 }
 
@@ -279,14 +279,8 @@
         this.wrapper.style.left = document.body.clientWidth - this.wrapper.offsetWidth - 20 + "px";
       }
 
-      // --- FINAL FIX: Measure and apply height if overflowing ---
-      // This fixes the bug where the scroller overflows the wrapper on initial load.
-      const computedStyle = window.getComputedStyle(this.wrapper);
-      const maxHeight = parseFloat(computedStyle.maxHeight);
-      const currentHeight = this.wrapper.getBoundingClientRect().height;
-      if (currentHeight > maxHeight) {
-          this.wrapper.style.height = maxHeight + 'px';
-      }
+      // --- NEW: Set a fixed default height as requested by the user ---
+      this.wrapper.style.height = '450px';
     }
   }
 
