@@ -87,8 +87,7 @@
             savedLayout = JSON.parse(localStorage.getItem(layoutKey) || '{}');
         } catch {}
 
-        // --- NEW: Logic to handle bidirectional link curvature ---
-        const linkCurvature = 0.4; // Increased curvature
+        const linkCurvature = 0.4; 
         const linksByPair = {};
         graphData.links.forEach(link => {
             const source = typeof link.source === 'object' ? link.source.id : link.source;
@@ -99,16 +98,12 @@
             }
             linksByPair[pairKey].push(link);
         });
-
         Object.values(linksByPair).forEach(linksInPair => {
             if (linksInPair.length === 2) {
-                // --- FIX: Deterministic curvature assignment ---
                 const link1 = linksInPair[0];
                 const link2 = linksInPair[1];
                 const source1 = typeof link1.source === 'object' ? link1.source.id : link1.source;
                 const target1 = typeof link1.target === 'object' ? link1.target.id : link1.target;
-
-                // Assign curvature based on soure/target ID comparison, not array order
                 if (source1 < target1) {
                     link1.curvature = linkCurvature;
                     link2.curvature = -linkCurvature;
@@ -120,7 +115,6 @@
                 linksInPair.forEach(l => l.curvature = 0);
             }
         });
-        // --- END of new logic ---
 
         if (id === 'full-graph-container' && savedLayout && graphData && graphData.nodes) {
             graphData.nodes.forEach(node => {
@@ -230,9 +224,10 @@
                 }
             });
 
-            // --- MODIFIED: Conditionally set shorter link distance ---
+            // Conditionally set graph physics
             if (id === 'full-graph-container') {
-                Graph.d3Force('link').distance(15);
+                Graph.d3Force('link').distance(10);
+                Graph.d3Force('charge').strength(-60);
             }
             
             if (fullScreen || (delay != null && graphData.nodes.length > 4)) {
