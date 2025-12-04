@@ -1,42 +1,81 @@
 .code-block-wrapper {
     position: relative;
     margin: 1.5em 0;
+    border-radius: 12px;
+    overflow: hidden;
+    /* More diffuse shadow for "floating" feel */
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); 
+    -webkit-backdrop-filter: blur(14px); /* Increased blur */
+    backdrop-filter: blur(14px);
 }
+
+/* More transparent backgrounds to enhance glass feel */
+body.theme-light .code-block-wrapper {
+    background: rgba(255, 255, 255, 0.55); 
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.theme-dark .code-block-wrapper {
+    background: rgba(40, 40, 40, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 
 .code-block-header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    background-color: var(--background-primary, #3a3a3a);
-    padding: 0.3em 1em;
-    border-top-left-radius: 0.3em;
-    border-top-right-radius: 0.3em;
+    padding: 0.5em 1em;
+    /* Remove border, background color will now provide separation */
+    border-bottom: none; 
+}
+
+/* Add theme-related accent color to header background as requested */
+body.theme-light .code-block-header {
+    background-color: rgba(0, 123, 156, 0.15);
+}
+
+body.theme-dark .code-block-header {
+    background-color: rgba(0, 111, 139, 0.25);
 }
 
 .language {
     margin-right: auto;
-    color: var(--text-normal, #f0f0f0);
+    color: var(--text-muted);
     font-family: sans-serif;
     font-size: 0.9em;
+    font-weight: 500;
 }
 
 .copy-code-button {
-    background-color: var(--interactive-accent, #5a5a5a);
+    background-color: var(--interactive-accent);
     color: var(--text-on-accent, white);
     border: none;
     padding: 0.4em 0.8em;
-    border-radius: 0.3em;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 0.8em;
     transition: background-color 0.2s;
 }
 
 .copy-code-button:hover {
-    background-color: var(--interactive-accent-hover, #7a7a7a);
+    background-color: var(--interactive-accent-hover);
 }
 
+/* This is critical for the glass effect to work */
+.code-block-wrapper pre[class*="language-"] {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 1em; /* Add padding inside */
+}
+
+/* Ensure code inside has good contrast */
+.code-block-wrapper code[class*="language-"] {
+    color: var(--text-normal); /* Use the theme's default text color */
+}
+
+/* Remove the default pre background that might be applied by other stylesheets */
 pre {
-    margin: 0 !important; /* Important to override other styles */
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
+    background-color: transparent !important;
 }
