@@ -201,6 +201,15 @@
                  
                 ctx.fill();
                 
+                // Marker for selected nodes
+                if (selectedNodes.has(node.url)) {
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, nodeR + 2, 0, 2 * Math.PI, false); 
+                    ctx.lineWidth = 1; 
+                    ctx.strokeStyle = color; 
+                    ctx.stroke();
+                }
+
                 if (node.current) {
                     ctx.beginPath();
                     ctx.arc(node.x, node.y, nodeR + 1, 0, 2 * Math.PI, false);
