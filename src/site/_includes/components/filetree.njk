@@ -58,12 +58,43 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const filetreeSidebar = document.querySelector('.filetree-sidebar');
-    const activeNote = filetreeSidebar ? filetreeSidebar.querySelector('.active-note') : null;
+    // Timeout to allow Alpine.js to initialize first, which manages folder visibility.
+    setTimeout(() => {
+        const filetreeSidebar = document.querySelector('.filetree-sidebar');
+        const activeNote = filetreeSidebar ? filetreeSidebar.querySelector('.active-note') : null;
 
-    if (activeNote && filetreeSidebar) {
-        // Scroll the active note into view, centered vertically
-        activeNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+        if (activeNote) {
+            let current = activeNote;
+            // Traverse up the DOM tree to find and expand parent folders.
+            while (current && current !== filetreeSidebar) {
+                const filelistContainer = current.closest('.filelist');
+
+                if (filelistContainer) {
+                    // The parent element of the container holds the state and the click handler.
+                    const folderParent = filelistContainer.parentElement;
+
+                    if (folderParent && folderParent.matches('.folder.inner-folder')) {
+                        // Alpine.js adds `display: none;` to elements hidden with x-show.
+                        // We check this to see if the folder is closed.
+                        const isClosed = filelistContainer.style.display === 'none';
+
+                        if (isClosed) {
+                            // Trigger the @click handler on the folder to open it.
+                            folderParent.click();
+                        }
+                        // Move up to the next parent folder for the next iteration.
+                        current = folderParent;
+                    } else {
+                        break; // Stop if the expected parent folder isn't found.
+                    }
+                } else {
+                    break; // Stop if there are no more filelist containers.
+                }
+            }
+
+            // With all parent folders now open, scroll the active note into view.
+            activeNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, 100); // 100ms delay gives Alpine.js enough time to set initial states.
 });
 </script>
