@@ -79,6 +79,9 @@
         height = el.offsetHeight;
         const highlightNodes = new Set();
         let hoverNode = null;
+        const selectedNodes = new Set();
+        const nodeMap = Object.fromEntries(graphData.nodes.map(node => [node.url, node]));
+
         const color = getCssVar("--graph-main");
         const mutedColor = getCssVar("--graph-muted");
         const layoutKey = 'graph-layout-' + id;
@@ -151,15 +154,23 @@
             .linkDirectionalArrowRelPos(0.5)
             .autoPauseRedraw(false)
             .linkColor((link) => {
-                if (hoverNode == null) {
-                    return color;
+                const defaultLinkColor = id === 'full-graph-container' ? mutedColor : color;
+                const sourceUrl = link.source.url;
+                const targetUrl = link.target.url;
+
+                const primaryHighlightUrls = new Set();
+                if (hoverNode) primaryHighlightUrls.add(hoverNode.url);
+                selectedNodes.forEach(url => primaryHighlightUrls.add(url));
+
+                if (primaryHighlightUrls.size === 0) {
+                    return defaultLinkColor;
                 }
-                if (link.source.id == hoverNode.id || link.target.id == hoverNode.id) {
+                
+                if (primaryHighlightUrls.has(sourceUrl) || primaryHighlightUrls.has(targetUrl)) {
                     return color;
                 } else {
                     return mutedColor;
                 }
-                
             })
             .nodeCanvasObject((node, ctx) => {
                 const numberOfNeighbours = (node.neighbors && node.neighbors.length) || 2;
@@ -168,16 +179,25 @@
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
                 let nodeColor = getNodeColorByPath(node.url, color);
-                if (hoverNode == null) {
-                    ctx.fillStyle = nodeColor;
+
+                let isHighlighted = false;
+                const isHovered = highlightNodes.has(node.url);
+
+                if (selectedNodes.size > 0) {
+                    const selectionHighlights = new Set();
+                    selectedNodes.forEach(selectedUrl => {
+                        selectionHighlights.add(selectedUrl);
+                        const selectedNodeObj = nodeMap[selectedUrl];
+                        if (selectedNodeObj && selectedNodeObj.neighbors) {
+                            selectedNodeObj.neighbors.forEach(neighborUrl => selectionHighlights.add(neighborUrl));
+                        }
+                    });
+                    isHighlighted = selectionHighlights.has(node.url) || isHovered;
+                } else {
+                    isHighlighted = (hoverNode == null) || isHovered;
                 }
-                else {
-                    if (node == hoverNode || highlightNodes.has(node.url)) {
-                        ctx.fillStyle = nodeColor;
-                    } else {
-                        ctx.fillStyle = mutedColor;
-                    }
-                }
+                
+                ctx.fillStyle = isHighlighted ? nodeColor : mutedColor;
                  
                 ctx.fill();
                 
@@ -200,14 +220,21 @@
             .onNodeClick(node => {
                 window.location = node.url;
             })
+            .onNodeRightClick(node => {
+                if (selectedNodes.has(node.url)) {
+                    selectedNodes.delete(node.url);
+                } else {
+                    selectedNodes.add(node.url);
+                }
+                return false;
+            })
             .onNodeHover(node => {
                 highlightNodes.clear();
                 if (node) {
-                highlightNodes.add(node);
-                node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
+                    highlightNodes.add(node.url);
+                    node.neighbors.forEach(neighborUrl => highlightNodes.add(neighborUrl));
                 }
                 hoverNode = node || null;
-                
             })
             .onNodeDragEnd(node => {
                 if (id === 'full-graph-container') {
