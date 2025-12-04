@@ -516,12 +516,15 @@ nav.toc {
   background-color: var(--background-primary);
   border: 1px solid var(--text-accent);
   position: fixed;
-  bottom: 10px;
-  left: 0;
-  right: 0;
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: 90%;
   padding: 10px;
   text-align: center;
   z-index: 999;
+  border-radius: 8px;
 }
 
 .footnote-ref {
