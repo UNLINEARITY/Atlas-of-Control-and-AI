@@ -1,33 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const body = document.body;
+    // Use documentElement (the <html> tag) which is consistent with the early-load script.
+    const html = document.documentElement; 
     const toggleLeftSidebar = document.getElementById('toggle-left-sidebar');
     const toggleRightSidebar = document.getElementById('toggle-right-sidebar');
 
-    // On page load, check localStorage and apply saved states
-    if (localStorage.getItem('leftSidebarCollapsed') === 'true') {
-        body.classList.add('left-sidebar-collapsed');
-    }
-    if (localStorage.getItem('rightSidebarCollapsed') === 'true') {
-        body.classList.add('right-sidebar-collapsed');
-    }
+    // The initial state is now set by an inline script in the <head>,
+    // so the page-load check here is no longer needed.
 
     // Left sidebar toggle handler
     if (toggleLeftSidebar) {
         toggleLeftSidebar.addEventListener('click', () => {
-            // Toggle the class on the body
-            body.classList.toggle('left-sidebar-collapsed');
+            // Toggle the class on the <html> element
+            html.classList.toggle('left-sidebar-collapsed');
             // Save the new state to localStorage
-            localStorage.setItem('leftSidebarCollapsed', body.classList.contains('left-sidebar-collapsed'));
+            localStorage.setItem('leftSidebarCollapsed', html.classList.contains('left-sidebar-collapsed'));
         });
     }
 
     // Right sidebar toggle handler
     if (toggleRightSidebar) {
         toggleRightSidebar.addEventListener('click', () => {
-            // Toggle the class on the body
-            body.classList.toggle('right-sidebar-collapsed');
+            // Toggle the class on the <html> element
+            html.classList.toggle('right-sidebar-collapsed');
             // Save the new state to localStorage
-            localStorage.setItem('rightSidebarCollapsed', body.classList.contains('right-sidebar-collapsed'));
+            localStorage.setItem('rightSidebarCollapsed', html.classList.contains('right-sidebar-collapsed'));
         });
     }
 });

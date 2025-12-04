@@ -1,42 +1,82 @@
 .code-block-wrapper {
     position: relative;
-    margin: 1.5em 0;
+    width: 97%; /* Set width to 97% */
+    margin: 1.5em auto; /* Center horizontally */
+    border-radius: 12px;
+    overflow: hidden;
+    /* Existing shadow, plus theme-accent glow */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 123, 156, 0.4); /* Light theme default */
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
 }
+
+/* Theme-specific shadows (override default glow for dark theme) */
+body.theme-light .code-block-wrapper {
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.theme-dark .code-block-wrapper {
+    background: rgba(40, 40, 40, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 111, 139, 0.4); /* Dark theme glow */
+}
+
 
 .code-block-header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    background-color: var(--background-primary, #3a3a3a);
-    padding: 0.3em 1em;
-    border-top-left-radius: 0.3em;
-    border-top-right-radius: 0.3em;
+    background-color: transparent; /* Let the glass background show through */
+    padding: 0.5em 1em;
+}
+
+/* Apply a top border to the header that matches the wrapper's border */
+body.theme-light .code-block-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.theme-dark .code-block-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .language {
     margin-right: auto;
-    color: var(--text-normal, #f0f0f0);
+    color: var(--text-muted);
     font-family: sans-serif;
     font-size: 0.9em;
+    font-weight: 500;
 }
 
 .copy-code-button {
-    background-color: var(--interactive-accent, #5a5a5a);
+    background-color: var(--interactive-accent);
     color: var(--text-on-accent, white);
     border: none;
     padding: 0.4em 0.8em;
-    border-radius: 0.3em;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 0.8em;
     transition: background-color 0.2s;
 }
 
 .copy-code-button:hover {
-    background-color: var(--interactive-accent-hover, #7a7a7a);
+    background-color: var(--interactive-accent-hover);
 }
 
+/* This is critical for the glass effect to work */
+.code-block-wrapper pre[class*="language-"] {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 1em; /* Add padding inside */
+}
+
+/* Ensure code inside has good contrast */
+.code-block-wrapper code[class*="language-"] {
+    color: var(--text-normal); /* Use the theme's default text color */
+}
+
+/* Remove the default pre background that might be applied by other stylesheets */
 pre {
-    margin: 0 !important; /* Important to override other styles */
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
+    background-color: transparent !important;
 }

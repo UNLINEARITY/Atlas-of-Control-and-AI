@@ -33,7 +33,15 @@
         <div x-show="showFilesMobile && !isDesktop" @click="showFilesMobile = false" style="display:none;" class="fullpage-overlay"></div>
 
       <nav class="filetree-sidebar"  x-show.important="isDesktop || showFilesMobile" style="display: none;" 
-           x-bind:class="{ 'show': showFilesMobile && !isDesktop }">
+           x-bind:class="{ 'show': showFilesMobile && !isDesktop }"
+           x-init="$watch('showFilesMobile', value => {
+                if (value === true) {
+                    setTimeout(() => {
+                        // Re-using the globally defined centerActiveNote function
+                        centerActiveNote(); 
+                    }, 350); // Wait for mobile slide-in animation (300ms) plus a buffer
+                }
+           })">
         {% for imp in dynamics.filetree.beforeTitle %}
             {% include imp %}
         {% endfor %}
@@ -57,13 +65,51 @@
     </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const filetreeSidebar = document.querySelector('.filetree-sidebar');
-    const activeNote = filetreeSidebar ? filetreeSidebar.querySelector('.active-note') : null;
+    // This script implements an adaptive delay to robustly handle centering the active note,
+    // even when it is deeply nested.
 
-    if (activeNote && filetreeSidebar) {
-        // Scroll the active note into view, centered vertically
-        activeNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-});
+    const centerActiveNote = () => {
+        const filetreeSidebar = document.querySelector('.filetree-sidebar');
+        const activeNote = filetreeSidebar ? filetreeSidebar.querySelector('.active-note') : null;
+
+        if (activeNote) {
+            let clicks = 0;
+            let current = activeNote;
+
+            // 1. Traverse up the DOM, counting and executing the clicks needed to open parent folders.
+            while (current && current !== filetreeSidebar) {
+                const filelistContainer = current.closest('.filelist');
+                if (filelistContainer) {
+                    const folderParent = filelistContainer.parentElement;
+                    if (folderParent && folderParent.matches('.folder.inner-folder')) {
+                        const isClosed = filelistContainer.style.display === 'none';
+                        if (isClosed) {
+                            folderParent.click();
+                            clicks++; // Increment for each folder we need to open.
+                        }
+                        current = folderParent;
+                    } else { break; }
+                } else { break; }
+            }
+
+            // 2. Calculate an adaptive delay. More clicks (deeper nesting) require a longer wait
+            //    for the UI to update. 50ms per level is a safe buffer.
+            const delay = 50 + (clicks * 50);
+
+            // 3. Wait for the calculated delay before scrolling.
+            setTimeout(() => {
+                activeNote.scrollIntoView({ behavior: 'auto', block: 'center' });
+            }, delay);
+        }
+    };
+
+    // Handle initial page load.
+    document.addEventListener('alpine:initialized', centerActiveNote);
+
+    // Handle back/forward navigation from bfcache.
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            centerActiveNote();
+        }
+    });
 </script>

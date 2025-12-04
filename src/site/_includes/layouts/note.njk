@@ -4,6 +4,23 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
 <!DOCTYPE html>
 <html lang="{{ meta.mainLanguage }}">
   <head>
+    <script>
+      // This script runs first to prevent sidebar state flash.
+      (function() {
+        try {
+          const leftCollapsed = localStorage.getItem('leftSidebarCollapsed') === 'true';
+          const rightCollapsed = localStorage.getItem('rightSidebarCollapsed') === 'true';
+          if (leftCollapsed) {
+            document.documentElement.classList.add('left-sidebar-collapsed');
+          }
+          if (rightCollapsed) {
+            document.documentElement.classList.add('right-sidebar-collapsed');
+          }
+        } catch (e) {
+          // Ignore localStorage errors
+        }
+      })();
+    </script>
     <title>{% if title %}{{ title }}{% else %}{{ page.fileSlug }}{% endif %}</title>
     {%include "components/pageheader.njk"%}
     {% for imp in dynamics.common.head %}
