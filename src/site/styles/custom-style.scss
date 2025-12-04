@@ -317,7 +317,29 @@ nav.filetree-sidebar {
     }
   }
   .notelink.active-note {
-    transform: unset;
+    /* Base Glassmorphism Styles */
+    position: relative;
+    padding: 7px 10px 7px 15px; /* Slightly more padding for spacing */
+    margin: 5px 0; /* Visual separation from other links */
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    z-index: 1; /* Ensure it stays above other elements if needed */
+    
+    /* Theme-specific backgrounds and borders */
+    background: rgba(255, 255, 255, 0.3); /* Default for light theme or fallback */
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Default for light theme or fallback */
+    color: var(--text-normal); /* Ensure good text contrast */
+    /* Existing shadow for depth, plus theme-accent glow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 123, 156, 0.5); /* Default for light theme */
+
+    body.theme-dark & { /* Apply to active-note when in dark theme */
+        background: rgba(40, 40, 40, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 111, 139, 0.5); /* Dark theme glow */
+    }
+
+    transform: unset; /* Keep the original unset transform */
   }
   .fa-sticky-note {
     display: none !important;
