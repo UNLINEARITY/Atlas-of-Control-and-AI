@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Configuration Space.md","permalink":"/机器人/Configuration Space/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-18T17:09:46.000+08:00","updated":"2025-12-03T22:41:03.987+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Configuration Space.md","permalink":"/机器人/Configuration Space/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-18T17:09:46.000+08:00","updated":"2025-12-03T23:30:41.305+08:00"}
 ---
 
 
@@ -26,14 +26,9 @@ Definition 2.1. The configuration of a robot is **a complete specification of th
 
 In this chapter we study the C- space and degrees of freedom of general robots. Since our robots are constructed from rigid links, we examine first the degrees of freedom of a single rigid body, and then the degrees of freedom of general multi- link robots. Next we study the shape (or topology) and geometry of C- spaces and their mathematical representation. The chapter concludes with a discussion of the C- space of a robot's end- effector, its task space. In the following chapter we study in more detail the mathematical representation of the C- space of a single rigid body.  
 
-
-
-
-
-
 ### 基本章节 
-[[Degrees of Freedom of a Rigid Body\|Degrees of Freedom of a Rigid Body]]  
-[[Degrees of Freedom of a Robot\|Degrees of Freedom of a Robot]]
+[[Dof of a Rigid Body\|Dof of a Rigid Body]]  
+[[Dof of a Robot\|Dof of a Robot]]
 [[Grübler's Formula\|Grübler's Formula]]
 [[Topology and Representation of Configuration Space\|Topology and Representation of Configuration Space]]
 [[Configuration and Velocity Constraints  \|Configuration and Velocity Constraints  ]]
@@ -51,11 +46,10 @@ In this chapter we study the C- space and degrees of freedom of general robots. 
 
 - The number of degrees of freedom of a robot can be calculated using Grübler's formula,  
 
-$$\operatorname {dof} = m (N - 1 - J) + \sum_{i = 1}^{J}f_{i},$$  
 
+$$\text{dof} = m (N - 1 - J) + \sum_{i = 1}^{J}f_{i},$$  
 where $m = 3$ for planar mechanisms and $m = 6$ for spatial mechanisms, $N$ is the number of links (including the ground link), $J$ is the number of joints, and $f_{i}$ is the number of degrees of freedom of joint $i$
 
-<--- Page 57 --->
 
 
 - A robot's C-space can be parametrized explicitly or represented implicitly. For a robot with $n$ degrees of freedom, an explicit parametrization uses $n$ coordinates, the minimum necessary. An implicit representation involves $m$ coordinates with $m \geq n$ , with the $m$ coordinates subject to $m - n$ constraint equations. With an implicit parametrization, a robot's C-space can be viewed as a surface of dimension $n$ embedded in a space of higher dimension $m$ .  
