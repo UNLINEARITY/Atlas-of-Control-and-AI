@@ -1,39 +1,50 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Configuration Space.md","permalink":"/机器人/Configuration Space/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-18T17:09:46.000+08:00","updated":"2025-12-03T23:30:41.305+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Configuration Space.md","permalink":"/机器人/Configuration Space/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-18T17:09:46.000+08:00","updated":"2025-12-15T10:41:52.400+08:00"}
 ---
 
 
-Perhaps the most fundamental question one can ask about a robot is, where is it? 
+> Perhaps the most fundamental question one can ask about a robot is, where is it? 
 
 The answer is given by the robot's **configuration**: a specification of the positions of all points of the robot.
 
 Since the robot's links are rigid and of a known shape, only a few numbers are needed to represent its configuration. For example, 
-- the configuration of a door can be represented by a single number, the angle $\theta$ about its hinge. 
-- The configuration of a point on a plane can be described by two coordinates, $(x,y)$ . 
-- The configuration of a coin lying heads up on a flat table can be described by three coordinates: two coordinates $(x,y)$ that specify the location of a particular point on the coin, and one coordinate $(\theta)$ that specifies the coin's orientation.
+- the configuration of **a door** can be represented by a single number, the angle $\theta$ about its hinge. 
+- The configuration of **a point** on a plane can be described by two coordinates, $(x,y)$ . 
+- The configuration of **a coin lying heads up on a flat table** can be described by three coordinates: two coordinates $(x,y)$ that specify the location of a particular point on the coin, and one coordinate $(\theta)$ that specifies the coin's orientation.
 
 ![](../img/user/OCR/images/MR-tablet-v2_32_0.jpg)
 
 Figure 2.1: (a) The configuration of a door is described by the angle $\theta$ . (b) The configuration of a point in a plane is described by coordinates $(x, y)$ . (c) The configuration of a coin on a table is described by $(x, y,\theta)$ , where $\theta$ defines the direction in which Abraham Lincoln is looking. 
 
 
-The above coordinates all take values over a **continuous range of real numbers**. The number of **degrees of freedom** (dof) of a robot is the **smallest number** of **real- valued** coordinates needed to represent its configuration. 
+The above coordinates all take values over a **continuous range of real numbers**. 
+The number of **degrees of freedom** (dof) of a robot is the **smallest number** of **real- valued** coordinates needed to represent its configuration. 
 
 In the example above, the door has one degree of freedom. The coin lying heads up on a table has three degrees of freedom. Even if the coin could lie either heads up or tails up, its configuration space still would have only three degrees of freedom; a fourth variable, representing which side of the coin faces up, takes values in the discrete set {heads, tails}, and not over a continuous range of real values like the other three coordinates.  
 
 
-Definition 2.1. The configuration of a robot is **a complete specification of the position of every point of the robot**. The **minimum number** $n$ of real- valued coordinates needed to represent the configuration is the number of **degrees of freedom (dof)** of the robot. The $n$ - dimensional space containing all possible configurations of the robot is called the **configuration space (C- space)**. The configuration of a robot is represented by a point in its C- space.  
+> [!important] Definition 2.1. 
+> The configuration of a robot is **a complete specification of the position of every point of the robot**. The **minimum number** $n$ of real-valued coordinates needed to represent the configuration is the number of **degrees of freedom (dof)** of the robot. 
+> 
+> The $n$ - dimensional space containing all possible configurations of the robot is called the **configuration space (C- space)**. The configuration of a robot is represented by a point in its C- space.  
 
-In this chapter we study the C- space and degrees of freedom of general robots. Since our robots are constructed from rigid links, we examine first the degrees of freedom of a single rigid body, and then the degrees of freedom of general multi- link robots. Next we study the shape (or topology) and geometry of C- spaces and their mathematical representation. The chapter concludes with a discussion of the C- space of a robot's end- effector, its task space. In the following chapter we study in more detail the mathematical representation of the C- space of a single rigid body.  
+
+In this chapter we study the C- space and degrees of freedom of general robots. 
+
+Since our robots are constructed from rigid links, 
+- we examine first the degrees of freedom of **a single rigid body**, 
+- and then the degrees of freedom of **general multi- link robots**. 
+- Next we study the **shape (or topology) and geometry of C- spaces** and their mathematical representation. 
+- The chapter concludes with a discussion of the **C- space of a robot's end- effector**, its **task space**. 
+
+In the following chapter we study in more detail the mathematical representation of the C- space of a single rigid body.  
 
 ### 基本章节 
 [[Dof of a Rigid Body\|Dof of a Rigid Body]]  
 [[Dof of a Robot\|Dof of a Robot]]
-[[Grübler's Formula\|Grübler's Formula]]
 [[Topology and Representation of Configuration Space\|Topology and Representation of Configuration Space]]
 [[Configuration and Velocity Constraints  \|Configuration and Velocity Constraints  ]]
 [[Task Space and Workspace\|Task Space and Workspace]]
-
 
 ### 总结
 - A robot is mechanically constructed from links that are connected by various types of joint. The links are usually modeled as rigid bodies. An end-effector such as a gripper may be attached to some link of the robot. Actuators deliver forces and torques to the joints, thereby causing motion of the robot.  

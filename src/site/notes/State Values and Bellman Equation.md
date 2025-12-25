@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/强化学习/State Values and Bellman Equation.md","permalink":"/人工智能/强化学习/State Values and Bellman Equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:35:08.525+08:00","updated":"2025-12-07T20:15:05.239+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/强化学习/State Values and Bellman Equation.md","permalink":"/人工智能/强化学习/State Values and Bellman Equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:35:08.525+08:00","updated":"2025-12-09T13:13:49.462+08:00"}
 ---
 
 
@@ -22,7 +22,6 @@ The answer is the Bellman equation, which is an important tool for analyzing sta
 [[From state value to action value\|From state value to action value]] 
 
 
-
 ### Summary  
 The most important concept introduced in this chapter is the state value. Mathematically, a state value is the expected return that the agent can obtain by starting from a state. The values of different states are related to each other. That is, the value of state $s$ relies on the values of some other states, which may further rely on the value of state $s$ itself. This phenomenon might be the most confusing part of this chapter for beginners. It is related to an important concept called bootstrapping, which involves calculating something from itself. Although bootstrapping may be intuitively confusing, it is clear if we examine the matrix- vector form of the Bellman equation. In particular, the Bellman equation is a set of linear equations that describe the relationships between the values of all states.  
 
@@ -36,9 +35,6 @@ Another important concept, action value, was introduced to describe the value of
 Q: What is the relationship between state values and returns?  
 
 A: The value of a state is the mean of the returns that can be obtained if the agent starts from that state.
-
-
-
 
 Q: Why do we care about state values?  
 
@@ -63,3 +59,5 @@ A: On the one hand, a state value is the mean of the action values for that stat
 Q: Why do we care about the values of the actions that a given policy cannot select?  
 
 A: Although a given policy cannot select some actions, this does not mean that these actions are not good. On the contrary, it is possible that the given policy is not good and misses the best action. To find better policies, we must keep exploring different actions even though some of them may not be selected by the given policy.
+
+

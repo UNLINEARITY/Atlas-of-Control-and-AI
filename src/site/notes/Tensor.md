@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/0. 基础知识/Tensor.md","permalink":"/A1- 数学/0. 基础知识/Tensor/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-20T23:42:16.630+08:00","updated":"2025-11-17T09:12:19.088+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/0. 基础知识/Tensor.md","permalink":"/A1- 数学/0. 基础知识/Tensor/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-20T23:42:16.000+08:00","updated":"2025-11-17T09:12:19.000+08:00"}
 ---
 
 
