@@ -1,6 +1,7 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/强化学习/Basic-Concepts.md","permalink":"/人工智能/强化学习/Basic-Concepts/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:27:16.843+08:00","updated":"2025-12-07T20:12:58.881+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/强化学习/Basic-Concepts.md","permalink":"/人工智能/强化学习/Basic-Concepts/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:27:16.843+08:00","updated":"2025-12-09T16:37:21.472+08:00"}
 ---
+
 
 
 This chapter introduces the basic concepts of reinforcement learning. These concepts are important because they will be widely used in this book. We first introduce these concepts using examples and then formalize them in the framework of Markov decision processes.  
@@ -23,7 +24,9 @@ The first concept to be introduced is the **state 状态,** **which describes th
 
 状态空间：**The set of all the states is called the state space**, denoted as $\mathcal{S} = \{s_{1}, \ldots , s_{9}\}$ .  
 
-For each state, the agent can take five possible actions: moving upward, moving rightward, moving downward, moving leftward, and staying still. These five actions are denoted as $a_{1}, a_{2}, \ldots , a_{5}$ , respectively (see Figure 1.3 (b)). The set of all actions is called the action space, denoted as $\mathcal{A} = \{a_{1}, \ldots , a_{5}\}$ . Different states can have different action spaces. For instance, considering that taking $a_{1}$ or $a_{4}$ in state $s_{1}$ would lead to a collision with the boundary, we can set the action space for state $s_{1}$ as $\mathcal{A}(s_{1}) = \{a_{2}, a_{3}, a_{5}\}$ . In this book, we consider the most general case: $\mathcal{A}(s_{i}) = \mathcal{A} = \{a_{1}, \ldots , a_{5}\}$ for all $i$ .
+For each state, the agent can take five possible actions: moving upward, moving rightward, moving downward, moving leftward, and staying still. These five actions are denoted as $a_{1}, a_{2}, \ldots , a_{5}$ , respectively (see Figure 1.3 (b)). 
+
+The set of all actions is called the action space, denoted as $\mathcal{A} = \{a_{1}, \ldots , a_{5}\}$ . Different states can have different action spaces. For instance, considering that taking $a_{1}$ or $a_{4}$ in state $s_{1}$ would lead to a collision with the boundary, we can set the action space for state $s_{1}$ as $\mathcal{A}(s_{1}) = \{a_{2}, a_{3}, a_{5}\}$ . In this book, we consider the most general case: $\mathcal{A}(s_{i}) = \mathcal{A} = \{a_{1}, \ldots , a_{5}\}$ for all $i$ .
 
 ![](../img/user/OCR/images/3---Chapter-1-Basic-Concepts_3_0.jpg)
 
@@ -204,7 +207,9 @@ $$\operatorname {return} = 0 + 0 + 0 + 1 + 1 + 1 + \dots = \infty ,$$
  Therefore, we must introduce the **discounted return** concept for infinitely long trajectories. In particular, the discounted return is the sum of the **discounted rewards**:  折扣奖励
 $$\mathrm{discounted~return} = 0 + \gamma 0 + \gamma^{2}0 + \gamma^{3}1 + \gamma^{4}1 + \gamma^{5}1 + \ldots , \quad (1.3)$$ 
 where $\gamma \in (0,1)$ is called the **discount rate**  **折扣因子**. When $\gamma \in (0,1)$ , the value of (1.3) can be calculated as  
+
 $$\mathrm{discounted~return} = \gamma^{3}(1 + \gamma +\gamma^{2} + \ldots) = \gamma^{3}\frac{1}{1 - \gamma}.$$
+
 [[幂级数\|幂级数]]
 
 
@@ -218,8 +223,8 @@ In particular,
 
 One important notion that was not explicitly mentioned in the above discussion is the episode. When interacting with the environment by following a policy, the agent may stop at some terminal states. The resulting trajectory is called an episode (or a trial). If the environment or policy is stochastic, we obtain different episodes when starting from the same state. However, if everything is deterministic, we always obtain the same episode when starting from the same state.  
 
-**An episode is usually assumed to be a finite trajectory.** Tasks with episodes are called **episodic tasks**. 
-However, some tasks may have no terminal states, meaning that the process of interacting with the environment will never end. Such tasks are called **continuing tasks**.
+- **An episode is usually assumed to be a finite trajectory.** Tasks with episodes are called **episodic tasks**. 
+- However, some tasks may have no terminal states, meaning that the process of interacting with the environment will never end. Such tasks are called **continuing tasks**.
 
 In fact, we can treat episodic and continuing tasks in a unified mathematical manner by converting episodic tasks to continuing ones. To do that, we need well define the process after the agent reaches the terminal state. Specifically, after reaching the terminal state in an episodic task, the agent can continue taking actions in the following two ways.  
 

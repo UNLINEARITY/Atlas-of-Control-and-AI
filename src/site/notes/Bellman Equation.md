@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/强化学习/Bellman Equation.md","permalink":"/人工智能/强化学习/Bellman Equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:43:29.824+08:00","updated":"2025-12-07T20:15:03.409+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/强化学习/Bellman Equation.md","permalink":"/人工智能/强化学习/Bellman Equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:43:29.824+08:00","updated":"2025-12-12T10:52:07.620+08:00"}
 ---
 
 
@@ -8,6 +8,7 @@ We now introduce the Bellman equation, **a mathematical tool for analyzing state
 In a nutshell 简而言之, the **Bellman equation is a set of linear equations that describe the relationships between the values of all the states**.     [[State values\|State values]]
 
 We next derive the Bellman equation. First, note that $G_{t}$ can be rewritten as  
+
 $$
 \begin{align*}
 G_t &= R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots \\
@@ -16,7 +17,8 @@ G_t &= R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots \\
 \end{align*}
 $$
 
-where $G_{t + 1} = R_{t + 2} + \gamma R_{t + 3} + \dots$ . This equation establishes the relationship between $G_{t}$ and $G_{t + 1}$ . Then, the state value can be written as  
+where $G_{t + 1} = R_{t + 2} + \gamma R_{t + 3} + \dots$ . This equation establishes the relationship between $G_{t}$ and $G_{t + 1}$ . Then, the **state value** can be written as  
+
 $$\begin{align}
 v_{\pi}(s)  & = \mathbb{E}[G_{t}|S_{t} = s]  \\
  & = \mathbb{E}[R_{t + 1} + \gamma G_{t + 1}|S_{t} = s]  \\
@@ -46,6 +48,7 @@ $$\begin{aligned}\mathbb{E}[G_{t+1}|S_t=s]&=\sum_{s'\in\mathcal{S}}\mathbb{E}[G_
 The above derivation uses the fact that $\mathbb{E}[G_{t + 1}|S_t = s,S_{t + 1} = s'] = \mathbb{E}[G_{t + 1}|S_{t + 1} = s'],$ which is due to the Markov property that the future rewards depend merely on the present state rather than the previous ones.  
 
 Substituting (2.5)-(2.6) into (2.4) yields 
+
 $$\begin{align}
 v_{\pi}(s)  & = \mathbb{E}[R_{t+1}|S_t = s] + \gamma \mathbb{E}[G_{t+1}|S_t = s], \\ \\
  & = \underbrace{ \sum_{a \in A} \pi(a|s)\sum_{r \in \mathcal{R}} p(r|s, a) r}_{\text{mean of immediate rewards}} + \underbrace{\gamma \sum_{a \in A} \pi(a|s) \sum_{s' \in \mathcal{S}} p(s'|s, a) v_\pi(s')}_{\text{mean of future rewards}} \\
