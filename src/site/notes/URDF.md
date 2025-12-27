@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/URDF.md","permalink":"/机器人/URDF/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:30:49.000+08:00","updated":"2025-12-25T23:03:02.715+08:00"}
+{"dg-publish":true,"dg-path":"机器人/URDF.md","permalink":"/机器人/URDF/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:30:49.000+08:00","updated":"2025-12-25T23:58:04.000+08:00"}
 ---
 
 
@@ -14,6 +14,7 @@
 
 声明信息+两种关键组件
 #### 1.1 声明信息
+
 第一部分是xml的声明信息
 第二部分是机器人的声明，通过robot标签就可以声明一个机器人模型
 
