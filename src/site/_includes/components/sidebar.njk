@@ -8,24 +8,23 @@
             {% include imp %}
         {% endfor %}
 
-        <!-- 2. Local Graph -->
+        <!-- 2. Local Graph (ALWAYS OPEN, NO COLLAPSE) -->
         {%if settings.dgShowLocalGraph === true and page.fileSlug != '网站内容索引-Index'%}
-            <div class="sidebar-section graph-section" x-data="{open: true}">
-                <div class="section-header" @click="open = !open">
+            <div class="sidebar-section graph-section">
+                <div class="section-header">
                     <span class="section-title"><i icon-name="network"></i> 关系图谱</span>
-                    <i class="section-chevron" :class="{'rotated': !open}" icon-name="chevron-down"></i>
                 </div>
-                <div class="section-content" x-show="open" x-collapse>
+                <div class="section-content">
                     {%include "components/graphScript.njk"%}
                 </div>
             </div>
         {%endif%}
 
-        <!-- 3. Table of Contents -->
+        <!-- 3. Table of Contents (COLLAPSIBLE + PERSISTENT) -->
         {%if settings.dgShowToc === true%}
             {%set tocHtml= (content and (content|toc)) %}
             {%if tocHtml %}
-                <div class="sidebar-section toc-section" x-data="{open: true}">
+                <div class="sidebar-section toc-section" x-data="{open: $persist(true).as('toc-section-open')}">
                     <div class="section-header" @click="open = !open">
                         <span class="section-title"><i icon-name="list"></i> 大纲</span>
                         <i class="section-chevron" :class="{'rotated': !open}" icon-name="chevron-down"></i>
@@ -37,7 +36,7 @@
             {%endif%}
         {%endif%}
 
-        <!-- 4. Backlinks -->
+        <!-- 4. Backlinks (COLLAPSIBLE + PERSISTENT) -->
         {%if settings.dgShowBacklinks === true %}
             {% set backlinks = [] %}
             {% if page.url == "/" %}
@@ -47,7 +46,7 @@
             {% endif %}
 
             {% if backlinks.length > 0 %}
-            <div class="sidebar-section backlinks-section" x-data="{open: true}">
+            <div class="sidebar-section backlinks-section" x-data="{open: $persist(true).as('backlinks-section-open')}">
                 <div class="section-header" @click="open = !open">
                     <span class="section-title"><i icon-name="link"></i> 反向链接</span>
                     <i class="section-chevron" :class="{'rotated': !open}" icon-name="chevron-down"></i>
@@ -131,6 +130,11 @@
         background-color: var(--background-secondary-alt);
         border-bottom: 1px solid var(--background-modifier-border);
         user-select: none;
+    }
+    
+    /* Graph Header is NOT clickable (cursor default) if no collapse logic */
+    .graph-section .section-header {
+        cursor: default;
     }
     
     .section-header:hover {
