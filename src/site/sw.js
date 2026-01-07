@@ -62,6 +62,14 @@ self.addEventListener('fetch', event => {
     return;
   }
   
+  // Bypass Service Worker for CDN libraries to avoid caching issues
+  // This is critical for local development where SW might fail to fetch/cache external resources correctly
+  if (event.request.url.includes('cdn.staticfile.org') || 
+      event.request.url.includes('unpkg.com') || 
+      event.request.url.includes('cdnjs.cloudflare.com')) {
+    return;
+  }
+  
   // 跳过POST等非GET请求
   if (event.request.method !== 'GET') {
     return;
