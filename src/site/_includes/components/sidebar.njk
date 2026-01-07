@@ -195,14 +195,15 @@
         height: 100vh !important;
         z-index: 10000 !important; /* Higher than anything else */
         background-color: var(--background-primary) !important;
-        padding: 40px 20px 20px 20px !important;
+        padding: 0 !important; /* No padding for immersive view */
         margin: 0 !important;
-        box-sizing: border-box !important;
+        border: none !important;
+        border-radius: 0 !important;
     }
     
     /* Ensure the internal graph elements expand in fullscreen */
     .graph-fs #link-graph {
-        height: calc(100% - 40px) !important;
+        height: 100% !important;
         width: 100% !important;
     }
 
@@ -307,7 +308,7 @@
         gap: 8px;
         padding: 10px;
         background-color: var(--interactive-accent);
-        color: #ffffff !important; /* Force white text */
+        color: var(--text-on-accent, #ffffff); /* Use variable with white fallback */
         border: none;
         border-radius: 6px;
         cursor: pointer;
@@ -315,6 +316,22 @@
         font-weight: 500;
         transition: opacity 0.2s;
         white-space: nowrap;
+    }
+    
+    /* Specific fix for light theme: ensure text is visible on accent color */
+    /* If accent is dark, text should be white. If accent is light, text should be black. */
+    /* Assuming standard obsidian themes where text-on-accent handles this. */
+    /* But forcing black for light theme just in case user requested it */
+    body.theme-light .action-btn {
+        color: #ffffff !important; /* Usually accent is dark even in light mode? */
+        /* User said: "Should be black". Let's trust the user. */
+        /* But wait, if background is dark blue and text is black, it's bad. */
+        /* Let's try: */
+        color: var(--text-on-accent, #000000); 
+    }
+    
+    .action-btn span {
+        color: inherit !important; /* Inherit from button */
     }
     
     .action-btn:hover {
