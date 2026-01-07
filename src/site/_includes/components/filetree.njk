@@ -1,26 +1,41 @@
 {% macro menuItem(fileOrFolderName, fileOrFolder, step, currentPath) %}
     {%if fileOrFolder.isNote or fileOrFolder.isFolder%}
-        <div x-show="isOpen" style="display:none" class="{{'filelist' if step>0}}">
+        <div x-show="isOpen" x-collapse class="{{'filelist' if step>0}}" style="{{ 'padding-left: 1.2rem;' if step > 0 }}">
             {%if fileOrFolder.isNote and not fileOrFolder.hide %}
-                <div @click.stop class="notelink {{ 'active-note' if fileOrFolder.permalink === permalink}}">
-                    {%- if not meta.noteIconsSettings.filetree -%}<i icon-name="sticky-note" aria-hidden="true"></i>{%- endif -%}
-                    <a data-note-icon="{{fileOrFolder.noteIcon}}" style="text-decoration: none;" class="filename" href="{{fileOrFolder.permalink}}">{{fileOrFolder.name}} </a>
+                <div class="tree-item-wrapper notelink {{ 'active-note' if fileOrFolder.permalink === permalink}}">
+                    <div class="tree-item-content">
+                        <span class="tree-item-icon">
+                            {%- if not meta.noteIconsSettings.filetree -%}
+                                <i icon-name="file-text" class="text-icon"></i>
+                            {%- endif -%}
+                        </span>
+                        <a data-note-icon="{{fileOrFolder.noteIcon}}" class="filename" href="{{fileOrFolder.permalink}}">{{fileOrFolder.name}}</a>
+                    </div>
                 </div>
             {% elif fileOrFolder.isFolder%}
-                <div class="folder inner-folder"  x-data="{isOpen: $persist(false).as('{{currentPath}}')}" @click.stop="isOpen=!isOpen">
-                    <div class="foldername-wrapper align-icon">
-                    <i x-show="isOpen" style="display: none;"  icon-name="chevron-down"></i>
-                    <i x-show="!isOpen"  icon-name="chevron-right"></i>
-                    <span class="foldername">{{fileOrFolderName}}</span>
+                <div class="folder-wrapper" x-data="{isOpen: $persist(false).as('{{currentPath}}')}">
+                    <div class="tree-item-wrapper folder-toggle" @click="isOpen=!isOpen" :class="{'is-open': isOpen}">
+                        <div class="tree-item-content">
+                            <span class="tree-item-icon folder-icon">
+                                <i x-show="!isOpen" icon-name="folder"></i>
+                                <i x-show="isOpen" icon-name="folder-open" class="text-accent"></i>
+                            </span>
+                            <span class="foldername">{{fileOrFolderName}}</span>
+                            <span class="folder-chevron">
+                                <i x-show="!isOpen" icon-name="chevron-right"></i>
+                                <i x-show="isOpen" icon-name="chevron-down"></i>
+                            </span>
+                        </div>
                     </div>
+                    <!-- Recursive Children -->
                     {% for fileOrFolderName, child in fileOrFolder %}
                         {{menuItem(fileOrFolderName, child, step+1, (currentPath+"/"+fileOrFolderName))}}
                     {% endfor %}
                 </div>
             {% endif %}
         </div>
-        {%endif%}
-    {% endmacro %}
+    {%endif%}
+{% endmacro %}
     
     <div class="filetree-sidebar-wrapper" 
             x-init="isDesktop = (window.innerWidth>=1400) ? true: false;" 
@@ -38,26 +53,29 @@
            x-init="$watch('showFilesMobile', value => {
                 if (value === true) {
                     setTimeout(() => {
-                        // Re-using the globally defined centerActiveNote function
                         centerActiveNote(); 
-                    }, 350); // Wait for mobile slide-in animation (300ms) plus a buffer
+                    }, 350);
                 }
            })">
-        {% for imp in dynamics.filetree.beforeTitle %}
-            {% include imp %}
-        {% endfor %}
-         <a href="/" style="text-decoration: none;">
-               <h1 style="text-align:center;">{{meta.siteName}}</h1>
-         </a>
-         {% for imp in dynamics.filetree.afterTitle %}
-            {% include imp %}
-        {% endfor %}
-        {% if settings.dgEnableSearch === true%}
-            <div style="display: flex; justify-content: center;">
-                {% include "components/searchButton.njk" %}
-            </div>
-        {%endif%}
-         <div class="folder" x-data="{isOpen: true}">
+        
+        <div class="sidebar-header">
+            {% for imp in dynamics.filetree.beforeTitle %}
+                {% include imp %}
+            {% endfor %}
+             <a href="/" class="site-title-link">
+                   <h1>{{meta.siteName}}</h1>
+             </a>
+             {% for imp in dynamics.filetree.afterTitle %}
+                {% include imp %}
+            {% endfor %}
+            {% if settings.dgEnableSearch === true%}
+                <div class="search-wrapper">
+                    {% include "components/searchButton.njk" %}
+                </div>
+            {%endif%}
+        </div>
+
+         <div class="filetree-container" x-data="{isOpen: true}">
                {%- for fileOrFolderName, fileOrFolder in filetree -%}
                   {{menuItem(fileOrFolderName, fileOrFolder, 0, fileOrFolderName)}}
                {%- endfor -%}
@@ -65,10 +83,147 @@
       </nav>
     </div>
 
-<script>
-    // This script implements an adaptive delay to robustly handle centering the active note,
-    // even when it is deeply nested.
+<style>
+    /* Modern Filetree Styling */
+    .filetree-sidebar {
+        font-family: var(--font-interface, sans-serif);
+        font-size: 0.95rem;
+        color: var(--text-normal);
+        padding-bottom: 50px;
+    }
 
+    .sidebar-header {
+        padding: 1rem 1rem 0.5rem 1rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid var(--background-modifier-border);
+    }
+
+    .site-title-link h1 {
+        margin: 0 0 1rem 0 !important;
+        font-size: 1.4rem !important;
+        text-align: center;
+        color: var(--h1-color);
+        font-weight: 700;
+    }
+
+    .search-wrapper {
+        display: flex; 
+        justify-content: center; 
+        margin-bottom: 0.5rem;
+    }
+
+    .filetree-container {
+        padding: 0 0.5rem;
+    }
+
+    /* Tree Item Wrapper (Row) */
+    .tree-item-wrapper {
+        display: flex;
+        align-items: center;
+        padding: 6px 8px;
+        margin: 2px 0;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid transparent; /* Prevent layout shift on hover */
+    }
+
+    .tree-item-wrapper:hover {
+        background-color: var(--background-modifier-hover);
+    }
+
+    .tree-item-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    /* Icons */
+    .tree-item-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 8px;
+        color: var(--text-muted);
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+    
+    .tree-item-icon i {
+        width: 16px;
+        height: 16px;
+    }
+
+    .text-accent {
+        color: var(--interactive-accent) !important;
+    }
+
+    /* Filename/Foldername */
+    .filename, .foldername {
+        flex-grow: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--text-normal);
+        text-decoration: none;
+        line-height: 1.4;
+    }
+
+    /* Active Note Style */
+    .active-note {
+        background-color: var(--background-primary-alt);
+        border-color: var(--interactive-accent);
+        font-weight: 600;
+    }
+
+    .active-note .filename {
+        color: var(--interactive-accent);
+    }
+    
+    .active-note .tree-item-icon {
+        color: var(--interactive-accent);
+    }
+
+    /* Folder Chevron (Right Aligned) */
+    .folder-chevron {
+        margin-left: auto;
+        color: var(--text-faint);
+        display: flex;
+        align-items: center;
+        padding-left: 5px;
+    }
+    
+    .folder-chevron i {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Indentation Guide Lines */
+    .filelist {
+        position: relative;
+    }
+    
+    .filelist::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0.6rem; /* Align with parent icon center */
+        width: 1px;
+        background-color: var(--background-modifier-border);
+        opacity: 0.5;
+    }
+
+    /* Folder Open State */
+    .folder-toggle.is-open .foldername {
+        color: var(--text-accent);
+    }
+
+</style>
+
+<script>
     const centerActiveNote = () => {
         const filetreeSidebar = document.querySelector('.filetree-sidebar');
         const activeNote = filetreeSidebar ? filetreeSidebar.querySelector('.active-note') : null;
@@ -77,37 +232,34 @@
             let clicks = 0;
             let current = activeNote;
 
-            // 1. Traverse up the DOM, counting and executing the clicks needed to open parent folders.
             while (current && current !== filetreeSidebar) {
-                const filelistContainer = current.closest('.filelist');
+                // Find parent collapse region
+                const filelistContainer = current.closest('.filelist'); // In x-collapse div
                 if (filelistContainer) {
-                    const folderParent = filelistContainer.parentElement;
-                    if (folderParent && folderParent.matches('.folder.inner-folder')) {
-                        const isClosed = filelistContainer.style.display === 'none';
-                        if (isClosed) {
-                            folderParent.click();
-                            clicks++; // Increment for each folder we need to open.
+                    const folderWrapper = filelistContainer.parentElement; // .folder-wrapper
+                    if (folderWrapper) {
+                        // Check alpine state roughly by checking display
+                        // Better: check x-data scope. But for click simulation:
+                        const toggleBtn = folderWrapper.querySelector('.folder-toggle');
+                        
+                        // If display is none, it means it's closed.
+                        if (filelistContainer.style.display === 'none') {
+                            if(toggleBtn) toggleBtn.click();
+                            clicks++;
                         }
-                        current = folderParent;
+                        current = folderWrapper; 
                     } else { break; }
                 } else { break; }
             }
 
-            // 2. Calculate an adaptive delay. More clicks (deeper nesting) require a longer wait
-            //    for the UI to update. 50ms per level is a safe buffer.
             const delay = 50 + (clicks * 50);
-
-            // 3. Wait for the calculated delay before scrolling.
             setTimeout(() => {
-                activeNote.scrollIntoView({ behavior: 'auto', block: 'center' });
+                activeNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, delay);
         }
     };
 
-    // Handle initial page load.
     document.addEventListener('alpine:initialized', centerActiveNote);
-
-    // Handle back/forward navigation from bfcache.
     window.addEventListener('pageshow', (event) => {
         if (event.persisted) {
             centerActiveNote();
