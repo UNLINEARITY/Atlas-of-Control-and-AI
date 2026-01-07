@@ -307,46 +307,26 @@
         justify-content: center;
         gap: 8px;
         padding: 10px;
-        background-color: var(--interactive-accent);
-        color: var(--text-on-accent, #ffffff); /* Use variable with white fallback */
+        background-color: #006f8b !important; /* Force a dark background */
+        color: #ffffff !important; /* Force white text */
         border: none;
         border-radius: 6px;
         cursor: pointer;
         font-size: 0.95em;
-        font-weight: 500;
+        font-weight: 600;
         transition: opacity 0.2s;
         white-space: nowrap;
     }
     
-    /* Specific fix for light theme: ensure text is visible on accent color */
-    /* If accent is dark, text should be white. If accent is light, text should be black. */
-    /* Assuming standard obsidian themes where text-on-accent handles this. */
-    /* But forcing black for light theme just in case user requested it */
-    body.theme-light .action-btn {
-        color: #ffffff !important; /* Usually accent is dark even in light mode? */
-        /* User said: "Should be black". Let's trust the user. */
-        /* But wait, if background is dark blue and text is black, it's bad. */
-        /* Let's try: */
-        color: var(--text-on-accent, #000000); 
-    }
-    
-    .action-btn span {
-        color: inherit !important; /* Inherit from button */
+    .action-btn span, .action-btn i {
+        color: #ffffff !important;
     }
     
     .action-btn:hover {
         opacity: 0.9;
     }
     
-    .action-btn i {
-        width: 16px;
-        height: 16px;
-    }
-    
-    /* Hide install button by default */
-    #install-pwa-button {
-        display: none;
-    }
+    #install-pwa-button { display: none; }
 
 </style>
 
