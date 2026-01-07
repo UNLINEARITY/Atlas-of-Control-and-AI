@@ -95,6 +95,7 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
         {% include imp %}
       {% endfor %}
       {{ content | hideDataview | taggify | link | safe}}
+      {% include "components/like-button.njk" %}
       {% for imp in dynamics.common.afterContent %}
         {% include imp %}
       {% endfor %}

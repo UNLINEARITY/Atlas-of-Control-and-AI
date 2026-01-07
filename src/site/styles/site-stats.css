@@ -1,6 +1,6 @@
 .site-stats {
     display: flex;
-    gap: 2em;
+    gap: 1em;
     margin: 2em 0 1em 0;
     justify-content: center;
     flex-wrap: wrap;
@@ -9,7 +9,7 @@
 
 .stat-card {
     text-align: center;
-    min-width: 110px;
+    min-width: 100px;
     padding: 1em 1.2em;
     background-color: var(--background-secondary, #f8fafc);
     border-radius: 1em;

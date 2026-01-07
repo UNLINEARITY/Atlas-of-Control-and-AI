@@ -102,16 +102,25 @@
             linksByPair[pairKey].push(link);
         });
         Object.values(linksByPair).forEach(linksInPair => {
-            if (linksInPair.length === 2) {
+            if (linksInPair.length > 1) {
+                // If we have multiple links between two nodes (e.g. A->B and B->A)
+                // We want them to separate.
+                
+                // Check if they are in the same direction or opposite
                 const link1 = linksInPair[0];
                 const link2 = linksInPair[1];
-                const source1 = typeof link1.source === 'object' ? link1.source.id : link1.source;
-                const target1 = typeof link1.target === 'object' ? link1.target.id : link1.target;
-                if (source1 < target1) {
+                
+                const l1Source = typeof link1.source === 'object' ? link1.source.id : link1.source;
+                const l2Source = typeof link2.source === 'object' ? link2.source.id : link2.source;
+                
+                if (l1Source === l2Source) {
+                     // Same direction (A->B and A->B): Use opposite curvatures to separate
                     link1.curvature = linkCurvature;
                     link2.curvature = -linkCurvature;
                 } else {
-                    link1.curvature = -linkCurvature;
+                    // Opposite direction (A->B and B->A): Use SAME curvature 
+                    // Because "Right" for A->B is physically opposite to "Right" for B->A
+                    link1.curvature = linkCurvature;
                     link2.curvature = linkCurvature;
                 }
             } else {
@@ -314,7 +323,7 @@
 <div @toggle-graph-fullscreen.window="fullScreen = !fullScreen" x-init="{graphData, fullGraphData} = await fetchGraphData();" x-data="{ graphData: null, depth: 1, graph: null, fullGraph: null, showFullGraph: false, fullScreen: false, fullGraphData: null}" id="graph-component" x-bind:class="fullScreen ? 'graph graph-fs' : 'graph'" x-effect="const sidebar = $el.closest('.sidebar'); if (sidebar) { fullScreen ? sidebar.classList.add('on-top') : sidebar.classList.remove('on-top') }; fullScreen ? document.body.classList.add('has-fullscreen-graph') : document.body.classList.remove('has-fullscreen-graph');" v-scope>
     <div class="graph-title-container">
         <div class="graph-title">关系图谱 Graph</div>
-        <div id="graph-controls">
+        <div id="graph-controls" style="justify-content: flex-start; gap: 10px;">
                 <div class="depth-control">
                     <label for="graph-depth">Depth</label>
                     <div class="slider">
@@ -327,7 +336,7 @@
                     </div>
                     <span id="depth-display" x-text="depth"></span>
                 </div>
-                <div class="ctrl-right">
+                <div class="ctrl-right" style="display: flex; gap: 8px;">
                     <span id="global-graph-btn" x-on:click="showFullGraph = true; fullScreen = true; setTimeout(() => {fullGraph = openFullGraph(fullGraphData)}, 100)"><i  icon-name="globe" aria-hidden="true"></i></span>
                     <span  id="graph-fs-btn"  x-on:click="fullScreen = !fullScreen"><i  icon-name="expand" aria-hidden="true"></i></span>
                 </div>
