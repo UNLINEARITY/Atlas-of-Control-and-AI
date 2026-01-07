@@ -195,4 +195,4 @@ npm start
 
 > ***Greatness often originates from small thoughts***
 
-
+[![Star History Chart](https://api.star-history.com/svg?repos=UNLINEARITY/Atlas-of-Control-and-AI&type=date&legend=bottom-right)](https://www.star-history.com/#UNLINEARITY/Atlas-of-Control-and-AI&type=date&legend=bottom-right)
