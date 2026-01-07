@@ -160,6 +160,28 @@
                         }
                     }
 
+                    // --- Calculate Curvature ---
+                    const linksByPair = {};
+                    links.forEach(link => {
+                        const pairKey = [link.source, link.target].sort().join('-');
+                        if (!linksByPair[pairKey]) linksByPair[pairKey] = [];
+                        linksByPair[pairKey].push(link);
+                    });
+                    Object.values(linksByPair).forEach(linksInPair => {
+                        if (linksInPair.length > 1) {
+                             linksInPair.forEach((link, i) => {
+                                link.curvature = 0.3;
+                                link.rotation = i * Math.PI;
+                             });
+                        } else {
+                            linksInPair.forEach(l => {
+                                l.curvature = 0;
+                                l.rotation = 0;
+                            });
+                        }
+                    });
+                    // ---------------------------
+
                     const graphData = { nodes, links };
 
                     const Graph = ForceGraph3D()(graphContainer)
@@ -168,6 +190,8 @@
                         .nodeAutoColorBy('group')
                         .nodeLabel('name')
                         .linkWidth(0.5)
+                        .linkCurvature(d => d.curvature) // Enable curvature
+                        .linkCurveRotation(d => d.rotation) // Enable rotation
                         .linkDirectionalParticles(1)
                         .linkDirectionalParticleWidth(1.2)
                         .linkDirectionalParticleSpeed(0.006)

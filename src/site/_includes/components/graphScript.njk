@@ -102,16 +102,25 @@
             linksByPair[pairKey].push(link);
         });
         Object.values(linksByPair).forEach(linksInPair => {
-            if (linksInPair.length === 2) {
+            if (linksInPair.length > 1) {
+                // If we have multiple links between two nodes (e.g. A->B and B->A)
+                // We want them to separate.
+                
+                // Check if they are in the same direction or opposite
                 const link1 = linksInPair[0];
                 const link2 = linksInPair[1];
-                const source1 = typeof link1.source === 'object' ? link1.source.id : link1.source;
-                const target1 = typeof link1.target === 'object' ? link1.target.id : link1.target;
-                if (source1 < target1) {
+                
+                const l1Source = typeof link1.source === 'object' ? link1.source.id : link1.source;
+                const l2Source = typeof link2.source === 'object' ? link2.source.id : link2.source;
+                
+                if (l1Source === l2Source) {
+                     // Same direction (A->B and A->B): Use opposite curvatures to separate
                     link1.curvature = linkCurvature;
                     link2.curvature = -linkCurvature;
                 } else {
-                    link1.curvature = -linkCurvature;
+                    // Opposite direction (A->B and B->A): Use SAME curvature 
+                    // Because "Right" for A->B is physically opposite to "Right" for B->A
+                    link1.curvature = linkCurvature;
                     link2.curvature = linkCurvature;
                 }
             } else {
