@@ -31,6 +31,35 @@ body.theme-light {
 body {
   --graph-main: var(--text-accent-hover);
   --graph-muted: rgba(126, 126, 126, 0.5);
+  --sidebar-width: 300px; /* Left sidebar width */
+  --right-sidebar-width: 320px; /* Right sidebar width */
+}
+
+/* Resizer Handle */
+.sidebar-resizer {
+    width: 5px;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    cursor: col-resize;
+    z-index: 100;
+    transition: background 0.2s;
+    
+    &:hover, &.resizing {
+        background: var(--interactive-accent);
+        opacity: 0.5;
+    }
+}
+
+/* Specific position for left sidebar resizer */
+#sidebar-resizer {
+    right: 0;
+}
+
+/* Specific position for right sidebar resizer */
+#right-sidebar-resizer {
+    left: 0; /* Left edge of the right sidebar */
 }
 
 h1 {
@@ -924,7 +953,18 @@ body.has-fullscreen-graph #floating-control {
     padding-bottom: 0px;
   }
 
-  .filetree-sidebar-wrapper,
+  .filetree-sidebar-wrapper {
+    position: sticky !important;
+    top: 70px !important;
+    height: calc(100vh - 80px) !important;
+    flex-shrink: 0;
+    z-index: 1 !important;
+    align-self: flex-start;
+    width: var(--sidebar-width) !important; 
+    min-width: 200px; 
+    max-width: 600px; 
+  }
+
   .sidebar-wrapper {
     position: sticky !important;
     top: 70px !important;
@@ -932,6 +972,9 @@ body.has-fullscreen-graph #floating-control {
     flex-shrink: 0;
     z-index: 1 !important;
     align-self: flex-start;
+    width: var(--right-sidebar-width) !important; /* Right sidebar variable */
+    min-width: 240px; 
+    max-width: 600px; 
   }
 
   nav.filetree-sidebar,

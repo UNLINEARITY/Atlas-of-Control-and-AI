@@ -1,128 +1,419 @@
 <aside class="sidebar-wrapper">
-      <div class="sidebar">
-            <div class="sidebar-container">
-                  {% for imp in dynamics.sidebar.top %}
-                        {% include imp %}
-                  {% endfor %}
-                  {%if settings.dgShowLocalGraph === true and page.fileSlug != '网站内容索引-Index'%}
-                        {%include "components/graphScript.njk"%}
-                  {%endif%}
+    <!-- Resizer Handle (Left edge of right sidebar) -->
+    <div class="sidebar-resizer" id="right-sidebar-resizer"></div>
 
-                  {%if settings.dgShowToc === true%}
-                        {%set tocHtml= (content and (content|toc)) %}
-                        {%if tocHtml %}
-                              <div class="toc">
-                                    <div class="toc-title-container">
-                                          <div class="toc-title">
-                                                大纲 OutLine
-                                          </div>
-                                    </div>
-                                    <div class="toc-container">
-                                          {{ tocHtml | safe }}
-                                    </div>
-                              </div>
-                        {%endif%}
+    <div class="sidebar-content">
+        <!-- 1. Top Dynamics -->
+        {% for imp in dynamics.sidebar.top %}
+            {% include imp %}
+        {% endfor %}
 
-                  {%endif%}
-
-                        {%if settings.dgShowBacklinks === true %}
-                              {%if settings.dgShowBacklinks === true %}
-                              <div class="backlinks">
-                                    <div class="backlink-title" style="margin: 4px 0 !important;">反向链接 Backlink</div>
-                                          <div class="backlink-list">
-                                          {%- if page.url == "/" -%}
-                                                {%- if graph.nodes[graph.homeAlias].backLinks.length === 0 -%}
-                                                      <div class="backlink-card">
-                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
-                                                      </div>
-                                                {%- endif -%}
-                                          {%- for backlink in graph.nodes[graph.homeAlias].backLinks -%}
-                                                {%- if graph.nodes[backlink].url != graph.homeAlias -%}
-                                                <div class="backlink-card">
-                                                      {%- if not meta.noteIconsSettings.backlinks -%}<i  icon-name="link"></i> {%- endif -%}<a href="{{graph.nodes[backlink].url}}" data-note-icon="{{graph.nodes[backlink].noteIcon}}" class="backlink">{{graph.nodes[backlink].title}}</a>
-                                                </div>
-                                                {%- endif -%}
-                                          {%- endfor -%}
-                                          {%- else -%}
-                                                {%- if graph.nodes[page.url].backLinks.length === 0 -%}
-                                                      <div class="backlink-card">
-                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
-                                                      </div>
-                                                {%- endif -%}
-                                          {%- for backlink in graph.nodes[page.url].backLinks -%}
-                                                {%- if graph.nodes[backlink].url != page.url -%}
-                                                <div class="backlink-card">
-                                                      {%- if not meta.noteIconsSettings.backlinks -%}<i  icon-name="link"></i> {%- endif -%}<a href="{{graph.nodes[backlink].url}}" data-note-icon="{{graph.nodes[backlink].noteIcon}}" class="backlink">{{graph.nodes[backlink].title}}</a>
-                                                </div>
-                                                {%- endif -%}
-                                          {%- endfor -%}
-                                    {%- endif -%}
-                                    </div>
-                              </div>
-                        {%endif%}
-                  {%endif%}
-                  {% for imp in dynamics.sidebar.bottom %}
-                        {% include imp %}
-                  {% endfor %}
-                  <div id="pwa-actions-container" style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-                        <button id="install-pwa-button" class="install-pwa-button">安装</button>
-                        <button id="refresh-cache-button" class="install-pwa-button">刷新</button>
-                  </div>
+        <!-- 2. Local Graph -->
+        {%if settings.dgShowLocalGraph === true and page.fileSlug != '网站内容索引-Index'%}
+            <div class="sidebar-section graph-section" x-data="{open: true}">
+                <div class="section-header" @click="open = !open">
+                    <span class="section-title"><i icon-name="network"></i> 关系图谱</span>
+                    <i class="section-chevron" :class="{'rotated': !open}" icon-name="chevron-down"></i>
+                </div>
+                <div class="section-content" x-show="open" x-collapse>
+                    {%include "components/graphScript.njk"%}
+                </div>
             </div>
-      </div>
-</aside>
-<script>
-    let installPromptEvent;
+        {%endif%}
 
-    // Listen for the custom event dispatched from pageheader.njk
+        <!-- 3. Table of Contents -->
+        {%if settings.dgShowToc === true%}
+            {%set tocHtml= (content and (content|toc)) %}
+            {%if tocHtml %}
+                <div class="sidebar-section toc-section" x-data="{open: true}">
+                    <div class="section-header" @click="open = !open">
+                        <span class="section-title"><i icon-name="list"></i> 大纲</span>
+                        <i class="section-chevron" :class="{'rotated': !open}" icon-name="chevron-down"></i>
+                    </div>
+                    <div class="section-content toc-container" x-show="open" x-collapse>
+                        {{ tocHtml | safe }}
+                    </div>
+                </div>
+            {%endif%}
+        {%endif%}
+
+        <!-- 4. Backlinks -->
+        {%if settings.dgShowBacklinks === true %}
+            <div class="sidebar-section backlinks-section" x-data="{open: true}">
+                <div class="section-header" @click="open = !open">
+                    <span class="section-title"><i icon-name="link"></i> 反向链接</span>
+                    <i class="section-chevron" :class="{'rotated': !open}" icon-name="chevron-down"></i>
+                </div>
+                <div class="section-content" x-show="open" x-collapse>
+                    <div class="backlink-list">
+                        {%- if page.url == "/" -%}
+                            {%- if graph.nodes[graph.homeAlias].backLinks.length === 0 -%}
+                                <div class="empty-state">暂无反向链接</div>
+                            {%- endif -%}
+                            {%- for backlink in graph.nodes[graph.homeAlias].backLinks -%}
+                                {%- if graph.nodes[backlink].url != graph.homeAlias -%}
+                                    <a href="{{graph.nodes[backlink].url}}" class="backlink-item">
+                                        <i icon-name="file-text"></i>
+                                        <span>{{graph.nodes[backlink].title}}</span>
+                                    </a>
+                                {%- endif -%}
+                            {%- endfor -%}
+                        {%- else -%}
+                            {%- if graph.nodes[page.url].backLinks.length === 0 -%}
+                                <div class="empty-state">暂无反向链接</div>
+                            {%- endif -%}
+                            {%- for backlink in graph.nodes[page.url].backLinks -%}
+                                {%- if graph.nodes[backlink].url != page.url -%}
+                                    <a href="{{graph.nodes[backlink].url}}" class="backlink-item">
+                                        <i icon-name="file-text"></i>
+                                        <span>{{graph.nodes[backlink].title}}</span>
+                                    </a>
+                                {%- endif -%}
+                            {%- endfor -%}
+                        {%- endif -%}
+                    </div>
+                </div>
+            </div>
+        {%endif%}
+
+        <!-- 5. Bottom Dynamics & Controls -->
+        {% for imp in dynamics.sidebar.bottom %}
+            {% include imp %}
+        {% endfor %}
+        
+        <div class="sidebar-section controls-section">
+            <div id="pwa-actions-container">
+                <button id="install-pwa-button" class="action-btn" title="安装应用">
+                    <i icon-name="download"></i> <span>安装</span>
+                </button>
+                <button id="refresh-cache-button" class="action-btn" title="刷新缓存">
+                    <i icon-name="refresh-cw"></i> <span>刷新</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<style>
+    /* Modern Sidebar Styling */
+    .sidebar-wrapper {
+        padding: 0;
+        background-color: var(--background-secondary);
+        border-left: 1px solid var(--background-modifier-border);
+        overflow: hidden; /* Hide scrollbar of wrapper */
+    }
+
+    .sidebar-content {
+        height: 100%;
+        overflow-y: auto; /* Scroll inside content */
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        /* Ensure content takes full width */
+        width: 100%; 
+        box-sizing: border-box;
+    }
+
+    /* Section Styling */
+    .sidebar-section {
+        background: var(--background-primary);
+        border-radius: 8px;
+        border: 1px solid var(--background-modifier-border);
+        overflow: hidden;
+        transition: box-shadow 0.2s ease;
+        flex-shrink: 0; /* Prevent shrinking */
+    }
+    
+    .sidebar-section:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+        cursor: pointer;
+        background-color: var(--background-secondary-alt);
+        border-bottom: 1px solid var(--background-modifier-border);
+        user-select: none;
+    }
+    
+    .section-header:hover {
+        background-color: var(--background-modifier-hover);
+    }
+
+    .section-title {
+        font-weight: 600;
+        font-size: 0.9em;
+        color: var(--text-normal);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .section-title i {
+        width: 14px;
+        height: 14px;
+        color: var(--text-muted);
+    }
+
+    .section-chevron {
+        width: 14px;
+        height: 14px;
+        color: var(--text-faint);
+        transition: transform 0.2s ease;
+    }
+    
+    .section-chevron.rotated {
+        transform: rotate(-90deg);
+    }
+
+    .section-content {
+        padding: 10px;
+    }
+
+    /* Graph Section Override */
+    .graph-section .section-content {
+        padding: 0; 
+        height: 300px; /* Base height */
+        min-height: 300px; /* Enforce min height */
+        overflow: hidden;
+        display: flex; 
+        flex-direction: column;
+    }
+    
+    /* Ensure the graph component inside fills the space */
+    .graph-section #graph-component,
+    .graph-section #link-graph {
+        width: 100% !important;
+        height: 100% !important;
+        flex-grow: 1;
+        display: block;
+    }
+    
+    /* TOC Styling */
+    .toc-container ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .toc-container li {
+        margin-bottom: 4px;
+    }
+    
+    .toc-container a {
+        display: block;
+        padding: 4px 8px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.9em;
+        border-radius: 4px;
+        transition: all 0.2s;
+        border-left: 2px solid transparent;
+        line-height: 1.4;
+        word-break: break-word; /* Wrap long text */
+    }
+    
+    .toc-container a:hover {
+        color: var(--text-normal);
+        background-color: var(--background-modifier-hover);
+        border-left-color: var(--interactive-accent);
+    }
+
+    /* Backlinks Styling */
+    .backlink-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .backlink-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        background-color: var(--background-secondary);
+        border-radius: 6px;
+        text-decoration: none;
+        color: var(--text-normal);
+        font-size: 0.9em;
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: 1px solid transparent;
+        line-height: 1.4;
+    }
+    
+    .backlink-item:hover {
+        transform: translateX(2px);
+        border-color: var(--interactive-accent);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .backlink-item i {
+        width: 14px;
+        height: 14px;
+        color: var(--text-muted);
+        flex-shrink: 0;
+    }
+    
+    .empty-state {
+        color: var(--text-faint);
+        font-style: italic;
+        font-size: 0.85em;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    /* Controls Styling */
+    .controls-section {
+        background: transparent;
+        border: none;
+        box-shadow: none !important;
+        margin-top: auto; /* Push to bottom if space allows */
+    }
+    
+    #pwa-actions-container {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    .action-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px;
+        background-color: var(--interactive-accent);
+        color: #ffffff; /* Force white text */
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.95em;
+        font-weight: 500;
+        transition: opacity 0.2s;
+        white-space: nowrap;
+    }
+    
+    .action-btn:hover {
+        opacity: 0.9;
+    }
+    
+    .action-btn i {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* Hide install button by default */
+    #install-pwa-button {
+        display: none;
+    }
+
+</style>
+
+<script>
+    // --- Right Sidebar Resizing Logic ---
+    (function() {
+        // Wait for Alpine to be ready to ensure DOM stability
+        document.addEventListener('alpine:initialized', () => {
+            if (window.lucide) window.lucide.createIcons();
+            
+            setTimeout(() => {
+                const resizer = document.getElementById('right-sidebar-resizer');
+                const wrapper = document.querySelector('.sidebar-wrapper');
+                
+                if (!resizer || !wrapper) return;
+
+                let isResizing = false;
+                let startX, startWidth;
+
+                resizer.addEventListener('mousedown', (e) => {
+                    isResizing = true;
+                    startX = e.clientX;
+                    startWidth = wrapper.getBoundingClientRect().width;
+                    
+                    resizer.classList.add('resizing');
+                    document.body.style.cursor = 'col-resize';
+                    document.body.style.userSelect = 'none';
+                    e.preventDefault(); 
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isResizing) return;
+                    
+                    // For right sidebar, moving LEFT increases width
+                    const dx = startX - e.clientX; 
+                    let newWidth = startWidth + dx;
+                    
+                    // Constrain width
+                    if (newWidth < 240) newWidth = 240;
+                    if (newWidth > 600) newWidth = 600;
+
+                    wrapper.style.width = `${newWidth}px`; 
+                    document.body.style.setProperty('--right-sidebar-width', `${newWidth}px`);
+                });
+
+                document.addEventListener('mouseup', () => {
+                    if (isResizing) {
+                        isResizing = false;
+                        resizer.classList.remove('resizing');
+                        document.body.style.cursor = '';
+                        document.body.style.userSelect = '';
+                        
+                        localStorage.setItem('rightSidebarWidth', wrapper.style.width);
+                        
+                        // Trigger graph resize if graph exists
+                        window.dispatchEvent(new Event('resize'));
+                    }
+                });
+
+                // Restore
+                const savedWidth = localStorage.getItem('rightSidebarWidth');
+                if (savedWidth) {
+                    wrapper.style.width = savedWidth;
+                    document.body.style.setProperty('--right-sidebar-width', savedWidth);
+                }
+            }, 500); 
+        });
+    })();
+
+    // PWA & Cache Logic (Preserved)
+    let installPromptEvent;
     window.addEventListener('pwa_prompt_available', (e) => {
         installPromptEvent = e.detail;
         const installButton = document.getElementById('install-pwa-button');
         if (installButton) {
-            installButton.style.display = 'block'; // Show install button when prompt is available
+            installButton.style.display = 'flex'; 
         }
     });
 
-    // PWA Install Button Logic (no longer creating, just handling clicks)
     document.addEventListener('DOMContentLoaded', () => {
         const installButton = document.getElementById('install-pwa-button');
         if (installButton) {
             installButton.addEventListener('click', () => {
-                installButton.style.display = 'none'; // Hide button after click
                 if (installPromptEvent) {
                     installPromptEvent.prompt();
                     installPromptEvent.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('User accepted the PWA install prompt');
-                        } else {
-                            console.log('User dismissed the PWA install prompt');
-                        }
                         installPromptEvent = null;
+                        installButton.style.display = 'none';
                     });
                 }
             });
         }
-    });
 
-
-    // Refresh Cache Button Logic
-    document.addEventListener('DOMContentLoaded', () => {
         const refreshButton = document.getElementById('refresh-cache-button');
         if (refreshButton) {
             refreshButton.addEventListener('click', () => {
                 if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-                    console.log('Client: Requesting cache clear and reload from Service Worker.');
-                    // Display a temporary message to the user
-                    refreshButton.textContent = '正在刷新...';
+                    refreshButton.innerHTML = '<i icon-name="loader"></i> <span>刷新中...</span>';
+                    if(window.lucide) window.lucide.createIcons();
                     refreshButton.disabled = true;
-
-                    navigator.serviceWorker.controller.postMessage({
-                        type: 'CLEAR_CACHE_AND_RELOAD'
-                    });
-                    // Service Worker will handle the reload
+                    navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE_AND_RELOAD' });
                 } else {
-                    alert('Service Worker 不可用或未激活。请尝试手动刷新页面。');
-                    location.reload(true); // Force reload if SW not active
+                    location.reload(true);
                 }
             });
         }
