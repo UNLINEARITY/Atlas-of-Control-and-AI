@@ -81,6 +81,9 @@
                {%- endfor -%}
          </div>
       </nav>
+      
+      <!-- Resizer Handle -->
+      <div class="sidebar-resizer" id="sidebar-resizer"></div>
     </div>
 
 <style>
@@ -90,30 +93,19 @@
         font-size: 0.95rem;
         color: var(--text-normal);
         padding-bottom: 50px;
-    }
-
-    .sidebar-header {
-        padding: 1rem 1rem 0.5rem 1rem;
-        margin-bottom: 0.5rem;
-        border-bottom: 1px solid var(--background-modifier-border);
-    }
-
-    .site-title-link h1 {
-        margin: 0 0 1rem 0 !important;
-        font-size: 1.4rem !important;
-        text-align: center;
-        color: var(--h1-color);
-        font-weight: 700;
-    }
-
-    .search-wrapper {
-        display: flex; 
-        justify-content: center; 
-        margin-bottom: 0.5rem;
+        width: 100% !important; /* Ensure it fills wrapper */
+        box-sizing: border-box;
     }
 
     .filetree-container {
         padding: 0 0.5rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .filelist {
+        width: 100%;
+        box-sizing: border-box;
     }
 
     /* Tree Item Wrapper (Row) */
@@ -125,7 +117,9 @@
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.2s ease;
-        border: 1px solid transparent; /* Prevent layout shift on hover */
+        border: 1px solid transparent; 
+        width: 100%; /* Fill container */
+        box-sizing: border-box;
     }
 
     .tree-item-wrapper:hover {
@@ -221,6 +215,25 @@
         color: var(--text-accent);
     }
 
+    /* Force Resizer Style locally to ensure it works */
+    #sidebar-resizer {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 8px; /* Easier to grab */
+        height: 100%;
+        cursor: col-resize;
+        z-index: 999;
+        background: transparent;
+        transition: background 0.2s;
+    }
+    
+    #sidebar-resizer:hover,
+    #sidebar-resizer.resizing {
+        background: var(--interactive-accent);
+        opacity: 0.5;
+    }
+
 </style>
 
 <script>
@@ -265,4 +278,63 @@
             centerActiveNote();
         }
     });
+
+    // --- Sidebar Resizing Logic ---
+    (function() {
+        // Wait for DOM to be fully ready
+        setTimeout(() => {
+            const resizer = document.getElementById('sidebar-resizer');
+            // The wrapper is the element we want to resize
+            const wrapper = document.querySelector('.filetree-sidebar-wrapper');
+            
+            if (!resizer || !wrapper) return;
+
+            let isResizing = false;
+            let startX, startWidth;
+
+            resizer.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                startX = e.clientX;
+                startWidth = wrapper.getBoundingClientRect().width;
+                
+                resizer.classList.add('resizing');
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+                e.preventDefault(); 
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+                
+                const dx = e.clientX - startX;
+                let newWidth = startWidth + dx;
+                
+                // Constrain width
+                if (newWidth < 200) newWidth = 200;
+                if (newWidth > 800) newWidth = 800;
+
+                // Update both style and variable to ensure it sticks
+                wrapper.style.width = `${newWidth}px`; 
+                document.body.style.setProperty('--sidebar-width', `${newWidth}px`);
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isResizing) {
+                    isResizing = false;
+                    resizer.classList.remove('resizing');
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                    
+                    localStorage.setItem('sidebarWidth', wrapper.style.width);
+                }
+            });
+
+            // Restore saved width
+            const savedWidth = localStorage.getItem('sidebarWidth');
+            if (savedWidth) {
+                wrapper.style.width = savedWidth;
+                document.body.style.setProperty('--sidebar-width', savedWidth);
+            }
+        }, 500); 
+    })();
 </script>
