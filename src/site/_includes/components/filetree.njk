@@ -22,7 +22,8 @@
         {%endif%}
     {% endmacro %}
     
-    <div x-init="isDesktop = (window.innerWidth>=1400) ? true: false;" 
+    <div class="filetree-sidebar-wrapper" 
+            x-init="isDesktop = (window.innerWidth>=1400) ? true: false;" 
             x-on:resize.window="isDesktop = (window.innerWidth>=1400) ? true : false;" 
             x-data="{isDesktop: true, showFilesMobile: false}">
 

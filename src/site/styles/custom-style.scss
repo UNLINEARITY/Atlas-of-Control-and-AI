@@ -917,21 +917,29 @@ body.has-fullscreen-graph #floating-control {
 
   body {
     display: flex;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-y: auto; /* Allow body scroll */
     padding: 0 5px;
     padding-top: 0 !important;  /* 删除固定padding */
     padding-bottom: 30px;
   }
 
-  nav.filetree-sidebar,
-  .sidebar {
+  .filetree-sidebar-wrapper,
+  .sidebar-wrapper {
     position: sticky !important;
-    top: 70px !important;  /* 给navbar留出足够空间 */
-    height: calc(100% - 10px);
+    top: 70px !important;
+    height: calc(100vh - 80px) !important;
     flex-shrink: 0;
     z-index: 1 !important;
+    align-self: flex-start;
+  }
+
+  nav.filetree-sidebar,
+  .sidebar {
+    height: 100% !important;
     overflow-y: auto;
+    position: relative !important; /* 取消原来的 absolute/fixed */
+    top: 0 !important;
   }
 
   nav.filetree-sidebar {
@@ -947,8 +955,8 @@ body.has-fullscreen-graph #floating-control {
     max-width: none !important;
     margin: 0 1em !important;
     margin-top: 45px !important;  /* 给navbar留出空间 */
-    height: calc(100% - 20px);
-    overflow-y: auto;
+    height: auto !important; /* Let content grow */
+    overflow: visible !important; /* Remove internal scroll */
     transition: margin 0.3s ease;
     padding-top: 20px;
   }
