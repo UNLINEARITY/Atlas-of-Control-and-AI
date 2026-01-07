@@ -53,46 +53,47 @@
 <script>
 (function() {
   const NAMESPACE = 'atlas-control-ai-v1';
-  // Generate a safe key from the pathname. 
-  // Root path '/' becomes 'index'.
-  // '/notes/something/' becomes 'notes_something_'
-  let path = window.location.pathname;
-  if (path === '/' || path === '') path = 'index';
-  const key = path.replace(/[^a-zA-Z0-9]/g, '_');
+  
+  function hashCode(str) {
+    let hash = 0;
+    if (str.length === 0) return hash;
+    for (let i = 0; i < str.length; i++) {
+      const chr = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0;
+    }
+    return Math.abs(hash);
+  }
+
+  let rawPath = window.location.pathname;
+  if (rawPath.endsWith('/') && rawPath.length > 1) {
+    rawPath = rawPath.slice(0, -1);
+  }
+  const path = decodeURIComponent(rawPath).normalize('NFC');
+  const key = 'page_' + hashCode(path);
   
   const btn = document.getElementById('like-btn');
   const countSpan = document.getElementById('like-count');
   const STORAGE_KEY = 'liked_' + key;
 
-  // Initial State from LocalStorage
   if (localStorage.getItem(STORAGE_KEY)) {
     btn.classList.add('liked');
     btn.disabled = true;
   }
 
-  // Fetch current count
-  // Using 'view' logic with readOnly if available, but CounterAPI usually separates namespaces.
-  // We will use 'up' endpoint with ?readOnly=true if supported, or infer from another endpoint.
-  // Documentation for counterapi.com is sparse publicly in text.
-  // We will try `GET /api/{namespace}/up/{key}` which usually increments.
-  // A common pattern for these free APIs to READ is `GET /api/{namespace}/up/{key}/info` or similar.
-  // However, safe fallback: Just show "--" until clicked if we can't read? 
-  // BETTER: Use `view` for reading? No.
-  // Let's try `readOnly=true` as found in search snippets.
-  
   function fetchCount() {
-    // Read count without incrementing
-    fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${key}/`)
+    fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${key}/`, { cache: 'no-store' })
       .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
+        if (!res.ok) {
+           if (res.status === 404) return { count: 0 }; 
+           throw new Error(`Err: ${res.status}`);
+        }
         return res.json();
       })
       .then(data => {
         countSpan.innerText = data.count || 0;
       })
       .catch(err => {
-        console.warn('Could not fetch like count:', err);
-        // If it returns 404, it means 0 likes.
         countSpan.innerText = '0'; 
       });
   }
@@ -102,7 +103,6 @@
   btn.addEventListener('click', function() {
     if (btn.classList.contains('liked')) return;
 
-    // Optimistic UI update
     btn.classList.add('liked');
     btn.disabled = true;
     localStorage.setItem(STORAGE_KEY, 'true');
@@ -111,11 +111,12 @@
     if (isNaN(current)) current = 0;
     countSpan.innerText = current + 1;
 
-    // Send the "Like" (Upvote)
-    fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${key}/up`)
+    fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${key}/up`, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
-        if (data.count) countSpan.innerText = data.count;
+        if (typeof data.count !== 'undefined') {
+          countSpan.innerText = data.count;
+        }
       })
       .catch(err => {
         console.error('Like failed:', err);
