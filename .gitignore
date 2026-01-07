@@ -12,5 +12,4 @@ src/site/siteStats.json
 .cache
 _site/
 **/.DS_Store
-*.log
 /log
