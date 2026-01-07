@@ -97,6 +97,54 @@
         box-sizing: border-box;
     }
 
+    .sidebar-header {
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid var(--background-modifier-border);
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center horizontally */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .site-title-link {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        text-decoration: none;
+    }
+
+    .site-title-link h1 {
+        margin: 0 0 1rem 0 !important;
+        font-size: 1.4rem !important;
+        text-align: center;
+        color: var(--h1-color);
+        font-weight: 700;
+        display: flex;
+        flex-direction: column; /* Stack logo and text if needed */
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    /* Responsive Logo */
+    .site-title-link h1 img, 
+    .site-title-link h1 svg {
+        max-width: 100%;       /* Allow scaling down */
+        height: auto;          /* Maintain aspect ratio */
+        width: auto;           /* Default width */
+        min-width: 120px;      /* Prevent becoming too small */
+        /* Optionally allow growing if sidebar is huge */
+        /* width: 80%; */ 
+    }
+
+    .search-wrapper {
+        display: flex; 
+        justify-content: center; 
+        margin-bottom: 0.5rem;
+    }
+
     .filetree-container {
         padding: 0 0.5rem;
         width: 100%;
