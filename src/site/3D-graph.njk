@@ -46,6 +46,17 @@
     </style>
 </head>
 <body>
+    <!-- 强制注销可能出错的 Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('Service Worker unregistered.');
+                }
+            });
+        }
+    </script>
     <div id="graph-container" class="graph-container"></div>
 
     <!-- 主题切换 -->
@@ -66,7 +77,10 @@
     </div>
     </div>  
 
-    <script src="https://unpkg.com/3d-force-graph/dist/3d-force-graph.min.js"></script>
+    <!-- 回退到 unpkg.com -->
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/3d-force-graph@1.70.10/dist/3d-force-graph.min.js"></script>
+    <script src="https://unpkg.com/three-spritetext@1.6.5/dist/three-spritetext.min.js"></script>
 
     <script>
         const container = document.getElementById('graph-container');
@@ -121,23 +135,22 @@
         themeSel.value = detectedTheme; // Sync dropdown to show the correct theme
 
 
-        const getColor = (group) => {
-            const colors = {
-                'default': '#ffbf00',
-                '/A1- 数学/': '#ff6347',
-                '/A2- 控制理论/': '#4682b4',
-                '/A3- 电机及电力拖动/': '#32cd32',
-                '/A4- 过程控制系统/': '#9370db',
-                '/MCU微控制器/': '#ffa500',
-                '/电子技术/': '#20b2aa',
-                '/计算机/': '#dc143c',
-                '/编程语言/': '#00bfff',
-                '/人工智能/': '#da70d6',
-                '/机器人/': '#6a5acd',
-                '/IoT/': '#40e0d0',
-            };
-            const topLevel = Object.keys(colors).find(key => group.startsWith(key));
-            return topLevel ? colors[topLevel] : colors['default'];
+        // --- Consistent Color Scheme from graphScript.njk ---
+        function getNodeColorByPath(dgPath, defaultColor) {
+            if (!dgPath) return defaultColor;
+            if (dgPath.includes("代数")) return "#F59E0B";    
+            if (dgPath.includes("机器人")) return "#84CC16";
+            if (dgPath.includes("过程控制")) return "#9A4E90";
+            if (dgPath.includes("智能")) return "#FF0000";
+            if (dgPath.includes("控制")) return "#7496ff";
+            if (dgPath.includes("数学")) return "#c44f70";
+            return defaultColor;
+        }
+        // ----------------------------------------------------
+
+        const getColor = (node) => {
+             // Use the path-based color logic first
+             return getNodeColorByPath(node.id, themes[detectedTheme].linkColor);
         };
 
         // --- Info Box Toggle --- 
@@ -168,6 +181,9 @@
                 const nodes = [];
                 const links = [];
 
+                // Re-calculate colors based on new logic
+                const defaultNodeColor = '#ffbf00'; // Default fallback
+
                 for (const nodeId in data.nodes) {
                     const node = data.nodes[nodeId];
                     if (node.hide) continue;
@@ -175,7 +191,8 @@
                         id: node.url,
                         name: node.title,
                         val: node.size,
-                        color: getColor(node.url)
+                        // Apply specific color logic
+                        color: getNodeColorByPath(node.url, defaultNodeColor) 
                     });
                     if (node.outBound) {
                         node.outBound.forEach(targetUrl => {
@@ -185,6 +202,32 @@
                         });
                     }
                 }
+
+                // --- Calculate Curvature for Bidirectional Links ---
+                const linksByPair = {};
+                links.forEach(link => {
+                    const pairKey = [link.source, link.target].sort().join('-');
+                    if (!linksByPair[pairKey]) linksByPair[pairKey] = [];
+                    linksByPair[pairKey].push(link);
+                });
+
+                Object.values(linksByPair).forEach(linksInPair => {
+                    if (linksInPair.length > 1) {
+                        // For bi-directional (or multi) links, we use curvature and rotation
+                        linksInPair.forEach((link, i) => {
+                            link.curvature = 0.3; // Always positive for 3D
+                            // Spread the curves out by rotating them around the axis
+                            // For 2 links: 0 and PI (180 deg)
+                            link.rotation = i * Math.PI; 
+                        });
+                    } else {
+                        linksInPair.forEach(l => {
+                            l.curvature = 0;
+                            l.rotation = 0;
+                        });
+                    }
+                });
+                // --------------------------------------------------
 
                 const graphData = { nodes, links };
 
@@ -201,7 +244,24 @@
                     .graphData(graphData)
                     .backgroundColor(theme.bg) // Initialize with the correct theme background
                     .nodeLabel('name')
-                    .nodeAutoColorBy('color')
+                    // Use the color property we set on the node object
+                    .nodeColor(node => node.color) 
+                    .nodeThreeObject(node => {
+                        const sprite = new SpriteText(node.name);
+                        sprite.color = '#ffffff'; 
+                        sprite.textHeight = 4; // Reasonable size
+                        sprite.padding = 1;
+                        sprite.backgroundColor = 'rgba(0,0,0,0.5)'; 
+                        sprite.borderRadius = 2;
+                        
+                        // Move text BELOW the node
+                        // Negative Y offset
+                        const nodeRadius = node.val ? Math.min(7, Math.max(node.val, 2)) : 2; 
+                        sprite.position.y = -(nodeRadius + 4); 
+                        
+                        return sprite;
+                    })
+                    .nodeThreeObjectExtend(true) // Restore the sphere
                     .linkWidth(0.5)
                     .linkDirectionalParticles(1)
                     .linkDirectionalParticleWidth(1.2)
