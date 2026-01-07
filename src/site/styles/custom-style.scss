@@ -921,7 +921,7 @@ body.has-fullscreen-graph #floating-control {
     overflow-y: auto; /* Allow body scroll */
     padding: 0 5px;
     padding-top: 0 !important;  /* 删除固定padding */
-    padding-bottom: 30px;
+    padding-bottom: 0px;
   }
 
   .filetree-sidebar-wrapper,
@@ -958,7 +958,15 @@ body.has-fullscreen-graph #floating-control {
     height: auto !important; /* Let content grow */
     overflow: visible !important; /* Remove internal scroll */
     transition: margin 0.3s ease;
-    padding-top: 20px;
+    padding-top: 15px;
+  }
+  /* Force bottom spacing using a pseudo-element */
+  .content.cm-s-obsidian::after {
+    content: "";
+    display: block;
+    height: 150px; /* 强制底部空白高度 */
+    width: 100%;
+    visibility: hidden;
   }
 
   .sidebar-container {
