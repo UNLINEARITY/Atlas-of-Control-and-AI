@@ -1,0 +1,125 @@
+<div class="like-button-wrapper">
+  <button id="like-btn" class="like-btn" aria-label="Like this page">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-thumbs-up"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+    <span id="like-count" class="like-count">--</span>
+  </button>
+</div>
+
+<style>
+.like-button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+}
+.like-btn {
+  background: var(--background-secondary, #f8f8f8);
+  border: 1px solid var(--background-modifier-border, #ddd);
+  color: var(--text-normal, #333);
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.like-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: var(--background-modifier-hover, #f0f0f0);
+}
+.like-btn:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+.like-btn.liked {
+  color: #ff4081; /* Heart/Like color */
+  border-color: #ff4081;
+  background: rgba(255, 64, 129, 0.05);
+}
+.like-btn.liked svg {
+  fill: currentColor;
+}
+.theme-dark .like-btn {
+  background: var(--background-secondary, #1e1e1e);
+  border-color: var(--background-modifier-border, #333);
+  color: var(--text-normal, #ccc);
+}
+</style>
+
+<script>
+(function() {
+  const NAMESPACE = 'atlas-control-ai-v1';
+  // Generate a safe key from the pathname. 
+  // Root path '/' becomes 'index'.
+  // '/notes/something/' becomes 'notes_something_'
+  let path = window.location.pathname;
+  if (path === '/' || path === '') path = 'index';
+  const key = path.replace(/[^a-zA-Z0-9]/g, '_');
+  
+  const btn = document.getElementById('like-btn');
+  const countSpan = document.getElementById('like-count');
+  const STORAGE_KEY = 'liked_' + key;
+
+  // Initial State from LocalStorage
+  if (localStorage.getItem(STORAGE_KEY)) {
+    btn.classList.add('liked');
+    btn.disabled = true;
+  }
+
+  // Fetch current count
+  // Using 'view' logic with readOnly if available, but CounterAPI usually separates namespaces.
+  // We will use 'up' endpoint with ?readOnly=true if supported, or infer from another endpoint.
+  // Documentation for counterapi.com is sparse publicly in text.
+  // We will try `GET /api/{namespace}/up/{key}` which usually increments.
+  // A common pattern for these free APIs to READ is `GET /api/{namespace}/up/{key}/info` or similar.
+  // However, safe fallback: Just show "--" until clicked if we can't read? 
+  // BETTER: Use `view` for reading? No.
+  // Let's try `readOnly=true` as found in search snippets.
+  
+  function fetchCount() {
+    // Read count without incrementing
+    fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${key}/`)
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then(data => {
+        countSpan.innerText = data.count || 0;
+      })
+      .catch(err => {
+        console.warn('Could not fetch like count:', err);
+        // If it returns 404, it means 0 likes.
+        countSpan.innerText = '0'; 
+      });
+  }
+
+  fetchCount();
+
+  btn.addEventListener('click', function() {
+    if (btn.classList.contains('liked')) return;
+
+    // Optimistic UI update
+    btn.classList.add('liked');
+    btn.disabled = true;
+    localStorage.setItem(STORAGE_KEY, 'true');
+    
+    let current = parseInt(countSpan.innerText);
+    if (isNaN(current)) current = 0;
+    countSpan.innerText = current + 1;
+
+    // Send the "Like" (Upvote)
+    fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${key}/up`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.count) countSpan.innerText = data.count;
+      })
+      .catch(err => {
+        console.error('Like failed:', err);
+      });
+  });
+})();
+</script>

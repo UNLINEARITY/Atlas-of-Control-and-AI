@@ -13,3 +13,4 @@ src/site/siteStats.json
 _site/
 **/.DS_Store
 *.log
+/log
