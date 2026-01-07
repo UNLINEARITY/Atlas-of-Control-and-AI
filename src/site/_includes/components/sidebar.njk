@@ -39,6 +39,14 @@
 
         <!-- 4. Backlinks -->
         {%if settings.dgShowBacklinks === true %}
+            {% set backlinks = [] %}
+            {% if page.url == "/" %}
+                {% set backlinks = graph.nodes[graph.homeAlias].backLinks %}
+            {% else %}
+                {% set backlinks = graph.nodes[page.url].backLinks %}
+            {% endif %}
+
+            {% if backlinks.length > 0 %}
             <div class="sidebar-section backlinks-section" x-data="{open: true}">
                 <div class="section-header" @click="open = !open">
                     <span class="section-title"><i icon-name="link"></i> 反向链接</span>
@@ -46,34 +54,18 @@
                 </div>
                 <div class="section-content" x-show="open" x-collapse>
                     <div class="backlink-list">
-                        {%- if page.url == "/" -%}
-                            {%- if graph.nodes[graph.homeAlias].backLinks.length === 0 -%}
-                                <div class="empty-state">暂无反向链接</div>
+                        {%- for backlink in backlinks -%}
+                            {%- if graph.nodes[backlink].url != page.url -%}
+                                <a href="{{graph.nodes[backlink].url}}" class="backlink-item">
+                                    <i icon-name="file-text"></i>
+                                    <span>{{graph.nodes[backlink].title}}</span>
+                                </a>
                             {%- endif -%}
-                            {%- for backlink in graph.nodes[graph.homeAlias].backLinks -%}
-                                {%- if graph.nodes[backlink].url != graph.homeAlias -%}
-                                    <a href="{{graph.nodes[backlink].url}}" class="backlink-item">
-                                        <i icon-name="file-text"></i>
-                                        <span>{{graph.nodes[backlink].title}}</span>
-                                    </a>
-                                {%- endif -%}
-                            {%- endfor -%}
-                        {%- else -%}
-                            {%- if graph.nodes[page.url].backLinks.length === 0 -%}
-                                <div class="empty-state">暂无反向链接</div>
-                            {%- endif -%}
-                            {%- for backlink in graph.nodes[page.url].backLinks -%}
-                                {%- if graph.nodes[backlink].url != page.url -%}
-                                    <a href="{{graph.nodes[backlink].url}}" class="backlink-item">
-                                        <i icon-name="file-text"></i>
-                                        <span>{{graph.nodes[backlink].title}}</span>
-                                    </a>
-                                {%- endif -%}
-                            {%- endfor -%}
-                        {%- endif -%}
+                        {%- endfor -%}
                     </div>
                 </div>
             </div>
+            {% endif %}
         {%endif%}
 
         <!-- 5. Bottom Dynamics & Controls -->
@@ -113,6 +105,7 @@
         /* Ensure content takes full width */
         width: 100%; 
         box-sizing: border-box;
+        pointer-events: auto; /* Ensure clicks work */
     }
 
     /* Section Styling */
@@ -193,6 +186,31 @@
         display: block;
     }
     
+    /* Force Fullscreen Graph to break out of sidebar */
+    .graph-fs {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 10000 !important; /* Higher than anything else */
+        background-color: var(--background-primary) !important;
+        padding: 40px 20px 20px 20px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure the internal graph elements expand in fullscreen */
+    .graph-fs #link-graph {
+        height: calc(100% - 40px) !important;
+        width: 100% !important;
+    }
+
+    /* Homepage / Layering Fixes */
+    .sidebar-wrapper {
+        z-index: 10; /* Ensure sidebar is above content but below full-page overlays */
+    }
+
     /* TOC Styling */
     .toc-container ul {
         list-style: none;
@@ -264,6 +282,7 @@
         font-size: 0.85em;
         text-align: center;
         padding: 10px 0;
+        display: none; /* Hidden by default */
     }
 
     /* Controls Styling */
@@ -288,7 +307,7 @@
         gap: 8px;
         padding: 10px;
         background-color: var(--interactive-accent);
-        color: #ffffff; /* Force white text */
+        color: #ffffff !important; /* Force white text */
         border: none;
         border-radius: 6px;
         cursor: pointer;
