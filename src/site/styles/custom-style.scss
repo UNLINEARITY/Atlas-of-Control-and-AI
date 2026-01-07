@@ -974,9 +974,9 @@ body.has-fullscreen-graph #floating-control {
     height: calc(100% - 10px);
   }
 
-  html.left-sidebar-collapsed nav.filetree-sidebar,
-  html.right-sidebar-collapsed .sidebar {
-    display: none;
+  html.left-sidebar-collapsed .filetree-sidebar-wrapper,
+  html.right-sidebar-collapsed .sidebar-wrapper {
+    display: none !important;
   }
 
   html.left-sidebar-collapsed .content.cm-s-obsidian {
