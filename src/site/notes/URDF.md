@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/URDF.md","permalink":"/机器人/URDF/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:30:49.000+08:00","updated":"2025-12-25T23:58:04.000+08:00"}
+{"dg-publish":true,"dg-path":"机器人/URDF.md","permalink":"/机器人/URDF/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:30:49.000+08:00","updated":"2026-01-08T21:47:01.394+08:00"}
 ---
 
 
@@ -176,3 +176,10 @@ DAE 用来描述“外形 + 材质 + 层级关系”。
 - 条件与循环
 - 文件拆分与复用
 
+
+### 可视化网站
+https://unlinearity.github.io/URDF-Visualizer/
+
+https://gkjohnson.github.io/urdf-loaders/javascript/example/bundle/ 
+https://xinlang2019.github.io/urdf_visualizer/ 
+https://viewer.robotsfan.com/  

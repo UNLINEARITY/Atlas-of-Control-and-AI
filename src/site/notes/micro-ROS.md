@@ -1,12 +1,14 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/micro-ROS.md","permalink":"/机器人/micro-ROS/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.420+08:00","updated":"2025-09-02T22:54:46.000+08:00"}
+{"dg-publish":true,"dg-path":"机器人/micro-ROS.md","permalink":"/机器人/micro-ROS/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.420+08:00","updated":"2026-01-03T13:44:57.543+08:00"}
 ---
 
 
 (website::https://micro.ros.org/ )
-> micro-ROS puts [[ROS 2\|ROS 2]]  onto microcontrollers
+> micro-ROS puts [[ROS2\|ROS2]]  onto microcontrollers
+
+
 ### 架构
-![Pasted image 20250501011135.png](../img/user/Functional%20files/Photo%20Resources/Pasted%20image%2020250501011135.png)
+![micro-ROS_architecture.png](../img/user/Functional%20files/Photo%20Resources/micro-ROS_architecture.png)
 
 [[RCL\|RCL]]
 [[XRCE-DDS\|XRCE-DDS]]
@@ -16,5 +18,6 @@
 
 ### Supported RTOSes 
 [[RTOS\|RTOS]]：FreeRTOS、Zephyr、NuttX
+
 
 

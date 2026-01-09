@@ -1,5 +1,5 @@
 ---
-{"tags":["Programming"],"dg-publish":true,"dg-path":"计算机/Python/Python.md","dg-pinned":true,"permalink":"/计算机/Python/Python/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-11-19T18:15:26.840+08:00"}
+{"tags":["Programming"],"dg-publish":true,"dg-path":"计算机/Python/Python.md","dg-pinned":true,"permalink":"/计算机/Python/Python/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2026-01-03T11:23:14.828+08:00"}
 ---
 
 
@@ -10,10 +10,10 @@
 [[Python 函数\|Python 函数]]
 [[Python 类与对象\|Python 类与对象]]
 
-[[String\|Python 字符串操作]]
-[[Python 输入输出\|Python 输入输出]]
-[[Python 常用操作\|Python 常用操作]]
 
+[[Python 输入输出\|Python 输入输出]]
+
+[[Python 常用操作\|Python 常用操作]]
 [[Python 位运算\|Python 位运算]]
 [[python日期处理\|python日期处理]]
 
@@ -22,7 +22,6 @@
 
 ### 二、常用库
 [[Python Modules and Packages\|Python Modules and Packages]]   [[pip\|pip]]
-
 
 | 库名/工具            | 功能             |
 | ---------------- | -------------- |

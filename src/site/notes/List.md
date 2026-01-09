@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"计算机/Python/List.md","permalink":"/计算机/Python/List/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.860+08:00","updated":"2025-11-17T10:04:53.543+08:00"}
+{"dg-publish":true,"dg-path":"计算机/Python/List.md","permalink":"/计算机/Python/List/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.860+08:00","updated":"2026-01-02T23:30:20.594+08:00"}
 ---
 
 
@@ -78,9 +78,9 @@ l1.extend(l2)
 ```
 
 #### Remove 
-`pop() ` method removes and returns value ：移除指定索引的元素，并返回该元素的值, 未指定参数时，默认弹出最后一个元素
-`del` removes it without returning anything：移除特定索引的元素（不会返回值）
-`remove()`  remove a specific value : 移除特定值的元素
+`pop() ` method removes and returns value ：**移除指定索引**的元素，并返回该元素的值, 未指定参数时，默认弹出最后一个元素
+`del` removes it without returning anything：**移除特定索引**的元素（不会返回值）
+`remove()`  remove a specific value : **移除特定值**的元素
 `clear()`   remove all items : 清除所有的元素 
 使用 [[set\|Set]]  移除重复的元素 
 

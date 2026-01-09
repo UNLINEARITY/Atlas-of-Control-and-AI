@@ -1,5 +1,5 @@
 ---
-{"dg-path":"机器人/RMW.md","dg-publish":true,"permalink":"/机器人/RMW/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-05-01T17:46:37.000+08:00","updated":"2025-10-27T18:46:10.000+08:00"}
+{"dg-path":"机器人/RMW.md","dg-publish":true,"permalink":"/机器人/RMW/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-05-01T17:46:37.000+08:00","updated":"2026-01-02T00:21:33.443+08:00"}
 ---
 
 (terminology::**ROS Middleware Interface**)
@@ -7,7 +7,7 @@
 > 是 ROS 2 架构中一个关键的中间层接口，全称为 **ROS 中间件接口**
 
 
-它位于 [[ ROS 2\| ROS 2]] 软件架构中 [[RCL\|RCL]]（ROS Client Library）与具体通信中间件（如 [[DDS\|DDS]]）实现之间，扮演了中间抽象层的角色。
+它位于 [[ROS2\|ROS2]] 软件架构中 [[RCL\|RCL]]（ROS Client Library）与具体通信中间件（如 [[DDS\|DDS]]）实现之间，扮演了中间抽象层的角色。
 
 RMW 的主要作用是为上层提供一个标准化、与中间件无关的 API，使得 ROS 2 能够支持多种不同的底层通信中间件而无需修改上层逻辑，从而实现“中间件无关性”（middleware agnosticism）。
 
