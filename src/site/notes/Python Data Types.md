@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"计算机/Python/Python Data Types.md","permalink":"/计算机/Python/Python Data Types/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-16T13:01:27.460+08:00","updated":"2025-11-17T10:04:53.544+08:00"}
+{"dg-publish":true,"dg-path":"计算机/Python/Python Data Types.md","permalink":"/计算机/Python/Python Data Types/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-16T13:01:27.460+08:00","updated":"2026-01-03T11:20:10.571+08:00"}
 ---
 
 
@@ -11,22 +11,28 @@
 `type()`
 - Basic Data Types : store a single value
 - Advanced Data Yypes : can store many items
-[[Python Basic Data Types\|Python Basic Data Types]]
-[[Python Comprehensions\|Python Comprehensions]]
 
-
-|          | 类型                | 可变性       | 可迭代      | 类型构造函数      |
-| -------- | ----------------- | --------- | -------- | ----------- |
-| Basic    | Integer           | immutable |          | `int()`     |
-| Basic    | Float             | immutable |          | `float()`   |
-| Basic    | Boolean           | immutable |          | `bool()`    |
-| Basic    | Complex numbers   | immutable |          | `complex()` |
-| Basic    | [[String\|String]]        | immutable | Iterable | `str()`     |
-| Advanced | [[Range\|Range]]         | immutable | Iterable | `range()`   |
-| Advanced | [[Tuple\|Tuple]] 元组      | immutable | Iterable | `tuple()`   |
-| Advanced | [[List\|List]]  列表      | mutable   | Iterable | `list()`    |
-| Advanced | [[set\|Set]]  集合       | mutable   | Iterable | `set()`     |
-| Advanced | [[Dictionary\|Dictionary]] 字典 | mutable   | Iterable | `dict()`    |
+| 类别                                 | 类型                | 补充说明        | 类型构造函数          | 可变性 | 可迭代 |
+| ---------------------------------- | ----------------- | ----------- | --------------- | --- | --- |
+| [[Python Basic Data Types\|Basic]] | Integer           | 整型数据        | `int()`         | ❌   | ❌   |
+|                                    | Float             | 浮点数         | `float()`       | ❌   | ❌   |
+|                                    | Boolean           | 布尔值         | `bool()`        | ❌   | ❌   |
+|                                    | Complex numbers   | 复数          | `complex()`     | ❌   | ❌   |
+|                                    | [[String\|String]]        | 字符串         | `str()`         | ❌   | ✅   |
+| Advanced                           | [[Range\|Range]]         | 数值范围        | `range()`       | ❌   | ✅   |
+|                                    | [[Tuple\|Tuple]] 元组      | 有序不可变序列     | `tuple()`       | ❌   | ✅   |
+| [[Python Comprehensions\|推导式]]     | [[List\|List]] 列表       | 有序可变序列      | `list()`        | ✅   | ✅   |
+|                                    | [[set\|Set]] 集合        | 无序不重复元素集    | `set()`         | ✅   | ✅   |
+|                                    | [[Dictionary\|Dictionary]] 字典 | 键值对映射       | `dict()`        | ✅   | ✅   |
+| [[collections\|collections]]                    | defaultdict       | 带默认值的字典     | `defaultdict()` | ✅   | ✅   |
+|                                    | Counter           | 计数器，统计频率    | `Countere()`    | ✅   | ✅   |
+|                                    | deque             | 双端队列，高效两端操作 | `deque()`       | ✅   | ✅   |
+|                                    | OrderedDict       | 有序字典        | `OrderedDict()` | ✅   | ✅   |
+|                                    | namedtuple        | 命名元组，字段名访问  | `namedtuple()`  | ❌   | ✅   |
+|                                    | ChainMap          | 多个字典的链式视图   | `ChainMap()`    | ✅   | ✅   |
+|                                    | UserDict          | 字典的用户友好包装器  | `UserDict()`    | ✅   | ✅   |
+|                                    | UserList          | 列表的用户友好包装器  | `UserList()`    | ✅   | ✅   |
+|                                    | UserString        | 字符串的用户友好包装器 | `UserString()`  | ❌   | ✅   |
 
 
 - mutable  **可变**:  可以在原地修改其内容，不需要创建新对象
@@ -34,6 +40,8 @@
 **变量名只是一个标签**，**不可变对象的值本身永远不会变**，当重新赋值时，不是改变了对象，而是指向了新的对象。
 
 对于不变对象来说，调用对象自身的任意方法，也不会改变该对象自身的内容。相反，这些方法会创建新的对象并返回，这样，就保证了不可变对象本身永远是不可变的。
+
+
 ### Iterator 
 **Iterable**  **可迭代对象**     An object that implements another special method, called `__iter__`. This function returns an iterator.
 是数据的容器，可以通过 `for` 循环遍历（但不能自己遍历，需要迭代器）。 

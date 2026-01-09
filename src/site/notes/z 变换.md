@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-09-12T16:38:32.000+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 变换.md","tags":["Transform","Discrete"],"permalink":"/A1- 数学/8. 变换/z 变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2026-01-03T16:47:46.359+08:00"}
 ---
 
 
@@ -98,12 +98,12 @@ $$\begin{align}
 \end{align}$$
 
 根据 $k-m=n \quad \quad n<0,f(t)=0 \quad \Rightarrow \quad f(nT)=0$，有：
+
 $$\begin{align}
 \mathscr{Z}[f(kT-mT)] & =\sum\limits_{k=0}^{\infty} f(kT-mT)z^{-k}  = \sum\limits_{n=-m}^{\infty} f(nT)z^{-(n+m)} \\
  & =z^{-m}\left(\sum\limits_{n=0}^{\infty}f(nT)z^{-n}+ \sum\limits_{n=-m}^{-1}f(nT)z^{-n}\right) \\
  & =z^{-m}F(z)
 \end{align}$$
-
 
 - 向左平移为**超前**：
 $$\begin{align}

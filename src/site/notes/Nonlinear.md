@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-03T22:30:48.520+08:00","updated":"2025-11-15T09:50:33.591+08:00"}
+{"dg-publish":true,"dg-home":true,"dg-pinned":true,"dg-path":"Nonlinear.md","dg-hide-in-graph":true,"permalink":"/Nonlinear/","hideInGraph":true,"pinned":true,"tags":["gardenEntry"],"dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-03T22:30:48.520+08:00","updated":"2026-01-09T22:17:19.533+08:00"}
 ---
 
 
@@ -107,4 +107,9 @@ root((本网站))
 
 I'm grateful to **Obsidian** and the open-source plugin **Digital Garden**, which have enabled my knowledge network to be presented to the public.
 
+***
+
+近期的其他项目，欢迎体验、star、提意见 ：
+1.  https://unlinearity.github.io/URDF-Visualizer/ 集成了 URDF 和 Xacro 解析的机器人文件可视化网站
+2.  https://unlinearity.github.io/Animated-Image-Creator/  将静态图片序列转为 `.apng` 或 `webp` 的动态图片的实用网站 
 
