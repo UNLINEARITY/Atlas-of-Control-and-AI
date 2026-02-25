@@ -11,7 +11,20 @@
         "build:eleventy": "cross-env ELEVENTY_ENV=prod NODE_OPTIONS=--max-old-space-size=4096 eleventy",
         "build:sass": "sass src/site/styles:dist/styles --style compressed",
         "get-theme": "node src/site/get-theme.js",
-        "build": "npm-run-all get-theme build:*"
+        "build": "npm-run-all get-theme build:*",
+        "lint": "npm-run-all lint:*",
+        "lint:js": "eslint .",
+        "lint:js:fix": "eslint . --fix",
+        "lint:scss": "stylelint \"src/site/styles/**/*.scss\"",
+        "lint:scss:fix": "stylelint \"src/site/styles/**/*.scss\" --fix",
+        "format": "prettier --write \"**/*.{js,json,md,yml,yaml,scss,css}\"",
+        "format:check": "prettier --check \"**/*.{js,json,md,yml,yaml,scss,css}\"",
+        "prepare": "husky"
+    },
+    "lint-staged": {
+        "*.js": ["eslint --fix", "prettier --write"],
+        "*.{scss,css}": ["stylelint --fix", "prettier --write"],
+        "*.{json,md,yml,yaml}": ["prettier --write"]
     },
     "keywords": [],
     "author": "",
@@ -19,10 +32,20 @@
     "devDependencies": {
         "@11ty/eleventy": "^2.0.1",
         "@11ty/eleventy-plugin-rss": "^1.2.0",
+        "@eslint/js": "^10.0.1",
         "cross-env": "^10.0.0",
+        "eslint": "^10.0.2",
+        "eslint-config-prettier": "^10.1.8",
+        "globals": "^17.3.0",
         "html-minifier-terser": "^7.2.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.2.7",
         "node-html-parser": "^7.0.1",
-        "sass": "^1.49.9"
+        "prettier": "^3.8.1",
+        "sass": "^1.49.9",
+        "stylelint": "^17.4.0",
+        "stylelint-config-standard-scss": "^17.0.0",
+        "stylelint-scss": "^7.0.0"
     },
     "dependencies": {
         "@11ty/eleventy-img": "^6.0.1",

@@ -1,0 +1,532 @@
+/**
+ * Modern Enhancements - Atlas of Control and AI
+ * Visual improvements for a more polished look
+ */
+
+@import "design-tokens";
+
+// =============================================================================
+// GLOBAL IMPROVEMENTS
+// =============================================================================
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Better text rendering
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// Selection color
+::selection {
+  background-color: $color-primary-200;
+  color: $color-neutral-900;
+}
+
+// =============================================================================
+// NAVBAR MODERNIZATION
+// =============================================================================
+
+nav.navbar {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--background-secondary-rgb, 38 38 38) / 0.95),
+    rgba(var(--background-primary-rgb, 30 30 30) / 0.98)
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255 255 255 / 0.1);
+  box-shadow: $shadow-lg;
+  border-radius: $border-radius-xl;
+  margin: $spacing-3;
+  width: calc(100% - #{$spacing-6});
+  transition: all $transition-normal;
+  
+  &:hover {
+    box-shadow: $shadow-xl, $glow-primary;
+  }
+  
+  .navbar-inner {
+    h1 {
+      font-weight: $font-weight-semibold;
+      letter-spacing: -0.025em;
+      background: linear-gradient(135deg, $color-primary-400, $color-primary-600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+  
+  .search-button {
+    background: rgba($color-primary-500, 0.1);
+    border: 1px solid rgba($color-primary-500, 0.3);
+    border-radius: $border-radius-lg;
+    transition: all $transition-fast;
+    
+    &:hover {
+      background: rgba($color-primary-500, 0.2);
+      border-color: $color-primary-500;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// =============================================================================
+// SIDEBAR MODERNIZATION
+// =============================================================================
+
+nav.filetree-sidebar {
+  background: linear-gradient(
+    180deg,
+    rgba(var(--background-secondary-rgb, 38 38 38) / 0.98),
+    rgba(var(--background-primary-rgb, 30 30 30) / 0.95)
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-right: 1px solid rgba(255 255 255 / 0.08);
+  box-shadow: $shadow-xl;
+  
+  // Logo area
+  h1::before {
+    filter: drop-shadow(0 0 10px rgba($color-primary-500, 0.5));
+    transition: filter $transition-normal;
+  }
+  
+  &:hover h1::before {
+    filter: drop-shadow(0 0 20px rgba($color-primary-500, 0.8));
+  }
+  
+  // Folder items
+  .foldername-wrapper {
+    border-radius: $border-radius-md;
+    transition: all $transition-fast;
+    padding: $spacing-1 $spacing-2;
+    margin: $spacing-1 0;
+    
+    &:hover {
+      background: rgba($color-primary-500, 0.1);
+    }
+  }
+  
+  // Note links
+  .notelink {
+    border-radius: $border-radius-lg;
+    transition: all $transition-fast;
+    margin: $spacing-1 $spacing-2;
+    padding: $spacing-2 $spacing-3;
+    
+    &:hover {
+      background: rgba($color-primary-500, 0.1);
+      transform: translateX(4px);
+    }
+    
+    &.active-note {
+      background: linear-gradient(
+        135deg,
+        rgba($color-primary-600, 0.2),
+        rgba($color-primary-700, 0.3)
+      );
+      border: 1px solid rgba($color-primary-500, 0.3);
+      box-shadow: 
+        $shadow-md,
+        0 0 15px rgba($color-primary-500, 0.2);
+      
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 60%;
+        background: linear-gradient(180deg, $color-primary-400, $color-primary-600);
+        border-radius: 0 3px 3px 0;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// CONTENT AREA
+// =============================================================================
+
+.content {
+  // Better typography
+  font-size: $font-size-base;
+  line-height: $line-height-relaxed;
+  
+  // Headings
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: $font-weight-semibold;
+    letter-spacing: -0.025em;
+    margin-top: $spacing-8;
+    margin-bottom: $spacing-4;
+    
+    // Gradient text for h1
+    &:is(h1) {
+      font-size: $font-size-4xl;
+      background: linear-gradient(135deg, var(--h1-color, $color-primary-400), var(--h1-color, $color-primary-600));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+  
+  // Links
+  a {
+    color: $color-primary-400;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all $transition-fast;
+    
+    &:hover {
+      color: $color-primary-300;
+      border-bottom-color: currentColor;
+    }
+  }
+  
+  // Code inline
+  code {
+    background: rgba($color-neutral-700, 0.5);
+    padding: $spacing-1 $spacing-2;
+    border-radius: $border-radius-md;
+    font-size: $font-size-sm;
+    font-family: $font-family-mono;
+  }
+  
+  // Code blocks
+  pre {
+    background: linear-gradient(135deg, $color-neutral-800, $color-neutral-900);
+    border-radius: $border-radius-xl;
+    padding: $spacing-4;
+    overflow-x: auto;
+    box-shadow: $shadow-lg;
+    border: 1px solid rgba(255 255 255 / 0.05);
+    
+    code {
+      background: transparent;
+      padding: 0;
+    }
+  }
+  
+  // Blockquotes
+  blockquote {
+    background: linear-gradient(135deg, rgba($color-primary-600, 0.1), rgba($color-primary-700, 0.05));
+    border-left: 4px solid $color-primary-500;
+    border-radius: 0 $border-radius-lg $border-radius-lg 0;
+    padding: $spacing-4 $spacing-6;
+    margin: $spacing-6 0;
+    font-style: italic;
+    
+    &::before {
+      color: $color-primary-400;
+      opacity: 0.5;
+    }
+  }
+  
+  // Tables
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+    box-shadow: $shadow-md;
+    
+    th {
+      background: rgba($color-primary-600, 0.2);
+      font-weight: $font-weight-semibold;
+      padding: $spacing-3 $spacing-4;
+    }
+    
+    td {
+      padding: $spacing-3 $spacing-4;
+      border-bottom: 1px solid rgba(255 255 255 / 0.05);
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    tr:hover td {
+      background: rgba($color-primary-500, 0.05);
+    }
+  }
+  
+  // Images
+  img {
+    border-radius: $border-radius-xl;
+    box-shadow: $shadow-lg;
+    transition: transform $transition-normal, box-shadow $transition-normal;
+    
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: $shadow-xl;
+    }
+  }
+}
+
+// =============================================================================
+// CALLOUTS MODERNIZATION
+// =============================================================================
+
+.callout {
+  border-radius: $border-radius-xl;
+  border: 1px solid rgba(255 255 255 / 0.1);
+  box-shadow: $shadow-md;
+  transition: all $transition-normal;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+  }
+  
+  .callout-title {
+    font-weight: $font-weight-semibold;
+    padding: $spacing-3 $spacing-4;
+  }
+  
+  .callout-content {
+    padding: $spacing-4;
+  }
+  
+  // Different callout types with subtle gradients
+  &[data-callout="info"] {
+    background: linear-gradient(135deg, rgba(0 184 212 / 0.1), rgba(0 184 212 / 0.05));
+  }
+  
+  &[data-callout="warning"] {
+    background: linear-gradient(135deg, rgba(255 145 0 / 0.1), rgba(255 145 0 / 0.05));
+  }
+  
+  &[data-callout="error"],
+  &[data-callout="danger"] {
+    background: linear-gradient(135deg, rgba(255 23 68 / 0.1), rgba(255 23 68 / 0.05));
+  }
+  
+  &[data-callout="success"] {
+    background: linear-gradient(135deg, rgba(0 200 83 / 0.1), rgba(0 200 83 / 0.05));
+  }
+}
+
+// =============================================================================
+// GRAPH STYLING
+// =============================================================================
+
+.graph {
+  #link-graph {
+    border-radius: $border-radius-xl;
+    box-shadow: $shadow-lg;
+    border: 1px solid rgba(255 255 255 / 0.1);
+  }
+  
+  .graph-title {
+    font-weight: $font-weight-semibold;
+    color: $color-primary-400;
+    background: rgba($color-primary-500, 0.1);
+    padding: $spacing-2 $spacing-4;
+    border-radius: $border-radius-lg $border-radius-lg 0 0;
+  }
+}
+
+// =============================================================================
+// SEARCH MODERNIZATION
+// =============================================================================
+
+.search-container {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  
+  .search-box {
+    background: linear-gradient(
+      135deg,
+      rgba(var(--background-primary-rgb, 30 30 30) / 0.98),
+      rgba(var(--background-secondary-rgb, 38 38 38) / 0.98)
+    );
+    border: 1px solid rgba($color-primary-500, 0.3);
+    border-radius: $border-radius-2xl;
+    box-shadow: $shadow-2xl, $glow-primary;
+    
+    input {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-medium;
+      
+      &::placeholder {
+        color: $color-neutral-500;
+      }
+    }
+  }
+  
+  .searchresult {
+    border-radius: $border-radius-lg;
+    transition: all $transition-fast;
+    border: 1px solid transparent;
+    
+    &:hover {
+      background: rgba($color-primary-500, 0.1);
+      border-color: rgba($color-primary-500, 0.3);
+      transform: translateX(4px);
+    }
+    
+    &.active {
+      background: rgba($color-primary-500, 0.15);
+      border-color: $color-primary-500;
+    }
+  }
+}
+
+// =============================================================================
+// TOC (TABLE OF CONTENTS)
+// =============================================================================
+
+.toc-container {
+  background: rgba($color-neutral-800, 0.5);
+  border-radius: $border-radius-xl;
+  padding: $spacing-4;
+  border: 1px solid rgba(255 255 255 / 0.05);
+  
+  li {
+    border-radius: $border-radius-md;
+    transition: all $transition-fast;
+    
+    &:hover {
+      background: rgba($color-primary-500, 0.1);
+    }
+    
+    &::before {
+      color: $color-primary-400 !important;
+    }
+  }
+}
+
+// =============================================================================
+// ANIMATIONS
+// =============================================================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba($color-primary-500, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba($color-primary-500, 0.8);
+  }
+}
+
+// Apply animations
+.content > * {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+// Stagger animation for children
+@for $i from 1 through 20 {
+  .content > *:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.05}s;
+  }
+}
+
+// =============================================================================
+// SCROLLBAR STYLING
+// =============================================================================
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba($color-neutral-800, 0.5);
+  border-radius: $border-radius-full;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, $color-primary-600, $color-primary-700);
+  border-radius: $border-radius-full;
+  
+  &:hover {
+    background: linear-gradient(180deg, $color-primary-500, $color-primary-600);
+  }
+}
+
+// =============================================================================
+// RESPONSIVE IMPROVEMENTS
+// =============================================================================
+
+@media (max-width: $breakpoint-md) {
+  nav.navbar {
+    margin: $spacing-2;
+    width: calc(100% - #{$spacing-4});
+    border-radius: $border-radius-lg;
+  }
+  
+  .content {
+    h1 {
+      font-size: $font-size-3xl;
+    }
+    
+    h2 {
+      font-size: $font-size-xl;
+    }
+  }
+}
+
+// =============================================================================
+// DARK MODE SPECIFIC
+// =============================================================================
+
+.theme-dark {
+  // Enhanced glows in dark mode
+  .callout:hover,
+  .searchresult:hover {
+    box-shadow: 0 0 30px rgba($color-primary-500, 0.15);
+  }
+  
+  // Better contrast for code
+  code {
+    background: rgba($color-neutral-900, 0.8);
+  }
+}
+
+// =============================================================================
+// LIGHT MODE SPECIFIC
+// =============================================================================
+
+.theme-light {
+  // Softer shadows in light mode
+  $shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  $shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  $shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  
+  nav.navbar,
+  nav.filetree-sidebar {
+    background: rgba(255 255 255 / 0.9);
+  }
+  
+  .callout {
+    background: rgba($color-neutral-100, 0.5);
+  }
+}
