@@ -909,7 +909,7 @@ body.has-fullscreen-graph #floating-control {
 /* Sidebar Toggle Buttons */
 .sidebar-toggle-button {
   position: fixed;
-  top: 25%;  /* 改为 25% */
+  top: 25%;
   transform: translateY(-50%);
   z-index: 1000;
   background-color: var(--background-secondary);
@@ -923,22 +923,46 @@ body.has-fullscreen-graph #floating-control {
   justify-content: center;
   align-items: center;
   transition: background-color 0.2s ease, color 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
 .sidebar-toggle-button:hover {
   background-color: var(--background-modifier-hover);
   color: var(--text-normal);
 }
+
 #toggle-left-sidebar {
   left: 15px;
 }
+
 #toggle-right-sidebar {
   right: 15px;
 }
+
+/* Logic for hiding/showing toggles on Desktop */
+@media (min-width: 1024px) {
+    /* Hide toggles by default (assuming sidebars are open) */
+    .sidebar-toggle-button {
+        display: none !important;
+    }
+
+    /* Show LEFT toggle only when LEFT sidebar is collapsed */
+    html.left-sidebar-collapsed #toggle-left-sidebar {
+        display: flex !important;
+    }
+
+    /* Show RIGHT toggle only when RIGHT sidebar is collapsed */
+    html.right-sidebar-collapsed #toggle-right-sidebar {
+        display: flex !important;
+    }
+}
+
 @media (max-width: 1023px) {
   .sidebar-toggle-button {
-    display: none;
+    display: none !important; /* Always hide on mobile, handled by other UI? */
   }
 }
+
 
 /* START: Definitive Responsive Flexbox Layout */
 

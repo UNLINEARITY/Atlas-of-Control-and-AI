@@ -3,6 +3,13 @@
     <div class="sidebar-resizer" id="right-sidebar-resizer"></div>
 
     <div class="sidebar-content">
+        <!-- Main Sidebar Header with Close Button -->
+        <div class="sidebar-header-main">
+            <button id="close-right-sidebar" class="action-icon-btn" title="收起侧边栏">
+                <i icon-name="sidebar-close"></i>
+            </button>
+        </div>
+
         <!-- 1. Top Dynamics -->
         {% for imp in dynamics.sidebar.top %}
             {% include imp %}
@@ -101,10 +108,40 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
-        /* Ensure content takes full width */
         width: 100%; 
         box-sizing: border-box;
-        pointer-events: auto; /* Ensure clicks work */
+        pointer-events: auto; 
+    }
+    
+    .sidebar-header-main {
+        display: flex;
+        justify-content: flex-end; /* Align to right */
+        padding-bottom: 5px;
+        margin-bottom: -5px; /* Pull content up slightly */
+    }
+    
+    .action-icon-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--text-muted);
+        width: 30px; 
+        height: 30px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s;
+    }
+    
+    .action-icon-btn:hover {
+        color: var(--text-normal);
+        background-color: var(--background-modifier-hover);
+    }
+    
+    .action-icon-btn i {
+        width: 20px; /* Increased from 18px */
+        height: 20px;
     }
 
     /* Section Styling */
@@ -337,6 +374,18 @@
 <script>
     // --- Right Sidebar Resizing Logic ---
     (function() {
+        // Init Lucide icons for the new sidebar structure
+        if (window.lucide) window.lucide.createIcons();
+        
+        // Internal Close Button Logic
+        const closeBtn = document.getElementById('close-right-sidebar');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                document.documentElement.classList.add('right-sidebar-collapsed');
+                localStorage.setItem('rightSidebarCollapsed', 'true');
+            });
+        }
+
         // Wait for Alpine to be ready to ensure DOM stability
         document.addEventListener('alpine:initialized', () => {
             if (window.lucide) window.lucide.createIcons();

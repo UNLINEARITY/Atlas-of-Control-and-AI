@@ -38,8 +38,8 @@
 {% endmacro %}
     
     <div class="filetree-sidebar-wrapper" 
-            x-init="isDesktop = (window.innerWidth>=1400) ? true: false;" 
-            x-on:resize.window="isDesktop = (window.innerWidth>=1400) ? true : false;" 
+            x-init="isDesktop = (window.innerWidth>=1024) ? true: false;" 
+            x-on:resize.window="isDesktop = (window.innerWidth>=1024) ? true : false;" 
             x-data="{isDesktop: true, showFilesMobile: false}">
 
         <div x-show.important="!isDesktop" style="display: none;">
@@ -59,13 +59,16 @@
            })">
         
         <div class="sidebar-header">
-            {% for imp in dynamics.filetree.beforeTitle %}
-                {% include imp %}
-            {% endfor %}
-             <a href="/" class="site-title-link">
-                   <h1>{{meta.siteName}}</h1>
-             </a>
-             {% for imp in dynamics.filetree.afterTitle %}
+            <div class="header-top">
+                <a href="/" class="site-title-link">
+                    <h1>{{meta.siteName}}</h1>
+                </a>
+                <button id="close-left-sidebar" class="action-icon-btn" title="收起侧边栏">
+                    <i icon-name="sidebar-close"></i>
+                </button>
+            </div>
+
+            {% for imp in dynamics.filetree.afterTitle %}
                 {% include imp %}
             {% endfor %}
             {% if settings.dgEnableSearch === true%}
@@ -99,30 +102,41 @@
 
     .sidebar-header {
         padding: 1rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0;
         border-bottom: 1px solid var(--background-modifier-border);
         display: flex;
         flex-direction: column;
-        align-items: center; /* Center horizontally */
         width: 100%;
         box-sizing: border-box;
+        background-color: var(--background-secondary); 
+        flex-shrink: 0;
+        z-index: 10;
+    }
+    
+    .header-top {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between; /* Space between Title and Close Btn */
+        position: relative;
     }
 
     .site-title-link {
-        width: 100%;
+        flex-grow: 1; /* Title takes center stage */
         display: flex;
         justify-content: center;
         text-decoration: none;
+        margin-right: -30px; /* Offset the width of the close button to keep title truly centered */
     }
 
     .site-title-link h1 {
-        margin: 0 0 1rem 0 !important;
+        margin: 0 !important;
         font-size: 1.4rem !important;
         text-align: center;
         color: var(--h1-color);
         font-weight: 700;
         display: flex;
-        flex-direction: column; /* Stack logo and text if needed */
+        flex-direction: column; 
         align-items: center;
         justify-content: center;
         width: 100%;
@@ -135,8 +149,6 @@
         height: auto;          /* Maintain aspect ratio */
         width: auto;           /* Default width */
         min-width: 120px;      /* Prevent becoming too small */
-        /* Optionally allow growing if sidebar is huge */
-        /* width: 80%; */ 
     }
 
     .search-wrapper {
@@ -329,6 +341,15 @@
 
     // --- Sidebar Resizing Logic ---
     (function() {
+        // Internal Close Button Logic
+        const closeBtn = document.getElementById('close-left-sidebar');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                document.documentElement.classList.add('left-sidebar-collapsed');
+                localStorage.setItem('leftSidebarCollapsed', 'true');
+            });
+        }
+        
         // Wait for DOM to be fully ready
         setTimeout(() => {
             const resizer = document.getElementById('sidebar-resizer');
