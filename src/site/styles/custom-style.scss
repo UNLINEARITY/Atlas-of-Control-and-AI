@@ -3,9 +3,10 @@
  * Modern design system with enhanced visual appeal
  */
 
-// Import design system
-@import "design-tokens";
-@import "modern-enhancements";
+// Import design system using Sass module syntax
+@use "design-tokens" as *;
+@use "modern-enhancements" as *;
+@use "ui-polish" as *;
 
 /* ----------------------------- */
 /* THEMES

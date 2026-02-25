@@ -3,7 +3,7 @@
  * Visual improvements for a more polished look
  */
 
-@import "design-tokens";
+@use "design-tokens" as *;
 
 // =============================================================================
 // GLOBAL IMPROVEMENTS
@@ -374,30 +374,6 @@ nav.filetree-sidebar {
     &.active {
       background: rgba($color-primary-500, 0.15);
       border-color: $color-primary-500;
-    }
-  }
-}
-
-// =============================================================================
-// TOC (TABLE OF CONTENTS)
-// =============================================================================
-
-.toc-container {
-  background: rgba($color-neutral-800, 0.5);
-  border-radius: $border-radius-xl;
-  padding: $spacing-4;
-  border: 1px solid rgba(255 255 255 / 0.05);
-  
-  li {
-    border-radius: $border-radius-md;
-    transition: all $transition-fast;
-    
-    &:hover {
-      background: rgba($color-primary-500, 0.1);
-    }
-    
-    &::before {
-      color: $color-primary-400 !important;
     }
   }
 }
