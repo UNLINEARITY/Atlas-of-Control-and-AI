@@ -1,5 +1,5 @@
 ---
-{"dg-path":"计算机/CUDA.md","dg-publish":true,"permalink":"/计算机/CUDA/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-20T10:48:31.380+08:00","updated":"2025-11-04T00:16:12.000+08:00"}
+{"dg-path":"计算机/CUDA.md","dg-publish":true,"permalink":"/计算机/CUDA/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-20T10:48:31.380+08:00","updated":"2026-01-15T09:29:47.216+08:00"}
 ---
 
 
@@ -7,7 +7,7 @@
 
 NVIDIA公司推出的一种并行计算平台和编程模型。它允许开发者使用NVIDIA的GPU（图形处理单元）来进行通用计算（即不仅限于图形渲染的计算任务）。
 
-CUDA为开发者提供了直接在 [[GPU\|GPU]] 上执行计算任务的能力，这通常比在CPU上执行相同任务要快得多，因为GPU拥有大量的核心，能够同时处理数千个[[线程\|线程]]。
+CUDA为开发者提供了直接在 [[GPU\|GPU]] 上执行计算任务的能力，这通常比在CPU上执行相同任务要快得多，因为GPU拥有大量的核心，能够同时处理数千个[[线程1\|线程1]]。
 
 ### CUDA toolkit 
 是由 **NVIDIA 官方提供的一整套 GPU 加速计算开发工具包**。

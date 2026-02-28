@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Configuration Space.md","permalink":"/机器人/Configuration Space/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-18T17:09:46.000+08:00","updated":"2025-12-15T10:41:52.400+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Configuration Space.md","aliases":["配置空间"],"permalink":"/机器人/Configuration Space/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-18T17:09:46.000+08:00","updated":"2026-02-17T12:31:54.431+08:00"}
 ---
 
 
@@ -12,7 +12,7 @@ Since the robot's links are rigid and of a known shape, only a few numbers are n
 - The configuration of **a point** on a plane can be described by two coordinates, $(x,y)$ . 
 - The configuration of **a coin lying heads up on a flat table** can be described by three coordinates: two coordinates $(x,y)$ that specify the location of a particular point on the coin, and one coordinate $(\theta)$ that specifies the coin's orientation.
 
-![](../img/user/OCR/images/MR-tablet-v2_32_0.jpg)
+![](../img/user/Paper/OCR/images/MR-tablet-v2_32_0.jpg)
 
 Figure 2.1: (a) The configuration of a door is described by the angle $\theta$ . (b) The configuration of a point in a plane is described by coordinates $(x, y)$ . (c) The configuration of a coin on a table is described by $(x, y,\theta)$ , where $\theta$ defines the direction in which Abraham Lincoln is looking. 
 
@@ -85,5 +85,5 @@ Such constraints are said to be nonholonomic constraints, or nonintegrable const
 
 ### 2.7 Notes and References  
 
-In the kinematics literature, structures that consist of links connected by joints are also called mechanisms or linkages. The number of degrees of freedom of a 
+In the kinematics literature, structures that consist of links connected by joints are also called mechanisms or linkages. 
 

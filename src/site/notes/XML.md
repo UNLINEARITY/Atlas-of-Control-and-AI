@@ -1,9 +1,10 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/XML.md","permalink":"/机器人/XML/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:36:18.000+08:00","updated":"2025-12-20T08:04:11.132+08:00"}
+{"dg-publish":true,"dg-path":"机器人/XML.md","permalink":"/机器人/XML/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:36:18.000+08:00","updated":"2026-02-28T16:29:07.652+08:00"}
 ---
 
 
 (terminology::**eXtensible Markup Language**)  可扩展标记语言 
+
 > 数字世界的基石（标签定义结构、属性补充细节），是一种用于标记电子文件使其具有结构性的标记语言，由 W3C 开发和维护。
 
 主要设计目的是用于**数据的存储、传输和交换**，强调数据的结构和内容。它允许用户根据实际需求**自定义标签**（标签可扩展），以准确描述数据的含义和结构，使得不同系统之间能够方便地进行数据交互。区别于 [[HTML\|HTML]]，常被用于描述服务接口和数据传输格式。

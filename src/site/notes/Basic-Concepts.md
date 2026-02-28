@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/强化学习/Basic-Concepts.md","permalink":"/人工智能/强化学习/Basic-Concepts/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:27:16.843+08:00","updated":"2025-12-09T16:37:21.472+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/强化学习/Basic-Concepts.md","permalink":"/人工智能/强化学习/Basic-Concepts/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:27:16.843+08:00","updated":"2026-01-21T16:41:15.300+08:00"}
 ---
 
 
@@ -9,7 +9,7 @@ This chapter introduces the basic concepts of reinforcement learning. These conc
 ### 1.1 A grid world example  
 Consider an example as shown in Figure 1.2, where a robot moves in a grid world. The robot, called agent, can move across adjacent cells in the grid. At each time step, it can only occupy a single cell. The white cells are accessible for entry, and the orange cells are forbidden. There is a target cell that the robot would like to reach. We will use such grid world examples throughout this book since they are intuitive for illustrating new concepts and algorithms.  
 
-![](../img/user/OCR/images/3---Chapter-1-Basic-Concepts_2_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-1-Basic-Concepts_2_0.jpg)
 
 Figure 1.2: The grid world example is used throughout the book. 
 
@@ -28,7 +28,7 @@ For each state, the agent can take five possible actions: moving upward, moving 
 
 The set of all actions is called the action space, denoted as $\mathcal{A} = \{a_{1}, \ldots , a_{5}\}$ . Different states can have different action spaces. For instance, considering that taking $a_{1}$ or $a_{4}$ in state $s_{1}$ would lead to a collision with the boundary, we can set the action space for state $s_{1}$ as $\mathcal{A}(s_{1}) = \{a_{2}, a_{3}, a_{5}\}$ . In this book, we consider the most general case: $\mathcal{A}(s_{i}) = \mathcal{A} = \{a_{1}, \ldots , a_{5}\}$ for all $i$ .
 
-![](../img/user/OCR/images/3---Chapter-1-Basic-Concepts_3_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-1-Basic-Concepts_3_0.jpg)
 
 Figure 1.3: Illustrations of the state and action concepts. (a) There are nine states $\{s_{1},\ldots ,s_{9}\}$ . (b) Each state has five possible actions $\{a_{1}, a_{2}, a_{3}, a_{4}, a_{5}\} .$ 
 
@@ -84,7 +84,7 @@ Although it is intuitive, the tabular representation is only able to describe de
 
 Intuitively, policies can be depicted as arrows (see Figure 1.4 (a)). Following a policy, the agent can generate a trajectory starting from an initial state (see Figure 1.4 (b)).
 
-![](../img/user/OCR/images/3---Chapter-1-Basic-Concepts_5_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-1-Basic-Concepts_5_0.jpg)
 
 Figure 1.4: A policy represented by arrows and some trajectories obtained by starting from different initial states. 
 
@@ -113,7 +113,7 @@ $$\begin{align}
 
 
 
-![](../img/user/OCR/images/3---Chapter-1-Basic-Concepts_6_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-1-Basic-Concepts_6_0.jpg)
 
 Figure 1.5: A stochastic policy. In state $s_{1}$ , the agent may move rightward or downward with equal probabilities of 0.5. 
 
@@ -176,7 +176,7 @@ This indicates that, when taking $a_{1}$ at $s_{1}$ , the agent obtains $r=-1$ w
 
 ### 1.6 Trajectories, returns, and episodes
 
-![](../img/user/OCR/images/3---Chapter-1-Basic-Concepts_8_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-1-Basic-Concepts_8_0.jpg)
 
 Figure 1.6: Trajectories obtained by following two policies. The trajectories are indicated by red dashed lines.
 
@@ -267,7 +267,7 @@ Here, $p(s^{\prime}|s,a)$ and $p(r|s,a)$ for all $(s,a)$ are called the model or
 
 One may have heard about the Markov processes (MPs). What is the difference between an MDP and an MP? The answer is that, once the policy in an MDP is fixed, the MDP degenerates into an MP. For example, the grid world example in Figure 1.7 can be abstracted as a Markov process. In the literature on stochastic processes, a Markov process is also called a Markov chain if it is a discrete- time process and the number of states is finite or countable. In this book, the terms “Markov process” and “Markov chain” are used interchangeably when the context is clear. Moreover, this book mainly considers finite MDPs where the numbers of states and actions are finite. This is the simplest case that should be fully understood.  
 
-![](../img/user/OCR/images/3---Chapter-1-Basic-Concepts_12_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-1-Basic-Concepts_12_0.jpg)
 
 Figure 1.7: Abstraction of the grid world example as a Markov process. Here, the circles represent states and the links with arrows represent state transitions. 
 

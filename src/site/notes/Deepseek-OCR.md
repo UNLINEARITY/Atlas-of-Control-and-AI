@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2025-11-19T22:37:16.746+08:00"}
+{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR.md","dg-pinned":true,"permalink":"/模型部署/Deepseek-OCR/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-26T23:35:16.320+08:00","updated":"2026-02-03T14:42:32.890+08:00"}
 ---
 
 
@@ -31,6 +31,9 @@ sudo apt update
 sudo apt install nvidia-cuda-toolkit   #注意此指令默认最新 13.0 的版本
 # 11.8 版本下载地址 https://developer.nvidia.com/cuda-11-8-0-download-archive  
 
+# wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run 
+
+
 # 如果有cuda（错误版本） 
 sudo apt-get --purge remove "cuda*" "nvidia-cuda*" "libcudart*" "libcublas*" "libcusolver*" "libcufft*" "libcurand*" "libcusparse*" "libnpp*" "libnvjitlink*" "libnvrtc*" "libnccl*" "libcudnn*" -y
 sudo apt-get autoremove -y
@@ -53,6 +56,18 @@ export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 source ~/.bashrc  #  重新加载配置
 ```
 
+
+```bash
+先激活 conda 环境
+
+# 先清掉可能混进来的高版本
+conda remove --force cudatoolkit cudnn cuda-toolkit
+
+# 安装 11.8 全家桶（PyTorch 为例，TF 同理）
+conda install -c nvidia/label/cuda-11.8.0 cuda-toolkit=11.8
+conda install -c nvidia/label/cuda-11.8.0 cudnn=8.6.0
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+```
 #### 2. Clone 仓库
 Clone this repository and navigate to the DeepSeek-OCR folder
 ```bash
@@ -63,6 +78,11 @@ git clone https://github.com/deepseek-ai/DeepSeek-OCR.git
 #### 3. Conda 环境创建
 [[Anaconda\|Anaconda]]
 
+
+```
+conda install -c nvidia/label/cuda-11.8.0 cuda-toolkit=11.8
+conda create -n deepseek-ocr python=3.12.9 -y
+```
 ##### 3.1 必要流程
 
 ```bash
@@ -74,16 +94,18 @@ conda create -n deepseek-ocr python=3.12.9 -y
 conda activate deepseek-ocr
 
 # 下载好必要的库文件
+cd DeepSeek-OCR/  
+
 pip install -r requirements.txt
-transformers==4.46.3
-tokenizers==0.20.3
-PyMuPDF
-img2pdf
-einops
-easydict
-addict 
-Pillow
-numpy
+	transformers==4.46.3
+	tokenizers==0.20.3
+	PyMuPDF
+	img2pdf
+	einops
+	easydict
+	addict 
+	Pillow
+	numpy
 ```
 
 ##### 3.2 Pytorch 方式下载指令
@@ -91,6 +113,10 @@ numpy
 ```bash
 pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu118
 pip install flash-attn==2.7.3 --no-build-isolation
+```
+
+```bash
+conda install -c conda-forge psutil ninja packaging wheel setuptools-scm
 ```
 
 ##### 3.3 VLLM 方式下载指令
@@ -102,10 +128,7 @@ pip install flash-attn==2.7.3 --no-build-isolation
 pip install vllm-0.8.5+cu118-cp38-abi3-manylinux1_x86_64.whl #vllm
 ```
 
-```
-pip install accelerate>=0.26.0
-pip install bitsandbytes 
-```
+
 ### 二、模型文件下载
 DeepSeek-OCR 模型文件较大，必须启用 LFS。
 #### 1. LFS 下载
@@ -135,6 +158,7 @@ git lfs pull --include="*"
 4. 如果网络不稳定或被墙，就会一直停在 “Filtering content”。
 
 ###  三、Deepseek-OCR 配置
+
 #### 通用配置
 
 
