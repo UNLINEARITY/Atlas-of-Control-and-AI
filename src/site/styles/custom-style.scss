@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Custom Styles - Atlas of Control and AI
  * Modern design system with enhanced visual appeal
  */
@@ -1038,6 +1038,11 @@ body.has-fullscreen-graph #floating-control {
     display: none !important;
 }
 
+body.has-fullscreen-graph .sidebar-toggle-button,
+body.has-fullscreen-graph .sidebar-resizer {
+  display: none !important;
+}
+
 #forest-graph {
   display: flex;
   justify-content: center;
@@ -1176,7 +1181,7 @@ body.has-fullscreen-graph #floating-control {
   position: fixed;
   top: calc(var(--app-header-height) + 34px);
   transform: none;
-  z-index: 1100;
+  z-index: 900;
   width: 22px;
   height: 54px;
   padding: 0;
@@ -1223,7 +1228,7 @@ html.has-right-sidebar #toggle-right-sidebar {
   }
 
   #toggle-right-sidebar {
-    right: calc(clamp(8px, 1.2vw, 16px) + var(--right-sidebar-width) - 10px);
+    right: calc(var(--right-sidebar-width) + 12px);
     border-radius: 10px 0 0 10px;
   }
 
@@ -1259,7 +1264,8 @@ html.has-right-sidebar #toggle-right-sidebar {
     align-items: flex-start;
     min-height: 100vh;
     overflow-y: auto; /* Allow body scroll */
-    padding: 0 clamp(8px, 1.2vw, 16px);
+    padding-left: clamp(8px, 1.2vw, 16px);
+    padding-right: 0;
     padding-top: 0 !important;
     padding-bottom: 0;
   }
@@ -1288,6 +1294,7 @@ html.has-right-sidebar #toggle-right-sidebar {
     min-width: 232px;
     max-width: 380px;
     box-sizing: border-box;
+    margin-right: -10px;
   }
 
   nav.filetree-sidebar,
@@ -1449,3 +1456,5 @@ html.has-right-sidebar #toggle-right-sidebar {
     transform: none;
   }
 }
+
+

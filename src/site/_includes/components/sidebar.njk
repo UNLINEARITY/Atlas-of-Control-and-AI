@@ -291,6 +291,24 @@
         min-height: 208px;
         margin: 0;
         border-radius: 0 0 10px 10px;
+        position: relative;
+        overflow: hidden;
+        background: color-mix(in srgb, var(--background-secondary) 92%, var(--background-primary));
+        isolation: isolate;
+    }
+
+    .graph-section #link-graph canvas {
+        display: block;
+        background: transparent !important;
+    }
+
+    .graph-section #link-graph[data-graph-state="rendering"]::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: color-mix(in srgb, var(--background-secondary) 96%, var(--background-primary));
+        pointer-events: none;
+        z-index: 0;
     }
     
     /* Force Fullscreen Graph to break out of sidebar */
@@ -398,7 +416,8 @@
         background: transparent;
         border: none;
         box-shadow: none !important;
-        margin-top: auto; /* Push to bottom if space allows */
+        margin-top: 0;
+        padding-top: 2px;
     }
     
     #pwa-actions-container {
