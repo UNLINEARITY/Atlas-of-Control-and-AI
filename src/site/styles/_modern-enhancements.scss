@@ -178,13 +178,13 @@ nav.filetree-sidebar {
   
   // Links
   a {
-    color: $color-primary-400;
+    color: var(--link-color);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: all $transition-fast;
     
     &:hover {
-      color: $color-primary-300;
+      color: var(--link-color-hover);
       border-bottom-color: currentColor;
     }
   }

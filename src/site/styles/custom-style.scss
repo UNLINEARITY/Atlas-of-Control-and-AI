@@ -12,9 +12,17 @@
 /* THEMES
 /* ----------------------------- */
 body.theme-dark {
-  --text-accent: #1699b2;
-  --text-accent-hover: #27aec8;
-  --interactive-accent: #1699b2;
+  --text-accent: #0b7f9d;
+  --text-accent-hover: #1696b7;
+  --interactive-accent: #0b7f9d;
+  --link-color: #0c728d;
+  --link-color-hover: #1188a7;
+  --link-external-color: #0d7895;
+  --link-external-color-hover: #1696b7;
+  --link-unresolved-color: #8a6f7a;
+  --link-unresolved-opacity: 0.88;
+  --link-unresolved-decoration-style: dotted;
+  --link-unresolved-decoration-color: color-mix(in srgb, #8a6f7a 55%, transparent);
   --h1-color: var(--interactive-accent);
   --h2-color: #806EA9;
   --h3-color: #6B84BA;
@@ -24,9 +32,17 @@ body.theme-dark {
 }
 
 body.theme-light {
-  --text-accent: #0f8aa3;
-  --text-accent-hover: #1699b2;
-  --interactive-accent: #0f8aa3;
+  --text-accent: #007B9C;
+  --text-accent-hover: #006f8b;
+  --interactive-accent: #004d61;
+  --link-color: #005a6f;
+  --link-color-hover: #006f8b;
+  --link-external-color: #00637a;
+  --link-external-color-hover: #007B9C;
+  --link-unresolved-color: #7b5d69;
+  --link-unresolved-opacity: 0.92;
+  --link-unresolved-decoration-style: dotted;
+  --link-unresolved-decoration-color: color-mix(in srgb, #7b5d69 45%, transparent);
   --h1-color: var(--interactive-accent);
   --h2-color: #008F9C;
   --h3-color: #00AF9E;
@@ -39,7 +55,7 @@ body.theme-light {
 /* BASE & GLOBAL STYLES
 /* ----------------------------- */
 body {
-  --graph-main: var(--interactive-accent);
+  --graph-main: var(--text-accent-hover);
   --graph-muted: rgba(126, 126, 126, 0.5);
   --sidebar-width: 300px; /* Left sidebar width */
   --right-sidebar-width: 272px; /* Right sidebar width */
@@ -547,10 +563,10 @@ nav.filetree-sidebar {
   h1::before {
     content: " ";
     display: block;
-    width: 98px;
-    height: 98px;
-    margin: 0 auto 0.7rem;
-    background-size: 74%;
+    width: 106px;
+    height: 106px;
+    margin: 0 auto 0.85rem;
+    background-size: 76%;
     background-repeat: no-repeat;
     background-image: url(/img/Logo.svg);
     background-position: center;
@@ -767,7 +783,7 @@ body.theme-light .search-box {
 
 .search-box input:focus {
   border-color: var(--interactive-accent) !important;
-  box-shadow: 0 0 0 3px rgb(22 153 178 / 0.12) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--interactive-accent) 12%, transparent) !important;
 }
 
 #search-results {
@@ -1158,13 +1174,13 @@ body.has-fullscreen-graph #floating-control {
 /* Sidebar Toggle Buttons */
 .sidebar-toggle-button {
   position: fixed;
-  top: calc(var(--app-header-height) + 28px);
+  top: calc(var(--app-header-height) + 34px);
   transform: none;
   z-index: 1100;
-  width: 28px;
-  height: 48px;
+  width: 22px;
+  height: 54px;
   padding: 0;
-  border-radius: 12px;
+  border-radius: 10px;
   border: 1px solid var(--background-modifier-border);
   background: linear-gradient(180deg, var(--background-secondary), var(--background-primary));
   color: var(--text-muted);
@@ -1182,7 +1198,7 @@ body.has-fullscreen-graph #floating-control {
   border-color: var(--interactive-accent);
   background-color: var(--background-modifier-hover);
   color: var(--text-normal);
-  box-shadow: 0 12px 28px rgb(15 23 42 / 0.16);
+  box-shadow: 0 10px 24px rgb(15 23 42 / 0.16);
 }
 
 .sidebar-toggle-button svg {
@@ -1198,21 +1214,21 @@ html.has-right-sidebar #toggle-right-sidebar {
 
 @media (min-width: 1024px) {
   #toggle-left-sidebar {
-    left: calc(clamp(8px, 1.2vw, 16px) + var(--sidebar-width) - 1px);
-    border-radius: 0 12px 12px 0;
+    left: calc(clamp(8px, 1.2vw, 16px) + var(--sidebar-width) - 10px);
+    border-radius: 0 10px 10px 0;
   }
 
   html.left-sidebar-collapsed #toggle-left-sidebar {
-    left: 0;
+    left: -1px;
   }
 
   #toggle-right-sidebar {
-    right: calc(clamp(8px, 1.2vw, 16px) + var(--right-sidebar-width) - 1px);
-    border-radius: 12px 0 0 12px;
+    right: calc(clamp(8px, 1.2vw, 16px) + var(--right-sidebar-width) - 10px);
+    border-radius: 10px 0 0 10px;
   }
 
   html.right-sidebar-collapsed #toggle-right-sidebar {
-    right: 0;
+    right: -1px;
   }
 
   html.left-sidebar-collapsed #toggle-left-sidebar svg,

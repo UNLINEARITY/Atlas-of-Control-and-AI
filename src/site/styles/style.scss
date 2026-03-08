@@ -63,11 +63,14 @@ button {
 }
 
 a.is-unresolved {
-    color: rgb(97 186 245 / 65%);
+    color: var(--link-unresolved-color);
+    opacity: var(--link-unresolved-opacity);
+    text-decoration-style: var(--link-unresolved-decoration-style);
+    text-decoration-color: var(--link-unresolved-decoration-color);
 }
 a {
     text-decoration: underline;
-    color: var(--text-accent);
+    color: var(--link-color);
 }
 
 .font-bg {

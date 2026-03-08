@@ -65,12 +65,27 @@
             return;
         }
         const el = document.getElementById(id); 
+        const shouldFitToPanel = id !== 'full-graph-container';
+
+        const zoomGraphToFit = (Graph, wait = 180) => {
+            if (!shouldFitToPanel || !Graph) {
+                return;
+            }
+
+            window.clearTimeout(el.__graphFitTimer);
+            el.__graphFitTimer = window.setTimeout(() => {
+                if (el.offsetWidth > 0 && el.offsetHeight > 0) {
+                    Graph.zoomToFit(10, 70);
+                }
+            }, wait);
+        };
 
 
         window.addEventListener('resize', () => {
             if (Graph) {
                 Graph.width(el.offsetWidth);
                 Graph.height(el.offsetHeight);
+                zoomGraphToFit(Graph, 120);
             }
         });        
 
@@ -280,6 +295,12 @@
                     Graph.zoomToFit(5, 75);
                 }, delay || 200);
             }
+
+            if (shouldFitToPanel && graphData.nodes.length > 1) {
+                zoomGraphToFit(Graph, 160);
+                zoomGraphToFit(Graph, 900);
+            }
+
         return Graph;
     }
 
