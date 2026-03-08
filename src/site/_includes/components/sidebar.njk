@@ -99,25 +99,38 @@
         background-color: var(--background-secondary);
         border-left: 1px solid var(--background-modifier-border);
         overflow: hidden; /* Hide scrollbar of wrapper */
+        position: relative;
     }
 
     .sidebar-content {
         height: 100%;
         overflow-y: auto; /* Scroll inside content */
-        padding: 10px;
+        padding: 8px 8px 12px 10px;
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
         width: 100%; 
         box-sizing: border-box;
-        pointer-events: auto; 
+        pointer-events: auto;
+        min-width: 0;
+        scrollbar-gutter: stable;
     }
     
     .sidebar-header-main {
         display: flex;
-        justify-content: flex-end; /* Align to right */
-        padding-bottom: 5px;
-        margin-bottom: -5px; /* Pull content up slightly */
+        justify-content: flex-end;
+        padding: 0 0 2px;
+        margin: 0;
+        position: sticky;
+        top: 0;
+        z-index: 3;
+        background: linear-gradient(180deg, var(--background-secondary) 70%, rgb(0 0 0 / 0%));
+    }
+
+    @media (min-width: 1024px) {
+        #close-right-sidebar {
+            display: none;
+        }
     }
     
     .action-icon-btn {
@@ -125,18 +138,20 @@
         border: none;
         cursor: pointer;
         color: var(--text-muted);
-        width: 30px; 
-        height: 30px;
-        border-radius: 4px;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: color 0.2s;
+        transition: color 0.2s, background-color 0.2s, transform 0.2s;
+        flex-shrink: 0;
     }
     
     .action-icon-btn:hover {
         color: var(--text-normal);
         background-color: var(--background-modifier-hover);
+        transform: translateY(-1px);
     }
     
     .action-icon-btn i {
@@ -152,6 +167,8 @@
         overflow: hidden;
         transition: box-shadow 0.2s ease;
         flex-shrink: 0; /* Prevent shrinking */
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .sidebar-section:hover {
@@ -377,15 +394,6 @@
         // Init Lucide icons for the new sidebar structure
         if (window.lucide) window.lucide.createIcons();
         
-        // Internal Close Button Logic
-        const closeBtn = document.getElementById('close-right-sidebar');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                document.documentElement.classList.add('right-sidebar-collapsed');
-                localStorage.setItem('rightSidebarCollapsed', 'true');
-            });
-        }
-
         // Wait for Alpine to be ready to ensure DOM stability
         document.addEventListener('alpine:initialized', () => {
             if (window.lucide) window.lucide.createIcons();
@@ -418,8 +426,8 @@
                     let newWidth = startWidth + dx;
                     
                     // Constrain width
-                    if (newWidth < 240) newWidth = 240;
-                    if (newWidth > 600) newWidth = 600;
+                    if (newWidth < 260) newWidth = 260;
+                    if (newWidth > 420) newWidth = 420;
 
                     wrapper.style.width = `${newWidth}px`; 
                     document.body.style.setProperty('--right-sidebar-width', `${newWidth}px`);
@@ -440,10 +448,11 @@
                 });
 
                 // Restore
-                const savedWidth = localStorage.getItem('rightSidebarWidth');
-                if (savedWidth) {
-                    wrapper.style.width = savedWidth;
-                    document.body.style.setProperty('--right-sidebar-width', savedWidth);
+                const savedWidth = parseInt(localStorage.getItem('rightSidebarWidth') || '', 10);
+                if (!Number.isNaN(savedWidth)) {
+                    const clampedWidth = Math.max(260, Math.min(savedWidth, 420));
+                    wrapper.style.width = `${clampedWidth}px`;
+                    document.body.style.setProperty('--right-sidebar-width', `${clampedWidth}px`);
                 }
             }, 500); 
         });

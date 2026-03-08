@@ -35,10 +35,10 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
   </head>
   <body class="theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}">
     <!-- Sidebar Toggle Buttons -->
-    <button id="toggle-left-sidebar" class="sidebar-toggle-button">
+    <button id="toggle-left-sidebar" class="sidebar-toggle-button sidebar-toggle-button-left" aria-label="折叠左侧栏" title="折叠左侧栏">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-left"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></svg>
     </button>
-    <button id="toggle-right-sidebar" class="sidebar-toggle-button">
+    <button id="toggle-right-sidebar" class="sidebar-toggle-button sidebar-toggle-button-right" aria-label="折叠右侧栏" title="折叠右侧栏">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-right"><path d="m13 17 5-5-5-5"/><path d="m6 17 5-5-5-5"/></svg>
     </button>
     {%include "components/notegrowthhistory.njk"%}

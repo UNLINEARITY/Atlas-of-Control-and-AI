@@ -101,7 +101,7 @@
     }
 
     .sidebar-header {
-        padding: 1rem;
+        padding: 0.875rem 0.875rem 0.75rem;
         margin-bottom: 0;
         border-bottom: 1px solid var(--background-modifier-border);
         display: flex;
@@ -117,44 +117,72 @@
         display: flex;
         align-items: center;
         width: 100%;
-        justify-content: space-between; /* Space between Title and Close Btn */
+        justify-content: center;
         position: relative;
+        min-height: 2.25rem;
     }
 
     .site-title-link {
-        flex-grow: 1; /* Title takes center stage */
+        flex: 0 1 100%;
         display: flex;
         justify-content: center;
         text-decoration: none;
-        margin-right: -30px; /* Offset the width of the close button to keep title truly centered */
+        margin-right: 0;
+        padding: 0 2.75rem;
+        min-width: 0;
     }
 
     .site-title-link h1 {
         margin: 0 !important;
-        font-size: 1.4rem !important;
+        font-size: 1.18rem !important;
         text-align: center;
         color: var(--h1-color);
         font-weight: 700;
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 0.25rem;
         width: 100%;
+        line-height: 1.15;
+        letter-spacing: 0.01em;
     }
     
     /* Responsive Logo */
     .site-title-link h1 img, 
     .site-title-link h1 svg {
-        max-width: 100%;       /* Allow scaling down */
-        height: auto;          /* Maintain aspect ratio */
-        width: auto;           /* Default width */
-        min-width: 120px;      /* Prevent becoming too small */
+        display: block;
+        max-width: min(96px, 100%);
+        max-height: 72px;
+        height: auto;
+        width: auto;
+        min-width: 0;
+    }
+
+    #close-left-sidebar {
+        position: absolute;
+        top: 0.125rem;
+        right: 0.125rem;
     }
 
     .search-wrapper {
         display: flex; 
         justify-content: center; 
-        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    .search-wrapper .search-button {
+        margin: 0;
+        width: min(100%, 220px);
+        justify-content: center;
+    }
+
+    @media (min-width: 1024px) {
+        #close-left-sidebar {
+            display: none;
+        }
     }
 
     .filetree-container {
@@ -341,15 +369,6 @@
 
     // --- Sidebar Resizing Logic ---
     (function() {
-        // Internal Close Button Logic
-        const closeBtn = document.getElementById('close-left-sidebar');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                document.documentElement.classList.add('left-sidebar-collapsed');
-                localStorage.setItem('leftSidebarCollapsed', 'true');
-            });
-        }
-        
         // Wait for DOM to be fully ready
         setTimeout(() => {
             const resizer = document.getElementById('sidebar-resizer');
@@ -379,8 +398,8 @@
                 let newWidth = startWidth + dx;
                 
                 // Constrain width
-                if (newWidth < 200) newWidth = 200;
-                if (newWidth > 800) newWidth = 800;
+                if (newWidth < 220) newWidth = 220;
+                if (newWidth > 420) newWidth = 420;
 
                 // Update both style and variable to ensure it sticks
                 wrapper.style.width = `${newWidth}px`; 
@@ -399,10 +418,11 @@
             });
 
             // Restore saved width
-            const savedWidth = localStorage.getItem('sidebarWidth');
-            if (savedWidth) {
-                wrapper.style.width = savedWidth;
-                document.body.style.setProperty('--sidebar-width', savedWidth);
+            const savedWidth = parseInt(localStorage.getItem('sidebarWidth') || '', 10);
+            if (!Number.isNaN(savedWidth)) {
+                const clampedWidth = Math.max(220, Math.min(savedWidth, 420));
+                wrapper.style.width = `${clampedWidth}px`;
+                document.body.style.setProperty('--sidebar-width', `${clampedWidth}px`);
             }
         }, 500); 
     })();
