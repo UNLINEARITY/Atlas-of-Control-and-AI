@@ -1,4 +1,4 @@
-<aside class="sidebar-wrapper">
+﻿<aside class="sidebar-wrapper">
     <!-- Resizer Handle (Left edge of right sidebar) -->
     <div class="sidebar-resizer" id="right-sidebar-resizer"></div>
 
@@ -228,8 +228,8 @@
     /* Graph Section Override */
     .graph-section .section-content {
         padding: 0;
-        height: clamp(250px, 31vh, 320px);
-        min-height: 250px;
+        height: clamp(340px, calc(34vh + 66px), 410px);
+        min-height: 340px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -279,16 +279,25 @@
     }
     
     /* Ensure the graph component inside fills the space */
-    .graph-section #graph-component,
-    .graph-section #link-graph {
+    .graph-section #graph-component {
         width: 100% !important;
         height: 100% !important;
+        display: flex;
+        flex-direction: column;
         flex-grow: 1;
-        display: block;
+        min-height: 0;
     }
 
     .graph-section #link-graph {
-        min-height: 208px;
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .graph-section #link-graph {
         margin: 0;
         border-radius: 0 0 10px 10px;
         position: relative;
@@ -459,71 +468,68 @@
 <script>
     // --- Right Sidebar Resizing Logic ---
     (function() {
-        // Init Lucide icons for the new sidebar structure
         if (window.lucide) window.lucide.createIcons();
-        
-        // Wait for Alpine to be ready to ensure DOM stability
-        document.addEventListener('alpine:initialized', () => {
-            if (window.lucide) window.lucide.createIcons();
-            
-            setTimeout(() => {
-                const resizer = document.getElementById('right-sidebar-resizer');
-                const wrapper = document.querySelector('.sidebar-wrapper');
-                
-                if (!resizer || !wrapper) return;
 
-                let isResizing = false;
-                let startX, startWidth;
+        function applyRightSidebarWidth(wrapper, width) {
+            const clampedWidth = Math.max(232, Math.min(width, 380));
+            wrapper.style.width = `${clampedWidth}px`;
+            document.body.style.setProperty('--right-sidebar-width', `${clampedWidth}px`);
+            return clampedWidth;
+        }
 
-                resizer.addEventListener('mousedown', (e) => {
-                    isResizing = true;
-                    startX = e.clientX;
-                    startWidth = wrapper.getBoundingClientRect().width;
-                    
-                    resizer.classList.add('resizing');
-                    document.body.style.cursor = 'col-resize';
-                    document.body.style.userSelect = 'none';
-                    e.preventDefault(); 
-                });
+        function initRightSidebarResizer() {
+            const resizer = document.getElementById('right-sidebar-resizer');
+            const wrapper = document.querySelector('.sidebar-wrapper');
 
-                document.addEventListener('mousemove', (e) => {
-                    if (!isResizing) return;
-                    
-                    // For right sidebar, moving LEFT increases width
-                    const dx = startX - e.clientX; 
-                    let newWidth = startWidth + dx;
-                    
-                    // Constrain width
-                    if (newWidth < 232) newWidth = 232;
-                    if (newWidth > 380) newWidth = 380;
+            if (!resizer || !wrapper || resizer.dataset.bound === 'true') {
+                return;
+            }
 
-                    wrapper.style.width = `${newWidth}px`; 
-                    document.body.style.setProperty('--right-sidebar-width', `${newWidth}px`);
-                });
+            resizer.dataset.bound = 'true';
 
-                document.addEventListener('mouseup', () => {
-                    if (isResizing) {
-                        isResizing = false;
-                        resizer.classList.remove('resizing');
-                        document.body.style.cursor = '';
-                        document.body.style.userSelect = '';
-                        
-                        localStorage.setItem('rightSidebarWidth', wrapper.style.width);
-                        
-                        // Trigger graph resize if graph exists
-                        window.dispatchEvent(new Event('resize'));
-                    }
-                });
+            const savedWidth = parseInt(localStorage.getItem('rightSidebarWidth') || '', 10);
+            if (!Number.isNaN(savedWidth)) {
+                applyRightSidebarWidth(wrapper, savedWidth);
+            }
 
-                // Restore
-                const savedWidth = parseInt(localStorage.getItem('rightSidebarWidth') || '', 10);
-                if (!Number.isNaN(savedWidth)) {
-                    const clampedWidth = Math.max(232, Math.min(savedWidth, 380));
-                    wrapper.style.width = `${clampedWidth}px`;
-                    document.body.style.setProperty('--right-sidebar-width', `${clampedWidth}px`);
+            let isResizing = false;
+            let startX = 0;
+            let startWidth = 0;
+
+            resizer.addEventListener('mousedown', (event) => {
+                isResizing = true;
+                startX = event.clientX;
+                startWidth = wrapper.getBoundingClientRect().width;
+
+                resizer.classList.add('resizing');
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+                event.preventDefault();
+            });
+
+            window.addEventListener('mousemove', (event) => {
+                if (!isResizing) {
+                    return;
                 }
-            }, 500); 
-        });
+
+                const dx = startX - event.clientX;
+                applyRightSidebarWidth(wrapper, startWidth + dx);
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (!isResizing) {
+                    return;
+                }
+
+                isResizing = false;
+                resizer.classList.remove('resizing');
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+                localStorage.setItem('rightSidebarWidth', wrapper.style.width);
+            });
+        }
+
+        requestAnimationFrame(initRightSidebarResizer);
     })();
 
     // PWA & Cache Logic (Preserved)
@@ -565,3 +571,5 @@
         }
     });
 </script>
+
+

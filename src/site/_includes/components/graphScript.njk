@@ -1,4 +1,4 @@
-<script>
+﻿<script>
     async function fetchGraphData() {
         const graphData = await fetch('/graph.json').then(res => res.json());
         const fullGraphData  = filterFullGraphData(graphData);
@@ -65,6 +65,11 @@
             return;
         }
 
+        if (el.__graphResizeObserver) {
+            el.__graphResizeObserver.disconnect();
+            el.__graphResizeObserver = null;
+        }
+
         if (el.__graphResizeHandler) {
             window.removeEventListener('resize', el.__graphResizeHandler);
             el.__graphResizeHandler = null;
@@ -105,25 +110,78 @@
             window.clearTimeout(el.__graphFitTimer);
             el.__graphFitTimer = window.setTimeout(() => {
                 if (el.offsetWidth > 0 && el.offsetHeight > 0) {
-                    Graph.zoomToFit(10, 70);
+                    Graph.zoomToFit(10, 32);
                 }
             }, wait);
         };
 
+        let resizeFrame = null;
+        const getContainerHeight = () => {
+            if (id !== 'link-graph' || !el.parentElement) {
+                return el.offsetHeight;
+            }
+
+            const parent = el.parentElement;
+            const siblingHeight = [...parent.children]
+                .filter(child => child !== el)
+                .reduce((total, child) => total + child.offsetHeight, 0);
+
+            return Math.max(parent.clientHeight - siblingHeight, 0);
+        };
+
+        const syncGraphSize = () => {
+            resizeFrame = null;
+            if (!Graph || !el.isConnected) {
+                return;
+            }
+
+            const nextWidth = el.offsetWidth;
+            const nextHeight = getContainerHeight();
+            if (nextWidth <= 0 || nextHeight <= 0) {
+                return;
+            }
+
+            if (id === 'link-graph') {
+                el.style.height = `${nextHeight}px`;
+            }
+
+            Graph.width(nextWidth);
+            Graph.height(nextHeight);
+            zoomGraphToFit(Graph, 120);
+        };
+
+        const queueGraphResize = () => {
+            if (resizeFrame !== null) {
+                return;
+            }
+
+            resizeFrame = requestAnimationFrame(syncGraphSize);
+        };
+
+        const resizeObserver = new ResizeObserver(() => {
+            queueGraphResize();
+        });
+        resizeObserver.observe(el);
+        if (id === 'link-graph' && el.parentElement) {
+            resizeObserver.observe(el.parentElement);
+        }
+        el.__graphResizeObserver = resizeObserver;
 
         const onResize = () => {
-            if (Graph) {
-                Graph.width(el.offsetWidth);
-                Graph.height(el.offsetHeight);
-                zoomGraphToFit(Graph, 120);
-            }
+            queueGraphResize();
         };
         window.addEventListener('resize', onResize);
         el.__graphResizeHandler = onResize;
 
+        if (id === 'link-graph') {
+            const initialHeight = getContainerHeight();
+            if (initialHeight > 0) {
+                el.style.height = `${initialHeight}px`;
+            }
+        }
 
         const width = el.offsetWidth;
-        const height = el.offsetHeight;
+        const height = id === 'link-graph' ? getContainerHeight() : el.offsetHeight;
         const highlightNodes = new Set();
         let hoverNode = null;
         const selectedNodes = new Set();
@@ -334,6 +392,7 @@
             }
 
             el.__graphInstance = Graph;
+            queueGraphResize();
             requestAnimationFrame(() => {
                 if (el.__graphInstance === Graph) {
                     el.setAttribute('data-graph-state', 'ready');
@@ -383,21 +442,21 @@
         window.graph = null;
     });
 </script>
-<div @toggle-graph-fullscreen.window="fullScreen = !fullScreen" x-init="{graphData, fullGraphData} = await fetchGraphData();" x-data="{ graphData: null, depth: 1, graph: null, fullGraph: null, showFullGraph: false, fullScreen: false, fullGraphData: null}" id="graph-component" x-bind:class="fullScreen ? 'graph graph-fs' : 'graph'" x-effect="const overlayActive = fullScreen || showFullGraph; const sidebar = $el.closest('.sidebar'); if (sidebar) { overlayActive ? sidebar.classList.add('on-top') : sidebar.classList.remove('on-top') }; overlayActive ? document.body.classList.add('has-fullscreen-graph') : document.body.classList.remove('has-fullscreen-graph'); if (graph) { requestAnimationFrame(() => { const localGraph = document.getElementById('link-graph'); if (localGraph && localGraph.offsetWidth > 0 && localGraph.offsetHeight > 0) { graph.width(localGraph.offsetWidth); graph.height(localGraph.offsetHeight); if (overlayActive) { graph.zoomToFit(10, 70); } } }); }" v-scope>
+<div @toggle-graph-fullscreen.window="fullScreen = !fullScreen" x-init="{graphData, fullGraphData} = await fetchGraphData(); sliderDepth = depth;" x-data="{ graphData: null, depth: 1, sliderDepth: 1, depthCommitTimer: null, graph: null, fullGraph: null, showFullGraph: false, fullScreen: false, fullGraphData: null}" id="graph-component" x-bind:class="fullScreen ? 'graph graph-fs' : 'graph'" x-effect="const overlayActive = fullScreen || showFullGraph; const sidebar = $el.closest('.sidebar'); if (sidebar) { overlayActive ? sidebar.classList.add('on-top') : sidebar.classList.remove('on-top') }; overlayActive ? document.body.classList.add('has-fullscreen-graph') : document.body.classList.remove('has-fullscreen-graph'); if (graph) { requestAnimationFrame(() => { const localGraph = document.getElementById('link-graph'); if (localGraph && localGraph.offsetWidth > 0 && localGraph.offsetHeight > 0) { graph.width(localGraph.offsetWidth); graph.height(localGraph.offsetHeight); if (overlayActive) { graph.zoomToFit(10, 70); } } }); }" v-scope>
     <div class="graph-title-container">
         <!-- Title removed as it's redundant with sidebar section header -->
         <div id="graph-controls" style="justify-content: flex-start; gap: 10px;">
                 <div class="depth-control">
                     <label for="graph-depth">Depth</label>
                     <div class="slider">
-                            <input x-model.number="depth" name="graph-depth" list="depthmarkers" type="range" step="1" min="1" max="3" id="graph-depth"/>
+                            <input x-model.number="sliderDepth" x-on:input="window.clearTimeout(depthCommitTimer); depthCommitTimer = window.setTimeout(() => { depth = sliderDepth }, 120)" x-on:change="window.clearTimeout(depthCommitTimer); depth = sliderDepth" name="graph-depth" list="depthmarkers" type="range" step="1" min="1" max="3" id="graph-depth"/>
                     <datalist id="depthmarkers">
                             <option value="1" label="1"></option>
                             <option value="2" label="2"></option>
                             <option value="3" label="3"></option>
                     </datalist>
                     </div>
-                    <span id="depth-display" x-text="depth"></span>
+                    <span id="depth-display" x-text="sliderDepth"></span>
                 </div>
                 <div class="ctrl-right" style="display: flex; gap: 8px;">
                     <span id="global-graph-btn" x-on:click="showFullGraph = true; fullScreen = true; setTimeout(() => {fullGraph = openFullGraph(fullGraphData)}, 100)"><i  icon-name="globe" aria-hidden="true"></i></span>
@@ -410,3 +469,4 @@
         <span id="full-graph-close" x-on:click="fullGraph = closefullGraph(fullGraph); showFullGraph = false; fullScreen = false;"><i icon-name="x" aria-hidden="true"></i></span><div id="full-graph-container"></div>
     </div>
 </div>
+
