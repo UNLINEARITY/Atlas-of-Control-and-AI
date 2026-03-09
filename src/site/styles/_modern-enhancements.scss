@@ -92,7 +92,7 @@ nav.filetree-sidebar {
   
   // Logo area
   h1::before {
-    filter: drop-shadow(0 0 10px rgba($color-primary-500, 0.5));
+    filter: none;
     transition: filter $transition-normal;
   }
   
