@@ -1,30 +1,45 @@
 {% macro menuItem(fileOrFolderName, fileOrFolder, step, currentPath) %}
     {%if fileOrFolder.isNote or fileOrFolder.isFolder%}
-        <div x-show="isOpen" style="display:none" class="{{'filelist' if step>0}}">
+        <div x-show="isOpen" x-collapse class="{{'filelist' if step>0}}" style="{{ 'padding-left: 1.2rem;' if step > 0 }}">
             {%if fileOrFolder.isNote and not fileOrFolder.hide %}
-                <div @click.stop class="notelink {{ 'active-note' if fileOrFolder.permalink === permalink}}">
-                    {%- if not meta.noteIconsSettings.filetree -%}<i icon-name="sticky-note" aria-hidden="true"></i>{%- endif -%}
-                    <a data-note-icon="{{fileOrFolder.noteIcon}}" style="text-decoration: none;" class="filename" href="{{fileOrFolder.permalink}}">{{fileOrFolder.name}} </a>
+                <div class="tree-item-wrapper notelink {{ 'active-note' if fileOrFolder.permalink === permalink}}">
+                    <div class="tree-item-content">
+                        {%- if not meta.noteIconsSettings.filetree -%}
+                        <span class="tree-item-icon">
+                            <i icon-name="file-text" class="text-icon"></i>
+                        </span>
+                        {%- endif -%}
+                        <a data-note-icon="{{fileOrFolder.noteIcon}}" class="filename" href="{{fileOrFolder.permalink}}">{{fileOrFolder.name}}</a>
+                    </div>
                 </div>
             {% elif fileOrFolder.isFolder%}
-                <div class="folder inner-folder"  x-data="{isOpen: $persist(false).as('{{currentPath}}')}" @click.stop="isOpen=!isOpen">
-                    <div class="foldername-wrapper align-icon">
-                    <i x-show="isOpen" style="display: none;"  icon-name="chevron-down"></i>
-                    <i x-show="!isOpen"  icon-name="chevron-right"></i>
-                    <span class="foldername">{{fileOrFolderName}}</span>
+                <div class="folder-wrapper" x-data="{isOpen: $persist(false).as('{{currentPath}}')}">
+                    <div class="tree-item-wrapper folder-toggle" @click="isOpen=!isOpen" :class="{'is-open': isOpen}">
+                        <div class="tree-item-content">
+                            <span class="tree-item-icon folder-icon">
+                                <i x-show="!isOpen" icon-name="folder"></i>
+                                <i x-show="isOpen" icon-name="folder-open" class="text-accent"></i>
+                            </span>
+                            <span class="foldername">{{fileOrFolderName}}</span>
+                            <span class="folder-chevron">
+                                <i x-show="!isOpen" icon-name="chevron-right"></i>
+                                <i x-show="isOpen" icon-name="chevron-down"></i>
+                            </span>
+                        </div>
                     </div>
+                    <!-- Recursive Children -->
                     {% for fileOrFolderName, child in fileOrFolder %}
                         {{menuItem(fileOrFolderName, child, step+1, (currentPath+"/"+fileOrFolderName))}}
                     {% endfor %}
                 </div>
             {% endif %}
         </div>
-        {%endif%}
-    {% endmacro %}
+    {%endif%}
+{% endmacro %}
     
     <div class="filetree-sidebar-wrapper" 
-            x-init="isDesktop = (window.innerWidth>=1400) ? true: false;" 
-            x-on:resize.window="isDesktop = (window.innerWidth>=1400) ? true : false;" 
+            x-init="isDesktop = (window.innerWidth>=1024) ? true: false;" 
+            x-on:resize.window="isDesktop = (window.innerWidth>=1024) ? true : false;" 
             x-data="{isDesktop: true, showFilesMobile: false}">
 
         <div x-show.important="!isDesktop" style="display: none;">
@@ -38,37 +53,282 @@
            x-init="$watch('showFilesMobile', value => {
                 if (value === true) {
                     setTimeout(() => {
-                        // Re-using the globally defined centerActiveNote function
                         centerActiveNote(); 
-                    }, 350); // Wait for mobile slide-in animation (300ms) plus a buffer
+                    }, 350);
                 }
            })">
-        {% for imp in dynamics.filetree.beforeTitle %}
-            {% include imp %}
-        {% endfor %}
-         <a href="/" style="text-decoration: none;">
-               <h1 style="text-align:center;">{{meta.siteName}}</h1>
-         </a>
-         {% for imp in dynamics.filetree.afterTitle %}
-            {% include imp %}
-        {% endfor %}
-        {% if settings.dgEnableSearch === true%}
-            <div style="display: flex; justify-content: center;">
-                {% include "components/searchButton.njk" %}
+        
+        <div class="sidebar-header">
+            <div class="header-top">
+                <a href="/" class="site-title-link">
+                    <h1>{{meta.siteName}}</h1>
+                </a>
+                <button id="close-left-sidebar" class="action-icon-btn" title="收起侧边栏">
+                    <i icon-name="sidebar-close"></i>
+                </button>
             </div>
-        {%endif%}
-         <div class="folder" x-data="{isOpen: true}">
+
+            {% for imp in dynamics.filetree.afterTitle %}
+                {% include imp %}
+            {% endfor %}
+            {% if settings.dgEnableSearch === true%}
+                <div class="search-wrapper">
+                    {% include "components/searchButton.njk" %}
+                </div>
+            {%endif%}
+        </div>
+
+         <div class="filetree-container" x-data="{isOpen: true}">
                {%- for fileOrFolderName, fileOrFolder in filetree -%}
                   {{menuItem(fileOrFolderName, fileOrFolder, 0, fileOrFolderName)}}
                {%- endfor -%}
          </div>
       </nav>
+      
+      <!-- Resizer Handle -->
+      <div class="sidebar-resizer" id="sidebar-resizer"></div>
     </div>
 
-<script>
-    // This script implements an adaptive delay to robustly handle centering the active note,
-    // even when it is deeply nested.
+<style>
+    /* Modern Filetree Styling */
+    .filetree-sidebar {
+        font-family: var(--font-interface, sans-serif);
+        font-size: 0.95rem;
+        color: var(--text-normal);
+        padding-bottom: 50px;
+        width: 100% !important; /* Ensure it fills wrapper */
+        box-sizing: border-box;
+    }
 
+    .sidebar-header {
+        padding: 0.55rem 0.85rem 0.3rem;
+        margin-bottom: 0;
+        border-bottom: 1px solid var(--background-modifier-border);
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: var(--background-secondary); 
+        flex-shrink: 0;
+        z-index: 10;
+    }
+    
+    .header-top {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+        position: relative;
+        min-height: 2.1rem;
+    }
+
+    .site-title-link {
+        flex: 0 1 100%;
+        display: flex;
+        justify-content: center;
+        text-decoration: none;
+        margin-right: 0;
+        padding: 0 2.35rem;
+        min-width: 0;
+    }
+
+    .site-title-link h1 {
+        margin: 0 !important;
+        font-size: 1.85rem !important;
+        text-align: center;
+        color: var(--h1-color);
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.08rem;
+        width: 100%;
+        line-height: 1.15;
+        letter-spacing: 0.01em;
+    }
+    
+    /* Responsive Logo */
+    .site-title-link h1 img, 
+    .site-title-link h1 svg {
+        display: block;
+        max-width: min(124px, 100%);
+        max-height: 92px;
+        height: auto;
+        width: auto;
+        min-width: 0;
+    }
+
+    #close-left-sidebar {
+        position: absolute;
+        top: 0.125rem;
+        right: 0.125rem;
+    }
+
+    .search-wrapper {
+        display: flex; 
+        justify-content: center; 
+        margin-top: 0.18rem;
+        margin-bottom: 0;
+        width: 100%;
+        padding: 0 2px;
+        box-sizing: border-box;
+    }
+
+    .search-wrapper .search-button {
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        justify-content: space-between;
+    }
+
+    @media (min-width: 1024px) {
+        #close-left-sidebar {
+            display: none;
+        }
+    }
+
+    .filetree-container {
+        padding: 0 0.22rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .filelist {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Tree Item Wrapper (Row) */
+    .tree-item-wrapper {
+        display: flex;
+        align-items: center;
+        padding: 6px 8px;
+        margin: 2px 0;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid transparent; 
+        width: 100%; /* Fill container */
+        box-sizing: border-box;
+    }
+
+    .tree-item-wrapper:hover {
+        background-color: var(--background-modifier-hover);
+    }
+
+    .tree-item-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    /* Icons */
+    .tree-item-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 8px;
+        color: var(--text-muted);
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+    
+    .tree-item-icon i {
+        width: 16px;
+        height: 16px;
+    }
+
+    .text-accent {
+        color: var(--interactive-accent) !important;
+    }
+
+    /* Filename/Foldername */
+    .filename, .foldername {
+        flex-grow: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--text-normal);
+        text-decoration: none;
+        line-height: 1.4;
+    }
+
+    /* Active Note Style */
+    .active-note {
+        background-color: var(--background-primary-alt);
+        border-color: var(--interactive-accent);
+        font-weight: 600;
+    }
+
+    .active-note .filename {
+        color: var(--interactive-accent);
+    }
+    
+    .active-note .tree-item-icon {
+        color: var(--interactive-accent);
+    }
+
+    /* Folder Chevron (Right Aligned) */
+    .folder-chevron {
+        margin-left: auto;
+        color: var(--text-faint);
+        display: flex;
+        align-items: center;
+        padding-left: 5px;
+    }
+    
+    .folder-chevron i {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Indentation Guide Lines */
+    .filelist {
+        position: relative;
+    }
+    
+    .filelist::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0.6rem; /* Align with parent icon center */
+        width: 1px;
+        background-color: var(--background-modifier-border);
+        opacity: 0.5;
+    }
+
+    /* Folder Open State */
+    .folder-toggle.is-open .foldername {
+        color: var(--text-accent);
+    }
+
+    /* Force Resizer Style locally to ensure it works */
+    #sidebar-resizer {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 8px; /* Easier to grab */
+        height: 100%;
+        cursor: col-resize;
+        z-index: 999;
+        background: transparent;
+        transition: background 0.2s;
+    }
+    
+    #sidebar-resizer:hover,
+    #sidebar-resizer.resizing {
+        background: var(--interactive-accent);
+        opacity: 0.5;
+    }
+
+</style>
+
+<script>
     const centerActiveNote = () => {
         const filetreeSidebar = document.querySelector('.filetree-sidebar');
         const activeNote = filetreeSidebar ? filetreeSidebar.querySelector('.active-note') : null;
@@ -77,40 +337,97 @@
             let clicks = 0;
             let current = activeNote;
 
-            // 1. Traverse up the DOM, counting and executing the clicks needed to open parent folders.
             while (current && current !== filetreeSidebar) {
-                const filelistContainer = current.closest('.filelist');
+                // Find parent collapse region
+                const filelistContainer = current.closest('.filelist'); // In x-collapse div
                 if (filelistContainer) {
-                    const folderParent = filelistContainer.parentElement;
-                    if (folderParent && folderParent.matches('.folder.inner-folder')) {
-                        const isClosed = filelistContainer.style.display === 'none';
-                        if (isClosed) {
-                            folderParent.click();
-                            clicks++; // Increment for each folder we need to open.
+                    const folderWrapper = filelistContainer.parentElement; // .folder-wrapper
+                    if (folderWrapper) {
+                        // Check alpine state roughly by checking display
+                        // Better: check x-data scope. But for click simulation:
+                        const toggleBtn = folderWrapper.querySelector('.folder-toggle');
+                        
+                        // If display is none, it means it's closed.
+                        if (filelistContainer.style.display === 'none') {
+                            if(toggleBtn) toggleBtn.click();
+                            clicks++;
                         }
-                        current = folderParent;
+                        current = folderWrapper; 
                     } else { break; }
                 } else { break; }
             }
 
-            // 2. Calculate an adaptive delay. More clicks (deeper nesting) require a longer wait
-            //    for the UI to update. 50ms per level is a safe buffer.
             const delay = 50 + (clicks * 50);
-
-            // 3. Wait for the calculated delay before scrolling.
             setTimeout(() => {
-                activeNote.scrollIntoView({ behavior: 'auto', block: 'center' });
+                activeNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, delay);
         }
     };
 
-    // Handle initial page load.
     document.addEventListener('alpine:initialized', centerActiveNote);
-
-    // Handle back/forward navigation from bfcache.
     window.addEventListener('pageshow', (event) => {
         if (event.persisted) {
             centerActiveNote();
         }
     });
+
+    // --- Sidebar Resizing Logic ---
+    (function() {
+        // Wait for DOM to be fully ready
+        setTimeout(() => {
+            const resizer = document.getElementById('sidebar-resizer');
+            // The wrapper is the element we want to resize
+            const wrapper = document.querySelector('.filetree-sidebar-wrapper');
+            
+            if (!resizer || !wrapper) return;
+
+            let isResizing = false;
+            let startX, startWidth;
+
+            resizer.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                startX = e.clientX;
+                startWidth = wrapper.getBoundingClientRect().width;
+                
+                resizer.classList.add('resizing');
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+                e.preventDefault(); 
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+                
+                const dx = e.clientX - startX;
+                let newWidth = startWidth + dx;
+                
+                // Constrain width
+                if (newWidth < 220) newWidth = 220;
+                if (newWidth > 420) newWidth = 420;
+
+                // Update both style and variable to ensure it sticks
+                wrapper.style.width = `${newWidth}px`; 
+                document.body.style.setProperty('--sidebar-width', `${newWidth}px`);
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isResizing) {
+                    isResizing = false;
+                    resizer.classList.remove('resizing');
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                    
+                    localStorage.setItem('sidebarWidth', wrapper.style.width);
+                }
+            });
+
+            // Restore saved width
+            const savedWidth = parseInt(localStorage.getItem('sidebarWidth') || '', 10);
+            if (!Number.isNaN(savedWidth)) {
+                const clampedWidth = Math.max(220, Math.min(savedWidth, 420));
+                wrapper.style.width = `${clampedWidth}px`;
+                document.body.style.setProperty('--sidebar-width', `${clampedWidth}px`);
+            }
+        }, 500); 
+    })();
 </script>

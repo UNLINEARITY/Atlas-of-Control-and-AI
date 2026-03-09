@@ -1,0 +1,161 @@
+/**
+ * Design Tokens - Atlas of Control and AI
+ * Modern design system with consistent spacing, colors, and typography
+ */
+
+// =============================================================================
+// COLORS
+// =============================================================================
+
+// Primary palette - Teal/Cyan inspired by control systems and technology
+$color-primary-50: #e0f7fa;
+$color-primary-100: #b2ebf2;
+$color-primary-200: #80deea;
+$color-primary-300: #4dd0e1;
+$color-primary-400: #26c6da;
+$color-primary-500: #00bcd4;
+$color-primary-600: #00acc1;
+$color-primary-700: #0097a7;
+$color-primary-800: #00838f;
+$color-primary-900: #006064;
+
+// Accent palette - Warm amber for highlights
+$color-accent-50: #fff8e1;
+$color-accent-100: #ffecb3;
+$color-accent-200: #ffe082;
+$color-accent-300: #ffd54f;
+$color-accent-400: #ffca28;
+$color-accent-500: #ffc107;
+$color-accent-600: #ffb300;
+$color-accent-700: #ffa000;
+$color-accent-800: #ff8f00;
+$color-accent-900: #ff6f00;
+
+// Semantic colors
+$color-success: #10b981;
+$color-warning: #f59e0b;
+$color-error: #ef4444;
+$color-info: #3b82f6;
+
+// Neutral palette
+$color-neutral-0: #ffffff;
+$color-neutral-50: #fafafa;
+$color-neutral-100: #f5f5f5;
+$color-neutral-200: #e5e5e5;
+$color-neutral-300: #d4d4d4;
+$color-neutral-400: #a3a3a3;
+$color-neutral-500: #737373;
+$color-neutral-600: #525252;
+$color-neutral-700: #404040;
+$color-neutral-800: #262626;
+$color-neutral-900: #171717;
+$color-neutral-950: #0a0a0a;
+
+// =============================================================================
+// TYPOGRAPHY
+// =============================================================================
+
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-base: 1rem;     // 16px
+$font-size-lg: 1.125rem;   // 18px
+$font-size-xl: 1.25rem;    // 20px
+$font-size-2xl: 1.5rem;    // 24px
+$font-size-3xl: 1.875rem;  // 30px
+$font-size-4xl: 2.25rem;   // 36px
+$font-size-5xl: 3rem;      // 48px
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$line-height-tight: 1.25;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+
+// =============================================================================
+// SPACING
+// =============================================================================
+
+$spacing-0: 0;
+$spacing-1: 0.25rem;   // 4px
+$spacing-2: 0.5rem;    // 8px
+$spacing-3: 0.75rem;   // 12px
+$spacing-4: 1rem;      // 16px
+$spacing-5: 1.25rem;   // 20px
+$spacing-6: 1.5rem;    // 24px
+$spacing-8: 2rem;      // 32px
+$spacing-10: 2.5rem;   // 40px
+$spacing-12: 3rem;     // 48px
+$spacing-16: 4rem;     // 64px
+$spacing-20: 5rem;     // 80px
+$spacing-24: 6rem;     // 96px
+
+// =============================================================================
+// BORDERS & SHADOWS
+// =============================================================================
+
+$border-radius-sm: 0.25rem;   // 4px
+$border-radius-md: 0.375rem;  // 6px
+$border-radius-lg: 0.5rem;    // 8px
+$border-radius-xl: 0.75rem;   // 12px
+$border-radius-2xl: 1rem;     // 16px
+$border-radius-full: 9999px;
+
+$border-width-thin: 1px;
+$border-width-medium: 2px;
+$border-width-thick: 4px;
+
+// Modern shadow system
+$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+$shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+$shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+$shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+$shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+
+// Glow effects
+$glow-primary: 0 0 20px rgb(0 188 212 / 0.3);
+$glow-accent: 0 0 20px rgb(255 193 7 / 0.3);
+
+// =============================================================================
+// TRANSITIONS
+// =============================================================================
+
+$transition-fast: 150ms ease;
+$transition-normal: 250ms ease;
+$transition-slow: 350ms ease;
+
+// =============================================================================
+// Z-INDEX
+// =============================================================================
+
+$z-base: 0;
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-fixed: 300;
+$z-modal-backdrop: 400;
+$z-modal: 500;
+$z-popover: 600;
+$z-tooltip: 700;
+
+// =============================================================================
+// LAYOUT
+// =============================================================================
+
+$sidebar-width: 280px;
+$sidebar-width-collapsed: 60px;
+$right-sidebar-width: 320px;
+$content-max-width: 900px;
+$navbar-height: 64px;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;

@@ -11,34 +11,34 @@ function extractLinks(content) {
       (link) =>
         link
           .slice(2, -2)
-          .split("|")[0]
-          .replace(/.(md|markdown)\s?$/i, "")
-          .replace("\\", "")
+          .split('|')[0]
+          .replace(/.(md|markdown)\s?$/i, '')
+          .replace('\\', '')
           .trim()
-          .split("#")[0]
+          .split('#')[0]
     ),
     ...(content.match(internalLinkRegex) || []).map(
       (link) =>
         link
           .slice(6, -1)
-          .split("|")[0]
-          .replace(/.(md|markdown)\s?$/i, "")
-          .replace("\\", "")
+          .split('|')[0]
+          .replace(/.(md|markdown)\s?$/i, '')
+          .replace('\\', '')
           .trim()
-          .split("#")[0]
+          .split('#')[0]
     ),
   ];
 }
 
 function getGraph(data) {
-  let nodes = {};
-  let links = [];
-  let stemURLs = {};
-  let homeAlias = "/";
+  const nodes = {};
+  const links = [];
+  const stemURLs = {};
+  let homeAlias = '/';
   (data.collections.note || []).forEach((v, idx) => {
     const isHome =
-      v.data["dg-home"] ||
-      (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1);
+      v.data['dg-home'] ||
+      (v.data.tags && v.data.tags.indexOf('gardenEntry') > -1);
 
     // Hard-exclude notes marked with hideInGraph, but keep the home node (even if hidden)
     // because the frontend graph script depends on its existence.
@@ -46,9 +46,9 @@ function getGraph(data) {
       return;
     }
 
-    let fpath = v.filePathStem.replace("/notes/", "");
-    let parts = fpath.split("/");
-    let group = "none";
+    const fpath = v.filePathStem.replace('/notes/', '');
+    const parts = fpath.split('/');
+    let group = 'none';
     if (parts.length >= 3) {
       group = parts[parts.length - 2];
     }
@@ -66,21 +66,21 @@ function getGraph(data) {
     };
     stemURLs[fpath] = v.url;
     if (
-      v.data["dg-home"] ||
-      (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1)
+      v.data['dg-home'] ||
+      (v.data.tags && v.data.tags.indexOf('gardenEntry') > -1)
     ) {
       homeAlias = v.url;
     }
   });
   Object.values(nodes).forEach((node) => {
-    let outBound = new Set();
+    const outBound = new Set();
     node.outBound.forEach((olink) => {
-      let link = (stemURLs[olink] || olink).split("#")[0];
+      const link = (stemURLs[olink] || olink).split('#')[0];
       outBound.add(link);
     });
     node.outBound = Array.from(outBound);
     node.outBound.forEach((link) => {
-      let n = nodes[link];
+      const n = nodes[link];
       if (n) {
         n.neighbors.add(node.url);
         n.backLinks.add(node.url);

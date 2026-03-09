@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 防抖滚动处理
     let ticking = false;
+    function handleScroll() {
+        // 可以在这里添加滚动时的处理逻辑
+    }
     function updateScroll() {
         handleScroll();
         ticking = false;

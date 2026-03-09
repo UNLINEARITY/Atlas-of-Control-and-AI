@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build output
+dist/
+build/
+
+# Vendor files
+src/site/vendor/
+
+# Cache
+.cache/
+*.log
+
+# Environment
+.env
+.env.*
+
+# Large media files
+*.mp4
+*.webm
+*.mov
+*.mp3
+*.wav
+*.flac
+*.zip
+*.tar.gz
+*.rar
