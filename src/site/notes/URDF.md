@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/URDF.md","permalink":"/机器人/URDF/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:30:49.000+08:00","updated":"2026-01-08T21:47:01.394+08:00"}
+{"dg-publish":true,"dg-path":"机器人/URDF.md","permalink":"/机器人/URDF/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-07T21:30:49.000+08:00","updated":"2026-01-10T12:25:50.562+08:00"}
 ---
 
 
@@ -9,6 +9,7 @@
 - 机器人 刚体拓扑结构
 - 各刚体（link）的 几何、惯性、视觉、碰撞属性
 - 各关节（joint）的 运动学约束
+
 
 ### 1. 基本组成
 
@@ -178,8 +179,9 @@ DAE 用来描述“外形 + 材质 + 层级关系”。
 
 
 ### 可视化网站
-https://unlinearity.github.io/URDF-Visualizer/
+- (website::https://unlinearity.github.io/URDF-Visualizer/)  支持多种文件的可视化
+- https://gkjohnson.github.io/urdf-loaders/javascript/example/bundle/ 
+- https://xinlang2019.github.io/urdf_visualizer/ 
+- https://viewer.robotsfan.com/  
 
-https://gkjohnson.github.io/urdf-loaders/javascript/example/bundle/ 
-https://xinlang2019.github.io/urdf_visualizer/ 
-https://viewer.robotsfan.com/  
+

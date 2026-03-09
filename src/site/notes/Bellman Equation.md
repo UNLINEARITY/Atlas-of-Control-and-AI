@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/强化学习/Bellman Equation.md","permalink":"/人工智能/强化学习/Bellman Equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:43:29.824+08:00","updated":"2025-12-12T10:52:07.620+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/强化学习/Bellman Equation.md","permalink":"/人工智能/强化学习/Bellman Equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:43:29.824+08:00","updated":"2026-01-21T16:41:15.355+08:00"}
 ---
 
 
@@ -83,7 +83,7 @@ $$v_{\pi}(s) = \sum_{a\in \mathcal{A}}\pi (a|s)\sum_{s'\in \mathcal{S}}p(s'|s,a)
 
 We next use two examples to demonstrate how to write out the Bellman equation and calculate the state values step by step. Readers are advised to carefully go through the examples to gain a better understanding of the Bellman equation.
 
-![](../img/user/OCR/images/3---Chapter-2-State-Values-and-Bellman-Equation_9_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-2-State-Values-and-Bellman-Equation_9_0.jpg)
 
 <center>Figure 2.4: An example for demonstrating the Bellman equation. The policy in this example is deterministic. </center>  
 
@@ -106,7 +106,7 @@ $$v_{\pi}(s_4) = \frac{1}{1 - \gamma},$$ $$v_{\pi}(s_3) = \frac{1}{1 - \gamma},$
 Furthermore, if we set $\gamma = 0.9$ , then  
 $$v_{\pi}(s_{4}) = \frac{1}{1 - 0.9} = 10,$$ $$v_{\pi}(s_{3}) = \frac{1}{1 - 0.9} = 10,$$ $$v_{\pi}(s_{2}) = \frac{1}{1 - 0.9} = 10,$$ $$v_{\pi}(s_{1}) = \frac{0.9}{1 - 0.9} = 9.$$  
 
-![](../img/user/OCR/images/3---Chapter-2-State-Values-and-Bellman-Equation_10_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-2-State-Values-and-Bellman-Equation_10_0.jpg)
 
 <center>Figure 2.5: An example for demonstrating the Bellman equation. The policy in this example is stochastic. </center>  
 

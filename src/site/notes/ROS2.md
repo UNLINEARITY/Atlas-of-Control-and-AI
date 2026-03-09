@@ -1,5 +1,5 @@
 ---
-{"tags":["OpenSource","Framework","Robotics"],"dg-publish":true,"dg-path":"机器人/ROS2.md","permalink":"/机器人/ROS2/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-28T21:52:03.720+08:00","updated":"2026-01-03T16:44:57.245+08:00"}
+{"tags":["OpenSource","Framework","Robotics"],"dg-publish":true,"dg-path":"机器人/ROS2.md","permalink":"/机器人/ROS2/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-28T21:52:03.720+08:00","updated":"2026-01-15T10:57:10.919+08:00"}
 ---
 
 
@@ -25,7 +25,7 @@ Basic Concepts
 [[ROS2 Topics\|ROS2 Topics]]
 [[ROS2 Services\|ROS2 Services]]
 [[RCL\|RCL]]
-[[ROS2 Package\|ROS2 Package]]
+[[ROS2 Package1\|ROS2 Package1]]
 [[ROS2 Message\|ROS2 Message]]
 [[ROS2 Communication\|ROS2 Communication]]
 #### 实际实践
@@ -91,3 +91,5 @@ Basic Concepts
 
 
 [^1]: (website::https://docs.ros.org/)
+https://ros.ncnynl.com/ 
+

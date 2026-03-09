@@ -1,0 +1,335 @@
+/**
+ * UI Polish - 细节打磨
+ * 修复用户反馈的四个问题
+ */
+
+// =============================================================================
+// 1. 修复顶部空白问题
+// =============================================================================
+
+// 移除 body 顶部多余的空白
+body {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+// 调整内容区域顶部间距
+.content {
+  margin-top: 60px !important; // 减少顶部空白
+  
+  @media (max-width: 800px) {
+    margin-top: 50px !important;
+  }
+}
+
+// 调整 cm-s-obsidian 的顶部间距
+.content.cm-s-obsidian {
+  margin-top: 60px !important;
+  padding-top: 10px !important;
+  
+  @media (max-width: 1024px) {
+    margin-top: 50px !important;
+  }
+}
+
+// =============================================================================
+// 2. 左侧边栏顶部栏固定 (Sticky Header)
+// =============================================================================
+
+.filetree-sidebar {
+  display: flex;
+  flex-direction: column;
+  
+  .sidebar-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--background-secondary);
+    flex-shrink: 0;
+    // 添加微妙的底部阴影表示滚动分隔
+    box-shadow: 0 1px 0 rgba(0 0 0 / 0.1), 0 2px 4px rgba(0 0 0 / 0.05);
+    
+    // 确保在深色模式下也有良好的分隔
+    .theme-dark & {
+      box-shadow: 0 1px 0 rgba(255 255 255 / 0.05), 0 2px 8px rgba(0 0 0 / 0.2);
+    }
+  }
+  
+  // 文件树容器需要可滚动
+  .filetree-container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+// =============================================================================
+// 3. 优化大纲 TOC 样式 - 移除丑陋的灰色框
+// =============================================================================
+
+.sidebar .toc-container {
+  // 移除灰色背景和边框
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  
+  // 列表样式优化
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+    ul {
+      padding-left: 12px;
+      border-left: 1px solid var(--background-modifier-border);
+      margin-left: 6px;
+    }
+  }
+  
+  li {
+    margin: 2px 0;
+    
+    // 移除默认的 before 内容
+    &::before {
+      display: none !important;
+    }
+  }
+  
+  a {
+    display: block;
+    padding: 4px 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+    line-height: 1.4;
+    
+    &:hover {
+      color: var(--text-normal);
+      background-color: var(--background-modifier-hover);
+      border-left-color: var(--interactive-accent);
+    }
+    
+    // 当前章节高亮
+    &.active {
+      color: var(--interactive-accent);
+      background-color: var(--background-primary-alt);
+      border-left-color: var(--interactive-accent);
+      font-weight: 500;
+    }
+  }
+  
+  // 不同层级的大小区分
+  > ul > li > a {
+    font-weight: 500;
+    color: var(--text-normal);
+  }
+  
+  // 更深层级的缩进
+  ul ul ul a {
+    font-size: 0.85rem;
+    padding-left: 12px;
+  }
+}
+
+// 右侧边栏中的 TOC 区域优化
+.sidebar-section.toc-section {
+  .section-content {
+    padding: 8px !important;
+  }
+}
+
+// =============================================================================
+// 4. 增大折叠按钮尺寸
+// =============================================================================
+
+// 左侧边栏关闭按钮
+#close-left-sidebar {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 8px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--background-modifier-hover);
+    transform: scale(1.05);
+  }
+  
+  i {
+    width: 22px !important;
+    height: 22px !important;
+  }
+}
+
+// 右侧边栏关闭按钮
+#close-right-sidebar {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 8px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--background-modifier-hover);
+    transform: scale(1.05);
+  }
+  
+  i {
+    width: 22px !important;
+    height: 22px !important;
+  }
+}
+
+// 按钮容器对齐优化
+.sidebar-header-main {
+  padding: 8px 12px !important;
+}
+
+// =============================================================================
+// 额外优化：整体细节打磨去 AI 感
+// =============================================================================
+
+// 更自然的过渡曲线
+$ease-natural: cubic-bezier(0.4, 0, 0.2, 1);
+$ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// 链接样式优化 - 更细腻的下划线
+a {
+  transition: color 0.2s $ease-natural, border-color 0.2s $ease-natural;
+  
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// 卡片/区块阴影更柔和
+.sidebar-section {
+  box-shadow: 0 1px 3px rgba(0 0 0 / 0.05), 0 1px 2px rgba(0 0 0 / 0.03) !important;
+  transition: box-shadow 0.3s $ease-natural, transform 0.2s $ease-natural;
+  
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0 0 0 / 0.08), 0 2px 4px rgba(0 0 0 / 0.04) !important;
+  }
+}
+
+// 按钮点击反馈
+button, .action-btn, .action-icon-btn {
+  transition: transform 0.1s ease, background-color 0.2s ease;
+  
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+// 笔记链接更自然的悬停效果
+.notelink {
+  transition: all 0.2s $ease-natural;
+  
+  &:hover {
+    transform: translateX(3px);
+  }
+  
+  &.active-note {
+    box-shadow: 
+      0 1px 2px rgba(0 0 0 / 0.05),
+      0 0 0 1px var(--interactive-accent) inset,
+      0 0 8px rgba(var(--interactive-accent-rgb), 0.15);
+    
+    &:hover {
+      transform: translateX(3px);
+      box-shadow: 
+        0 2px 4px rgba(0 0 0 / 0.08),
+        0 0 0 1px var(--interactive-accent) inset,
+        0 0 12px rgba(var(--interactive-accent-rgb), 0.2);
+    }
+  }
+}
+
+// 搜索按钮优化
+.search-button {
+  transition: all 0.2s $ease-natural;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0 0 0 / 0.1);
+  }
+}
+
+// 图谱容器优化
+.graph-section {
+  .section-content {
+    border-radius: 6px;
+    overflow: hidden;
+  }
+}
+
+// 减少过度发光效果，使用更微妙的边框
+.callout {
+  box-shadow: 
+    0 1px 3px rgba(0 0 0 / 0.05),
+    0 1px 2px rgba(0 0 0 / 0.03);
+  
+  &:hover {
+    box-shadow: 
+      0 4px 12px rgba(0 0 0 / 0.08),
+      0 2px 4px rgba(0 0 0 / 0.04);
+    transform: translateY(-1px);
+  }
+}
+
+// 代码块更自然的样式
+pre {
+  box-shadow: 
+    0 1px 3px rgba(0 0 0 / 0.1),
+    0 0 0 1px rgba(0 0 0 / 0.05) inset !important;
+}
+
+// 图片悬停效果更微妙
+.content img {
+  transition: transform 0.3s $ease-natural, box-shadow 0.3s $ease-natural;
+  
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 24px rgba(0 0 0 / 0.12);
+  }
+}
+
+// 表格样式优化
+table {
+  box-shadow: 0 1px 3px rgba(0 0 0 / 0.05);
+  
+  th {
+    background-color: var(--background-secondary-alt);
+    font-weight: 600;
+  }
+  
+  tr {
+    transition: background-color 0.15s ease;
+  }
+}
+
+// 响应式优化
+@media (max-width: 768px) {
+  #close-left-sidebar,
+  #close-right-sidebar {
+    width: 40px !important;
+    height: 40px !important;
+    
+    i {
+      width: 24px !important;
+      height: 24px !important;
+    }
+  }
+  
+  .sidebar-header {
+    padding: 12px !important;
+  }
+}

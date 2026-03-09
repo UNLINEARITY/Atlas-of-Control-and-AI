@@ -1,9 +1,9 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/强化学习/State Values and Bellman Equation.md","permalink":"/人工智能/强化学习/State Values and Bellman Equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:35:08.525+08:00","updated":"2025-12-09T13:13:49.462+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/强化学习/State Values and Bellman Equation.md","permalink":"/人工智能/强化学习/State Values and Bellman Equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:35:08.525+08:00","updated":"2026-01-21T16:41:15.474+08:00"}
 ---
 
 
-![](../img/user/OCR/images/3---Chapter-2-State-Values-and-Bellman-Equation_1_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-2-State-Values-and-Bellman-Equation_1_0.jpg)
 
 <center>Figure 2.1: Where we are in this book. </center>  
 

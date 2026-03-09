@@ -1,5 +1,5 @@
 ---
-{"dg-path":"人工智能/强化学习/Matrix-vector form of the Bellman equation.md","dg-publish":true,"permalink":"/人工智能/强化学习/Matrix-vector form of the Bellman equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:41:44.202+08:00","updated":"2025-12-11T23:15:57.151+08:00"}
+{"dg-path":"人工智能/强化学习/Matrix-vector form of the Bellman equation.md","dg-publish":true,"permalink":"/人工智能/强化学习/Matrix-vector form of the Bellman equation/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-05T10:41:44.202+08:00","updated":"2026-01-21T16:41:15.393+08:00"}
 ---
 
 
@@ -48,7 +48,7 @@ $$
 
 It can be seen that $P_{\pi}$ satisfies $P_{\pi}1 = 1$ .  
 
-![](../img/user/OCR/images/3---Chapter-2-State-Values-and-Bellman-Equation_13_0.jpg)
+![](../img/user/Paper/OCR/images/3---Chapter-2-State-Values-and-Bellman-Equation_13_0.jpg)
 
 <center>Figure 2.6: An example for demonstrating the matrix-vector form of the Bellman equation. </center>  
 
