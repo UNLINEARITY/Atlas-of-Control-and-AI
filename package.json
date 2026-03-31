@@ -5,13 +5,15 @@
     "main": "index.js",
     "scripts": {
         "prebuild": "rimraf dist",
-        "start": "npm-run-all get-theme build:sass --parallel watch:*",
+        "start": "npm-run-all get-theme build:sass build:client --parallel watch:*",
+        "watch:client": "node scripts/build-client.mjs --watch",
         "watch:sass": "sass --watch src/site/styles:dist/styles",
         "watch:eleventy": "cross-env ELEVENTY_ENV=dev eleventy --serve --incremental",
+        "build:client": "node scripts/build-client.mjs",
         "build:eleventy": "cross-env ELEVENTY_ENV=prod NODE_OPTIONS=--max-old-space-size=4096 eleventy",
         "build:sass": "sass src/site/styles:dist/styles --style compressed",
         "get-theme": "node src/site/get-theme.js",
-        "build": "npm-run-all get-theme build:*",
+        "build": "npm-run-all get-theme build:sass build:client build:eleventy",
         "lint": "npm-run-all lint:*",
         "lint:js": "eslint .",
         "lint:js:fix": "eslint . --fix",
@@ -22,18 +24,28 @@
         "prepare": "husky"
     },
     "lint-staged": {
-        "*.js": ["eslint --fix", "prettier --write"],
-        "*.{scss,css}": ["stylelint --fix", "prettier --write"],
-        "*.{json,md,yml,yaml}": ["prettier --write"]
+        "*.js": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.{scss,css}": [
+            "stylelint --fix",
+            "prettier --write"
+        ],
+        "*.{json,md,yml,yaml}": [
+            "prettier --write"
+        ]
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@11ty/eleventy": "^2.0.1",
+        "@11ty/eleventy": "^3.1.5",
         "@11ty/eleventy-plugin-rss": "^1.2.0",
+        "@chenglou/pretext": "^0.0.3",
         "@eslint/js": "^10.0.1",
         "cross-env": "^10.0.0",
+        "esbuild": "^0.27.4",
         "eslint": "^10.0.2",
         "eslint-config-prettier": "^10.1.8",
         "globals": "^17.3.0",

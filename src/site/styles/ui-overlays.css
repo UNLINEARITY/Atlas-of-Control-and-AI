@@ -1,0 +1,64 @@
+.image-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.image-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  cursor: grab;
+  transform-origin: center center;
+  transition: transform 0.1s linear;
+}
+
+.install-pwa-button {
+  animation: slide-up 0.3s ease;
+}
+
+.offline-indicator {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  padding: 8px 16px;
+  color: #fff;
+  font-size: 14px;
+  background: #ff6b6b;
+  border-radius: 20px;
+  animation: slide-in 0.3s ease;
+}
+
+.is-touch-active {
+  transform: scale(0.98);
+  transition: transform 0.12s ease;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

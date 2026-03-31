@@ -1,4 +1,5 @@
-<div class="search-container" id="globalsearch">
+<script src="/vendor/flexsearch.bundle.js"></script>
+<div class="search-container" data-search-index-date="{{ meta.buildDate|isoDate }}" id="globalsearch">
     <div class="search-box">
         <input type="search" id="term" placeholder="Start typing...">
         <div id="search-results"></div>
@@ -20,4 +21,3 @@
         </footer>
     </div>
 </div>
-{%include "components/searchScript.njk"%}
