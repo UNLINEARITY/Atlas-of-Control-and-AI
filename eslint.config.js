@@ -3,6 +3,17 @@ const globals = require('globals');
 const prettier = require('eslint-config-prettier');
 
 module.exports = [
+  {
+    ignores: [
+      'dist/**',
+      'build/**',
+      'node_modules/**',
+      'src/site/vendor/**',
+      '*.min.js',
+      '.cache/**',
+      '*.log',
+    ],
+  },
   js.configs.recommended,
   prettier,
   {
@@ -16,7 +27,6 @@ module.exports = [
       },
     },
     rules: {
-      // 错误预防
       'no-console': 'off',
       'no-debugger': 'warn',
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
@@ -29,10 +39,8 @@ module.exports = [
       'no-obj-calls': 'error',
       'no-sparse-arrays': 'warn',
       'valid-typeof': 'error',
-      
-      // 最佳实践
       'eqeqeq': ['warn', 'smart'],
-      'curly': ['warn', 'multi-line'],
+      curly: ['warn', 'multi-line'],
       'no-eval': 'error',
       'no-implied-eval': 'error',
       'no-new-func': 'error',
@@ -46,34 +54,27 @@ module.exports = [
       'no-useless-concat': 'warn',
       'no-void': 'warn',
       'wrap-iife': ['warn', 'inside'],
-      
-      // 变量声明
       'no-use-before-define': ['error', { functions: false, classes: true }],
       'no-var': 'warn',
       'prefer-const': 'warn',
-      
-      // 代码风格 (由 Prettier 处理大部分)
-      'semi': ['warn', 'always'],
-      'quotes': ['warn', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
-      'indent': 'off', // 由 Prettier 处理
+      semi: ['warn', 'always'],
+      quotes: ['warn', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
+      indent: 'off',
       'linebreak-style': 'off',
-      
-      // Node.js 特定
       'no-process-exit': 'off',
       'no-sync': 'off',
     },
   },
   {
-    // 浏览器脚本特定配置
     files: ['src/site/scripts/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.browser,
-        'mermaid': 'readonly',
-        'ForceGraph': 'readonly',
-        'lucide': 'readonly',
-        'Alpine': 'readonly',
-        'FlexSearch': 'readonly',
+        mermaid: 'readonly',
+        ForceGraph: 'readonly',
+        lucide: 'readonly',
+        Alpine: 'readonly',
+        FlexSearch: 'readonly',
       },
     },
     rules: {
@@ -81,19 +82,38 @@ module.exports = [
     },
   },
   {
-    // 测试文件和配置文件忽略某些规则
-    files: ['*.config.js', '*.config.mjs'],
+    files: ['src/client/**/*.js'],
+    languageOptions: {
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.es2021,
+        ForceGraph: 'readonly',
+        FlexSearch: 'readonly',
+        lucide: 'readonly',
+      },
+    },
     rules: {
       'no-console': 'off',
     },
   },
   {
-    // 忽略的文件
-    ignores: [
-      'dist/**',
-      'node_modules/**',
-      'src/site/vendor/**',
-      '*.min.js',
-    ],
+    files: ['scripts/**/*.mjs', '*.config.mjs'],
+    languageOptions: {
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+        ...globals.es2021,
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
+    files: ['*.config.js', '*.config.mjs'],
+    rules: {
+      'no-console': 'off',
+    },
   },
 ];

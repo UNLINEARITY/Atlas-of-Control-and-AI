@@ -1,9 +1,8 @@
+const fs = require('fs');
+const matter = require('gray-matter');
+
 const wikiLinkRegex = /\[\[(.*?\|.*?)\]\]/g;
 const internalLinkRegex = /href="\/(.*?)"/g;
-
-function caselessCompare(a, b) {
-  return a.toLowerCase() === b.toLowerCase();
-}
 
 function extractLinks(content) {
   return [
@@ -35,6 +34,7 @@ function getGraph(data) {
   const links = [];
   const stemURLs = {};
   let homeAlias = '/';
+
   (data.collections.note || []).forEach((v, idx) => {
     const isHome =
       v.data['dg-home'] ||
@@ -52,13 +52,20 @@ function getGraph(data) {
     if (parts.length >= 3) {
       group = parts[parts.length - 2];
     }
+
+    const inputPath = v.inputPath || v.data.page?.inputPath;
+    let rawContent = '';
+    if (inputPath && fs.existsSync(inputPath)) {
+      rawContent = matter(fs.readFileSync(inputPath, 'utf8')).content;
+    }
+
     nodes[v.url] = {
       id: idx,
       title: v.data.title || v.fileSlug,
       url: v.url,
       group,
       home: isHome || false,
-      outBound: extractLinks(v.template.frontMatter.content),
+      outBound: extractLinks(rawContent),
       neighbors: new Set(),
       backLinks: new Set(),
       noteIcon: v.data.noteIcon || process.env.NOTE_ICON_DEFAULT,

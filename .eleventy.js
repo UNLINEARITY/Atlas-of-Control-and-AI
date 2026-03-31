@@ -623,6 +623,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/site/styles/lazy-loading.css');
   eleventyConfig.addPassthroughCopy({'src/site/manifest.json': '/manifest.json'});
   eleventyConfig.addPassthroughCopy({'src/site/sw.js': '/sw.js'});
+  eleventyConfig.addPassthroughCopy('src/site/robots.txt');
   eleventyConfig.addPassthroughCopy('browserconfig.xml');
   eleventyConfig.addPlugin(faviconsPlugin, { outputDir: 'dist' });
   eleventyConfig.addPlugin(tocPlugin, {
