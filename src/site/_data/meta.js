@@ -2,7 +2,7 @@ require("dotenv").config();
 const { globSync } = require("glob");
 const fs = require('fs');
 
-module.exports = async (data) => {
+module.exports = async (_data) => {
   // SEO canonical primary domain (fixed)
   const baseUrl = "https://www.nonlinear.top";
   let themeStyle = globSync("src/site/styles/_theme.*.css")[0] || "";
@@ -76,7 +76,7 @@ module.exports = async (data) => {
     const formulas = content.match(/\${1,2}[^$]+\${1,2}/g);
     if (formulas) formulaCount += formulas.length;
     // 统计图片数（![](...)）
-    const images = content.match(/!\[[^\]]*\]\([^\)]+\)/g);
+    const images = content.match(/!\[[^\]]*\]\([^)]+\)/g);
     if (images) imageCount += images.length;
   });
   const siteStats = { pageCount, linkCount, wordCount, formulaCount, imageCount };
@@ -98,7 +98,7 @@ module.exports = async (data) => {
     mainLanguage: process.env.SITE_MAIN_LANGUAGE || "en",
     siteBaseUrl: baseUrl,
     ogLocale: (process.env.SITE_MAIN_LANGUAGE || "en").toLowerCase().startsWith("zh") ? "zh_CN" : "en_US",
-    graphLabelLayout: process.env.GRAPH_LABEL_LAYOUT || "native",
+    graphLabelLayout: process.env.GRAPH_LABEL_LAYOUT || "pretext",
     styleSettingsCss,
     buildDate: new Date(),
     siteStats,

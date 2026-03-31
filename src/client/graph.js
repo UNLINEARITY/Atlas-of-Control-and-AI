@@ -7,6 +7,34 @@ const GRAPH_MODE_NATIVE = 'native';
 const GRAPH_LABEL_FONT = '400 3.5px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif';
 const GRAPH_LABEL_LINE_HEIGHT = 4.75;
 const GRAPH_LABEL_LINE_LIMIT = 3;
+const GRAPH_LABEL_PADDING_X = 2.4;
+const GRAPH_LABEL_PADDING_Y = 1.35;
+const GRAPH_LABEL_MARGIN = 2.75;
+const GRAPH_LABEL_OVERSCAN = 10;
+const GRAPH_LABEL_ANIMATION = 0.24;
+const GRAPH_LABEL_COLLISION_WEIGHT = 3.2;
+const GRAPH_LABEL_NODE_COLLISION_WEIGHT = 180;
+const GRAPH_LABEL_EDGE_WEIGHT = 12;
+const GRAPH_LABEL_STABILITY_BONUS = 18;
+const GRAPH_LABEL_FALLBACK_CHAR_WIDTH = 2.35;
+const GRAPH_LABEL_COLLISION_PADDING = 18;
+const GRAPH_FULL_LABEL_BUDGET_FAR = 0;
+const GRAPH_FULL_LABEL_BUDGET_MID = 12;
+const GRAPH_FULL_LABEL_BUDGET_NEAR = 24;
+const GRAPH_FULL_LABEL_BUDGET_CLOSE = 48;
+const GRAPH_FULL_LABEL_BUDGET_DETAIL = 96;
+const GRAPH_FULL_LABEL_RECALCULATE_MS = 90;
+const GRAPH_FULL_LABEL_ZOOM_DELTA = 0.08;
+const GRAPH_LABEL_CANDIDATES = [
+  { name: 'bottom', vectorX: 0, vectorY: 1, alignX: 'center', alignY: 'top', bias: 0 },
+  { name: 'bottom-right', vectorX: 1, vectorY: 1, alignX: 'left', alignY: 'top', bias: 2.2 },
+  { name: 'bottom-left', vectorX: -1, vectorY: 1, alignX: 'right', alignY: 'top', bias: 2.4 },
+  { name: 'right', vectorX: 1, vectorY: 0, alignX: 'left', alignY: 'middle', bias: 2.8 },
+  { name: 'left', vectorX: -1, vectorY: 0, alignX: 'right', alignY: 'middle', bias: 3.1 },
+  { name: 'top', vectorX: 0, vectorY: -1, alignX: 'center', alignY: 'bottom', bias: 4.8 },
+  { name: 'top-right', vectorX: 1, vectorY: -1, alignX: 'left', alignY: 'bottom', bias: 5.3 },
+  { name: 'top-left', vectorX: -1, vectorY: -1, alignX: 'right', alignY: 'bottom', bias: 5.6 },
+];
 
 function htmlDecode(input) {
   const parser = new DOMParser().parseFromString(input, 'text/html');
@@ -76,7 +104,7 @@ function getLabelLines(label, mode, maxWidth) {
   }
 }
 
-function drawNodeLabel(ctx, node, nodeRadius, layoutMode) {
+function _drawNodeLabelLegacy(ctx, node, nodeRadius, layoutMode) {
   const label = htmlDecode(node.title);
   if (!label) {
     return;
@@ -98,6 +126,527 @@ function drawNodeLabel(ctx, node, nodeRadius, layoutMode) {
   });
 }
 
+function getNodeLabel(node) {
+  if (node.__decodedTitle === undefined) {
+    node.__decodedTitle = htmlDecode(node.title);
+  }
+  return node.__decodedTitle;
+}
+
+function getNodeRadius(node) {
+  const numberOfNeighbours = (node.neighbors && node.neighbors.length) || 2;
+  return Math.min(7, Math.max(numberOfNeighbours / 2, 2));
+}
+
+function getNodeLabelMaxWidth(node) {
+  return node.current ? 64 : 52;
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function getPreparedLabel(label) {
+  const cacheKey = `prepared::${GRAPH_LABEL_FONT}::${label}`;
+  if (LABEL_LAYOUT_CACHE.has(cacheKey)) {
+    return LABEL_LAYOUT_CACHE.get(cacheKey);
+  }
+
+  const prepared = prepareWithSegments(label, GRAPH_LABEL_FONT);
+  LABEL_LAYOUT_CACHE.set(cacheKey, prepared);
+  return prepared;
+}
+
+function getLabelMetrics(label, mode, maxWidth) {
+  if (!label) {
+    return null;
+  }
+
+  const layoutWidth = mode === GRAPH_MODE_PRETEXT ? maxWidth : 4096;
+  const cacheKey = `layout::${mode}::${GRAPH_LABEL_FONT}::${layoutWidth}::${label}`;
+  if (LABEL_LAYOUT_CACHE.has(cacheKey)) {
+    return LABEL_LAYOUT_CACHE.get(cacheKey);
+  }
+
+  try {
+    const prepared = getPreparedLabel(label);
+    const { lines } = layoutWithLines(prepared, layoutWidth, GRAPH_LABEL_LINE_HEIGHT);
+    const visibleLines = lines
+      .map((line) => ({
+        text: line.text.trim(),
+        width: mode === GRAPH_MODE_PRETEXT ? Math.min(maxWidth, line.width) : line.width,
+      }))
+      .filter((line) => line.text)
+      .slice(0, mode === GRAPH_MODE_PRETEXT ? GRAPH_LABEL_LINE_LIMIT : 1);
+
+    if (mode === GRAPH_MODE_PRETEXT && lines.length > GRAPH_LABEL_LINE_LIMIT && visibleLines.length > 0) {
+      const lastLine = visibleLines[visibleLines.length - 1];
+      visibleLines[visibleLines.length - 1] = {
+        text: `${lastLine.text.replace(/\.{3,}$/u, '').trim()}...`,
+        width: maxWidth,
+      };
+    }
+
+    const textWidth = visibleLines.reduce((widest, line) => Math.max(widest, line.width), 0);
+    const metrics = {
+      lines: visibleLines,
+      textWidth,
+      width: textWidth + GRAPH_LABEL_PADDING_X * 2,
+      height: visibleLines.length * GRAPH_LABEL_LINE_HEIGHT + GRAPH_LABEL_PADDING_Y * 2,
+    };
+    LABEL_LAYOUT_CACHE.set(cacheKey, metrics);
+    return metrics;
+  } catch (error) {
+    console.warn('Pretext label layout failed, falling back to basic label metrics.', error);
+    const fallbackTextWidth = Math.min(
+      maxWidth,
+      Math.max(GRAPH_LABEL_LINE_HEIGHT * 2, label.length * GRAPH_LABEL_FALLBACK_CHAR_WIDTH)
+    );
+    const metrics = {
+      lines: [{ text: label, width: fallbackTextWidth }],
+      textWidth: fallbackTextWidth,
+      width: fallbackTextWidth + GRAPH_LABEL_PADDING_X * 2,
+      height: GRAPH_LABEL_LINE_HEIGHT + GRAPH_LABEL_PADDING_Y * 2,
+    };
+    LABEL_LAYOUT_CACHE.set(cacheKey, metrics);
+    return metrics;
+  }
+}
+
+function getGraphViewportBounds(graph, element, globalScale) {
+  if (!graph || !element || element.offsetWidth <= 0 || element.offsetHeight <= 0) {
+    return null;
+  }
+
+  const topLeft = graph.screen2GraphCoords(0, 0);
+  const bottomRight = graph.screen2GraphCoords(element.offsetWidth, element.offsetHeight);
+  const overscan = GRAPH_LABEL_OVERSCAN / Math.max(globalScale || 1, 0.001);
+
+  return {
+    left: Math.min(topLeft.x, bottomRight.x) + overscan,
+    right: Math.max(topLeft.x, bottomRight.x) - overscan,
+    top: Math.min(topLeft.y, bottomRight.y) + overscan,
+    bottom: Math.max(topLeft.y, bottomRight.y) - overscan,
+  };
+}
+
+function clampLabelBox(box, bounds) {
+  if (!bounds) {
+    return box;
+  }
+
+  const maxX = Math.max(bounds.left, bounds.right - box.width);
+  const maxY = Math.max(bounds.top, bounds.bottom - box.height);
+  return {
+    ...box,
+    x: clamp(box.x, bounds.left, maxX),
+    y: clamp(box.y, bounds.top, maxY),
+  };
+}
+
+function getRectIntersectionArea(a, b) {
+  const overlapWidth = Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x);
+  const overlapHeight = Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y);
+
+  if (overlapWidth <= 0 || overlapHeight <= 0) {
+    return 0;
+  }
+
+  return overlapWidth * overlapHeight;
+}
+
+function getRectOverflow(box, bounds) {
+  if (!bounds) {
+    return 0;
+  }
+
+  return (
+    Math.max(0, bounds.left - box.x) +
+    Math.max(0, box.x + box.width - bounds.right) +
+    Math.max(0, bounds.top - box.y) +
+    Math.max(0, box.y + box.height - bounds.bottom)
+  );
+}
+
+function doesCircleIntersectRect(node, radius, box, padding = 0) {
+  const closestX = clamp(node.x, box.x - padding, box.x + box.width + padding);
+  const closestY = clamp(node.y, box.y - padding, box.y + box.height + padding);
+  const dx = node.x - closestX;
+  const dy = node.y - closestY;
+  const effectiveRadius = radius + padding;
+
+  return dx * dx + dy * dy < effectiveRadius * effectiveRadius;
+}
+
+function createLabelPlacement(node, nodeRadius, metrics, candidate, bounds) {
+  const vectorLength = Math.hypot(candidate.vectorX, candidate.vectorY) || 1;
+  const offsetDistance = nodeRadius + GRAPH_LABEL_MARGIN;
+  const anchorX = node.x + (candidate.vectorX / vectorLength) * offsetDistance;
+  const anchorY = node.y + (candidate.vectorY / vectorLength) * offsetDistance;
+
+  let x = anchorX;
+  if (candidate.alignX === 'center') {
+    x -= metrics.width / 2;
+  } else if (candidate.alignX === 'right') {
+    x -= metrics.width;
+  }
+
+  let y = anchorY;
+  if (candidate.alignY === 'middle') {
+    y -= metrics.height / 2;
+  } else if (candidate.alignY === 'bottom') {
+    y -= metrics.height;
+  }
+
+  const box = clampLabelBox(
+    {
+      x,
+      y,
+      width: metrics.width,
+      height: metrics.height,
+      anchorX,
+      anchorY,
+      candidate: candidate.name,
+      bias: candidate.bias,
+    },
+    bounds
+  );
+
+  return {
+    ...box,
+    textX: box.x + box.width / 2,
+    textY: box.y + GRAPH_LABEL_PADDING_Y,
+    lines: metrics.lines,
+  };
+}
+
+function getStaticLabelPlacement(node, layoutMode, bounds) {
+  const metrics = getLabelMetrics(getNodeLabel(node), layoutMode, getNodeLabelMaxWidth(node));
+  if (!metrics) {
+    return null;
+  }
+
+  return createLabelPlacement(node, getNodeRadius(node), metrics, GRAPH_LABEL_CANDIDATES[0], bounds);
+}
+
+function getLabelPriority(node, hoverNode, selectedNodes) {
+  let priority = (node.neighbors?.length || 0) * 4;
+  if (node.current) {
+    priority += 1000;
+  }
+  if (selectedNodes.has(node.url)) {
+    priority += 800;
+  }
+  if (hoverNode?.url === node.url) {
+    priority += 700;
+  }
+  if (hoverNode?.neighbors?.includes(node.url)) {
+    priority += 120;
+  }
+  return priority;
+}
+
+function getDynamicLabelBudget(isFullGraph, globalScale) {
+  if (!isFullGraph) {
+    return Number.POSITIVE_INFINITY;
+  }
+  if (globalScale < 0.7) {
+    return GRAPH_FULL_LABEL_BUDGET_FAR;
+  }
+  if (globalScale < 1.05) {
+    return GRAPH_FULL_LABEL_BUDGET_MID;
+  }
+  if (globalScale < 1.7) {
+    return GRAPH_FULL_LABEL_BUDGET_NEAR;
+  }
+  if (globalScale < 2.6) {
+    return GRAPH_FULL_LABEL_BUDGET_CLOSE;
+  }
+  return GRAPH_FULL_LABEL_BUDGET_DETAIL;
+}
+
+function getPositionedNodesForLabels(nodes, bounds) {
+  const visibilityPadding = 96;
+  return nodes.filter(
+    (node) =>
+      Number.isFinite(node.x) &&
+      Number.isFinite(node.y) &&
+      getNodeLabel(node) &&
+      (!bounds ||
+        (node.x >= bounds.left - visibilityPadding &&
+          node.x <= bounds.right + visibilityPadding &&
+          node.y >= bounds.top - visibilityPadding &&
+          node.y <= bounds.bottom + visibilityPadding))
+  );
+}
+
+function getNearbyCollisionNodes(node, positionedNodes, metrics) {
+  const collisionRangeX = metrics.width + GRAPH_LABEL_COLLISION_PADDING;
+  const collisionRangeY = metrics.height + GRAPH_LABEL_COLLISION_PADDING;
+
+  return positionedNodes.filter(
+    (otherNode) =>
+      otherNode !== node &&
+      Math.abs(otherNode.x - node.x) <= collisionRangeX &&
+      Math.abs(otherNode.y - node.y) <= collisionRangeY
+  );
+}
+
+function selectNodesForDynamicLabels(nodes, hoverNode, selectedNodes, bounds, globalScale, isFullGraph) {
+  const positionedNodes = getPositionedNodesForLabels(nodes, bounds);
+  const sortedNodes = [...positionedNodes].sort(
+    (leftNode, rightNode) =>
+      getLabelPriority(rightNode, hoverNode, selectedNodes) - getLabelPriority(leftNode, hoverNode, selectedNodes)
+  );
+  const budget = getDynamicLabelBudget(isFullGraph, globalScale);
+  const selectedLabelNodes = [];
+  const selectedUrls = new Set();
+
+  const addNode = (node) => {
+    if (!node || selectedUrls.has(node.url)) {
+      return;
+    }
+    selectedUrls.add(node.url);
+    selectedLabelNodes.push(node);
+  };
+
+  sortedNodes.forEach((node) => {
+    if (
+      node.current ||
+      selectedNodes.has(node.url) ||
+      hoverNode?.url === node.url ||
+      hoverNode?.neighbors?.includes(node.url)
+    ) {
+      addNode(node);
+    }
+  });
+
+  if (budget !== Number.POSITIVE_INFINITY) {
+    for (const node of sortedNodes) {
+      if (selectedLabelNodes.length >= budget) {
+        break;
+      }
+      addNode(node);
+    }
+  } else {
+    sortedNodes.forEach(addNode);
+  }
+
+  return {
+    positionedNodes,
+    labelNodes: selectedLabelNodes,
+    labelUrls: selectedUrls,
+  };
+}
+
+function animateLabelPlacement(node, targetPlacement) {
+  const previousPlacement = node.__labelPlacement;
+  if (!previousPlacement) {
+    node.__labelPlacement = { ...targetPlacement };
+    return node.__labelPlacement;
+  }
+
+  previousPlacement.x += (targetPlacement.x - previousPlacement.x) * GRAPH_LABEL_ANIMATION;
+  previousPlacement.y += (targetPlacement.y - previousPlacement.y) * GRAPH_LABEL_ANIMATION;
+  previousPlacement.width = targetPlacement.width;
+  previousPlacement.height = targetPlacement.height;
+  previousPlacement.anchorX = targetPlacement.anchorX;
+  previousPlacement.anchorY = targetPlacement.anchorY;
+  previousPlacement.textX = previousPlacement.x + previousPlacement.width / 2;
+  previousPlacement.textY = previousPlacement.y + GRAPH_LABEL_PADDING_Y;
+  previousPlacement.lines = targetPlacement.lines;
+  previousPlacement.candidate = targetPlacement.candidate;
+  previousPlacement.bias = targetPlacement.bias;
+  return previousPlacement;
+}
+
+function scoreLabelPlacement(node, candidatePlacement, collisionNodes, placedBoxes, bounds, previousCandidate) {
+  let score = candidatePlacement.bias;
+  score += getRectOverflow(candidatePlacement, bounds) * GRAPH_LABEL_EDGE_WEIGHT;
+
+  if (previousCandidate === candidatePlacement.candidate) {
+    score -= GRAPH_LABEL_STABILITY_BONUS;
+  }
+
+  for (const placedBox of placedBoxes) {
+    const overlapArea = getRectIntersectionArea(candidatePlacement, placedBox);
+    if (overlapArea > 0) {
+      score += overlapArea * GRAPH_LABEL_COLLISION_WEIGHT;
+    }
+  }
+
+  for (const otherNode of collisionNodes) {
+    if (doesCircleIntersectRect(otherNode, getNodeRadius(otherNode), candidatePlacement, 1.75)) {
+      score += GRAPH_LABEL_NODE_COLLISION_WEIGHT;
+    }
+  }
+
+  return score;
+}
+
+function computeDynamicLabelPlacements(nodes, hoverNode, selectedNodes, bounds, globalScale, isFullGraph) {
+  const { positionedNodes, labelNodes, labelUrls } = selectNodesForDynamicLabels(
+    nodes,
+    hoverNode,
+    selectedNodes,
+    bounds,
+    globalScale,
+    isFullGraph
+  );
+  const sortedNodes = [...labelNodes].sort(
+    (leftNode, rightNode) =>
+      getLabelPriority(rightNode, hoverNode, selectedNodes) - getLabelPriority(leftNode, hoverNode, selectedNodes)
+  );
+  const placedBoxes = [];
+
+  nodes.forEach((node) => {
+    node.__graphLabelVisible = labelUrls.has(node.url);
+    if (!node.__graphLabelVisible) {
+      node.__labelPlacement = null;
+    }
+  });
+
+  sortedNodes.forEach((node) => {
+    const metrics = getLabelMetrics(getNodeLabel(node), GRAPH_MODE_PRETEXT, getNodeLabelMaxWidth(node));
+    if (!metrics) {
+      node.__labelPlacement = null;
+      return;
+    }
+
+    const nodeRadius = getNodeRadius(node);
+    const previousCandidate = node.__labelPlacement?.candidate;
+    const collisionNodes = getNearbyCollisionNodes(node, positionedNodes, metrics);
+    let bestPlacement = null;
+    let bestScore = Number.POSITIVE_INFINITY;
+
+    GRAPH_LABEL_CANDIDATES.forEach((candidate) => {
+      const candidatePlacement = createLabelPlacement(node, nodeRadius, metrics, candidate, bounds);
+      const score = scoreLabelPlacement(
+        node,
+        candidatePlacement,
+        collisionNodes,
+        placedBoxes,
+        bounds,
+        previousCandidate
+      );
+
+      if (score < bestScore) {
+        bestPlacement = candidatePlacement;
+        bestScore = score;
+      }
+    });
+
+    if (!bestPlacement) {
+      node.__labelPlacement = null;
+      return;
+    }
+
+    const animatedPlacement = animateLabelPlacement(node, bestPlacement);
+    placedBoxes.push(animatedPlacement);
+  });
+}
+
+function shouldRecomputeDynamicLabels(element, hoverNode, selectedNodes, globalScale, isFullGraph) {
+  const hoverUrl = hoverNode?.url || '';
+  const selectedKey = selectedNodes.size > 0 ? [...selectedNodes].sort().join('|') : '';
+  const state = element.__graphLabelFrameState || {
+    hoverUrl: '',
+    lastComputedAt: 0,
+    lastScale: null,
+    selectedKey: '',
+  };
+
+  if (!isFullGraph) {
+    state.hoverUrl = hoverUrl;
+    state.selectedKey = selectedKey;
+    state.lastScale = globalScale;
+    state.lastComputedAt = performance.now();
+    element.__graphLabelFrameState = state;
+    return true;
+  }
+
+  const now = performance.now();
+  const zoomChanged = state.lastScale == null || Math.abs(globalScale - state.lastScale) >= GRAPH_FULL_LABEL_ZOOM_DELTA;
+  const interactionChanged = state.hoverUrl !== hoverUrl || state.selectedKey !== selectedKey;
+  const isDue = now - state.lastComputedAt >= GRAPH_FULL_LABEL_RECALCULATE_MS;
+
+  if (!zoomChanged && !interactionChanged && !isDue) {
+    return false;
+  }
+
+  state.hoverUrl = hoverUrl;
+  state.selectedKey = selectedKey;
+  state.lastScale = globalScale;
+  state.lastComputedAt = now;
+  element.__graphLabelFrameState = state;
+  return true;
+}
+
+function getResolvedLabelPlacement(node, layoutMode, bounds) {
+  if (layoutMode === GRAPH_MODE_PRETEXT && node.__graphLabelVisible === false) {
+    return null;
+  }
+  if (layoutMode === GRAPH_MODE_PRETEXT && node.__labelPlacement) {
+    return node.__labelPlacement;
+  }
+  return getStaticLabelPlacement(node, layoutMode, bounds);
+}
+
+function drawLabelConnector(ctx, node, nodeRadius, placement, layoutMode) {
+  if (!placement || layoutMode !== GRAPH_MODE_PRETEXT || placement.candidate === 'bottom') {
+    return;
+  }
+
+  const targetX = clamp(node.x, placement.x, placement.x + placement.width);
+  const targetY = clamp(node.y, placement.y, placement.y + placement.height);
+  const dx = targetX - node.x;
+  const dy = targetY - node.y;
+  const distance = Math.hypot(dx, dy) || 1;
+  const startX = node.x + (dx / distance) * (nodeRadius + 0.6);
+  const startY = node.y + (dy / distance) * (nodeRadius + 0.6);
+
+  ctx.save();
+  ctx.globalAlpha *= 0.28;
+  ctx.lineWidth = 0.45;
+  ctx.strokeStyle = ctx.fillStyle;
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  ctx.lineTo(targetX, targetY);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawSmartNodeLabel(ctx, node, nodeRadius, layoutMode, bounds) {
+  const placement = getResolvedLabelPlacement(node, layoutMode, bounds);
+  if (!placement || placement.lines.length === 0) {
+    return;
+  }
+
+  drawLabelConnector(ctx, node, nodeRadius, placement, layoutMode);
+
+  ctx.font = GRAPH_LABEL_FONT;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+
+  placement.lines.forEach((line, index) => {
+    ctx.fillText(line.text, placement.textX, placement.textY + index * GRAPH_LABEL_LINE_HEIGHT);
+  });
+}
+
+function paintNodePointerArea(node, color, ctx, layoutMode, bounds) {
+  const nodeRadius = getNodeRadius(node);
+  const placement = getResolvedLabelPlacement(node, layoutMode, bounds);
+
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(node.x, node.y, nodeRadius + 1.5, 0, 2 * Math.PI, false);
+  ctx.fill();
+
+  if (placement) {
+    ctx.fillRect(placement.x - 1.25, placement.y - 1.25, placement.width + 2.5, placement.height + 2.5);
+  }
+}
+
 function destroyGraphAtElement(element) {
   if (!element) {
     return;
@@ -117,6 +666,8 @@ function destroyGraphAtElement(element) {
     window.clearTimeout(element.__graphFitTimer);
     element.__graphFitTimer = null;
   }
+
+  element.__graphLabelFrameState = null;
 
   if (element.__graphInstance && typeof element.__graphInstance._destructor === 'function') {
     element.__graphInstance._destructor();
@@ -216,7 +767,7 @@ function renderGraph(graphData, element, options = {}) {
 
   const {
     fitDelay = null,
-    layoutMode = GRAPH_MODE_NATIVE,
+    layoutMode = GRAPH_MODE_PRETEXT,
     rootElement = element.closest('[data-graph-label-layout]'),
   } = options;
   destroyGraphAtElement(element);
@@ -305,6 +856,7 @@ function renderGraph(graphData, element, options = {}) {
 
   const width = element.offsetWidth;
   const height = element.id === 'link-graph' ? getContainerHeight() : element.offsetHeight;
+  let graphViewportBounds = null;
   const highlightNodes = new Set();
   let hoverNode = null;
   const selectedNodes = new Set();
@@ -376,7 +928,23 @@ function renderGraph(graphData, element, options = {}) {
     .height(height)
     .linkDirectionalArrowLength(2)
     .linkDirectionalArrowRelPos(0.5)
-    .autoPauseRedraw(false)
+    .autoPauseRedraw(isFullGraph)
+    .nodePointerAreaPaint((node, colorValue, ctx) => {
+      paintNodePointerArea(node, colorValue, ctx, layoutMode, graphViewportBounds);
+    })
+    .onRenderFramePre((_ctx, globalScale) => {
+      graphViewportBounds = getGraphViewportBounds(graph, element, globalScale);
+      if (
+        layoutMode === GRAPH_MODE_PRETEXT &&
+        shouldRecomputeDynamicLabels(element, hoverNode, selectedNodes, globalScale, isFullGraph)
+      ) {
+        computeDynamicLabelPlacements(graphData.nodes, hoverNode, selectedNodes, graphViewportBounds, globalScale, isFullGraph);
+      } else if (layoutMode !== GRAPH_MODE_PRETEXT) {
+        graphData.nodes.forEach((node) => {
+          node.__labelPlacement = null;
+        });
+      }
+    })
     .linkColor((link) => {
       const defaultLinkColor = isFullGraph ? mutedColor : color;
       const sourceUrl = link.source.url;
@@ -395,8 +963,7 @@ function renderGraph(graphData, element, options = {}) {
       return primaryHighlightUrls.has(sourceUrl) || primaryHighlightUrls.has(targetUrl) ? color : mutedColor;
     })
     .nodeCanvasObject((node, ctx) => {
-      const numberOfNeighbours = (node.neighbors && node.neighbors.length) || 2;
-      const nodeRadius = Math.min(7, Math.max(numberOfNeighbours / 2, 2));
+      const nodeRadius = getNodeRadius(node);
 
       ctx.beginPath();
       ctx.arc(node.x, node.y, nodeRadius, 0, 2 * Math.PI, false);
@@ -436,7 +1003,7 @@ function renderGraph(graphData, element, options = {}) {
         ctx.stroke();
       }
 
-      drawNodeLabel(ctx, node, nodeRadius, layoutMode);
+      drawSmartNodeLabel(ctx, node, nodeRadius, layoutMode, graphViewportBounds);
     })
     .onNodeClick((node) => {
       window.location = node.url;
@@ -516,12 +1083,12 @@ function createComponentState() {
     fullScreen: false,
     graph: null,
     graphData: null,
-    graphLabelLayout: GRAPH_MODE_NATIVE,
+    graphLabelLayout: GRAPH_MODE_PRETEXT,
     showFullGraph: false,
     sliderDepth: 1,
 
     async initialize(rootElement) {
-      this.graphLabelLayout = rootElement.dataset.graphLabelLayout || GRAPH_MODE_NATIVE;
+      this.graphLabelLayout = rootElement.dataset.graphLabelLayout || GRAPH_MODE_PRETEXT;
       const { graphData, fullGraphData } = await fetchGraphData();
       this.graphData = graphData;
       this.fullGraphData = fullGraphData;
