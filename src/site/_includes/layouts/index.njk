@@ -18,7 +18,7 @@
       }
     </style>
   </head>
-  <body class="js-fouc-hidden theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}">
+  <body class="js-fouc-hidden theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}" data-timestamp-format="{{ meta.timestampSettings.timestampFormat }}">
     {%include "components/fouc-prevention.njk"%}
     <!-- Sidebar Toggle Buttons -->
     <button id="toggle-left-sidebar" class="sidebar-toggle-button sidebar-toggle-button-left" aria-label="折叠左侧栏" title="折叠左侧栏">
@@ -116,10 +116,6 @@
     {% for imp in dynamics.index.footer %}
       {% include imp %}
     {% endfor %}
-      <script src="/scripts/lazy-loading.js"></script>
-      <script src="/scripts/animate-stats.js"></script>
-      <script src="/scripts/sidebar-toggle.js"></script>
-      
     {%include "components/lucideIcons.njk"%}
     {%include "components/main-footer.njk"%}
   </body>

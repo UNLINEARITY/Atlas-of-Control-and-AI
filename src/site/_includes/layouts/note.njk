@@ -33,7 +33,7 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
     <link rel="stylesheet" href="/styles/lazy-loading.css">
     <link rel="stylesheet" href="/styles/mobile-optimization.css">
   </head>
-  <body class="theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}">
+  <body class="theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}" data-timestamp-format="{{ meta.timestampSettings.timestampFormat }}">
     <!-- Sidebar Toggle Buttons -->
     <button id="toggle-left-sidebar" class="sidebar-toggle-button sidebar-toggle-button-left" aria-label="折叠左侧栏" title="折叠左侧栏">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
@@ -121,111 +121,6 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
     {% endfor %}
     {%include "components/lucideIcons.njk"%}
 
-    
-
-    <style>
-      .image-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        overflow: hidden;
-      }
-
-      .image-overlay img {
-        cursor: grab;
-        max-width: 90%;
-        max-height: 90%;
-        transition: transform 0.1s linear;
-        transform-origin: center center;
-      }
-    </style>
-
-    <script>
-      // Image click to enlarge
-      document.addEventListener('DOMContentLoaded', (event) => {
-        const images = document.querySelectorAll('.content img');
-        images.forEach(image => {
-          image.addEventListener('click', () => {
-            const overlay = document.createElement('div');
-            overlay.classList.add('image-overlay');
-            
-            const enlargedImage = document.createElement('img');
-            enlargedImage.src = image.src;
-            
-            overlay.appendChild(enlargedImage);
-            document.body.appendChild(overlay);
-
-            let scale = 1;
-            let panning = false;
-            let pointX = 0;
-            let pointY = 0;
-            let start = { x: 0, y: 0 };
-
-            function setTransform() {
-              enlargedImage.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
-            }
-
-            enlargedImage.addEventListener('mousedown', (e) => {
-              e.preventDefault();
-              panning = true;
-              start = { x: e.clientX - pointX, y: e.clientY - pointY };
-              enlargedImage.style.cursor = 'grabbing';
-            });
-
-            overlay.addEventListener('mouseup', () => {
-              panning = false;
-              enlargedImage.style.cursor = 'grab';
-            });
-
-            overlay.addEventListener('mouseleave', () => {
-                panning = false;
-                enlargedImage.style.cursor = 'grab';
-            });
-
-            overlay.addEventListener('mousemove', (e) => {
-              if (!panning) return;
-              pointX = (e.clientX - start.x);
-              pointY = (e.clientY - start.y);
-              setTransform();
-            });
-
-            overlay.addEventListener('wheel', (e) => {
-              e.preventDefault();
-              const delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
-              (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
-              setTransform();
-            });
-
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    document.body.removeChild(overlay);
-                }
-            });
-          });
-        });
-
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            const overlay = document.querySelector('.image-overlay');
-            if (overlay) {
-              document.body.removeChild(overlay);
-            }
-          }
-        });
-      });
-    </script>
-    <script src="/scripts/lazy-loading.js"></script>
-    <script src="/scripts/copy-code.js"></script>
-        <script src="/scripts/mobile-enhancements.js"></script>
-        <script src="/scripts/sidebar-toggle.js"></script>
-    
       {%include "components/main-footer.njk"%}
   </body>
 </html>

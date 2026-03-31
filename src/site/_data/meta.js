@@ -3,10 +3,8 @@ const { globSync } = require("glob");
 const fs = require('fs');
 
 module.exports = async (data) => {
-  let baseUrl = process.env.SITE_BASE_URL || "";
-  if (baseUrl && !baseUrl.startsWith("http")) {
-    baseUrl = "https://" + baseUrl;
-  }
+  // SEO canonical primary domain (fixed)
+  const baseUrl = "https://www.nonlinear.top";
   let themeStyle = globSync("src/site/styles/_theme.*.css")[0] || "";
   if (themeStyle) {
     themeStyle = themeStyle.split("site")[1];
@@ -99,6 +97,8 @@ module.exports = async (data) => {
     siteName: process.env.SITE_NAME_HEADER || "Nonlinear - Control Theory & AI Knowledge Base",
     mainLanguage: process.env.SITE_MAIN_LANGUAGE || "en",
     siteBaseUrl: baseUrl,
+    ogLocale: (process.env.SITE_MAIN_LANGUAGE || "en").toLowerCase().startsWith("zh") ? "zh_CN" : "en_US",
+    graphLabelLayout: process.env.GRAPH_LABEL_LAYOUT || "native",
     styleSettingsCss,
     buildDate: new Date(),
     siteStats,
