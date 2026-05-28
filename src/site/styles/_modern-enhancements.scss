@@ -414,14 +414,16 @@ nav.filetree-sidebar {
 }
 
 // Apply animations
-.content > * {
-  animation: fadeIn 0.5s ease-out forwards;
-}
+@media (prefers-reduced-motion: no-preference) {
+  .content > * {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
 
-// Stagger animation for children
-@for $i from 1 through 20 {
-  .content > *:nth-child(#{$i}) {
-    animation-delay: #{$i * 0.05}s;
+  // Stagger animation for children
+  @for $i from 1 through 20 {
+    .content > *:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.05}s;
+    }
   }
 }
 

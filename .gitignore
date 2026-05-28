@@ -15,3 +15,5 @@ _site/
 /log
 log.md
 /.claude
+/.omc
+git-log.md
