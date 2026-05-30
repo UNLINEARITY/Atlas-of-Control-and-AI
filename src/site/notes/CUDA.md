@@ -1,5 +1,5 @@
 ---
-{"dg-path":"计算机/CUDA.md","dg-publish":true,"permalink":"/计算机/CUDA/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-20T10:48:31.380+08:00","updated":"2026-01-15T09:29:47.216+08:00"}
+{"dg-path":"计算机/CUDA.md","dg-publish":true,"permalink":"/计算机/CUDA/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 

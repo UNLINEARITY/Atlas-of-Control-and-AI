@@ -1,5 +1,5 @@
 ---
-{"tags":["OpenSource","Framework","Robotics"],"dg-publish":true,"dg-path":"机器人/ROS2.md","permalink":"/机器人/ROS2/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-28T21:52:03.720+08:00","updated":"2026-01-15T10:57:10.919+08:00"}
+{"tags":["OpenSource","Framework","Robotics"],"dg-publish":true,"dg-path":"机器人/ROS2.md","permalink":"/机器人/ROS2/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["OpenSource","Framework","Robotics"]}}
 ---
 
 

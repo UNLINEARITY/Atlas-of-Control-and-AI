@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/DDS.md","permalink":"/机器人/DDS/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-06T21:19:26.000+08:00","updated":"2025-11-17T09:56:33.534+08:00"}
+{"dg-publish":true,"dg-path":"机器人/DDS.md","permalink":"/机器人/DDS/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 (website::https://www.dds-foundation.org/)  数据分发服务
@@ -9,7 +9,7 @@
 
 
 Is more commonly used in real - time, mission - critical applications where high - performance, reliability, and low - latency communication are required.
->  has significant differences with  [[MQTT\|MQTT]]
+>  has significant differences with  [[mqtt\|MQTT]]
 
 
 ### Publish - Subscribe

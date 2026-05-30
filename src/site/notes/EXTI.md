@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"MCU微控制器/STM32/EXTI.md","permalink":"/MCU微控制器/STM32/EXTI/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:26.000+08:00","updated":"2025-09-12T12:47:26.000+08:00"}
+{"dg-publish":true,"dg-path":"MCU微控制器/STM32/EXTI.md","permalink":"/MCU微控制器/STM32/EXTI/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 (terminology::**Extern Interrupt**)   外部中断

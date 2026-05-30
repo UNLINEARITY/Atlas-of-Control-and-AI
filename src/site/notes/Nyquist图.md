@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A2- 控制理论/1. 经典控制理论/Nyquist图.md","tags":["Graph"],"permalink":"/A2- 控制理论/1. 经典控制理论/Nyquist图/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-08T17:09:44.000+08:00","updated":"2025-09-18T23:10:38.000+08:00"}
+{"dg-publish":true,"dg-path":"A2- 控制理论/1. 经典控制理论/Nyquist图.md","tags":["Graph"],"permalink":"/A2- 控制理论/1. 经典控制理论/Nyquist图/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["Graph"]}}
 ---
 
 

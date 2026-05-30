@@ -1,5 +1,5 @@
 ---
-{"aliases":["Generative Pre-trained Transformer"],"dg-publish":true,"dg-path":"人工智能/深度学习/GPT.md","tags":["DL","NLP"],"permalink":"/人工智能/深度学习/GPT/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-04-28T13:19:15.000+08:00","updated":"2025-11-15T09:31:15.489+08:00"}
+{"aliases":["Generative Pre-trained Transformer"],"dg-publish":true,"dg-path":"人工智能/深度学习/GPT.md","tags":["DL","NLP"],"permalink":"/人工智能/深度学习/GPT/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["Generative Pre-trained Transformer"],"tags":["DL","NLP"]}}
 ---
 
 

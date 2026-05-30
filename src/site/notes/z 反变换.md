@@ -1,11 +1,15 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 反变换.md","permalink":"/A1- 数学/8. 变换/z 反变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-08T17:05:15.000+08:00","updated":"2025-04-23T17:44:02.000+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/z 反变换.md","permalink":"/A1- 数学/8. 变换/z 反变换/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 
 (terminology::**Inverse Z-transform**)
-采样信号 $e^{*}(t)$ 的 [[z 变换\|z 变换]] 为：$E(z)=\mathscr{Z}[e^{*}(t)]$
-则 z 反变换可以记为 $e^{*}(t)=\mathscr{Z}^{-1}[E(z)]=\sum\limits_{n=0}^{\infty}e(nT)\delta(t-nT)$
+
+采样信号 $e^{*}(t)$ 的 [[z 变换\|z 变换]] 为：
+$$E(z)=\mathscr{Z}[e^{*}(t)]$$
+
+则 $z$ 反变换可以记为 
+$$e^{*}(t)=\mathscr{Z}^{-1}[E(z)]=\sum\limits_{n=0}^{\infty}e(nT)\delta(t-nT)$$
 
 ### 一、幂级数展开法
 长除法得到[[洛朗级数\|洛朗级数]]

@@ -88,9 +88,12 @@ function getPermalinkMeta(note, _key) {
     if (note.data['dg-path']) {
       folders = note.data['dg-path'].split('/');
     } else {
-      folders = note.filePathStem
-        .split('notes/')[1]
-        .split('/');
+      const pathAfterNotes = note.filePathStem.split('notes/')[1];
+      if (pathAfterNotes) {
+        folders = pathAfterNotes.split('/');
+      } else {
+        folders = [note.fileSlug + '.md'];
+      }
     }
     folders[folders.length - 1]+= '.md';
   } catch {

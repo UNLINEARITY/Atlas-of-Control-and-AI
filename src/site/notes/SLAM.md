@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/SLAM.md","permalink":"/机器人/SLAM/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-06T09:50:21.000+08:00","updated":"2025-09-12T12:50:18.000+08:00"}
+{"dg-publish":true,"dg-path":"机器人/SLAM.md","permalink":"/机器人/SLAM/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 (terminology::**Simultaneous Localization and Mapping**)  同步定位与地图构建

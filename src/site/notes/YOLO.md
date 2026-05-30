@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"人工智能/计算机视觉/YOLO.md","permalink":"/人工智能/计算机视觉/YOLO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-06T09:50:21.930+08:00","updated":"2025-08-28T21:53:14.000+08:00"}
+{"dg-publish":true,"dg-path":"人工智能/计算机视觉/YOLO.md","permalink":"/人工智能/计算机视觉/YOLO/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 (terminology::**You Only Look Once**)
@@ -64,7 +64,7 @@ S\times S\times(B\times5 +C)
 - 技巧优化：Mish激活、CSPNet、DropBlock、CIoU Loss
 - 提出了 Bag of Freebies（免费提升）和 Bag of Specials（特殊模块）
 #### YOLOv5+
-- 完全基于 [[PyTorch\|PyTorch]] 开发，易训练、易部署
+- 完全基于 [[Pytorch\|PyTorch]] 开发，易训练、易部署
 - 支持**轻量版**（n/s/m/l/x）
 - 加强了数据增强（Mosaic、MixUp）
 - 引入AutoAnchor自动调优

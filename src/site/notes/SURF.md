@@ -1,5 +1,5 @@
 ---
-{"aliases":["Speeded Up Robust Features"],"dg-publish":true,"dg-path":"人工智能/计算机视觉/SURF.md","tags":["CV"],"permalink":"/人工智能/计算机视觉/SURF/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-28T21:53:12.000+08:00","updated":"2025-10-10T09:49:44.000+08:00"}
+{"aliases":["Speeded Up Robust Features"],"dg-publish":true,"dg-path":"人工智能/计算机视觉/SURF.md","tags":["CV"],"permalink":"/人工智能/计算机视觉/SURF/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["Speeded Up Robust Features"],"tags":["CV"]}}
 ---
 
 

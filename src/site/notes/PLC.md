@@ -1,5 +1,5 @@
 ---
-{"aliases":["可编程逻辑控制器"],"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC.md","permalink":"/A4- 过程控制系统/PLC/PLC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-03T15:41:38.000+08:00","updated":"2025-10-31T11:36:42.000+08:00"}
+{"aliases":["可编程逻辑控制器"],"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC.md","permalink":"/A4- 过程控制系统/PLC/PLC/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["可编程逻辑控制器"]}}
 ---
 
  

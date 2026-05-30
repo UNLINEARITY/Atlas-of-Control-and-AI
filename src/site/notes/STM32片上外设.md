@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32片上外设.md","tags":["Preipheral"],"permalink":"/MCU微控制器/STM32/STM32片上外设/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-07-22T07:55:45.000+08:00","updated":"2025-10-10T10:45:06.000+08:00"}
+{"dg-publish":true,"dg-path":"MCU微控制器/STM32/STM32片上外设.md","tags":["Preipheral"],"permalink":"/MCU微控制器/STM32/STM32片上外设/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["Preipheral"]}}
 ---
 
 (terminology::**Preipheral**)

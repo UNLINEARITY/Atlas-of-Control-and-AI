@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM调速系统.md","permalink":"/A3- 电机及电力拖动/PWM调速系统/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-10-24T12:24:48.000+08:00"}
+{"dg-publish":true,"dg-path":"A3- 电机及电力拖动/PWM调速系统.md","permalink":"/A3- 电机及电力拖动/PWM调速系统/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 (terminology::**PWM Speed Control System**)

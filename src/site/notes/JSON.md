@@ -1,5 +1,5 @@
 ---
-{"tags":["Programming"],"dg-path":"计算机/JSON.md","dg-publish":true,"permalink":"/计算机/JSON/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-10T18:32:42.000+08:00","updated":"2025-11-17T10:04:53.543+08:00"}
+{"tags":["Programming"],"dg-path":"计算机/JSON.md","dg-publish":true,"file":".json","permalink":"/计算机/JSON/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["Programming"],"file":".json"}}
 ---
 
 

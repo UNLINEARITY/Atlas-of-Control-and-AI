@@ -1,5 +1,5 @@
 ---
-{"dg-path":"机器人/RMW.md","dg-publish":true,"permalink":"/机器人/RMW/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-05-01T17:46:37.000+08:00","updated":"2026-01-02T00:21:33.443+08:00"}
+{"dg-path":"机器人/RMW.md","dg-publish":true,"permalink":"/机器人/RMW/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 (terminology::**ROS Middleware Interface**)

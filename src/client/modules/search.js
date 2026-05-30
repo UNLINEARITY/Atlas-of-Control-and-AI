@@ -32,6 +32,12 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 function truncate(text, size) {
   const withoutHtml = text.replaceAll(/<[^>]*>/g, '');
   if (withoutHtml.length < size) {
@@ -170,7 +176,12 @@ export function initSearch() {
 
   const search = async () => {
     const value = field?.value.trim();
-    if (!value || value === lastSearch || !index) {
+    if (!value) {
+      resultsDiv.innerHTML = '';
+      lastSearch = '';
+      return;
+    }
+    if (value === lastSearch || !index) {
       return;
     }
 
@@ -188,15 +199,17 @@ export function initSearch() {
 
     const html = results
       .map((result) => {
+        const safeTitle = escapeHtml(result.title);
+        const safeUrl = encodeURI(result.url);
         const tags = result.tags.length
           ? `<div class="header-meta"><div class="header-tags">${result.tags
-              .map((tag) => `<a class="tag" href="JavaScript:Void(0);">#${tag}</a>`)
+              .map((tag) => `<a class="tag" href="JavaScript:Void(0);">#${escapeHtml(tag)}</a>`)
               .join('')}</div></div>`
           : '';
 
         return `<div class="searchresult">
-          <a class="search-link" href="${result.url}">${result.title}</a>
-          <div onclick="window.location='${result.url}'">
+          <a class="search-link" href="${safeUrl}">${safeTitle}</a>
+          <div onclick="window.location='${safeUrl}'">
             ${tags}
             ${result.content}
           </div>

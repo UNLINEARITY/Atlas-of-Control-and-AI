@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Xacro.md","permalink":"/机器人/Xacro/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-12-19T18:11:16.816+08:00","updated":"2025-12-26T17:37:05.637+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Xacro.md","permalink":"/机器人/Xacro/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 (terminology::**XML Macros**)

@@ -1,11 +1,16 @@
 ---
-{"dg-publish":true,"dg-path":"计算机/PlatformIO.md","permalink":"/计算机/PlatformIO/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-11-17T10:04:53.543+08:00"}
+{"dg-publish":true,"dg-path":"计算机/PlatformIO.md","permalink":"/计算机/PlatformIO/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 
 (website::https://platformio.org/) [[VSCode\|VSCode]]
 
 
+```
+/home/nonlinear/.platformio/penv/bin/pio run -e motion_control -t upload --upload-port /dev/ttyUSB0
+
+/home/nonlinear/.platformio/penv/bin/pio run -e motion_control -t erase --upload-port /dev/ttyUSB0
+```
 ### Basic 
 PlatformIO project consists of 3 main items:
 -  `lib` - put here project specific (private) libraries
@@ -30,6 +35,7 @@ sudo chmod 666 /dev/ttyUSBx   // grant permission temporarily
 sudo usermod -a -G dialout $USER
 sudo usermod -a -G plugdev $USER   // grant permission permanently
 // need restart your system 
+
 ```
 
 

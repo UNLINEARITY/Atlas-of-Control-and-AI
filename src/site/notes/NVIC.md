@@ -1,5 +1,5 @@
 ---
-{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/NVIC.md","permalink":"/MCU微控制器/STM32/NVIC/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-10-10T10:53:00.000+08:00"}
+{"tags":["Preipheral"],"dg-publish":true,"dg-path":"MCU微控制器/STM32/NVIC.md","permalink":"/MCU微控制器/STM32/NVIC/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["Preipheral"]}}
 ---
 
 (terminology::**Nested Vectored Interrupt Controller**)  **嵌套向量中断控制器**  

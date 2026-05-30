@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR-API.md","tags":["Code"],"permalink":"/模型部署/Deepseek-OCR-API/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-11-14T16:52:36.419+08:00","updated":"2025-11-19T22:36:00.102+08:00"}
+{"dg-publish":true,"dg-path":"模型部署/Deepseek-OCR-API.md","tags":["Code"],"permalink":"/模型部署/Deepseek-OCR-API/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["Code"]}}
 ---
 
 

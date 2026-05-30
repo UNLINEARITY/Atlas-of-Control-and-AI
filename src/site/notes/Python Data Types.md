@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"计算机/Python/Python Data Types.md","permalink":"/计算机/Python/Python Data Types/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-04-16T13:01:27.460+08:00","updated":"2026-01-03T11:20:10.571+08:00"}
+{"dg-publish":true,"dg-path":"计算机/Python/Python Data Types.md","permalink":"/计算机/Python/Python Data Types/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 
@@ -20,8 +20,8 @@
 |                                    | Complex numbers   | 复数          | `complex()`     | ❌   | ❌   |
 |                                    | [[String\|String]]        | 字符串         | `str()`         | ❌   | ✅   |
 | Advanced                           | [[Range\|Range]]         | 数值范围        | `range()`       | ❌   | ✅   |
-|                                    | [[Tuple\|Tuple]] 元组      | 有序不可变序列     | `tuple()`       | ❌   | ✅   |
-| [[Python Comprehensions\|推导式]]     | [[List\|List]] 列表       | 有序可变序列      | `list()`        | ✅   | ✅   |
+|                                    | [[tuple\|Tuple]] 元组      | 有序不可变序列     | `tuple()`       | ❌   | ✅   |
+| [[Python Comprehensions\|推导式]]     | [[list\|List]] 列表       | 有序可变序列      | `list()`        | ✅   | ✅   |
 |                                    | [[set\|Set]] 集合        | 无序不重复元素集    | `set()`         | ✅   | ✅   |
 |                                    | [[Dictionary\|Dictionary]] 字典 | 键值对映射       | `dict()`        | ✅   | ✅   |
 | [[collections\|collections]]                    | defaultdict       | 带默认值的字典     | `defaultdict()` | ✅   | ✅   |
