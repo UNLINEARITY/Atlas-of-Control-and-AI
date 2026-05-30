@@ -601,16 +601,21 @@ module.exports = function (eleventyConfig) {
       outputPath &&
       outputPath.endsWith('.html')
     ) {
-      return htmlMinifier.minify(content, {
-        useShortDoctype: true,
-        removeComments: true,
-        collapseWhitespace: true,
-        conservativeCollapse: true,
-        preserveLineBreaks: true,
-        minifyCSS: true,
-        minifyJS: true,
-        keepClosingSlash: true,
-      });
+      try {
+        return htmlMinifier.minify(content, {
+          useShortDoctype: true,
+          removeComments: true,
+          collapseWhitespace: true,
+          conservativeCollapse: true,
+          preserveLineBreaks: true,
+          minifyCSS: true,
+          minifyJS: true,
+          keepClosingSlash: true,
+        });
+      } catch (e) {
+        console.warn(`[htmlMinifier] Skipping ${outputPath}: ${e.message}`);
+        return content;
+      }
     }
     return content;
   });

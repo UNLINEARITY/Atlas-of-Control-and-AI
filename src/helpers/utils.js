@@ -14,7 +14,14 @@ function namedHeadings(md, state) {
 
     state.tokens.forEach(function(token, i) {
         if (token.type === 'heading_open') {
-            const text = md.renderer.render(state.tokens[i + 1].children, md.options);
+            // Extract plain text from heading tokens, stripping any HTML/links
+            const inlineToken = state.tokens[i + 1];
+            const text = inlineToken.children
+                ? inlineToken.children
+                    .filter(t => t.type === 'text' || t.type === 'code_inline')
+                    .map(t => t.content)
+                    .join('')
+                : inlineToken.content;
             const id = headerToId(text);
             const uniqId = uncollide(ids, id);
             ids[uniqId] = true;

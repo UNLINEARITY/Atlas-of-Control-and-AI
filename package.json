@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "prebuild": "rimraf dist",
+        "prebuild": "",
         "start": "npm-run-all get-theme build:sass build:client --parallel watch:*",
         "watch:client": "node scripts/build-client.mjs --watch",
         "watch:sass": "sass --watch src/site/styles:dist/styles",
