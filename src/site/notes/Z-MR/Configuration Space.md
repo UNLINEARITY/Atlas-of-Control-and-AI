@@ -13,7 +13,7 @@ Since the robot's links are rigid and of a known shape, only a few numbers are n
 - The configuration of **a point** on a plane can be described by two coordinates, $(x,y)$ . 
 - The configuration of **a coin lying heads up on a flat table** can be described by three coordinates: two coordinates $(x,y)$ that specify the location of a particular point on the coin, and one coordinate $(\theta)$ that specifies the coin's orientation.
 
-![](../img/user/Functional%20files/images/MR-tablet-v2_32_0.jpg)
+![](../../img/user/Functional%20files/images/MR-tablet-v2_32_0.jpg)
 
 Figure 2.1: (a) The configuration of a door is described by the angle $\theta$ . (b) The configuration of a point in a plane is described by coordinates $(x, y)$ . (c) The configuration of a coin on a table is described by $(x, y,\theta)$ , where $\theta$ defines the direction in which Abraham Lincoln is looking. 
 

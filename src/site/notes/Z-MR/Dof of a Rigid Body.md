@@ -3,7 +3,7 @@
 ---
 
 
-![](../img/user/Functional%20files/images/MR-tablet-v2_33_0.jpg)
+![](../../img/user/Functional%20files/images/MR-tablet-v2_33_0.jpg)
 
 Figure 2.2: 
 - (a) Choosing three points fixed to the coin. 
