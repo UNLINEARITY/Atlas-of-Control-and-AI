@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/0. 基础知识/Tensor.md","permalink":"/A1- 数学/0. 基础知识/Tensor/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-10-20T23:42:16.000+08:00","updated":"2025-11-17T09:12:19.000+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/0. 基础知识/Tensor.md","permalink":"/A1- 数学/0. 基础知识/Tensor/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 
@@ -34,7 +34,7 @@
 
 
 ### PyTorch 
-[[PyTorch\|PyTorch]] 
+[[Pytorch\|PyTorch]] 
 
 Tensors are a specialized data structure that are very similar to arrays and matrices. 
 
@@ -42,7 +42,7 @@ In PyTorch, we use tensors to encode the inputs and outputs of a model, as well 
 
 张量是一种特殊的[[数据结构\|数据结构]]，与数组和矩阵非常相似。在 PyTorch 中，我们使用张量来编码模型的输入和输出，以及模型的参数。
 
-- Tensor 类似于 [[Numpy\|NumPy]] 的 ndarrays，但张量可以在 GPU 或其他硬件加速器上运行
+- Tensor 类似于 [[numpy\|NumPy]] 的 ndarrays，但张量可以在 GPU 或其他硬件加速器上运行
 - Tensor 和 NumPy 数组通常可以共享相同的底层内存，无需复制数据
 - Tensor 还针对自动微分进行了优化。
 
@@ -82,7 +82,7 @@ print(f"Device tensor is stored on: {tensor.device}")
 ```
 
 #### 其他操作
-超过 1200 种张量操作，包括算术、线性代数、矩阵操作（转置、索引、切片）、采样等（见 (website:: [Tensor API](https://docs.pytorch.org/docs/stable/torch.html)) 与 [[Numpy\|NumPy]] API 十分类似 ）
+超过 1200 种张量操作，包括算术、线性代数、矩阵操作（转置、索引、切片）、采样等（见 (website:: [Tensor API](https://docs.pytorch.org/docs/stable/torch.html)) 与 [[numpy\|NumPy]] API 十分类似 ）
 
 这些操作中的每一种都可以在 CPU 和加速器（如 CUDA、MPS、MTIA 或 XPU）上运行。默认情况下，张量在 CPU 上创建。我们需要使用 `.to` 方法显式地将张量移动到加速器
 

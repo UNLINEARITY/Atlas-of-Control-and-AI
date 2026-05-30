@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC实验.md","permalink":"/A4- 过程控制系统/PLC/PLC实验/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-12-28T12:50:18.000+08:00","updated":"2025-06-03T19:04:56.000+08:00"}
+{"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC实验.md","permalink":"/A4- 过程控制系统/PLC/PLC实验/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 

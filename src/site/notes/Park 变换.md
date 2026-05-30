@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/Park变换.md","tags":["Transform"],"permalink":"/A1- 数学/8. 变换/Park变换/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-09-18T14:32:37.000+08:00","updated":"2025-06-30T16:57:54.000+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/8. 变换/Park变换.md","tags":["Transform"],"permalink":"/A1- 数学/8. 变换/Park变换/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["Transform"]}}
 ---
 
 

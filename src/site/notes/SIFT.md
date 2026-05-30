@@ -1,5 +1,5 @@
 ---
-{"aliases":["Scale-Invariant Feature Transform"],"dg-publish":true,"dg-path":"人工智能/计算机视觉/SIFT.md","tags":["CV"],"permalink":"/人工智能/计算机视觉/SIFT/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-28T21:53:12.000+08:00","updated":"2025-10-10T09:50:32.000+08:00"}
+{"aliases":["Scale-Invariant Feature Transform"],"dg-publish":true,"dg-path":"人工智能/计算机视觉/SIFT.md","tags":["CV"],"permalink":"/人工智能/计算机视觉/SIFT/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["Scale-Invariant Feature Transform"],"tags":["CV"]}}
 ---
 
 

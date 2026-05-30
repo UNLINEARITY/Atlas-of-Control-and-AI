@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"计算机/Anaconda.md","permalink":"/计算机/Anaconda/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-01-23T15:16:11.460+08:00","updated":"2025-12-26T14:33:29.837+08:00"}
+{"dg-publish":true,"dg-path":"计算机/Anaconda.md","aliases":["Conda"],"permalink":"/计算机/Anaconda/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["Conda"]}}
 ---
 
 

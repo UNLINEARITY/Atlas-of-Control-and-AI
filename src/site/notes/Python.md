@@ -1,5 +1,5 @@
 ---
-{"tags":["Programming"],"dg-publish":true,"dg-path":"计算机/Python/Python.md","dg-pinned":true,"permalink":"/计算机/Python/Python/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2026-01-03T11:23:14.828+08:00"}
+{"tags":["Programming"],"dg-publish":true,"dg-path":"计算机/Python/Python.md","dg-pinned":true,"permalink":"/计算机/Python/Python/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["Programming"]}}
 ---
 
 
@@ -27,18 +27,18 @@
 | ---------------- | -------------- |
 | [[Jupyter\|Jupyter]]      | 核心平台           |
 | [[manim\|Manim]]        | 制作专业的数学视频      |
-| [[Numpy\|Numpy]]        | 科学计算           |
+| [[numpy\|Numpy]]        | 科学计算           |
 | [[Pandas\|Pandas]]       | 数据处理           |
 | [[matplotlib\|Matplotlib]]   | 绘图             |
 | [[seaborn\|seaborn]]      | 绘图             |
 | [[scikit-learn\|scikit-learn]] | 机器学习           |
 | [[TensorFlow\|TensorFlow]]   | 深度学习           |
 | [[Keras\|Keras]]        | 深度学习           |
-| [[PyTorch\|PyTorch]]      | 深度学习           |
+| [[Pytorch\|PyTorch]]      | 深度学习           |
 | [[OpenCV\|OpenCV]]       | 计算机视觉/机器学习     |
-| [[Pyecharts\|Pyecharts]]    | 绘图             |
+| [[pyecharts\|Pyecharts]]    | 绘图             |
 | [[Mercury\|Mercury]]      | Jupyter lab 配套 |
-| [[Genesis\|Genesis]]      | 机器人模拟          |
+| [[genesis\|Genesis]]      | 机器人模拟          |
 | [[HLTK\|HLTK]]         |                |
 | [[PyInstaller\|PyInstaller]]  |                |
 | [[Anaconda\|Anaconda]]     |                |

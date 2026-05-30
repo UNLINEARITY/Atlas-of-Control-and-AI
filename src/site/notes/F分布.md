@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A1- 数学/6. 数理统计/F分布.md","permalink":"/A1- 数学/6. 数理统计/F分布/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-31T14:17:01.000+08:00","updated":"2025-10-28T16:40:20.000+08:00"}
+{"dg-publish":true,"dg-path":"A1- 数学/6. 数理统计/F分布.md","permalink":"/A1- 数学/6. 数理统计/F分布/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 (terminology::**F-distribution**)  Fisher-Snedecor distribution $F\sim F(n_{1},n_{2})$

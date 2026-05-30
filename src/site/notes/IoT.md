@@ -1,5 +1,5 @@
 ---
-{"aliases":["物联网"],"dg-publish":true,"dg-path":"计算机/IoT.md","dg-pinned":true,"permalink":"/计算机/IoT/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","created":"2024-11-21T15:59:31.850+08:00","updated":"2025-11-17T09:55:57.354+08:00"}
+{"aliases":["物联网"],"dg-publish":true,"dg-path":"计算机/IoT.md","dg-pinned":true,"permalink":"/计算机/IoT/","pinned":true,"dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["物联网"]}}
 ---
 
 (terminology::**Internet of Things**)  **物联网**
@@ -29,7 +29,7 @@
 - 设备到云端（Device-to-Cloud）
 
 常用协议包括：
-- [[MQTT\|MQTT]]（Message Queuing Telemetry Transport）  
+- [[mqtt\|MQTT]]（Message Queuing Telemetry Transport）  
     轻量级、基于发布/订阅模式，适用于低带宽、高延迟、网络不稳定场景。通过“主题”（Topic）进行消息分类，由代理（Broker）转发消息，广泛用于智能家居、远程监控、传感器网络。 
 - CoAP（Constrained Application Protocol）  
     面向受限设备的协议，基于 UDP，采用 REST 架构风格，支持 GET/POST/PUT/DELETE 操作，适合用于资源受限节点间的简单数据交互，常见于低功耗无线网络。

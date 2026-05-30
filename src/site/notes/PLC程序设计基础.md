@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC程序设计基础.md","permalink":"/A4- 过程控制系统/PLC/PLC程序设计基础/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-08-02T10:36:28.000+08:00","updated":"2025-10-31T11:37:32.000+08:00"}
+{"dg-publish":true,"dg-path":"A4- 过程控制系统/PLC/PLC程序设计基础.md","permalink":"/A4- 过程控制系统/PLC/PLC程序设计基础/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 

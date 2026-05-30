@@ -1,5 +1,5 @@
 ---
-{"aliases":["模数转换器","模数转换"],"dg-publish":true,"dg-path":"电子技术/数字电路/ADC.md","tags":["Circuit","Transform"],"permalink":"/电子技术/数字电路/ADC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-04T18:47:42.710+08:00","updated":"2025-04-13T17:55:50.000+08:00"}
+{"aliases":["模数转换器","模数转换"],"dg-publish":true,"dg-path":"电子技术/数字电路/ADC.md","tags":["Circuit","Transform"],"permalink":"/电子技术/数字电路/ADC/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["模数转换器","模数转换"],"tags":["Circuit","Transform"]}}
 ---
 
 (terminology::**Analog-to-Digital Conversion**)  模数转换

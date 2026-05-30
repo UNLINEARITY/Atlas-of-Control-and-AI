@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/RTOS.md","permalink":"/机器人/RTOS/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-02-02T13:51:19.100+08:00","updated":"2025-05-02T17:43:22.000+08:00"}
+{"dg-publish":true,"dg-path":"机器人/RTOS.md","permalink":"/机器人/RTOS/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 (terminology::**Real-Time Operating System**)

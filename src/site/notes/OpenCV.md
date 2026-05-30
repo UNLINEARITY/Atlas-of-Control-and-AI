@@ -1,5 +1,5 @@
 ---
-{"tags":["OpenSource","Library"],"dg-path":"人工智能/计算机视觉/OpenCV.md","dg-publish":true,"permalink":"/人工智能/计算机视觉/OpenCV/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-08T17:11:09.000+08:00","updated":"2025-10-22T21:58:44.000+08:00"}
+{"tags":["OpenSource","Library"],"dg-path":"人工智能/计算机视觉/OpenCV.md","dg-publish":true,"permalink":"/人工智能/计算机视觉/OpenCV/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["OpenSource","Library"]}}
 ---
 
 (terminology::**Open Source Computer Vision Library**)

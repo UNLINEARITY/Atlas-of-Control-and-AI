@@ -1,5 +1,5 @@
 ---
-{"tags":["Discrete","Practical","Control"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-03-10T10:07:21.000+08:00","updated":"2025-09-12T17:12:34.000+08:00"}
+{"tags":["Discrete","Practical","Control"],"dg-publish":true,"dg-path":"A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器.md","permalink":"/A2- 控制理论/3. 计算机控制系统/3.2 数字 PID 控制器/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["Discrete","Practical","Control"]}}
 ---
 
 
@@ -64,6 +64,8 @@ $$\sum\limits_{i=0}^{k} e(i)=\begin{cases}
 \sum\limits_{i=0}^{k} e(i)\quad  \left\lvert  e(k) \right\rvert\leq e_{0} \\ \\
 \sum\limits_{i=0}^{k-1} e(i)\quad  \left\lvert  e(k) \right\rvert> e_{0} 
 \end{cases}$$
+
+
 #### 2. 抗饱和积分算法
 
 输出限幅，输出超限时不积分

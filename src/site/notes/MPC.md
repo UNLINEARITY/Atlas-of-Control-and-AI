@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A2- 控制理论/4. 先进控制理论/MPC.md","aliases":["模型预测控制"],"permalink":"/A2- 控制理论/4. 先进控制理论/MPC/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-08-18T23:01:08.000+08:00","updated":"2025-09-01T10:46:16.000+08:00"}
+{"dg-publish":true,"dg-path":"A2- 控制理论/4. 先进控制理论/MPC.md","aliases":["模型预测控制"],"permalink":"/A2- 控制理论/4. 先进控制理论/MPC/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["模型预测控制"]}}
 ---
 
 (terminology::**Model Predictive Control**)   模型预测控制

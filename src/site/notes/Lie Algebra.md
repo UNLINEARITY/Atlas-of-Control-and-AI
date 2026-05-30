@@ -1,10 +1,35 @@
 ---
-{"dg-publish":true,"dg-path":"机器人/Lie Algebra.md","permalink":"/机器人/Lie Algebra/","dgPassFrontmatter":true,"noteIcon":"","created":"2025-06-16T18:35:22.680+08:00","updated":"2025-06-30T23:47:58.000+08:00"}
+{"dg-publish":true,"dg-path":"机器人/Lie Algebra.md","aliases":["李代数"],"permalink":"/机器人/Lie Algebra/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["李代数"]}}
 ---
 
+
 (terminology::**Lie Algebra**)   李代数
-李代数：[[Lie Group\|Lie Group]] 的切空间，是Lie 群的局部线性近似。
+李代数是[[Lie Group\|Lie Group]] 的切空间，是李群的局部线性近似。通过将李群在单位元附近进行线性化，李代数将复杂的非线性问题转化为相对简单的线性代数问题，是连接李群理论、微分几何和[[物理学\|物理学]]的核心桥梁。
 通常写作小写字母，如李代数 $\mathfrak{se}(3)$ 对应于李群的 $SE(3)$。
+
+### 公理
+
+李代数是一个向量空间 $\mathfrak{g}$，配有一个二元运算 $[\cdot, \cdot]: \mathfrak{g} \times \mathfrak{g} \to \mathfrak{g}$（李括号），满足：
+
+1. **双线性 (Bilinearity)**：$[aX + bY, Z] = a[X, Z] + b[Y, Z]$
+2. **反对称性 (Anti-commutativity)**：$[X, X] = 0$，从而 $[X, Y] = -[Y, X]$
+3. **雅可比恒等式 (Jacobi Identity)**：$[X, [Y, Z]] + [Y, [Z, X]] + [Z, [X, Y]] = 0$
+
+> [!important]
+> 李括号**不要求满足结合律**，即 $[[X, Y], Z]$ 不一定等于 $[X, [Y, Z\|X, Y], Z]$ 不一定等于 $[X, [Y, Z]]$。雅可比恒等式取代了结合律的地位。
+
+### 李代数的来源
+
+1. **李群的切空间**：任何[[李群\|李群]] $G$ 在单位元 $e$ 处的切空间 $T_eG$ 都构成李代数 $\mathfrak{g}$，其李括号反映了群乘法的无穷小非交换性。
+2. **矩阵交换子**：$[A, B] = AB - BA$。根据**阿多定理 (Ado's Theorem)**，任何有限维李代数都同构于一个矩阵李代数。
+3. **三维向量叉积**：$\mathbb{R}^3$ 配备叉积运算构成李代数，即 $\mathfrak{so}(3)$。
+
+### 结构概念
+
+- **子代数 (Subalgebra)**：对李括号封闭的子空间。
+- **理想 (Ideal)**：$\forall X \in \mathfrak{i}, Y \in \mathfrak{g}, [X, Y] \in \mathfrak{i}$。
+- **单李代数 (Simple)**：没有非平凡理想的非阿贝尔李代数。
+- **半单李代数 (Semisimple)**：可分解为单李代数的直和。有限维复半单李代数已通过**根系**和**邓肯图**完全分类。
 
 ```LaTeX
 \mathfrak{}   \mathfrak{se}

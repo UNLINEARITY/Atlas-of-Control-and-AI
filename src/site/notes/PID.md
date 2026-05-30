@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A2- 控制理论/1. 经典控制理论/PID.md","tags":["Control"],"permalink":"/A2- 控制理论/1. 经典控制理论/PID/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-05-21T15:20:27.000+08:00","updated":"2025-09-01T10:05:44.000+08:00"}
+{"dg-publish":true,"dg-path":"A2- 控制理论/1. 经典控制理论/PID.md","tags":["Control"],"permalink":"/A2- 控制理论/1. 经典控制理论/PID/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"tags":["Control"]}}
 ---
 
 

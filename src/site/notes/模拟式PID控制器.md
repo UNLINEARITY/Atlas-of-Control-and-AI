@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","created":"2024-10-06T11:27:23.000+08:00","updated":"2025-09-01T10:05:04.000+08:00"}
+{"dg-publish":true,"dg-path":"A4- 过程控制系统/调节器与执行器/模拟式PID控制器.md","permalink":"/A4- 过程控制系统/调节器与执行器/模拟式PID控制器/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{}}
 ---
 
 
@@ -25,7 +25,9 @@ W(s)= K_{P}F  \dfrac{1+ \dfrac{1}{FT_{I}s}+\dfrac{T_{D}}{F}s}{1+ \dfrac{1}{K_{I}
 $$\begin{align}
 \Delta y= K_{P} \varepsilon\; \Rightarrow \; W(s)=K_{P}
 \end{align}$$
+
 ==比例度== $\delta$ 表示比例作用的强弱：比例度越小，比例作用越强。
+
 $$\begin{align}
 \delta = \dfrac{\dfrac{\varepsilon}{\varepsilon_{max}-\varepsilon_{min}}}{\dfrac{\Delta y}{y_{max}-y_{min}}}\times 100 \% = \dfrac{1}{K_{P}} \times 100 \%
 \end{align}$$
@@ -33,15 +35,18 @@ $$\begin{align}
 单独的比例作用一定会存在余差，比例作用 $K_{P}$ 越大，**余差越小**（静态）。（**但是比例作用增大，稳定性变差**，容易产生振荡）动态响应加快（动态）
 
 ### 二、PI 运算规律 
+
 积分作用可以**消除余差**：只要偏差存在，积分作用输出就会随时间不断变化直到偏差消除。（静态）
+
 但是积分输出是随时间累计改变的，控制动作缓慢，可能造成控制不及时，**使得稳定裕度下降**。（动态）
 
 #### 2.1 理想 PI 控制器
+
 $$\begin{align}
 \Delta y & =K_{P}\left( \varepsilon +  \dfrac{1}{T_{I}}\int_{0}^{t}  \varepsilon \, dt  \right) \quad \; W(s)=K_{P}\left(1+ \dfrac{1}{T_{I}s}\right)
 \end{align}$$
-==积分时间== $T_{I}$ : 在阶跃信号作用下，积分作用的输出值变化等于比例作用的输出值所经历的时间。
-**积分时间越短，积分速度越快、积分作用越强**。 
+
+==积分时间== $T_{I}$ : 在阶跃信号作用下，积分作用的输出值变化等于比例作用的输出值所经历的时间。 **积分时间越短，积分速度越快、积分作用越强**。 
 
 #### 2.2 实际 PI 控制器
 $$\begin{align}
@@ -86,4 +91,4 @@ W(s)= K_{P}(s)  \dfrac{1+T_{D}s}{1+ \dfrac{T_{D}}{K_{D}}s}\quad  \Delta y=K_{P}\
 3. **P、I、D 电路并联**：避免级间误差累计增大，实际参数发生改变
 4. **PI 与 D 并联后再与 P 串联**：避免级间误差累计增大，不存在变量相互影响
 注意明确调节 PID参数时，参数的实际意义：比例/积分/微分增益还是比例度、积分时间、微分时间
-
+[[数字PID 参数整定\|数字PID 参数整定]]
