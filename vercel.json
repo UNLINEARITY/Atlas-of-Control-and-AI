@@ -3,8 +3,9 @@
     "installCommand": "npm install",
     "buildCommand": "npm run build",
     "devCommand": "npm run start",
+    "cacheDirectory": ".cache",
     "routes": [
         { "handle": "filesystem" },
         { "src": "/(.*)", "status": 404, "dest": "/404" }
-      ]
+    ]
 }
