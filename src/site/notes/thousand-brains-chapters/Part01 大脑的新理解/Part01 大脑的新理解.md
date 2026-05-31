@@ -1,5 +1,5 @@
 ---
-{"aliases":["Part I A New Understanding of the Brain"],"tags":["index"],"dg-publish":true,"permalink":"/thousand-brains-chapters/Part01 大脑的新理解/Part01 大脑的新理解/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["Part I A New Understanding of the Brain"],"tags":["index"]}}
+{"aliases":["Part I A New Understanding of the Brain"],"dg-publish":true,"permalink":"/thousand-brains-chapters/Part01 大脑的新理解/Part01 大脑的新理解/","dgPassFrontmatter":true,"noteIcon":"","dg-note-properties":{"aliases":["Part I A New Understanding of the Brain"]}}
 ---
 
 
