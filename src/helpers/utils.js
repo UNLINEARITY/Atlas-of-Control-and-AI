@@ -1,11 +1,20 @@
 const slugify = require('@sindresorhus/slugify');
 
+/**
+ * Convert a heading string to a valid HTML ID.
+ * Falls back to a sanitized version when slugify returns empty (e.g. CJK text).
+ */
 function headerToId(heading) {
     const slugifiedHeader = slugify(heading);
-    if(!slugifiedHeader){
-        return heading;
+    if(slugifiedHeader){
+        return slugifiedHeader;
     }
-    return slugifiedHeader;
+    // Fallback for CJK/unicode text: strip HTML-unsafe chars, replace spaces
+    return heading
+        .replace(/["""''<>&]/g, '')  // Remove quotes and HTML-unsafe chars
+        .replace(/\s+/g, '-')        // Spaces to hyphens
+        .replace(/[#?/\\]/g, '')     // Remove URL-unsafe chars
+        .trim();
 }
 
 function namedHeadings(md, state) {

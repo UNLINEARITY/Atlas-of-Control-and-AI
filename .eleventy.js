@@ -595,14 +595,14 @@ module.exports = function (eleventyConfig) {
     return str && parsed.innerHTML;
   });
 
-  eleventyConfig.addTransform('htmlMinifier', (content, outputPath) => {
+  eleventyConfig.addTransform('htmlMinifier', async (content, outputPath) => {
     if (
       (process.env.NODE_ENV === 'production' || process.env.ELEVENTY_ENV === 'prod') &&
       outputPath &&
       outputPath.endsWith('.html')
     ) {
       try {
-        return htmlMinifier.minify(content, {
+        return await htmlMinifier.minify(content, {
           useShortDoctype: true,
           removeComments: true,
           collapseWhitespace: true,
