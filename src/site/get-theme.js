@@ -35,7 +35,9 @@ async function getTheme() {
     existing.forEach((file) => {
       fs.rmSync(file);
     });
-  } catch {}
+  } catch (error) {
+    console.warn('[get-theme] Unable to remove the previous theme file.', error.message);
+  }
 
   let skippedFirstComment = false;
   const data = res.data.replace(themeCommentRegex, (match) => {

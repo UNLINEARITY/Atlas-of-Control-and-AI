@@ -2,7 +2,6 @@ const slugify = require('@sindresorhus/slugify');
 const markdownIt = require('markdown-it');
 const fs = require('fs');
 const matter = require('gray-matter');
-const faviconsPlugin = require('eleventy-plugin-gen-favicons');
 const tocPlugin = require('eleventy-plugin-nesting-toc');
 const { parse } = require('node-html-parser');
 const htmlMinifier = require('html-minifier-terser');
@@ -135,6 +134,22 @@ function getAnchorAttributes(filePath, linkTitle) {
 }
 
 const tagRegex = /(^|\s|>)(#[^\s!@#$%^&*()=+.,[{\]};:'"?><]+)(?!([^<]*>))/g;
+
+function toFeedSummary(value, maxLength = 600) {
+  const text = String(value || '')
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/\[\[([^\]|]+)(?:\\?\|([^\]]+))?\]\]/g, (_, target, label) => label || target)
+    .replace(/[*_~`]+/g, '')
+    .replace(/\${1,2}[^$]+\${1,2}/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
+}
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.setLiquidOptions({
@@ -410,6 +425,8 @@ module.exports = function (eleventyConfig) {
     );
   });
 
+  eleventyConfig.addFilter('feedSummary', toFeedSummary);
+
   eleventyConfig.addTransform('dataview-js-links', function (str) {
     const parsed = parse(str);
     for (const dataViewJsLink of parsed.querySelectorAll('a[data-href].internal-link')) {
@@ -630,7 +647,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({'src/site/sw.js': '/sw.js'});
   eleventyConfig.addPassthroughCopy('src/site/robots.txt');
   eleventyConfig.addPassthroughCopy('browserconfig.xml');
-  eleventyConfig.addPlugin(faviconsPlugin, { outputDir: 'dist' });
   eleventyConfig.addPlugin(tocPlugin, {
     ul: true,
     tags: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
@@ -677,9 +693,6 @@ module.exports = function (eleventyConfig) {
     },
   });
 
-  eleventyConfig.addPassthroughCopy({
-    'src/site/siteStats.json': 'siteStats.json'
-  });
 
   userEleventySetup(eleventyConfig);
 

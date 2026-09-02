@@ -1,5 +1,5 @@
 // Service Worker for Nonlinear Knowledge Base
-const CACHE_NAME = 'nonlinear-kb-v1';
+const CACHE_NAME = 'nonlinear-kb-v2';
 const urlsToCache = [
   '/',
   '/styles/digital-garden-base.css',
@@ -75,35 +75,12 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // 如果缓存中有，直接返回
-        if (response) {
-          return response;
-        }
+  const requestUrl = new URL(event.request.url);
+  const isDocument = event.request.mode === 'navigate';
+  const isData = requestUrl.pathname.endsWith('.json');
+  const strategy = isDocument || isData ? networkFirst : cacheFirst;
 
-        // 克隆请求
-        const fetchRequest = event.request.clone();
-
-        return fetch(fetchRequest).then(response => {
-          // 检查是否有效响应
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
-
-          // 克隆响应
-          const responseToCache = response.clone();
-
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        });
-      })
-  );
+  event.respondWith(strategy(event.request));
 });
 
 // 网络优先策略 - 用于API和动态内容
@@ -139,7 +116,16 @@ function networkFirst(request) {
 function cacheFirst(request) {
   return caches.match(request)
     .then(response => {
-      return response || fetch(request);
+      if (response) {
+        return response;
+      }
+
+      return fetch(request).then(networkResponse => {
+        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+          caches.open(CACHE_NAME).then(cache => cache.put(request, networkResponse.clone()));
+        }
+        return networkResponse;
+      });
     });
 }
 
@@ -212,7 +198,7 @@ self.addEventListener('notificationclick', event => {
 
   if (event.action === 'open') {
     event.waitUntil(
-      clients.openWindow('/')
+      self.clients.openWindow('/')
     );
   }
 });
@@ -246,7 +232,7 @@ async function updateContent() {
           if (response.ok) {
             await cache.put(request, response);
           }
-        } catch (error) {
+        } catch {
           console.warn('Failed to update:', request.url);
         }
       })

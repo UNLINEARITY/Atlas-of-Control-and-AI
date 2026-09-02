@@ -134,6 +134,7 @@ export function initSearch() {
 
   let docs = [];
   let index = null;
+  let loadPromise = null;
   let lastSearch = '';
   const searchIndexDate = container.dataset.searchIndexDate || '';
   const field = container.querySelector('#term');
@@ -147,6 +148,8 @@ export function initSearch() {
     const isActive = container.classList.toggle('active');
     if (isActive) {
       field?.focus();
+      loadPromise ??= loadIndex();
+      loadPromise.catch(error => console.warn('Unable to load search index.', error));
     }
   };
 
@@ -175,6 +178,17 @@ export function initSearch() {
   };
 
   const search = async () => {
+    if (!index) {
+      try {
+        loadPromise ??= loadIndex();
+        await loadPromise;
+      } catch (error) {
+        resultsDiv.innerHTML = '<p>Search is temporarily unavailable.</p>';
+        console.warn('Unable to load search index.', error);
+        return;
+      }
+    }
+
     const value = field?.value.trim();
     if (!value) {
       resultsDiv.innerHTML = '';
@@ -220,7 +234,7 @@ export function initSearch() {
     resultsDiv.innerHTML = `<div style="max-width:100%;">${html}</div>`;
   };
 
-  const loadIndex = async () => {
+  async function loadIndex() {
     let shouldFetch = true;
 
     try {
@@ -255,7 +269,7 @@ export function initSearch() {
     } catch (error) {
       console.warn('Unable to cache search index.', error);
     }
-  };
+  }
 
   window.toggleSearch = toggleSearch;
   window.toggleTagSearch = (element) => {
@@ -325,7 +339,11 @@ export function initSearch() {
   });
 
   const params = new URL(window.location.href).searchParams;
-  loadIndex().then(() => {
+  if (params.get('q')) {
+    loadPromise = loadIndex();
+    loadPromise.catch(error => console.warn('Unable to load search index.', error));
+  }
+  loadPromise?.then(() => {
     if (params.get('q') && field) {
       field.value = params.get('q');
       toggleSearch();
