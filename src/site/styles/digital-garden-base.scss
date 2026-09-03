@@ -621,10 +621,8 @@ ul.task-list {
   overflow: visible;
 }
 
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  margin-top: -10px;
-}
+/* 滑杆 thumb 的定位由 obsidian-base 的主题体系负责(position: relative; top),
+   此处不要再叠加模板遗留的 margin-top 偏移,否则 thumb 会脱离轨道。 */
 
 body.title-note-icon .cm-s-obsidian > header > h1[data-note-icon]::before,
 body.filetree-note-icon .filename[data-note-icon]::before,
