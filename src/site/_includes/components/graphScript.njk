@@ -7,12 +7,12 @@
     x-effect="handleOverlayState($el)"
     x-init="await initialize($el)"
 >
-    <div class="graph-title-container">
-        <div id="graph-controls" style="justify-content: flex-start; gap: 10px;">
+    <div class="graph-toolbar">
+        <div id="graph-controls">
             <div class="depth-control">
                 <label for="graph-depth">Depth</label>
                 <div class="slider">
-                    <input id="graph-depth" list="depthmarkers" max="3" min="1" name="graph-depth" step="1" type="range" x-model.number="sliderDepth" x-on:change="window.clearTimeout(depthCommitTimer); depth = sliderDepth" x-on:input="window.clearTimeout(depthCommitTimer); depthCommitTimer = window.setTimeout(() => { depth = sliderDepth }, 120)"/>
+                    <input id="graph-depth" list="depthmarkers" max="3" min="1" name="graph-depth" step="1" type="range" x-model.number="sliderDepth" x-on:change="commitDepth()" x-on:input="scheduleDepthCommit()"/>
                     <datalist id="depthmarkers">
                         <option label="1" value="1"></option>
                         <option label="2" value="2"></option>
@@ -22,14 +22,14 @@
                 <span id="depth-display" x-text="sliderDepth"></span>
             </div>
             <div class="ctrl-right" style="display: flex; gap: 8px;">
-                <span id="global-graph-btn" x-on:click="showFullGraph = true; fullScreen = true; $nextTick(() => { fullGraph = openFullGraph($el.closest('[data-graph-label-layout]')) })"><i aria-hidden="true" icon-name="globe"></i></span>
-                <span id="graph-fs-btn" x-on:click="fullScreen = !fullScreen"><i aria-hidden="true" icon-name="expand"></i></span>
+                <button id="global-graph-btn" type="button" aria-label="Open full graph" x-on:click="showFullGraph = true; fullScreen = true; $nextTick(() => { fullGraph = openFullGraph($el.closest('[data-graph-label-layout]')) })"><i aria-hidden="true" icon-name="globe"></i></button>
+                <button id="graph-fs-btn" type="button" aria-label="Toggle graph fullscreen" x-on:click="fullScreen = !fullScreen"><i aria-hidden="true" icon-name="expand"></i></button>
             </div>
         </div>
     </div>
     <div id="link-graph" x-effect="if (graphData && depth) { graph = renderLocalGraph($el.closest('[data-graph-label-layout]')) }"></div>
     <div class="show" id="full-graph" style="display: none;" x-show="showFullGraph">
-        <span id="full-graph-close" x-on:click="closeFullGraph($el.closest('[data-graph-label-layout]')); showFullGraph = false; fullScreen = false;"><i icon-name="x" aria-hidden="true"></i></span>
+        <button id="full-graph-close" type="button" aria-label="Close full graph" x-on:click="closeFullGraph($el.closest('[data-graph-label-layout]')); showFullGraph = false; fullScreen = false;"><i icon-name="x" aria-hidden="true"></i></button>
         <div id="full-graph-container"></div>
     </div>
 </div>

@@ -4,7 +4,8 @@ import { refreshIcons } from './modules/icons.js';
 const LABEL_LAYOUT_CACHE = new Map();
 const GRAPH_MODE_PRETEXT = 'pretext';
 const GRAPH_MODE_NATIVE = 'native';
-const GRAPH_LABEL_FONT = '400 3.5px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif';
+const GRAPH_LABEL_FONT =
+  '400 3.5px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif';
 const GRAPH_LABEL_LINE_HEIGHT = 4.75;
 const GRAPH_LABEL_LINE_LIMIT = 3;
 const GRAPH_LABEL_PADDING_X = 2.4;
@@ -87,7 +88,7 @@ function getLabelLines(label, mode, maxWidth) {
   try {
     const prepared = prepareWithSegments(label, GRAPH_LABEL_FONT);
     const { lines } = layoutWithLines(prepared, maxWidth, GRAPH_LABEL_LINE_HEIGHT);
-    const normalized = lines.map((line) => line.text.trim()).filter(Boolean);
+    const normalized = lines.map(line => line.text.trim()).filter(Boolean);
     const limited =
       normalized.length > GRAPH_LABEL_LINE_LIMIT
         ? [
@@ -172,14 +173,18 @@ function getLabelMetrics(label, mode, maxWidth) {
     const prepared = getPreparedLabel(label);
     const { lines } = layoutWithLines(prepared, layoutWidth, GRAPH_LABEL_LINE_HEIGHT);
     const visibleLines = lines
-      .map((line) => ({
+      .map(line => ({
         text: line.text.trim(),
         width: mode === GRAPH_MODE_PRETEXT ? Math.min(maxWidth, line.width) : line.width,
       }))
-      .filter((line) => line.text)
+      .filter(line => line.text)
       .slice(0, mode === GRAPH_MODE_PRETEXT ? GRAPH_LABEL_LINE_LIMIT : 1);
 
-    if (mode === GRAPH_MODE_PRETEXT && lines.length > GRAPH_LABEL_LINE_LIMIT && visibleLines.length > 0) {
+    if (
+      mode === GRAPH_MODE_PRETEXT &&
+      lines.length > GRAPH_LABEL_LINE_LIMIT &&
+      visibleLines.length > 0
+    ) {
       const lastLine = visibleLines[visibleLines.length - 1];
       visibleLines[visibleLines.length - 1] = {
         text: `${lastLine.text.replace(/\.{3,}$/u, '').trim()}...`,
@@ -326,7 +331,13 @@ function getStaticLabelPlacement(node, layoutMode, bounds) {
     return null;
   }
 
-  return createLabelPlacement(node, getNodeRadius(node), metrics, GRAPH_LABEL_CANDIDATES[0], bounds);
+  return createLabelPlacement(
+    node,
+    getNodeRadius(node),
+    metrics,
+    GRAPH_LABEL_CANDIDATES[0],
+    bounds
+  );
 }
 
 function getLabelPriority(node, hoverNode, selectedNodes) {
@@ -368,7 +379,7 @@ function getDynamicLabelBudget(isFullGraph, globalScale) {
 function getPositionedNodesForLabels(nodes, bounds) {
   const visibilityPadding = 96;
   return nodes.filter(
-    (node) =>
+    node =>
       Number.isFinite(node.x) &&
       Number.isFinite(node.y) &&
       getNodeLabel(node) &&
@@ -385,24 +396,32 @@ function getNearbyCollisionNodes(node, positionedNodes, metrics) {
   const collisionRangeY = metrics.height + GRAPH_LABEL_COLLISION_PADDING;
 
   return positionedNodes.filter(
-    (otherNode) =>
+    otherNode =>
       otherNode !== node &&
       Math.abs(otherNode.x - node.x) <= collisionRangeX &&
       Math.abs(otherNode.y - node.y) <= collisionRangeY
   );
 }
 
-function selectNodesForDynamicLabels(nodes, hoverNode, selectedNodes, bounds, globalScale, isFullGraph) {
+function selectNodesForDynamicLabels(
+  nodes,
+  hoverNode,
+  selectedNodes,
+  bounds,
+  globalScale,
+  isFullGraph
+) {
   const positionedNodes = getPositionedNodesForLabels(nodes, bounds);
   const sortedNodes = [...positionedNodes].sort(
     (leftNode, rightNode) =>
-      getLabelPriority(rightNode, hoverNode, selectedNodes) - getLabelPriority(leftNode, hoverNode, selectedNodes)
+      getLabelPriority(rightNode, hoverNode, selectedNodes) -
+      getLabelPriority(leftNode, hoverNode, selectedNodes)
   );
   const budget = getDynamicLabelBudget(isFullGraph, globalScale);
   const selectedLabelNodes = [];
   const selectedUrls = new Set();
 
-  const addNode = (node) => {
+  const addNode = node => {
     if (!node || selectedUrls.has(node.url)) {
       return;
     }
@@ -410,7 +429,7 @@ function selectNodesForDynamicLabels(nodes, hoverNode, selectedNodes, bounds, gl
     selectedLabelNodes.push(node);
   };
 
-  sortedNodes.forEach((node) => {
+  sortedNodes.forEach(node => {
     if (
       node.current ||
       selectedNodes.has(node.url) ||
@@ -460,7 +479,14 @@ function animateLabelPlacement(node, targetPlacement) {
   return previousPlacement;
 }
 
-function scoreLabelPlacement(node, candidatePlacement, collisionNodes, placedBoxes, bounds, previousCandidate) {
+function scoreLabelPlacement(
+  node,
+  candidatePlacement,
+  collisionNodes,
+  placedBoxes,
+  bounds,
+  previousCandidate
+) {
   let score = candidatePlacement.bias;
   score += getRectOverflow(candidatePlacement, bounds) * GRAPH_LABEL_EDGE_WEIGHT;
 
@@ -484,7 +510,14 @@ function scoreLabelPlacement(node, candidatePlacement, collisionNodes, placedBox
   return score;
 }
 
-function computeDynamicLabelPlacements(nodes, hoverNode, selectedNodes, bounds, globalScale, isFullGraph) {
+function computeDynamicLabelPlacements(
+  nodes,
+  hoverNode,
+  selectedNodes,
+  bounds,
+  globalScale,
+  isFullGraph
+) {
   const { positionedNodes, labelNodes, labelUrls } = selectNodesForDynamicLabels(
     nodes,
     hoverNode,
@@ -495,19 +528,24 @@ function computeDynamicLabelPlacements(nodes, hoverNode, selectedNodes, bounds, 
   );
   const sortedNodes = [...labelNodes].sort(
     (leftNode, rightNode) =>
-      getLabelPriority(rightNode, hoverNode, selectedNodes) - getLabelPriority(leftNode, hoverNode, selectedNodes)
+      getLabelPriority(rightNode, hoverNode, selectedNodes) -
+      getLabelPriority(leftNode, hoverNode, selectedNodes)
   );
   const placedBoxes = [];
 
-  nodes.forEach((node) => {
+  nodes.forEach(node => {
     node.__graphLabelVisible = labelUrls.has(node.url);
     if (!node.__graphLabelVisible) {
       node.__labelPlacement = null;
     }
   });
 
-  sortedNodes.forEach((node) => {
-    const metrics = getLabelMetrics(getNodeLabel(node), GRAPH_MODE_PRETEXT, getNodeLabelMaxWidth(node));
+  sortedNodes.forEach(node => {
+    const metrics = getLabelMetrics(
+      getNodeLabel(node),
+      GRAPH_MODE_PRETEXT,
+      getNodeLabelMaxWidth(node)
+    );
     if (!metrics) {
       node.__labelPlacement = null;
       return;
@@ -519,7 +557,7 @@ function computeDynamicLabelPlacements(nodes, hoverNode, selectedNodes, bounds, 
     let bestPlacement = null;
     let bestScore = Number.POSITIVE_INFINITY;
 
-    GRAPH_LABEL_CANDIDATES.forEach((candidate) => {
+    GRAPH_LABEL_CANDIDATES.forEach(candidate => {
       const candidatePlacement = createLabelPlacement(node, nodeRadius, metrics, candidate, bounds);
       const score = scoreLabelPlacement(
         node,
@@ -566,7 +604,9 @@ function shouldRecomputeDynamicLabels(element, hoverNode, selectedNodes, globalS
   }
 
   const now = performance.now();
-  const zoomChanged = state.lastScale == null || Math.abs(globalScale - state.lastScale) >= GRAPH_FULL_LABEL_ZOOM_DELTA;
+  const zoomChanged =
+    state.lastScale == null ||
+    Math.abs(globalScale - state.lastScale) >= GRAPH_FULL_LABEL_ZOOM_DELTA;
   const interactionChanged = state.hoverUrl !== hoverUrl || state.selectedKey !== selectedKey;
   const isDue = now - state.lastComputedAt >= GRAPH_FULL_LABEL_RECALCULATE_MS;
 
@@ -643,7 +683,12 @@ function paintNodePointerArea(node, color, ctx, layoutMode, bounds) {
   ctx.fill();
 
   if (placement) {
-    ctx.fillRect(placement.x - 1.25, placement.y - 1.25, placement.width + 2.5, placement.height + 2.5);
+    ctx.fillRect(
+      placement.x - 1.25,
+      placement.y - 1.25,
+      placement.width + 2.5,
+      placement.height + 2.5
+    );
   }
 }
 
@@ -680,7 +725,7 @@ function destroyGraphAtElement(element) {
 
 function getNextLevelNeighbours(existing, remaining) {
   const neighborKeys = Object.values(existing)
-    .map((node) => node.neighbors)
+    .map(node => node.neighbors)
     .flat();
   const nextRemaining = Object.keys(remaining).reduce((accumulator, key) => {
     if (neighborKeys.includes(key)) {
@@ -705,11 +750,11 @@ function filterLocalGraphData(graphData, depth) {
   let remaining = JSON.parse(JSON.stringify(graphData.nodes));
   const links = JSON.parse(JSON.stringify(graphData.links));
   const currentLink = decodeURI(window.location.pathname);
-  const currentNode = remaining[currentLink] || Object.values(remaining).find((value) => value.home);
+  const currentNode = remaining[currentLink] || Object.values(remaining).find(value => value.home);
 
   delete remaining[currentNode.url];
   if (!currentNode.home) {
-    const home = Object.values(remaining).find((value) => value.home);
+    const home = Object.values(remaining).find(value => value.home);
     delete remaining[home.url];
   }
 
@@ -724,13 +769,13 @@ function filterLocalGraphData(graphData, depth) {
 
   let nodes = Object.values(existing);
   if (!currentNode.home) {
-    nodes = nodes.filter((node) => !node.home);
+    nodes = nodes.filter(node => !node.home);
   }
 
-  const ids = nodes.map((node) => node.id);
+  const ids = nodes.map(node => node.id);
   return {
     nodes,
-    links: links.filter((link) => ids.includes(link.target) && ids.includes(link.source)),
+    links: links.filter(link => ids.includes(link.target) && ids.includes(link.source)),
   };
 }
 
@@ -741,19 +786,19 @@ function filterFullGraphData(graphData) {
 
   const cloned = JSON.parse(JSON.stringify(graphData));
   const hiddenIds = Object.values(cloned.nodes)
-    .filter((node) => node.hide)
-    .map((node) => node.id);
+    .filter(node => node.hide)
+    .map(node => node.id);
 
   return {
     links: JSON.parse(JSON.stringify(cloned.links)).filter(
-      (link) => !hiddenIds.includes(link.source) && !hiddenIds.includes(link.target)
+      link => !hiddenIds.includes(link.source) && !hiddenIds.includes(link.target)
     ),
-    nodes: [...Object.values(cloned.nodes).filter((node) => !node.hide)],
+    nodes: [...Object.values(cloned.nodes).filter(node => !node.hide)],
   };
 }
 
 async function fetchGraphData() {
-  const graphData = await fetch('/graph.json').then((response) => response.json());
+  const graphData = await fetch('/graph.json').then(response => response.json());
   return {
     graphData,
     fullGraphData: filterFullGraphData(graphData),
@@ -797,7 +842,7 @@ function renderGraph(graphData, element, options = {}) {
 
     const parent = element.parentElement;
     const siblingHeight = [...parent.children]
-      .filter((child) => child !== element)
+      .filter(child => child !== element)
       .reduce((total, child) => total + child.offsetHeight, 0);
 
     return Math.max(parent.clientHeight - siblingHeight, 0);
@@ -816,12 +861,14 @@ function renderGraph(graphData, element, options = {}) {
       return;
     }
 
+    graph.width(nextWidth);
+    graph.height(nextHeight);
+    // Pin the container height so the canvas viewport matches the fit
+    // calculation; without this the graph drifts off-center across resizes
+    // such as entering or leaving fullscreen.
     if (element.id === 'link-graph') {
       element.style.height = `${nextHeight}px`;
     }
-
-    graph.width(nextWidth);
-    graph.height(nextHeight);
     zoomGraphToFit(graph, 120);
   };
 
@@ -851,6 +898,8 @@ function renderGraph(graphData, element, options = {}) {
     const initialHeight = getContainerHeight();
     if (initialHeight > 0) {
       element.style.height = `${initialHeight}px`;
+    } else {
+      queueGraphResize();
     }
   }
 
@@ -860,7 +909,7 @@ function renderGraph(graphData, element, options = {}) {
   const highlightNodes = new Set();
   let hoverNode = null;
   const selectedNodes = new Set();
-  const nodeMap = Object.fromEntries(graphData.nodes.map((node) => [node.url, node]));
+  const nodeMap = Object.fromEntries(graphData.nodes.map(node => [node.url, node]));
 
   const color = getCssVar('--graph-main');
   const mutedColor = getCssVar('--graph-muted');
@@ -874,7 +923,7 @@ function renderGraph(graphData, element, options = {}) {
 
   const linkCurvature = 0.4;
   const linksByPair = {};
-  graphData.links.forEach((link) => {
+  graphData.links.forEach(link => {
     const source = typeof link.source === 'object' ? link.source.id : link.source;
     const target = typeof link.target === 'object' ? link.target.id : link.target;
     const pairKey = [source, target].sort().join('-');
@@ -884,7 +933,7 @@ function renderGraph(graphData, element, options = {}) {
     linksByPair[pairKey].push(link);
   });
 
-  Object.values(linksByPair).forEach((linksInPair) => {
+  Object.values(linksByPair).forEach(linksInPair => {
     if (linksInPair.length > 1) {
       const [first, second] = linksInPair;
       const firstSource = typeof first.source === 'object' ? first.source.id : first.source;
@@ -898,14 +947,14 @@ function renderGraph(graphData, element, options = {}) {
         second.curvature = linkCurvature;
       }
     } else {
-      linksInPair.forEach((link) => {
+      linksInPair.forEach(link => {
         link.curvature = 0;
       });
     }
   });
 
   if (isFullGraph && savedLayout && graphData?.nodes) {
-    graphData.nodes.forEach((node) => {
+    graphData.nodes.forEach(node => {
       if (savedLayout[node.id]) {
         node.x = savedLayout[node.id].x;
         node.y = savedLayout[node.id].y;
@@ -924,6 +973,11 @@ function renderGraph(graphData, element, options = {}) {
     .linkTarget('target')
     .linkCurvature('curvature')
     .d3AlphaDecay(0.1)
+    .onEngineStop(() => {
+      // Route through the shared timer channel so this fit replaces (rather
+      // than stacks on top of) any pending scheduled fit.
+      zoomGraphToFit(graph, 220);
+    })
     .width(width)
     .height(height)
     .linkDirectionalArrowLength(2)
@@ -938,14 +992,21 @@ function renderGraph(graphData, element, options = {}) {
         layoutMode === GRAPH_MODE_PRETEXT &&
         shouldRecomputeDynamicLabels(element, hoverNode, selectedNodes, globalScale, isFullGraph)
       ) {
-        computeDynamicLabelPlacements(graphData.nodes, hoverNode, selectedNodes, graphViewportBounds, globalScale, isFullGraph);
+        computeDynamicLabelPlacements(
+          graphData.nodes,
+          hoverNode,
+          selectedNodes,
+          graphViewportBounds,
+          globalScale,
+          isFullGraph
+        );
       } else if (layoutMode !== GRAPH_MODE_PRETEXT) {
-        graphData.nodes.forEach((node) => {
+        graphData.nodes.forEach(node => {
           node.__labelPlacement = null;
         });
       }
     })
-    .linkColor((link) => {
+    .linkColor(link => {
       const defaultLinkColor = isFullGraph ? mutedColor : color;
       const sourceUrl = link.source.url;
       const targetUrl = link.target.url;
@@ -954,13 +1015,15 @@ function renderGraph(graphData, element, options = {}) {
       if (hoverNode) {
         primaryHighlightUrls.add(hoverNode.url);
       }
-      selectedNodes.forEach((url) => primaryHighlightUrls.add(url));
+      selectedNodes.forEach(url => primaryHighlightUrls.add(url));
 
       if (primaryHighlightUrls.size === 0) {
         return defaultLinkColor;
       }
 
-      return primaryHighlightUrls.has(sourceUrl) || primaryHighlightUrls.has(targetUrl) ? color : mutedColor;
+      return primaryHighlightUrls.has(sourceUrl) || primaryHighlightUrls.has(targetUrl)
+        ? color
+        : mutedColor;
     })
     .nodeCanvasObject((node, ctx) => {
       const nodeRadius = getNodeRadius(node);
@@ -974,10 +1037,10 @@ function renderGraph(graphData, element, options = {}) {
 
       if (selectedNodes.size > 0) {
         const selectionHighlights = new Set();
-        selectedNodes.forEach((selectedUrl) => {
+        selectedNodes.forEach(selectedUrl => {
           selectionHighlights.add(selectedUrl);
           const selectedNode = nodeMap[selectedUrl];
-          selectedNode?.neighbors?.forEach((neighborUrl) => selectionHighlights.add(neighborUrl));
+          selectedNode?.neighbors?.forEach(neighborUrl => selectionHighlights.add(neighborUrl));
         });
         isHighlighted = selectionHighlights.has(node.url) || isHovered;
       } else {
@@ -1005,10 +1068,10 @@ function renderGraph(graphData, element, options = {}) {
 
       drawSmartNodeLabel(ctx, node, nodeRadius, layoutMode, graphViewportBounds);
     })
-    .onNodeClick((node) => {
+    .onNodeClick(node => {
       window.location = node.url;
     })
-    .onNodeRightClick((node) => {
+    .onNodeRightClick(node => {
       if (selectedNodes.has(node.url)) {
         selectedNodes.delete(node.url);
       } else {
@@ -1016,11 +1079,11 @@ function renderGraph(graphData, element, options = {}) {
       }
       return false;
     })
-    .onNodeHover((node) => {
+    .onNodeHover(node => {
       highlightNodes.clear();
       if (node) {
         highlightNodes.add(node.url);
-        node.neighbors.forEach((neighborUrl) => highlightNodes.add(neighborUrl));
+        node.neighbors.forEach(neighborUrl => highlightNodes.add(neighborUrl));
       }
       hoverNode = node || null;
     })
@@ -1030,7 +1093,7 @@ function renderGraph(graphData, element, options = {}) {
       }
 
       const layout = {};
-      graphData.nodes.forEach((node) => {
+      graphData.nodes.forEach(node => {
         layout[node.id] = {
           x: node.x,
           y: node.y,
@@ -1087,6 +1150,17 @@ function createComponentState() {
     showFullGraph: false,
     sliderDepth: 1,
 
+    scheduleDepthCommit() {
+      window.clearTimeout(this.depthCommitTimer);
+      this.depthCommitTimer = window.setTimeout(() => this.commitDepth(), 120);
+    },
+
+    commitDepth() {
+      window.clearTimeout(this.depthCommitTimer);
+      this.depthCommitTimer = null;
+      this.depth = clamp(Number(this.sliderDepth) || 1, 1, 3);
+    },
+
     async initialize(rootElement) {
       this.graphLabelLayout = rootElement.dataset.graphLabelLayout || GRAPH_MODE_PRETEXT;
       const { graphData, fullGraphData } = await fetchGraphData();
@@ -1097,7 +1171,7 @@ function createComponentState() {
 
     handleOverlayState(rootElement) {
       const overlayActive = this.fullScreen || this.showFullGraph;
-      const sidebar = rootElement.closest('.sidebar');
+      const sidebar = rootElement.closest('.sidebar-wrapper');
       if (sidebar) {
         sidebar.classList.toggle('on-top', overlayActive);
       }

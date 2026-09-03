@@ -1,17 +1,21 @@
 <script src="/vendor/lucide.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="/vendor/mermaid.min.js"></script>
-<script>mermaid.initialize({ startOnLoad: true });</script>
+{% if content and '<pre class="mermaid">' in content %}
+<script src="/vendor/mermaid.min.js" defer></script>
+<script defer>document.addEventListener('DOMContentLoaded', () => mermaid.initialize({ startOnLoad: true }));</script>
+{% endif %}
 <script async src="/vendor/prism.min.js"></script>
 <script async src="/vendor/prism-autoloader.min.js"></script>
 
 {% include "components/calloutScript.njk" %}
 
-<script src="/vendor/force-graph.min.js"></script>
+{% if settings.dgShowLocalGraph === true and page.fileSlug != '网站内容索引-Index' %}
+<script src="/vendor/force-graph.min.js" defer></script>
 <script defer src="/scripts/graph.js"></script>
+{% endif %}
 <script src="/vendor/alpinejs-persist.min.js" defer></script>
 <!-- Alpine Collapse Plugin -->
-<script src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js" defer></script>
+<script src="/vendor/alpinejs-collapse.min.js" defer></script>
 <script src="/vendor/alpinejs.min.js" defer></script>
 <script defer src="/scripts/site.js"></script>
 <link rel="stylesheet" href="/vendor/prism-okaidia.min.css" async/>

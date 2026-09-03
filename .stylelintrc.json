@@ -31,5 +31,24 @@
     "node_modules/**/*",
     "src/site/vendor/**/*",
     "**/*.min.css"
+  ],
+  "overrides": [
+    {
+      "files": ["src/site/styles/obsidian-base.scss"],
+      "rules": {
+        "selector-type-no-unknown": [
+          true,
+          { "ignoreTypes": ["webview", "mjx-container", "mjx-*"] }
+        ],
+        "declaration-property-value-keyword-no-deprecated": null,
+        "scss/operator-no-unspaced": null
+      }
+    },
+    {
+      "files": ["src/site/styles/_design-tokens.scss"],
+      "rules": {
+        "scss/dollar-variable-colon-space-after": null
+      }
+    }
   ]
 }

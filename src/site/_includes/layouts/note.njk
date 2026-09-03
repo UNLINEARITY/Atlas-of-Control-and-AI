@@ -4,6 +4,7 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
 <!DOCTYPE html>
 <html lang="{{ meta.mainLanguage }}">
   <head>
+    <meta charset="UTF-8">
     <script>
       // This script runs first to prevent sidebar state flash.
       (function() {
@@ -70,6 +71,14 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
               {% endfor %}
             </div>
           {% endif %}
+          {%- set aliasList = aliases | splitAliases %}
+          {%- if aliasList %}
+          <div class="header-aliases">
+            {%- for alias in aliasList %}
+            <span class="alias-badge" title="别名">{{ alias }}</span>
+            {%- endfor %}
+          </div>
+          {%- endif %}
           {%- if meta.timestampSettings.showCreated or meta.timestampSettings.showUpdated -%}
           <div class="timestamps">
             {%- if meta.timestampSettings.showCreated and created -%}
@@ -95,7 +104,6 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
         {% include imp %}
       {% endfor %}
       {{ content | hideDataview | taggify | link | safe}}
-      {% include "components/like-button.njk" %}
       {% for imp in dynamics.common.afterContent %}
         {% include imp %}
       {% endfor %}

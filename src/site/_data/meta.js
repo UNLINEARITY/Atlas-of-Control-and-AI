@@ -3,8 +3,8 @@ const { globSync } = require("glob");
 const fs = require('fs');
 
 module.exports = async (_data) => {
-  // SEO canonical primary domain (fixed)
-  const baseUrl = "https://www.nonlinear.top";
+  const configuredBaseUrl = process.env.SITE_BASE_URL || 'https://www.nonlinear.top';
+  const baseUrl = `${/^https?:\/\//i.test(configuredBaseUrl) ? '' : 'https://'}${configuredBaseUrl}`.replace(/\/+$/, '');
   let themeStyle = globSync("src/site/styles/_theme.*.css")[0] || "";
   if (themeStyle) {
     themeStyle = themeStyle.split("site")[1];
@@ -81,9 +81,10 @@ module.exports = async (_data) => {
   });
   const siteStats = { pageCount, linkCount, wordCount, formulaCount, imageCount };
 
-  // 写入 siteStats.json 供外部 fetch
+  // 写入 dist/siteStats.json 供外部 fetch
   try {
-    fs.writeFileSync('src/site/siteStats.json', JSON.stringify(siteStats, null, 2));
+    fs.mkdirSync('dist', { recursive: true });
+    fs.writeFileSync('dist/siteStats.json', JSON.stringify(siteStats, null, 2));
   } catch(e) { /* ignore on read-only environments */ }
 
   const meta = {

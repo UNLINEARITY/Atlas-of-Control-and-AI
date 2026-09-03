@@ -1,4 +1,4 @@
-# Atlas-of-Control-and-Al!
+# Atlas-of-Control-and-AI
 
 <p align='center'><img src='src/Logo.svg' width=65%></p>
 
@@ -174,6 +174,8 @@ root((本网站))
 
 ### 3.2 如何本地部署调试？ 
 
+> Requires Node.js 22+ and npm 10+.
+
 1. Clone the repository 克隆仓库到本地
 ```bash
 git clone https://github.com/UNLINEARITY/Atlas-of-Control-and-AI
@@ -187,6 +189,12 @@ npm install
 3. To start the development server with live reloading 本地运行调试
 ```bash
 npm start
+```
+
+4. Verify a production build 验证生产构建
+```bash
+npm run build
+npm run verify:build
 ```
 
 ## 4. 感谢

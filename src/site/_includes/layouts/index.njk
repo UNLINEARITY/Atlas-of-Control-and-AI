@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ meta.mainLanguage }}">
   <head>
+    <meta charset="UTF-8">
     <title>{% if title %}{{ title }}{% else %}{{ page.fileSlug }}{% endif %}</title>
     {%include "components/pageheader.njk"%}
     {% for imp in dynamics.common.head %}
@@ -64,7 +65,6 @@
         {% include imp %}
       {% endfor %}
       {{ content | hideDataview | taggify | link | safe}}
-      {% include "components/like-button.njk" %}
 
       <div class="site-stats">
         <div class="stat-card pages">

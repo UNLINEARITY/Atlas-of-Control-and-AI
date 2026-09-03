@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="{{ meta.mainLanguage }}">
     <head>
+        <meta charset="UTF-8">
         <title>迷失于知识之海 / Lost in the Sea of Knowledge</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="robots" content="noindex, follow">
@@ -54,19 +55,27 @@
                 justify-content: center;
                 gap: 10px;
             }
-            .actions a {
+            .actions a,
+            .actions button {
                 display: inline-block;
                 margin: 5px;
                 padding: 12px 22px;
                 border: 1px solid var(--interactive-accent);
                 border-radius: 8px;
                 text-decoration: none;
+                appearance: none;
+                -webkit-appearance: none;
+                line-height: 1.2;
                 color: var(--interactive-accent);
                 background-color: transparent;
                 transition: all 0.3s ease;
                 font-size: clamp(0.9rem, 3.5vw, 1rem);
+                box-shadow: none;
+                font-family: inherit;
+                cursor: pointer;
             }
-            .actions a:hover {
+            .actions a:hover,
+            .actions button:hover {
                 background-color: var(--interactive-accent);
                 color: var(--text-on-accent);
             }
@@ -91,7 +100,8 @@
                 p {
                     font-size: clamp(1rem, 4.5vw, 1.1rem);
                 }
-                .actions a {
+                .actions a,
+                .actions button {
                     padding: 10px 18px;
                 }
             }
@@ -126,19 +136,35 @@
             <p>或许，您可以在这片浩瀚的知识图谱中重新定位方向。</p>
             <div class="actions">
                 <a href="/">返回主页</a>
-                <a href="javascript:history.back()">返回上一页</a>
+                <button id="back-button" type="button" onclick="safeBack()">返回上一页</button>
                 <a href="/3D-graph/">探索知识图谱</a>
             </div>
             <p style="font-size: 0.9em; margin-top: 2em;">如果您认为这是一个错误，请通过邮件告知我们。</p>
         </div>
 
-        <script src="https://unpkg.com/3d-force-graph/dist/3d-force-graph.min.js"></script>
         <script>
-            const graphContainer = document.getElementById('graph-background');
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const graphUrl = isLocal ? '/graph.json' : window.location.origin + '/graph.json';
+            function safeBack() {
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.assign('/');
+                }
+            }
 
-            fetch(graphUrl)
+            const loadBackgroundGraph = () => {
+                const script = document.createElement('script');
+                script.src = '/vendor/3d-force-graph.min.js';
+                script.onload = renderBackgroundGraph;
+                script.onerror = () => console.warn('Background graph is unavailable.');
+                document.head.appendChild(script);
+            };
+
+            const graphContainer = document.getElementById('graph-background');
+            const renderBackgroundGraph = () => {
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                const graphUrl = isLocal ? '/graph.json' : window.location.origin + '/graph.json';
+
+                fetch(graphUrl)
                 .then(res => res.json())
                 .then(data => {
                     const nodes = [];
@@ -210,19 +236,29 @@
                     Graph.d3Force('link').distance(() => 30);
                     Graph.d3Force('charge').strength(-120);
 
-                    // Auto-rotation
+                    // Auto-rotation, throttled to the browser's paint rate.
                     let angle = 0;
-                    setInterval(() => {
-                        Graph.cameraPosition({
-                            x: 650 * Math.sin(angle),
-                            z: 650 * Math.cos(angle)
-                        });
-                        angle -= Math.PI / 800; // Increased rotation speed
-                    }, 10);
+                    let lastFrame = 0;
+                    const rotate = (timestamp) => {
+                        if (timestamp - lastFrame >= 33) {
+                            Graph.cameraPosition({
+                                x: 650 * Math.sin(angle),
+                                z: 650 * Math.cos(angle)
+                            });
+                            angle -= Math.PI / 800;
+                            lastFrame = timestamp;
+                        }
+                        window.requestAnimationFrame(rotate);
+                    };
+                    window.requestAnimationFrame(rotate);
                 })
-                .catch(error => {
-                    console.error("Error loading graph data for 404 page:", error);
-                });
+                    .catch(error => {
+                        console.error("Error loading graph data for 404 page:", error);
+                    });
+            };
+
+            const schedule = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 1500));
+            schedule(loadBackgroundGraph, { timeout: 2500 });
         </script>
 
         

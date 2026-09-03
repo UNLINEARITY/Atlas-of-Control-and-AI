@@ -4,9 +4,9 @@
             <i class="svg-icon" icon-name="loader" aria-hidden="true"></i>
         </a>
 
-        <span id="graph-fs-btn" class="control-btn" onclick="toggleLocalGraphFullscreen()" data-tooltip="Fullscreen Graph" data-tooltip-position="top">
+        <button id="floating-graph-fs-btn" type="button" class="control-btn" onclick="toggleLocalGraphFullscreen()" aria-label="Fullscreen graph" data-tooltip="Fullscreen Graph" data-tooltip-position="top">
             <i class="svg-icon" icon-name="expand" aria-hidden="true"></i>
-        </span>
+        </button>
 
         <a id="github" href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI" data-tooltip="Star On Github" data-tooltip-position="top" class="control-btn">
             <i class="svg-icon" icon-name="star" aria-hidden="true"></i>
@@ -14,7 +14,7 @@
 
         {% set sourcePath = page.inputPath | replace('src/site/notes/', '') %}
 
-        <a id="sourcefile" href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/tree/main/src/site/notes/{{ sourcePath }}" data-tooltip="View source file" data-tooltip-position="top" target="_blank" class="control-btn">
+        <a id="sourcefile" href="https://github.com/UNLINEARITY/Atlas-of-Control-and-AI/tree/main/src/site/notes/{{ sourcePath }}" data-tooltip="View source file" data-tooltip-position="top" target="_blank" rel="noopener noreferrer" class="control-btn">
             <i class="svg-icon" icon-name="file-code" aria-hidden="true"></i>
         </a>
 
@@ -34,9 +34,9 @@
             <i class="svg-icon auto" icon-name="sun-moon" data-tooltip="Auto Mode" data-tooltip-position="top" aria-hidden="true"></i>
         </span>
 
-        <span id="random-page-btn" class="control-btn" data-tooltip="Random-Page" data-tooltip-position="top">
+        <button id="random-page-btn" type="button" class="control-btn" aria-label="Random page" data-tooltip="Random-Page" data-tooltip-position="top">
             <i class="svg-icon" icon-name="dice-5" aria-hidden="true"></i>
-        </span>
+        </button>
         
         
     </div>
@@ -71,6 +71,11 @@
         justify-content: center;
         width: 44px;
         height: 44px;
+        padding: 0; /* 覆盖全局 button 的 padding,保证 <button> 与 <a>/<span> 外观一致 */
+        min-height: 0;
+        appearance: none;
+        font: inherit;
+        line-height: 1;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -262,8 +267,8 @@
             if (window.docs && window.docs.length > 0) {
                 allPages = window.docs;
             } else {
-                // 否则从 searchIndex.json 获取
-                const response = await fetch('/searchIndex.json');
+                // 随机跳转只需要标题和 URL，避免提前下载完整搜索索引。
+                const response = await fetch('/pages.json');
                 if (!response.ok) throw new Error('Network response was not ok');
                 allPages = await response.json();
             }
@@ -473,6 +478,14 @@
         if (event.ctrlKey && event.key === 'g') {
             event.preventDefault();
             toggleLocalGraphFullscreen();
+        }
+        // Ctrl/Cmd+R 接管为随机跳转(阻止浏览器默认刷新);F5 仍可刷新页面。
+        if ((event.ctrlKey || event.metaKey) && (event.key === 'r' || event.key === 'R')) {
+            event.preventDefault();
+            const randomBtn = document.getElementById('random-page-btn');
+            if (randomBtn) {
+                randomBtn.click();
+            }
         }
     });
 
