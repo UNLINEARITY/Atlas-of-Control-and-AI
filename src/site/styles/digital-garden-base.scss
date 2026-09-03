@@ -557,32 +557,19 @@ ul.task-list {
   .depth-control {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     gap: 7px;
 
     .slider {
-      display: flex;
-      flex-direction: column;
-      width: clamp(180px, 22vw, 260px);
-
-      input[type="range"] {
-        width: 100%;
-        margin: 0;
-      }
-
-      .slider-marks {
+      datalist {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         font-size: 0.6rem;
-        width: 100%;
-        line-height: 1.2;
-        color: var(--text-muted);
+      }
 
-        span {
-          min-width: 1ch;
-          text-align: center;
-        }
+      option {
+        padding: 0;
       }
     }
 
@@ -595,7 +582,7 @@ ul.task-list {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 0;
+      margin-top: 0.3rem;
       border-radius: 50%;
     }
   }

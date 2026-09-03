@@ -243,17 +243,7 @@
 
                 const highlightedNodes = new Set();
                 const highlightedLinks = new Set();
-                let hoveredNodeId = null;
-                let selectedNodeId = null;
                 const theme = themes[detectedTheme]; // Use the correctly detected theme
-
-                const updateLabelVisibility = () => {
-                    graphData.nodes.forEach((node) => {
-                        if (node.__labelSprite) {
-                            node.__labelSprite.visible = node.id === hoveredNodeId || node.id === selectedNodeId;
-                        }
-                    });
-                };
 
                 // --- Double-click handling --- 
                 let lastClickTime = 0;
@@ -268,19 +258,17 @@
                     .nodeColor(node => node.color) 
                     .nodeThreeObject(node => {
                         const sprite = new SpriteText(node.name);
-                        sprite.color = '#ffffff'; 
-                        sprite.textHeight = 2.2;
-                        sprite.padding = 0.5;
-                        sprite.backgroundColor = 'rgba(18,24,32,0.78)';
-                        sprite.borderRadius = 1.5;
-                        sprite.visible = false;
-                        node.__labelSprite = sprite;
-                        
+                        sprite.color = '#ffffff';
+                        sprite.textHeight = 4; // Reasonable size
+                        sprite.padding = 1;
+                        sprite.backgroundColor = 'rgba(0,0,0,0.5)';
+                        sprite.borderRadius = 2;
+
                         // Move text BELOW the node
                         // Negative Y offset
-                        const nodeRadius = node.val ? Math.min(7, Math.max(node.val, 2)) : 2; 
-                        sprite.position.y = -(nodeRadius + 4); 
-                        
+                        const nodeRadius = node.val ? Math.min(7, Math.max(node.val, 2)) : 2;
+                        sprite.position.y = -(nodeRadius + 4);
+
                         return sprite;
                     })
                     .nodeThreeObjectExtend(true) // Restore the sphere
@@ -291,8 +279,6 @@
                     .linkDirectionalParticleSpeed(0.006)
                     .linkColor(theme.linkColor) // Initialize with the correct theme link color
                     .onNodeClick(node => {
-                        selectedNodeId = node.id;
-                        updateLabelVisibility();
                         const now = new Date().getTime();
                         if (now - lastClickTime < 300 && node === lastClickedNode) {
                             // Double-click detected
@@ -311,13 +297,7 @@
                         lastClickedNode = node;
                     })
                     .onNodeRightClick(openNodeUrl)
-                    .onBackgroundClick(() => {
-                        selectedNodeId = null;
-                        updateLabelVisibility();
-                    })
                     .onNodeHover(node => {
-                        hoveredNodeId = node?.id || null;
-                        updateLabelVisibility();
                         if (!node) {
                             // Reset to default when no node is hovered
                             window.Graph.nodeColor(n => n.color)

@@ -1073,15 +1073,6 @@ body.backlinks-note-icon .backlink[data-note-icon="withered"]::before {
   flex: 1 1 auto;
 }
 
-.graph-section .depth-control .slider {
-  width: clamp(140px, 18vw, 220px);
-  min-width: 120px;
-}
-
-.graph-section .depth-control .slider .slider-marks {
-  width: 100%;
-}
-
 @media (max-width: 600px) {
   .graph-section #graph-controls {
     flex-wrap: wrap;

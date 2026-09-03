@@ -840,10 +840,6 @@ function renderGraph(graphData, element, options = {}) {
       return element.offsetHeight;
     }
 
-    if (element.clientHeight > 0) {
-      return element.clientHeight;
-    }
-
     const parent = element.parentElement;
     const siblingHeight = [...parent.children]
       .filter(child => child !== element)
@@ -867,6 +863,12 @@ function renderGraph(graphData, element, options = {}) {
 
     graph.width(nextWidth);
     graph.height(nextHeight);
+    // Pin the container height so the canvas viewport matches the fit
+    // calculation; without this the graph drifts off-center across resizes
+    // such as entering or leaving fullscreen.
+    if (element.id === 'link-graph') {
+      element.style.height = `${nextHeight}px`;
+    }
     zoomGraphToFit(graph, 120);
   };
 
@@ -894,7 +896,9 @@ function renderGraph(graphData, element, options = {}) {
 
   if (element.id === 'link-graph') {
     const initialHeight = getContainerHeight();
-    if (initialHeight <= 0) {
+    if (initialHeight > 0) {
+      element.style.height = `${initialHeight}px`;
+    } else {
       queueGraphResize();
     }
   }
