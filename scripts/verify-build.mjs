@@ -35,6 +35,24 @@ if (new Set(pages.map((page) => page.url)).size !== pages.length) {
   throw new Error('Pages index contains duplicate URLs');
 }
 
+const searchIndex = JSON.parse(fs.readFileSync(path.join(distDir, 'searchIndex.json'), 'utf8'));
+if (
+  !Array.isArray(searchIndex) ||
+  searchIndex.some(
+    (entry) =>
+      !entry ||
+      typeof entry.url !== 'string' ||
+      typeof entry.title !== 'string' ||
+      typeof entry.content !== 'string' ||
+      !Array.isArray(entry.tags)
+  )
+) {
+  throw new Error('Search index entries must contain title, url, content strings and a tags array');
+}
+if (new Set(searchIndex.map((entry) => entry.url)).size !== searchIndex.length) {
+  throw new Error('Search index contains duplicate URLs');
+}
+
 function collectHtmlFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const child = path.join(directory, entry.name);
