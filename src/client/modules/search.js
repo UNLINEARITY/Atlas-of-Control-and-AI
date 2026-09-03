@@ -57,7 +57,10 @@ function extractSnippets(content, keyword, maxSnippets = 3) {
 
   for (const sentence of sentences) {
     if (sentence.toLowerCase().includes(lowerKeyword)) {
-      const highlighted = sentence.replace(new RegExp(escapeRegExp(keyword), 'gi'), (match) => `<mark>${match}</mark>`);
+      const highlighted = sentence.replace(
+        new RegExp(escapeRegExp(keyword), 'gi'),
+        match => `<mark>${match}</mark>`
+      );
       snippets.push(`... ${highlighted.trim()} ...`);
       if (snippets.length >= maxSnippets) {
         break;
@@ -68,7 +71,10 @@ function extractSnippets(content, keyword, maxSnippets = 3) {
   if (snippets.length === 0) {
     for (const paragraph of strippedContent.split(/\n+/)) {
       if (paragraph.toLowerCase().includes(lowerKeyword)) {
-        const highlighted = paragraph.replace(new RegExp(escapeRegExp(keyword), 'gi'), (match) => `<mark>${match}</mark>`);
+        const highlighted = paragraph.replace(
+          new RegExp(escapeRegExp(keyword), 'gi'),
+          match => `<mark>${match}</mark>`
+        );
         snippets.push(`... ${highlighted.trim()} ...`);
         if (snippets.length >= maxSnippets) {
           break;
@@ -81,7 +87,7 @@ function extractSnippets(content, keyword, maxSnippets = 3) {
 }
 
 function createIndex(posts) {
-  const encoder = (input) => input.toLowerCase().split(/([^a-z]|\P{ASCII})/u);
+  const encoder = input => input.toLowerCase().split(/([^a-z]|\P{ASCII})/u);
 
   const index = new window.FlexSearch.Document({
     cache: true,
@@ -103,6 +109,11 @@ function createIndex(posts) {
         tokenize: 'forward',
         encode: encoder,
       },
+      {
+        field: 'aliases',
+        tokenize: 'forward',
+        encode: encoder,
+      },
     ],
   });
 
@@ -112,6 +123,7 @@ function createIndex(posts) {
       title: post.title,
       content: post.content,
       tags: post.tags,
+      aliases: post.aliases || [],
     });
   });
 
@@ -120,7 +132,7 @@ function createIndex(posts) {
 
 function normalizeShortcutLabels() {
   if (navigator.platform.toUpperCase().includes('MAC')) {
-    document.querySelectorAll('.search-keys').forEach((element) => {
+    document.querySelectorAll('.search-keys').forEach(element => {
       element.textContent = '⌘ + K';
     });
   }
@@ -153,25 +165,31 @@ export function initSearch() {
     }
   };
 
-  const offlineSearch = (query) => {
+  const offlineSearch = query => {
     const isTagSearch = query.startsWith('#') && query.length > 1;
     const searchResults = isTagSearch
       ? index.search(query.substring(1), [{ field: 'tags' }])
       : index.search(query, [
           { field: 'title', limit: 5 },
           { field: 'content', weight: 10 },
+          { field: 'aliases', limit: 5 },
         ]);
 
-    const getByField = (fieldName) => {
-      const results = searchResults.filter((result) => result.field === fieldName);
+    const getByField = fieldName => {
+      const results = searchResults.filter(result => result.field === fieldName);
       return results.length === 0 ? [] : [...results[0].result];
     };
 
-    const ids = new Set([...getByField('title'), ...getByField('content'), ...getByField('tags')]);
-    return [...ids].map((id) => {
+    const ids = new Set([
+      ...getByField('title'),
+      ...getByField('content'),
+      ...getByField('tags'),
+      ...getByField('aliases'),
+    ]);
+    return [...ids].map(id => {
       const result = { ...docs[id] };
       const keyword = query.replace(/^#/, '').trim();
-      result.tags = result.tags.filter((tag) => tag !== 'gardenEntry' && tag !== 'note');
+      result.tags = result.tags.filter(tag => tag !== 'gardenEntry' && tag !== 'note');
       result.content = extractSnippets(result.content, keyword).join('<br>');
       return result;
     });
@@ -212,12 +230,12 @@ export function initSearch() {
     }
 
     const html = results
-      .map((result) => {
+      .map(result => {
         const safeTitle = escapeHtml(result.title);
         const safeUrl = encodeURI(result.url);
         const tags = result.tags.length
           ? `<div class="header-meta"><div class="header-tags">${result.tags
-              .map((tag) => `<a class="tag" href="JavaScript:Void(0);">#${escapeHtml(tag)}</a>`)
+              .map(tag => `<a class="tag" href="JavaScript:Void(0);">#${escapeHtml(tag)}</a>`)
               .join('')}</div></div>`
           : '';
 
@@ -272,7 +290,7 @@ export function initSearch() {
   }
 
   window.toggleSearch = toggleSearch;
-  window.toggleTagSearch = (element) => {
+  window.toggleTagSearch = element => {
     const term = element.textContent?.trim();
     if (!term || !field) {
       return;
@@ -283,7 +301,7 @@ export function initSearch() {
   };
   window.search = search;
 
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener('keydown', event => {
     if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
       event.preventDefault();
       toggleSearch();
@@ -326,13 +344,13 @@ export function initSearch() {
   });
 
   const debouncedSearch = debounce(search, 200);
-  field?.addEventListener('keydown', (event) => {
+  field?.addEventListener('keydown', event => {
     if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
       debouncedSearch();
     }
   });
 
-  container.addEventListener('click', (event) => {
+  container.addEventListener('click', event => {
     if (event.target === container) {
       toggleSearch();
     }

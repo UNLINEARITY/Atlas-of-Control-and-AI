@@ -71,6 +71,13 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
               {% endfor %}
             </div>
           {% endif %}
+          {%- if aliases %}
+          <div class="header-aliases">
+            {%- for alias in aliases %}
+            <span class="alias-badge" title="别名">{{ alias }}</span>
+            {%- endfor %}
+          </div>
+          {%- endif %}
           {%- if meta.timestampSettings.showCreated or meta.timestampSettings.showUpdated -%}
           <div class="timestamps">
             {%- if meta.timestampSettings.showCreated and created -%}

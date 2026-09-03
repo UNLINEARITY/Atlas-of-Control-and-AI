@@ -44,7 +44,8 @@ if (
       typeof entry.url !== 'string' ||
       typeof entry.title !== 'string' ||
       typeof entry.content !== 'string' ||
-      !Array.isArray(entry.tags)
+      !Array.isArray(entry.tags) ||
+      !Array.isArray(entry.aliases)
   )
 ) {
   throw new Error('Search index entries must contain title, url, content strings and a tags array');
