@@ -60,7 +60,11 @@
             border: 1px solid rgba(255,255,255,.2);
             outline: none;
             background: rgba(18,24,32,.9);
-            color: inherit;
+            color: #f2f5f7;
+        }
+        #theme-switch select option {
+            background: #121820;
+            color: #f2f5f7;
         }
     </style>
 </head>
@@ -76,8 +80,8 @@
     </div>
 
     <div id="graph-info">
-    <button id="info-toggle" type="button" aria-expanded="true" aria-controls="info-content">[-]</button>
-    <div class="info-content" id="info-content">
+    <button id="info-toggle" type="button" aria-expanded="false" aria-controls="info-content">[+]</button>
+    <div class="info-content collapsed" id="info-content">
         <p><strong>Interactive Knowledge Graph</strong></p>
         <p>Hover over nodes to see titles. Click to focus.</p>
         <p>Use your mouse to rotate, pan, and zoom.</p>

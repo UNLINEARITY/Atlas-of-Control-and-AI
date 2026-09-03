@@ -148,6 +148,13 @@ header {
   margin-bottom: 1.8em;
 }
 
+/* 笔记内容标题区:细分隔线收束标题与正文之间的留白 */
+.content > header {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  margin-bottom: 24px;
+}
+
 code[class*="language-"],
 pre[class*="language-"] {
   text-shadow: unset;

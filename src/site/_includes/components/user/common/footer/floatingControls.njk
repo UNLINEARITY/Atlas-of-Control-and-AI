@@ -71,6 +71,11 @@
         justify-content: center;
         width: 44px;
         height: 44px;
+        padding: 0; /* 覆盖全局 button 的 padding,保证 <button> 与 <a>/<span> 外观一致 */
+        min-height: 0;
+        appearance: none;
+        font: inherit;
+        line-height: 1;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -473,6 +478,14 @@
         if (event.ctrlKey && event.key === 'g') {
             event.preventDefault();
             toggleLocalGraphFullscreen();
+        }
+        // Ctrl/Cmd+R 接管为随机跳转(阻止浏览器默认刷新);F5 仍可刷新页面。
+        if ((event.ctrlKey || event.metaKey) && (event.key === 'r' || event.key === 'R')) {
+            event.preventDefault();
+            const randomBtn = document.getElementById('random-page-btn');
+            if (randomBtn) {
+                randomBtn.click();
+            }
         }
     });
 
