@@ -43,6 +43,12 @@
         "declaration-property-value-keyword-no-deprecated": null,
         "scss/operator-no-unspaced": null
       }
+    },
+    {
+      "files": ["src/site/styles/_design-tokens.scss"],
+      "rules": {
+        "scss/dollar-variable-colon-space-after": null
+      }
     }
   ]
 }

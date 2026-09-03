@@ -71,9 +71,10 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
               {% endfor %}
             </div>
           {% endif %}
-          {%- if aliases %}
+          {%- set aliasList = aliases | splitAliases %}
+          {%- if aliasList %}
           <div class="header-aliases">
-            {%- for alias in aliases %}
+            {%- for alias in aliasList %}
             <span class="alias-badge" title="别名">{{ alias }}</span>
             {%- endfor %}
           </div>

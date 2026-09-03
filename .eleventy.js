@@ -754,6 +754,18 @@ module.exports = function (eleventyConfig) {
     return JSON.stringify(variable) || '""';
   });
 
+  // Obsidian 的 aliases 既可能是数组,也可能是逗号分隔的单个字符串;统一成数组。
+  eleventyConfig.addNunjucksFilter('splitAliases', function (value) {
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'string' && value.trim()) {
+      return value
+        .split(/[,，]/)
+        .map(item => item.trim())
+        .filter(Boolean);
+    }
+    return [];
+  });
+
   eleventyConfig.addPlugin(pluginRss, {
     posthtmlRenderOptions: {
       closingSingleTag: 'slash',
