@@ -1,4 +1,5 @@
 node_modules
+.theme-hash
 dist
 netlify/functions/search/data.json
 netlify/functions/search/index.json

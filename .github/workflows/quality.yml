@@ -23,6 +23,8 @@ jobs:
         run: npm ci
       - name: Lint JavaScript
         run: npm run lint:js
+      - name: Lint styles
+        run: npm run lint:scss
       - name: Build site
         run: npm run build
       - name: Verify build outputs
@@ -40,5 +42,5 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Audit production dependency tree
-        run: npm audit --omit=dev --audit-level=high
+      - name: Audit dependency tree
+        run: npm audit --audit-level=high

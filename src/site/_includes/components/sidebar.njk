@@ -228,7 +228,7 @@
     /* Graph Section Override */
     .graph-section .section-content {
         padding: 0;
-        height: clamp(340px, calc(34vh + 66px), 410px);
+        height: clamp(340px, 48vh, 560px);
         min-height: 340px;
         overflow: hidden;
         display: flex;
@@ -244,11 +244,13 @@
         background: var(--background-secondary);
     }
 
-    .graph-section .graph-title-container {
+    .graph-section .graph-toolbar {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        min-height: 42px;
-        padding: 8px 10px 0;
+        flex: 0 0 auto;
+        min-height: 0;
+        padding: 8px 0 0;
         width: 100%;
         box-sizing: border-box;
     }
@@ -260,11 +262,25 @@
         justify-content: space-between !important;
         align-items: center;
         color: var(--text-normal);
+        box-sizing: border-box;
+        padding: 0 10px;
+        overflow: hidden;
     }
 
     .graph-section .depth-control {
         align-items: center;
         gap: 8px;
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .graph-section .depth-control .slider {
+        width: clamp(140px, 18vw, 220px);
+        min-width: 120px;
+    }
+
+    .graph-section .depth-control .slider .slider-marks {
+        width: 100%;
     }
 
     .graph-section .depth-control label {
@@ -290,7 +306,7 @@
 
     .graph-section #link-graph {
         width: 100% !important;
-        height: auto !important;
+        height: auto;
         display: block;
         flex: 1 1 auto;
         min-height: 0;

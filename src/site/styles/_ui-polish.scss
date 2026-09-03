@@ -16,7 +16,7 @@ body {
 // 调整内容区域顶部间距
 .content {
   margin-top: 60px !important; // 减少顶部空白
-  
+
   @media (max-width: 800px) {
     margin-top: 50px !important;
   }
@@ -26,7 +26,7 @@ body {
 .content.cm-s-obsidian {
   margin-top: 60px !important;
   padding-top: 10px !important;
-  
+
   @media (max-width: 1024px) {
     margin-top: 50px !important;
   }
@@ -39,7 +39,7 @@ body {
 .filetree-sidebar {
   display: flex;
   flex-direction: column;
-  
+
   .sidebar-header {
     position: sticky;
     top: 0;
@@ -47,14 +47,18 @@ body {
     background-color: var(--background-secondary);
     flex-shrink: 0;
     // 添加微妙的底部阴影表示滚动分隔
-    box-shadow: 0 1px 0 rgba(0 0 0 / 0.1), 0 2px 4px rgba(0 0 0 / 0.05);
-    
+    box-shadow:
+      0 1px 0 rgb(0 0 0 / 0.1),
+      0 2px 4px rgb(0 0 0 / 0.05);
+
     // 确保在深色模式下也有良好的分隔
     .theme-dark & {
-      box-shadow: 0 1px 0 rgba(255 255 255 / 0.05), 0 2px 8px rgba(0 0 0 / 0.2);
+      box-shadow:
+        0 1px 0 rgb(255 255 255 / 0.05),
+        0 2px 8px rgb(0 0 0 / 0.2);
     }
   }
-  
+
   // 文件树容器需要可滚动
   .filetree-container {
     flex: 1;
@@ -73,29 +77,29 @@ body {
   border: none !important;
   border-radius: 0 !important;
   padding: 0 !important;
-  
+
   // 列表样式优化
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    
+
     ul {
       padding-left: 12px;
       border-left: 1px solid var(--background-modifier-border);
       margin-left: 6px;
     }
   }
-  
+
   li {
     margin: 2px 0;
-    
+
     // 移除默认的 before 内容
     &::before {
       display: none !important;
     }
   }
-  
+
   a {
     display: block;
     padding: 4px 8px;
@@ -106,13 +110,13 @@ body {
     transition: all 0.2s ease;
     border-left: 2px solid transparent;
     line-height: 1.4;
-    
+
     &:hover {
       color: var(--text-normal);
       background-color: var(--background-modifier-hover);
       border-left-color: var(--interactive-accent);
     }
-    
+
     // 当前章节高亮
     &.active {
       color: var(--interactive-accent);
@@ -121,13 +125,13 @@ body {
       font-weight: 500;
     }
   }
-  
+
   // 不同层级的大小区分
   > ul > li > a {
     font-weight: 500;
     color: var(--text-normal);
   }
-  
+
   // 更深层级的缩进
   ul ul ul a {
     font-size: 0.85rem;
@@ -155,12 +159,12 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  
+
   &:hover {
     background-color: var(--background-modifier-hover);
     transform: scale(1.05);
   }
-  
+
   i {
     width: 22px !important;
     height: 22px !important;
@@ -176,12 +180,12 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  
+
   &:hover {
     background-color: var(--background-modifier-hover);
     transform: scale(1.05);
   }
-  
+
   i {
     width: 22px !important;
     height: 22px !important;
@@ -203,8 +207,10 @@ $ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
 // 链接样式优化 - 更细腻的下划线
 a {
-  transition: color 0.2s $ease-natural, border-color 0.2s $ease-natural;
-  
+  transition:
+    color 0.2s $ease-natural,
+    border-color 0.2s $ease-natural;
+
   &:hover {
     text-decoration: none;
   }
@@ -212,18 +218,28 @@ a {
 
 // 卡片/区块阴影更柔和
 .sidebar-section {
-  box-shadow: 0 1px 3px rgba(0 0 0 / 0.05), 0 1px 2px rgba(0 0 0 / 0.03) !important;
-  transition: box-shadow 0.3s $ease-natural, transform 0.2s $ease-natural;
-  
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.05),
+    0 1px 2px rgb(0 0 0 / 0.03) !important;
+  transition:
+    box-shadow 0.3s $ease-natural,
+    transform 0.2s $ease-natural;
+
   &:hover {
-    box-shadow: 0 4px 12px rgba(0 0 0 / 0.08), 0 2px 4px rgba(0 0 0 / 0.04) !important;
+    box-shadow:
+      0 4px 12px rgb(0 0 0 / 0.08),
+      0 2px 4px rgb(0 0 0 / 0.04) !important;
   }
 }
 
 // 按钮点击反馈
-button, .action-btn, .action-icon-btn {
-  transition: transform 0.1s ease, background-color 0.2s ease;
-  
+button,
+.action-btn,
+.action-icon-btn {
+  transition:
+    transform 0.1s ease,
+    background-color 0.2s ease;
+
   &:active {
     transform: scale(0.96);
   }
@@ -232,23 +248,23 @@ button, .action-btn, .action-icon-btn {
 // 笔记链接更自然的悬停效果
 .notelink {
   transition: all 0.2s $ease-natural;
-  
+
   &:hover {
     transform: translateX(3px);
   }
-  
+
   &.active-note {
-    box-shadow: 
-      0 1px 2px rgba(0 0 0 / 0.05),
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.05),
       0 0 0 1px var(--interactive-accent) inset,
-      0 0 8px rgba(var(--interactive-accent-rgb), 0.15);
-    
+      0 0 8px rgb(var(--interactive-accent-rgb), 0.15);
+
     &:hover {
       transform: translateX(3px);
-      box-shadow: 
-        0 2px 4px rgba(0 0 0 / 0.08),
+      box-shadow:
+        0 2px 4px rgb(0 0 0 / 0.08),
         0 0 0 1px var(--interactive-accent) inset,
-        0 0 12px rgba(var(--interactive-accent-rgb), 0.2);
+        0 0 12px rgb(var(--interactive-accent-rgb), 0.2);
     }
   }
 }
@@ -256,10 +272,10 @@ button, .action-btn, .action-icon-btn {
 // 搜索按钮优化
 .search-button {
   transition: all 0.2s $ease-natural;
-  
+
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0 0 0 / 0.1);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
   }
 }
 
@@ -273,44 +289,46 @@ button, .action-btn, .action-icon-btn {
 
 // 减少过度发光效果，使用更微妙的边框
 .callout {
-  box-shadow: 
-    0 1px 3px rgba(0 0 0 / 0.05),
-    0 1px 2px rgba(0 0 0 / 0.03);
-  
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.05),
+    0 1px 2px rgb(0 0 0 / 0.03);
+
   &:hover {
-    box-shadow: 
-      0 4px 12px rgba(0 0 0 / 0.08),
-      0 2px 4px rgba(0 0 0 / 0.04);
+    box-shadow:
+      0 4px 12px rgb(0 0 0 / 0.08),
+      0 2px 4px rgb(0 0 0 / 0.04);
     transform: translateY(-1px);
   }
 }
 
 // 代码块更自然的样式
 pre {
-  box-shadow: 
-    0 1px 3px rgba(0 0 0 / 0.1),
-    0 0 0 1px rgba(0 0 0 / 0.05) inset !important;
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.1),
+    0 0 0 1px rgb(0 0 0 / 0.05) inset !important;
 }
 
 // 图片悬停效果更微妙
 .content img {
-  transition: transform 0.3s $ease-natural, box-shadow 0.3s $ease-natural;
-  
+  transition:
+    transform 0.3s $ease-natural,
+    box-shadow 0.3s $ease-natural;
+
   &:hover {
     transform: scale(1.01);
-    box-shadow: 0 8px 24px rgba(0 0 0 / 0.12);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
   }
 }
 
 // 表格样式优化
 table {
-  box-shadow: 0 1px 3px rgba(0 0 0 / 0.05);
-  
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.05);
+
   th {
     background-color: var(--background-secondary-alt);
     font-weight: 600;
   }
-  
+
   tr {
     transition: background-color 0.15s ease;
   }
@@ -322,13 +340,13 @@ table {
   #close-right-sidebar {
     width: 40px !important;
     height: 40px !important;
-    
+
     i {
       width: 24px !important;
       height: 24px !important;
     }
   }
-  
+
   .sidebar-header {
     padding: 12px !important;
   }
